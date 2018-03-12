@@ -236,6 +236,7 @@ unsigned long espRestartTime_global = 160 * 1000; //this value need to be change
 String systemStateInfo_global = "";
 String objectAskingForResponse_global = "";
 String responseText_global = "";
+
 bool isThereEventToSend_global = false;
 
 uint16_t curentLogNumber_global = 0;
@@ -276,6 +277,8 @@ uint8_t getDebuggerSpacesCount() {return spaceCountDebug_global;}
 //Program itself - initialization
 void setup()
 {
+  pinMode(ELECTRICITY_SENSOR_PIN, INPUT_PULLDOWN_16);
+
   Serial.begin(115200);
   Serial.println(E("\n\nSerial begin\n"));
 
@@ -380,7 +383,6 @@ void setup()
 void loop()
 {
   Serial.printf(cE("FreeHeap:%d\n"), ESP.getFreeHeap());
-  pinMode(ELECTRICITY_SENSOR_PIN, INPUT_PULLDOWN_16);
 
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("\nF:MAIN_loop()"));
   //---------------------------------- NON-SKIPABLE TASKS ------------------------------------------
@@ -454,7 +456,7 @@ void uploadLogFile_loop(int)
     bool success = sendAllLogFiles();
     if(success)
     {
-      setPendingEventToSend(false);
+      Serial.println(333);
       doNecesaryActionsUponResponse();
       // maxSizeToSend_global += 10000;
     }
@@ -472,7 +474,7 @@ bool isThereAnyPendingEventsToSend()
 
 void setPendingEventToSend(bool isThereEventToSend)
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:setPendingEventToSend(bool isThereEventToSend): ") + ((isThereEventToSend) ? E("true") : E("false")));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:setPendingEventToSend(): ") + ((isThereEventToSend) ? E("true") : E("false")));
   isThereEventToSend_global = isThereEventToSend;
 }
 

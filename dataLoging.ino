@@ -138,6 +138,13 @@ bool sendAllLogFiles()
 
   uint16_t logFileIndex = getNumberOfOldestLogFile();
   if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("logFileIndex: %d - getNumberOfOldestLogFile()\n"), logFileIndex);
+
+  if(logFileIndex == 0)
+  {
+    if(MAIN_DEBUG) { DEBUG_OUTPUT.println(E("!!Warning: There is no log file to send.")); }
+    return false;
+  }
+
   while (logFileIndex != 0)
   {
     if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(curentDebuggerLevel) + E("F:LOOP sendAllLogFiles(): ") + getLogFileNameByLogNumber(logFileIndex));
@@ -176,6 +183,8 @@ bool sendAllLogFiles()
     logFileIndex = getNumberOfOldestLogFile(logFileIndex);
   }
   curentLogNumber_global = 0;
+  setPendingEventToSend(false);
+  
   return true;
 }
 

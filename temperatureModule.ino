@@ -16,7 +16,7 @@ void temperature_setup()
    if(DS18B20.isParasitePowerMode())
      DEBUG_OUTPUT.println(E("PARASITIC mode: Temperature senors"));
   loadTempSensorAddressesFromEeprom();
-  readTemperatures();
+  temperature_loop(0);
 }
 
 
