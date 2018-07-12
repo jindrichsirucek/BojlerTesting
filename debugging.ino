@@ -13,6 +13,9 @@
 //     "EXTERNAL_REASON"
 // };
 
+extern "C" {
+  #include "user_interface.h"
+}   
 
 #define BM_WDT_SOFTWARE 0
 #define BM_WDT_HARDWARE 1
@@ -78,6 +81,8 @@ struct bootflags bootmode_detect(void)
 void printResetInfo()
 {
   rst_info* rinfo = ESP.getResetInfoPtr();
+  if(rinfo->reason == 4)
+  DEBUG_OUTPUT.println("'");
   
   DEBUG_OUTPUT.printf(cE("rinfo->reason:   %d, %s\n"), rinfo->reason, ESP.getResetReason().c_str());
   DEBUG_OUTPUT.printf(cE("rinfo->exccause: %d\n"), rinfo->exccause);
@@ -106,21 +111,22 @@ void printResetInfo()
   }
 }
 
-
-const char *const FLASH_SIZE_MAP_NAMES[] =
+void saveAndSendExceptionLogFile()
 {
-    "4M_MAP_256_256",
-    "2M",
-    "8M_MAP_512_512",
-    "16M_MAP_512_512",
-    "32M_MAP_512_512",
-    "16M_MAP_1024_1024",
-    "32M_MAP_1024_1024"
-};
+  if(SaveCrash.count() == 0)
+    return;
+  File fileTosend = openFile(("/exception"), "a+");
+  SaveCrash.print(fileTosend);
+  SaveCrash.clear();
 
-extern "C" {
-  #include "user_interface.h"
-}   
+  bool successfullySend;
+  if(isWifiConnected())
+    successfullySend = sendGetParamsWithPostFile(E("&quickEvent=exception"), fileTosend);
+  fileTosend.close();
+
+  if(successfullySend)
+    deleteFileByName(("/exception"));
+}
 
 String getESPResetInfo()
 {
@@ -143,13 +149,12 @@ String getESPStatusUpdate()
 {
   String infoStrin = E("");
 
-  const rst_info * resetInfo = system_get_rst_info();
-  infoStrin += E("\nsystem_get_rst_info() reset reason: ");
-  infoStrin += ESP.getResetReason().c_str();
+  infoStrin += E("\nCompilation date: ");
+  infoStrin += COMPILATION_DATE;
+  infoStrin += E("\nUptime: ");
+  infoStrin += getUpTimeDebug();
   infoStrin += E("\nfreeHeap: ");
   infoStrin += system_get_free_heap_size();
-  infoStrin += E("\nsystem_get_os_print(): ");
-  infoStrin += system_get_os_print();
   infoStrin += E("\nsystem_get_os_print(): ");
   infoStrin += system_get_os_print();
   infoStrin += E("\nsystem_get_chip_id(): 0x");
@@ -164,10 +169,20 @@ String getESPStatusUpdate()
   infoStrin += (system_get_boot_mode() == 0) ? E("\nSYS_BOOT_ENHANCE_MODE") : E("\nSYS_BOOT_NORMAL_MODE");
   infoStrin += E("\nsystem_get_cpu_freq(): ");
   infoStrin += system_get_cpu_freq();
-  infoStrin += E("\nsystem_get_flash_size_map(): ");
-  infoStrin += sE("FLASH_SIZE_") + FLASH_SIZE_MAP_NAMES[system_get_flash_size_map()];
 
   return infoStrin;
+}
+
+void remoteDebug_setup()
+{
+  RemoteDebug.setLogFileEnabled(true);
+  RemoteDebug.setSerialEnabled(true);
+  RemoteDebug.begin(cE("Telnet_HostName")); // Initiaze the telnet server
+  RemoteDebug.setResetCmdEnabled(true); // Enable the reset command
+  RemoteDebug.showDebugLevel(false);
+  RemoteDebug.setCallBackProjectCmds(checkSystemState_loop);
+  RemoteDebug.setHelpProjectsCmds(cE("Type R to update from Server"));
+  RemoteDebug.handle();
 }
 
 
@@ -190,18 +205,18 @@ void yield_debug()
 
 String getUpTimeDebug(uint8_t debugSpacesCountToSet)
 {
-  spaceCountDebug_global = debugSpacesCountToSet;
+  GLOBAL.spaceCountDebug = debugSpacesCountToSet;
   return getUpTimeDebug();
 }
 
 String getUpTimeDebug()
 {
-  spaceCountDebug_global++;
+  GLOBAL.spaceCountDebug++;
   String debuggerSpaces = E("");
-  for(int i=0; i<spaceCountDebug_global; i++)
+  for(int i=0; i<GLOBAL.spaceCountDebug; i++)
     debuggerSpaces += cE(">");
   //SYMBOLS: http://www.fileformat.info/info/charset/UTF-8/list.htm?start=3072
-  return (String)((WiFi.status() == WL_CONNECTED)? "Ψ - " : "⚠ - ") + getNowTimeStringWithSeconds() + cE(" (") + millis() + cE("ms) (") + ESP.getFreeHeap() + cE(")") + debuggerSpaces;
+  return (String)((WiFi.status() == WL_CONNECTED)? "Ψ - " : "⚠ - ") + getUpTime() + cE(" (") + millis() + cE("ms) (") + ESP.getFreeHeap() + cE(")") + debuggerSpaces;
 }
 
 
@@ -235,13 +250,16 @@ void turnNotificationLedOff() {
   digitalWrite(LED_PIN, HIGH);
 }
 
-
-void restartEsp()
+void restartEsp(){restartEsp("");}
+void restartEsp(String reason)
 {
   //https://github.com/esp8266/Arduino/issues/1722
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:restartEsp()"));
-  logNewNodeState(E("ESP: restart"));
+  logNewNodeState(sE("ESP: restart (")+reason+E(")"));
   digitalWrite(0, HIGH);//When gpio0 used as output, need to by high before reseting ESP
+  flushTemporaryStringNodeStateIntoCsvFile();
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("Restarting.."));
+  RemoteDebug.handle();
   yield_debug();
   ESP.restart();
 }
@@ -250,7 +268,7 @@ bool sendDebugInformationsAfterReset()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:sendDebugInformationsAfterReset()"));
   String uri = getESPResetInfo();
-  showServiceMessage(uri);
+  displayServiceMessage(uri);
 
   uri = sE("&quickEvent=") + URLEncode(uri);
   uri += stringifyTempSensorAddressesStruct();

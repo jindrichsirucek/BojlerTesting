@@ -25,96 +25,166 @@ struct SensorDataStructure {
    String controlState;
    String nodeInfoString;
 };
-
+SensorDataStructure nodeStateLeadingValues_global;
 
 bool logNewNodeState(String fireEventName)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewNodeState(String fireEventName): ") + fireEventName);
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewNodeState(String fireEventName): \"") + fireEventName + "\"");
 
-  showServiceMessage(fireEventName);
+  if(!isWaterFlowingLastStateFlag_global && DISPLAY_LOG_MESSAGES)
+    displayServiceMessage(fireEventName);
+  
   setPendingEventToSend(true);
 
   SensorDataStructure newState;
   newState.time = getNowTimeDateString();//.c_str()
-  newState.bojlerTemp = (isTemperatureCorrectMeasurment(tempSensors[BOJLER].temp)) ? (String)tempSensors[BOJLER].temp : E("");
-  newState.pipeTemp = (isTemperatureCorrectMeasurment(tempSensors[PIPE].temp)) ? (String)tempSensors[PIPE].temp : E("");
-  newState.roomTemp = (isTemperatureCorrectMeasurment(tempSensors[ROOM_TEMP].temp)) ? (String)tempSensors[ROOM_TEMP].temp : E("");
-  newState.insideFlowTemp = (isTemperatureCorrectMeasurment(tempSensors[INSIDE_FLOW].temp)) ? (String)tempSensors[INSIDE_FLOW].temp : E("");
+  newState.bojlerTemp = (isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[BOJLER].temp)) ? (String)GLOBAL.TEMP.sensors[BOJLER].temp : E("");
+  newState.pipeTemp = (isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[PIPE].temp)) ? (String)GLOBAL.TEMP.sensors[PIPE].temp : E("");
+  newState.roomTemp = (isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[ROOM_TEMP].temp)) ? (String)GLOBAL.TEMP.sensors[ROOM_TEMP].temp : E("");
+  newState.insideFlowTemp = (isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[INSIDE_FLOW].temp)) ? (String)GLOBAL.TEMP.sensors[INSIDE_FLOW].temp : E("");
 
   newState.current = lastCurrentMeasurmentText_global; //(lastElectricCurrentState_global != false) ? E("1024") : E("");
   newState.waterFlow = (waterFlowSensorCount_ISR_global != 0) ? (String)convertWaterFlowSensorImpulsesToLitres(waterFlowSensorCount_ISR_global) : E("");
   
   newState.test1Value = "";//getNodeVccString();
-  newState.test2Value = getSpareWaterInLittres()+E("L  ");
-  newState.test3Value = isElectricityConnected()==1 ? E("Charging") : E("Battery");
+  newState.test2Value = GLOBAL.nodeInBootSequence? "" : getSpareWaterInLittres();
+  newState.test3Value = isElectricityConnected()==1 ? E("1") : E("0");
 
   newState.fireEventName = fireEventName;
   newState.controlState = getTempControleStyleStringName();
-  newState.heatingState = (isBoilerHeatingOn()) ? E("ON") : E("OFF");
+  newState.heatingState = (isBoilerHeatingOn()) ? E("1") : E("0");
   newState.objectAskingForResponse = getObjectAskingForResponse();
   newState.nodeInfoString = getSystemStateInfo();
 
-  return saveNodeStateIntoFile(newState);
-}
-
-
-bool logWarningMessage(String fireEventName)
-{
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewNodeState(String fireEventName): ") + fireEventName);
-  showServiceMessage(fireEventName);
-
-  SensorDataStructure newState;
-  newState.time = getNowTimeDateString();
-  newState.fireEventName = fireEventName;
-
-  return saveNodeStateIntoFile(newState);
+  return saveNewNodeState(newState);
 }
 
 
 
-bool saveNodeStateIntoFile(struct SensorDataStructure &newState)
+bool saveNewNodeState(struct SensorDataStructure &newState)
 {
+  if(DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("getNumberOfNewestLogFile(): %d,\nlogFileRowsCount_global: %d \n"), getNumberOfNewestLogFile(), logFileRowsCount_global);
+
+  if(getNumberOfNewestLogFile() == 0 && logFileRowsCount_global == 0) //žádné soubory v pořadí
+  {
+    saveNewNodeStateIntoTempString(newState);
+    logFileRowsCount_global++;
+    
+    if(DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(sE("Last row saved only in RAM: ") + lastNodeStateTempString_global);
+    return true;
+  }
+  //Prints previous temp string into file (than will save current newState to temp string)
+  bool success = flushTemporaryStringNodeStateIntoCsvFile();
+  if(success)
+  {
+    saveNewNodeStateIntoTempString(newState);
+    logFileRowsCount_global++;
+  }  
+  return success;
+}
+
+
+void saveNewNodeStateIntoTempString(struct SensorDataStructure &newState)
+{
+  lastNodeStateTempString_global = "";
+  const char* delimiter = ";";
+
+  String* newInputDataPointers[] = {&newState.time, &newState.fireEventName, &newState.bojlerTemp, &newState.pipeTemp, &newState.roomTemp, &newState.insideFlowTemp, &newState.current, &newState.waterFlow, &newState.test1Value, &newState.test2Value, &newState.test3Value, &newState.objectAskingForResponse, &newState.heatingState, &newState.controlState, &newState.nodeInfoString};
+  String* leadingInputDataPointers[] = {&nodeStateLeadingValues_global.time, &nodeStateLeadingValues_global.fireEventName, &nodeStateLeadingValues_global.bojlerTemp, &nodeStateLeadingValues_global.pipeTemp, &nodeStateLeadingValues_global.roomTemp, &nodeStateLeadingValues_global.insideFlowTemp, &nodeStateLeadingValues_global.current, &nodeStateLeadingValues_global.waterFlow, &nodeStateLeadingValues_global.test1Value, &nodeStateLeadingValues_global.test2Value, &nodeStateLeadingValues_global.test3Value, &nodeStateLeadingValues_global.objectAskingForResponse, &nodeStateLeadingValues_global.heatingState, &nodeStateLeadingValues_global.controlState, &nodeStateLeadingValues_global.nodeInfoString};
+  
+  for(uint8_t i = 0; i < SIZE_OF_LOCAL_ARRAY(newInputDataPointers); i++)
+  {
+    // DEBUG_OUTPUT.printf("%d:\n", i);
+    // DEBUG_OUTPUT.printf("newValue:");
+    // DEBUG_OUTPUT.println(*newInputDataPointers[i]);
+    // DEBUG_OUTPUT.printf("oldValue:");
+    // DEBUG_OUTPUT.println(*leadingInputDataPointers[i]);
+
+    //If empty value, if first line of file, if new value is different from leading one THAN save current value ELSE save "#"
+    if(*newInputDataPointers[i] == "" || logFileRowsCount_global == 0 || *newInputDataPointers[i] != *leadingInputDataPointers[i])
+    {
+      lastNodeStateTempString_global += *newInputDataPointers[i];
+      *leadingInputDataPointers[i] = *newInputDataPointers[i];
+    }
+    else
+    {
+      // DEBUG_OUTPUT.printf("#define copyValue\n");
+      lastNodeStateTempString_global += E("#");
+    }
+
+    if(i+1 < SIZE_OF_LOCAL_ARRAY(newInputDataPointers))
+      lastNodeStateTempString_global += delimiter;
+
+    // DEBUG_OUTPUT.print("lastNodeStateTempString_global:");
+    // DEBUG_OUTPUT.println(lastNodeStateTempString_global);
+  }
+}
+
+
+
+bool flushTemporaryStringNodeStateIntoCsvFile()
+{
+  if(lastNodeStateTempString_global.length() == 0)
+  {
+    if (DATA_LOGGING_DEBUG) ERROR_OUTPUT.println(E("Empty lastNodeStateTempString_global! NOT saving to file:"));
+    return true;
+  }
+
   uint32_t freeSpace = getFreeSpaceSPIFFS();
   uint8_t attempt = 10;
-  char separator = ';';
+  
   while(attempt--)
   {
     File f = openCurentLogFileForApending();
     if(f)
     {
-      
       if(freeSpace < 40000)
       {
         if (SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: There is NOT enough space! Free bytes: %d\n"), freeSpace);
         return false;
       }
-      // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(newState.time + separator + newState.bojlerTemp + separator + newState.testValue + separator + newState.pipeTemp + separator + newState.waterFlow + separator + newState.current + separator + newState.fireEventName + separator + newState.controlState + separator + newState.heatingState);
+      // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(newState.time + delimiter + newState.bojlerTemp + delimiter + newState.testValue + delimiter + newState.pipeTemp + delimiter + newState.waterFlow + delimiter + newState.current + delimiter + newState.fireEventName + delimiter + newState.controlState + delimiter + newState.heatingState);
       uint32_t previousFileSize = f.size();
-
-      f.println(newState.time + separator + newState.fireEventName + separator + newState.bojlerTemp + separator + newState.pipeTemp + separator + newState.roomTemp + separator + newState.insideFlowTemp + separator + newState.current + separator + newState.waterFlow + separator + newState.test1Value + separator + newState.test2Value + separator + newState.test3Value + separator + newState.objectAskingForResponse + separator + newState.heatingState + separator + newState.controlState + separator + newState.nodeInfoString);
+      
+      f.println(lastNodeStateTempString_global);
 
       if(f.size() > previousFileSize)
       {
         resetflowCount();
         resetObjectAskingForResponse();
+        if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("New line saved into file: %s\n"),f.name());
         f.close();
-        // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(getContentOfFile(getLogFileNameByLogNumber(curentLogNumber_global)));        
+        if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(getContentOfFile(getLogFileNameByLogNumber(curentLogNumber_global)));        
+        
         return true;
       }
     }
   }
   if (SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: Problem saving data to Log file! Maybe NOT enough space? FS free bytes: %d\n"), freeSpace);
   formatSpiffs();
-  logNewNodeState(E("FormatedSpiffs - Error during saving a file."));
+  logNewNodeState(E("!!!Error: FormatedSpiffs - Error during saving a file."));
   return false;
 }
 
 
 
+bool logWarningMessage(String fireEventName)
+{
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewNodeState(String fireEventName): ") + fireEventName);
+  displayServiceMessage(fireEventName);
+
+  SensorDataStructure newState;
+  newState.time = getNowTimeDateString();
+  newState.fireEventName = fireEventName;
+
+  return saveNewNodeState(newState);
+}
+
+
 bool logNewErrorState(String errorMessage)
 {
   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewErrorState(String errorMessage): ") + errorMessage);
-  showServiceMessage(errorMessage);
+  displayServiceMessage(errorMessage);
   errorMessage =  sE("&quickEvent=") + URLEncode(errorMessage);
   return sendGetParamsWithPostFile(errorMessage, RemoteDebug.getLastRuntimeLogAsFile());
 }
@@ -139,52 +209,66 @@ bool sendAllLogFiles()
   uint16_t logFileIndex = getNumberOfOldestLogFile();
   if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("logFileIndex: %d - getNumberOfOldestLogFile()\n"), logFileIndex);
 
-  if(logFileIndex == 0)
+  if(logFileIndex == 0 && logFileRowsCount_global == 0)
   {
     if(MAIN_DEBUG) { DEBUG_OUTPUT.println(E("!!Warning: There is no log file to send.")); }
     return false;
   }
 
-  while (logFileIndex != 0)
+  //node state ssaved only in temp string
+  if(logFileIndex == 0)
   {
-    if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(curentDebuggerLevel) + E("F:LOOP sendAllLogFiles(): ") + getLogFileNameByLogNumber(logFileIndex));
-    File f = openLogFileForReadingByNumber(logFileIndex);
-    if(f)
+    sendNewNodeStateByPostString(lastNodeStateTempString_global);
+  }
+  else//Actual files to send
+  {
+    //First save last state form Temp String
+    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Saving lastNodeStateTempString_global into newest logfile(%d) before uploading\n"), logFileIndex);
+    flushTemporaryStringNodeStateIntoCsvFile();
+    lastNodeStateTempString_global = "";
+
+    while (logFileIndex != 0)
     {
-      const char* fileName = f.name();
-      uint8_t attempts = 3+1;
-      while(--attempts)
+      if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(curentDebuggerLevel) + E("F:LOOP sendAllLogFiles(): ") + getLogFileNameByLogNumber(logFileIndex));
+
+      File f = openLogFileForReadingByNumber(logFileIndex);
+      if(f)
       {
-        bool dataSentOk = uploadLogFile(f);
-        if(dataSentOk)
+        const char* fileName = f.name();
+        uint8_t attempts = 3+1;
+        while(--attempts)
         {
-          if(isFileReceivedOk())
+          bool dataSentOk = uploadLogFile(f);
+          if(dataSentOk)
           {
-            deleteFileByName(fileName);
-            break;
-          }
-          else
-          {
-            if (SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!Warning: File was NOT procesed by google script. File '%s' size %d\n"), f.name(), f.size());
-            if(attempts == 1)//Last attempt
+            if(isFileReceivedOk())
             {
-              if (SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: File was NOT procesed by google script repeatedly - Deleting file. File '%s' size %d\n"), f.name(), f.size());
               deleteFileByName(fileName);
+              break;
+            }
+            else
+            {
+              if(SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!Warning: File was NOT procesed by google script. File '%s' size %d\n"), f.name(), f.size());
+              if(attempts == 1)//Last attempt
+              {
+                if(SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: File was NOT procesed by google script repeatedly - Deleting file. File '%s' size %d\n"), f.name(), f.size());
+                deleteFileByName(fileName);
+              }
             }
           }
-        }
-        else
+          else
           DEBUG_OUTPUT.printf(cE("!!Warning: File was NOT sent. File '%s' size %d. Repeating.. \n"), f.name(), f.size());
-  
-        if(attempts == 0)
+
+          if(attempts == 0)
           if (SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: File was NOT possible to send repeatedly. File '%s' size %d\n"), f.name(), f.size());
-      }
-    }    
-    logFileIndex = getNumberOfOldestLogFile(logFileIndex);
+        }
+      }    
+      logFileIndex = getNumberOfOldestLogFile(logFileIndex);
+    }
   }
   curentLogNumber_global = 0;
+  logFileRowsCount_global = 0;//reset rows counter
   setPendingEventToSend(false);
-  
   return true;
 }
 
@@ -205,6 +289,7 @@ File createNewEventLogFile(uint16_t newFileNumber=1)
     if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Adding a header to file: '%s'.\n"),getLogFileNameByLogNumber(newFileNumber).c_str());
     f.println(E("time;fireEventName;bojlerTemp;pipeTemp;roomTemp;insideFlowTemp;current;waterFlow;test1Value;test2Value;test3Value;objectAskingForResponse;heatingState;controlState;nodeInfoString"));
     curentLogNumber_global = newFileNumber;
+    logFileRowsCount_global = 0;//reset rows counter
   }
   else
     if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("!!!Error: New file is NOT created corectly. File '%s' size %d\n"), f.name(), f.size());
@@ -301,7 +386,7 @@ File openCurentLogFileForApending()
   }
   else
   {
-    DEBUG_OUTPUT.printf(cE("Opening Curent Logging file name: '%s' of size: %d\n"), getLogFileNameByLogNumber(curentLogNumber_global).c_str(), f.size());
+    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Opening Curent Logging file name: '%s' of size: %d\n"), getLogFileNameByLogNumber(curentLogNumber_global).c_str(), f.size());
   }
   
   return f;
@@ -410,6 +495,20 @@ String getContentOfFile(String path)
   return fileContent;
 }
 
+void saveTextToFile(String text, String path)
+{
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:saveStringToFile()"));
+  
+  File f = openFile(path,"w");
+  f.print(text);
+  f.close();
+}
+
+bool isFileExist(String path)
+{
+  return SPIFFS.exists(path);
+}
+
 
 File openFile(String fileName, const char* mode) {return openFile(fileName.c_str(), mode);}
 File openFile(const char* fileName, const char* mode)
@@ -435,5 +534,4 @@ File openFile(const char* fileName, const char* mode)
    if (MAIN_DEBUG) DEBUG_OUTPUT.printf(cE(" of size: %d\n"), file.size());
    return file;
 }
-
 

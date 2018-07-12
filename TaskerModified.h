@@ -4,16 +4,21 @@
 * Copyright (c) 2017  Jindřich Širůček
 */  
 
+#include "define.h"
 #define TASKER_DEBUG false
 
-#ifndef DEBUG_OUTPUT
-  #define DEBUG_OUTPUT Serial
-#endif
-  //#define DEBUG_OUTPUT debugFile
+// #ifdef DEBUG_OUTPUT_FOR_TASKER
+//   #define DEBUG_OUTPUT DEBUG_OUTPUT_FOR_TASKER
+// #else
+  // #define DEBUG_OUTPUT Serial
+// #endif
 
-#ifndef TASKER_MAX_TASKS
-  #define TASKER_MAX_TASKS  10  /* max 254 entries, one occupies 14 bytes of RAM */
-#endif
+// #ifdef TASKER_MAX_TASKS_FOR_TASKER
+//   #define TASKER_MAX_TASKS TASKER_MAX_TASKS_FOR_TASKER
+// #else
+  #define TASKER_MAX_TASKS 15
+// #endif
+
 
 #define TASKER_SKIP_NEVER true
 #define TASKER_SKIP_WHEN_NEEDED false
@@ -24,7 +29,9 @@ typedef void (*TaskCallbackWithoutParam)();
 class Tasker
 {
 public:
-  Tasker(bool prioritized = true);
+  Tasker(Print &normalDebugOutput = Serial, Print &errorDebugOutput = Serial);
+  // void setDebugOutput(Print &Print){DEBUG_OUTPUT = &Print;};
+  // void setErrorDebugOutput(Print &Print){ERROR_OUTPUT = &Print;};
   bool setTimeout(TaskCallback funcName, unsigned long interval, bool neverSkip, int param = 0);
   bool setInterval(TaskCallback funcName, unsigned long interval, bool neverSkip, int param = 0);
   bool setRepeated(TaskCallback funcName, unsigned long interval, unsigned int repeat, bool neverSkip, int param = 0);
@@ -46,8 +53,9 @@ private:
   TASK tasks[TASKER_MAX_TASKS];
   TaskCallbackWithoutParam outroTask;
   bool _isOutroTaskEnabled = false;
-  byte _celkovyPocetUloh;
-  bool t_prioritized;
+  byte _celkovyPocetUloh = 0;
+  Print *DEBUG_OUTPUT;
+  Print *ERROR_OUTPUT;
 };
 
 #ifdef TASKER_DEBUG
@@ -69,17 +77,17 @@ void yield_debug_tasker()
   //   unsigned long beforeYieldTime = millis();
   //   yield();
   //   if((millis() - beforeYieldTime)>2)
-  //   DEBUG_OUTPUT.println("yielded time: " + (String)(millis() - beforeYieldTime) + "ms");    
+  //   DEBUG_OUTPUT->println("yielded time: " + (String)(millis() - beforeYieldTime) + "ms");    
   // }
   // else
     yield();
 }
 
 
-Tasker::Tasker(bool prioritized)
+Tasker::Tasker(Print &errorDebugOutput, Print &normalDebugOutput)
 {
-  _celkovyPocetUloh = 0;
-  t_prioritized = prioritized;
+  ERROR_OUTPUT = &errorDebugOutput;
+  DEBUG_OUTPUT = &normalDebugOutput;
 }
 
 bool Tasker::setTimeout(TaskCallback funcName, unsigned long interval, bool neverSkip, int param)
@@ -96,7 +104,7 @@ bool Tasker::setRepeated(TaskCallback funcName, unsigned long interval, unsigned
 {
   if(_celkovyPocetUloh >= TASKER_MAX_TASKS || interval == 0)
   {
-    DEBUG_OUTPUT.println("!!!Error: Tasker: Task was not added! No more space for new task.");
+    ERROR_OUTPUT->println(E("!!!Error: Tasker: Task was not added! No more space for new task."));
     return false;
   }
   TASK &t = tasks[_celkovyPocetUloh];
@@ -133,7 +141,7 @@ void Tasker::runTask(byte *taskIndexReference)
 {
   byte taskIndex = *taskIndexReference;
   #ifdef TASKER_DEBUG
-    if (TASKER_DEBUG) DEBUG_OUTPUT.println(getUpTimeInside() + " TASKER: Running index: " + (String)taskIndex + " task name: "+LOOP_FUNCTIONS[taskIndex]+" ("+ ((millis() - tasks[taskIndex].nextRunTime ==0 )? "!ontime" : ("-"+(String)(millis() - tasks[taskIndex].nextRunTime)+"ms" )) + ")");
+    if (TASKER_DEBUG) DEBUG_OUTPUT->println(getUpTimeInside() + E(" TASKER: Running index: ") + taskIndex + E(" task name: ")+LOOP_FUNCTIONS[taskIndex]+E(" (")+ ((millis() - tasks[taskIndex].nextRunTime ==0 )? cE("!ontime") : (sE("-")+(millis() - tasks[taskIndex].nextRunTime)+E("ms") )) + E(")"));
   #endif
 
   (*(tasks[taskIndex].call))(tasks[taskIndex].param);//skutečné spuštění funkce
@@ -142,7 +150,7 @@ void Tasker::runTask(byte *taskIndexReference)
     tasks[taskIndex].nextRunTime = millis() + tasks[taskIndex].interval;// t.nextRunTime += t.interval;
   else
   {
-    if (TASKER_DEBUG) DEBUG_OUTPUT.println(getUpTimeInside() + " TASKER: Removing task of index: " + (String)taskIndex);
+    if (TASKER_DEBUG) DEBUG_OUTPUT->println(getUpTimeInside() + E(" TASKER: Removing task of index: ") + (String)taskIndex);
     // drop the finished task by removing its slot
     memmove(tasks+taskIndex, tasks+taskIndex+1, sizeof(TASK)*(_celkovyPocetUloh-taskIndex-1));
     (*taskIndexReference)--;//decrement pointer value

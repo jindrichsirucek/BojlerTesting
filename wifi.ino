@@ -1,3 +1,4 @@
+
 const char *const WL_STATUS_MAP_NAMES[] =
 {
     /* 0 */"WL_IDLE_STATUS", 
@@ -6,26 +7,42 @@ const char *const WL_STATUS_MAP_NAMES[] =
     /* 3 */"WL_CONNECTED", 
     /* 4 */"WL_CONNECT_FAILED", 
     /* 5 */"WL_CONNECTION_LOST", 
-    /* 6 */"WL_DISCONNECTED4" 
+    /* 6 */"WL_DISCONNECTED"
 };
 
 
 bool wifiConnectToLastNetwork()
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.print(sE("WiFi: trying to connect to last network: ") + WiFi.SSID());
+  if(WiFi.SSID() != '\0')
+    if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("WiFi: trying to connect to last network: ") + WiFi.SSID());
+  else
+    return false;
   wifi_station_set_auto_connect(true);
   wifi_station_connect();
-  WiFi.waitForConnectResult();
+  // WiFi.begin();
+  yield_debug();
+  // WiFi.waitForConnectResult();
+  uint8_t animationProgressCounter = 0;
+  uint8_t attempt = 100;
+  while (--attempt)
+  {
+    delay(100);
+    if(MAIN_DEBUG) DEBUG_OUTPUT.print(E("."));
+    animationProgressCounter = animateWiFiProgressSymbol(animationProgressCounter);
 
-  if(isWifiConnected())
-    return onWiFiSuccesfullyConnected();
-  else
-    if(MAIN_DEBUG) DEBUG_OUTPUT.println(E(" - Unsuccesfull!"));
+    if(isWifiConnected())
+      return onWiFiSuccesfullyConnected();
+
+    if(WiFi.status() == WL_CONNECT_FAILED)
+      break;
+  }
+  
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("\n - Unsuccesfull!"));
   return false;
 }
 
 
-void turnWifiOn() 
+void turnWifiOn()
 {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("WiFi Radio: Turning ON"));
     wifi_fpm_do_wakeup();
@@ -48,21 +65,6 @@ void turnWifiOff()
     yield_debug();
 }
 
-// void printAvailableWifiNetworks()
-// {
-//   Serial.println("scanning networks");
-//   int n = WiFi.scanNetworks();
-//   Serial.println("scan done");
-//   if(n == 0)
-//     Serial.println("no networks found");
-//   else
-//   {
-//      Serial.print(n);
-//      Serial.println(" networks found");
-//      for (int i = 0; i < n; ++i)
-//        Serial.println(WiFi.SSID(i));
-//   }
-// }
 
 struct WiFiCredential{
   const char *ssid;
@@ -78,57 +80,91 @@ bool wifiConnect()
     if(WIFI_DEBUG) DEBUG_OUTPUT.println(sE("Wifi is already connected.."));
     return true;
   }
+  if(GLOBAL.nodeInBootSequence) 
+    displayServiceLine(cE("Init: WiFi"));
+  displayServiceMessage(E("WiFi: Searching"));
 
+  // turnWifiOn();
   WiFi.mode(WIFI_STA);
-  WiFi.hostname(sE("ESP-Node: ") + NODE_NAME);
+  WiFi.hostname(sE("ESP-Node: ") + E(NODE_NAME));
 
-  if(wifiConnectToLastNetwork())
-    return true;
+  if(GLOBAL.connectToLastRememberedWifi)
+  {
+    if(wifiConnectToLastNetwork())
+    {
+      GLOBAL.connectToLastRememberedWifi = true;
+      return true;
+    }
+    else
+      GLOBAL.connectToLastRememberedWifi = false;
+  }
   
-  WiFiCredential savedWifiCredentials[] = {
+  yield_debug();
+  
+  WiFiCredential wifiCredentials[] = {
     {"DS1","daniel12"},
     {"Konfer_net_7","lydia456"},
-    {"UPC3246803","PDFDFKXG"},
-    {"APJindra","cargocargo"},
+    {"Regiojet - zluty",""},
+    {"CDWiFi",""},
+    {"UPC3246803","PDFDFKXG"},//Ostrava
     {"Siruckovi","eAAAdB99DD64fe"},
+    {"APJindra","cargocargo"},
     {"UPC3049010","RXYDNHRD"},
+    {"UPC3049010-Jindra","RXYDNHRD"},
   };//The most prefereable at the end!
 
-
-  if(WIFI_DEBUG) if(WIFI_DEBUG) DEBUG_OUTPUT.print(E("Scanning available WiFinetworks.. Found: "));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.print(E("Scanning available WiFinetworks.. Found: "));
   yield_debug();
   uint8_t n = WiFi.scanNetworks();
+  
+  //Sort by signal strength
+  uint8_t indices[n];
+  for (int i = 0; i < n; i++)
+    indices[i] = i;
+  
+  for (int i = 0; i < n; i++) 
+    for (int j = i + 1; j < n; j++)
+      if (WiFi.RSSI(indices[j]) > WiFi.RSSI(indices[i])) 
+        std::swap(indices[i], indices[j]);  
+
+  for (int i = 0; i < n; i++) DEBUG_OUTPUT.print((String)WiFi.SSID(indices[i])+ "(" +WiFi.RSSI(indices[i])+ ")"+ ", ");
+
   yield_debug();
-  if(WIFI_DEBUG) DEBUG_OUTPUT.println(n);
-  uint8_t c = SIZE_OF_LOACAL_ARRAY(savedWifiCredentials);
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(n);
+  uint8_t c = SIZE_OF_LOCAL_ARRAY(wifiCredentials);
   while(--c)
   {
-    if(WIFI_DEBUG) DEBUG_OUTPUT.print(sE("Searching for: ") + savedWifiCredentials[c].ssid);
+    if(WIFI_DEBUG) DEBUG_OUTPUT.print(sE("Searching for: ") + wifiCredentials[c].ssid);
     for (int i = 0; i < n; ++i)
     {
-      if(WiFi.SSID(i) == savedWifiCredentials[c].ssid)
+      if(WiFi.SSID(indices[i]) == wifiCredentials[c].ssid)
       {
         if(WIFI_DEBUG) DEBUG_OUTPUT.println(sE(" - Found!"));
-        if(wifiConnectTo(savedWifiCredentials[c].ssid, savedWifiCredentials[c].pass))
+        if(wifiConnectTo(wifiCredentials[c].ssid, wifiCredentials[c].pass))
           return true;
         else
-          break;//for lopp
+          break;//"for" lopp
       }
       yield_debug();
     }
     if(WIFI_DEBUG) DEBUG_OUTPUT.println();
   }
+  ERROR_OUTPUT.print(E("!!!Error: Could not connect to any WiFi network("));
+  for (int i = 0; i < n; i++) ERROR_OUTPUT.print((String)WiFi.SSID(indices[i])+ "(" +WiFi.RSSI(indices[i])+ ")"+ ", ");
+  ERROR_OUTPUT.println(E(")!"));
   return false;
 }
-
 
 
 bool wifiConnectTo(char const* ssid, char const* pass)
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.printf(cE("Wifi connecting to: %s..\n"), ssid);
-  showServiceMessage(sE("Con:") + ssid);
+  displayServiceMessage(sE("Con:") + ssid);
 
-  WiFi.begin(ssid, pass);
+  if(*pass == '\0')
+    WiFi.begin(ssid);
+  else
+    WiFi.begin(ssid, pass);
   uint8_t attempt = 200;
   uint8_t animationProgressCounter = 0;
   while (--attempt)
@@ -156,7 +192,7 @@ bool onWiFiSuccesfullyConnected()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("\nConnected to: ") + WiFi.SSID());
   displayIPAddress();
-  logNewNodeState(sE("WiFi: connected to: ") + WiFi.SSID());
+  logNewNodeState(sE("WiFi: connected to: ") + WiFi.SSID() + F(" (")+ WiFi.RSSI()+ F("dBm)"));
   return true;
 }
 
@@ -165,24 +201,33 @@ bool isWifiConnected()
   yield_debug();
   if(WIFI_DEBUG) DEBUG_OUTPUT.printf(cE("Wifi status: (%d)"), WiFi.status());
   return (WiFi.status() == WL_CONNECTED);
+
 }
-
-
-
 
 void displayIPAddress()
 {
-  String IPString;
-  getIPAddresIntoString(IPString);
-  showServiceMessage(IPString);
+  // String IPString;
+  // getIPAddresIntoString(IPString);
+  DEBUG_OUTPUT.println(WiFi.localIP().toString());
+  displayServiceMessage(WiFi.localIP().toString());
   delay(1000);
 }
+
+void displayRSSI()
+{
+  wifiConnect();
+  displayServiceLine(WiFi.SSID());
+  lcdCreateScaleChars();
+  while(delay(10), true)
+    displayServiceMessage(String(WiFi.RSSI()) + F("dbm ") + String("\1\2\3\4\5\6").substring(0,-(-90-WiFi.RSSI())/10));
+}
+
 
 
 // bool wifiConnectToLastNetwork()
 // {
 //   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:WiFi Connecting to previous setting: ") + WiFi.SSID());
-//   showServiceMessage(sE("Con: ") + WiFi.SSID());
+//   displayServiceMessage(sE("Con: ") + WiFi.SSID());
 
 //   WiFi.begin();
 //   yield_debug();
@@ -221,4 +266,10 @@ void displayIPAddress()
 // Getting BSSID and channel number from scan results is possible by calling WiFi.BSSID(index) and WiFi.channel(index).
 
 
-  
+
+// Signal Strength
+// -30 dBm Amazing    Max achievable signal strength.
+// -67 dBm Very Good  Minimum signal strength for applications that require very reliable, timely delivery of data packets. VoIP/VoWiFi, streaming video
+// -70 dBm Okay       Minimum signal strength for reliable packet delivery. Email, web
+// -80 dBm Not Good   Minimum signal strength for basic connectivity. Packet delivery may be unreliable.  
+// -90 dBm Unusable   Approaching or drowning in the noise floor. Any functionality is highly unlikely. 

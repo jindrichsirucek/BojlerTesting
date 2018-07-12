@@ -1,16 +1,21 @@
 
 
 
-void current_setup()
+void currentAndElectricity_setup()
 {
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:currentAndElectricity_setup()"));
+  displayServiceLine(cE("Init: Current.."));
   pinMode(CURRENT_SENSOR_PIN, INPUT);
+  pinMode(ELECTRICITY_SENSOR_PIN, INPUT_PULLDOWN_16);
   lastElectricCurrentState_global = isThereElectricCurrent();
+  lastElectricityConnectedState_global = isElectricityConnected();
+  yield();
 }
 
 
 bool isThereElectricCurrent()
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.print(getUpTimeDebug() + F("F:isThereElectricCurrent(): "));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.print(getUpTimeDebug() + E("F:isThereElectricCurrent(): "));
   bool isThereCurrent = false;
   float actualCurrent = 0;
   
@@ -19,13 +24,13 @@ bool isThereElectricCurrent()
   dtostrf(actualCurrent, 1, 3, bufferCharConversion);  //first num is mininum width, second is precision
   lastCurrentMeasurmentText_global = bufferCharConversion;
 
-  if(CURRENT_DEBUG) Serial.print("Current saved in lastCurrentMeasurmentText_global: ");
-  if(CURRENT_DEBUG) Serial.println(lastCurrentMeasurmentText_global);
+  if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("Current saved in lastCurrentMeasurmentText_global: "));
+  if(CURRENT_DEBUG) DEBUG_OUTPUT.println(lastCurrentMeasurmentText_global);
 
-  isThereCurrent = actualCurrent > 6; //1A treshold?
+  isThereCurrent = actualCurrent > 8; //1A treshold?
 
   if(MAIN_DEBUG) DEBUG_OUTPUT.print((isThereCurrent? sE("YES") : sE("NO")));
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE(" (") + lastCurrentMeasurmentText_global + cE("A)"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE(" (") + lastCurrentMeasurmentText_global + E("A)"));
 
   return isThereCurrent;
 }
@@ -35,16 +40,16 @@ float getActualCurrentValue()
  {
    float resistorValue = 77.5;
    float vRef = 1;
-   float linearizationCoef = 1.0986;//1.122;
+   float linearizationCoef = 1.0986;//1.0986 - Doma; //Daniel dole = 1.181
    float nVPP;   // Voltage measured across resistor
    float nCurrThruResistorPP; // Peak Current Measured Through Resistor
    float nCurrThruResistorRMS; // RMS current through Resistor
    float nCurrentThruWire;     // Actual RMS current in Wire
 
    int maxAnalogValue = getMaxAnalogValue();
-   if(CURRENT_DEBUG) Serial.print("\nMeasured analog input: ");
-   if(CURRENT_DEBUG) Serial.print(maxAnalogValue);
-   if(CURRENT_DEBUG) Serial.println("/1024");
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("\nMeasured analog input: "));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(maxAnalogValue);
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("/1024"));
    
 
   // Convert the digital data to a voltage
@@ -58,30 +63,29 @@ float getActualCurrentValue()
    // Therefore current through 200 ohm resistor
    // is multiplied by 1000 to get input current
    nCurrentThruWire = nCurrThruResistorRMS * 1000;
-
    
-   if(CURRENT_DEBUG) Serial.print("Volts Peak : ");
-   if(CURRENT_DEBUG) Serial.print(nVPP,3);
-   if(CURRENT_DEBUG) Serial.println("V");
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("(Volts Peak : )"));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(nVPP,3);
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("(V)"));
    
-   if(CURRENT_DEBUG) Serial.print("Current Through Resistor (Peak) : ");
-   if(CURRENT_DEBUG) Serial.print(nCurrThruResistorPP,3);
-   if(CURRENT_DEBUG) Serial.println(" A Peak to Peak");
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("(Current Through Resistor (Peak) : )"));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(nCurrThruResistorPP,3);
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("( A Peak to Peak)"));
    
-   if(CURRENT_DEBUG) Serial.print("Current Through Resistor (RMS) : ");
-   if(CURRENT_DEBUG) Serial.print(nCurrThruResistorRMS,3);
-   if(CURRENT_DEBUG) Serial.println(" A RMS");
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("(Current Through Resistor (RMS) : )"));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(nCurrThruResistorRMS,3);
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("( A RMS)"));
    
-   if(CURRENT_DEBUG) Serial.print("Current Through Wire : ");
-   if(CURRENT_DEBUG) Serial.print(nCurrentThruWire,3);
-   if(CURRENT_DEBUG) Serial.println(" A RMS");
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("(Current Through Wire : )"));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(nCurrentThruWire,3);
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("( A RMS)"));
    
    float linearizedCurrent = nCurrentThruWire*linearizationCoef;
-   if(CURRENT_DEBUG) Serial.print("LINEARIZED : ");
-   if(CURRENT_DEBUG) Serial.print(linearizedCurrent,3);
-   if(CURRENT_DEBUG) Serial.println(" A RMS");
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("(LINEARIZED : )"));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(linearizedCurrent,3);
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("( A RMS)"));
 
-   if(CURRENT_DEBUG) Serial.println();
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println();
 
    return linearizedCurrent;
  }
@@ -98,20 +102,15 @@ float getMaxAnalogValue()
 {
   int readValue;             //value read from the sensor
   int maxValue = 0;          // store max value here
-   uint32_t start_time = millis();
-   while((millis()-start_time) < 1000) //sample for 1 Sec
-   {
-       readValue = analogRead(CURRENT_SENSOR_PIN);
-       // see if you have a new maxValue
-       if (readValue > maxValue) 
-       {
-           /*record the maximum sensor value*/
-           maxValue = readValue;
-       }
-   }
-   
-   return maxValue;
- }
+  uint32_t sampleCounter = 10000;
+  while(sampleCounter--) //sample for 1 Sec
+  {
+    readValue = analogRead(CURRENT_SENSOR_PIN);
+    if (readValue > maxValue) 
+     maxValue = readValue;
+  }
+  return maxValue;
+}
 
 
 

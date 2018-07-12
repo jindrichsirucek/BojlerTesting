@@ -4,7 +4,8 @@
 #define symbolsDefine_h
 
 
-byte newCharC[8] = {
+uint8_t degreeSymbol[8] =
+{
   B00110,
   B01001,
   B01001,
@@ -15,7 +16,7 @@ byte newCharC[8] = {
   B00000
 };
 
-byte newCharTemp[8] = {
+ uint8_t tempSymbol[8] = {
   B00100,
   B01010,
   B01010,
@@ -26,7 +27,7 @@ byte newCharTemp[8] = {
   B01110
 };
 
-byte newCharWaterDrop[8] = {
+ uint8_t waterDropSymbol[8] = {
   B00100,
   B00100,
   B01010,
@@ -37,7 +38,7 @@ byte newCharWaterDrop[8] = {
   B01110
 };
 
-byte newCharTime[8] = {
+ uint8_t timeSymbol[8] = {
   B00000,
   B01110,
   B10101,
@@ -48,7 +49,7 @@ byte newCharTime[8] = {
   B00000
 };
 
-byte newCharShower[][8] = {
+ uint8_t showerSymbolAnimation[][8] = {
  {
   B00100,
   B00100,
@@ -71,7 +72,7 @@ byte newCharShower[][8] = {
   
 }};
 
-byte newCharWaterFlow[][8] = {
+ uint8_t waterFlowSymbolAnimation[][8] = {
 {
   B01110,
   B00100,
@@ -94,9 +95,106 @@ byte newCharWaterFlow[][8] = {
 }
 };
 
+ uint8_t emptySymbol[8] = 
+{
+  B00100,
+  B01010,
+  B10101,
+  B01010,
+  B10101,
+  B01010,
+  B10001
+};
+
+ uint8_t degreeCelsiusSymbol[8] =
+{
+  B11000,
+  B11000,
+  B00011,
+  B00100,
+  B00100,
+  B00100,
+  B00011,
+  B00000,
+};
+
+ uint8_t upTempSymbol[8] = 
+{
+  B11111,
+  B00000,
+  B00100,
+  B01110,
+  B11111,
+  B00100,
+  B00100,
+  B00100,
+};
+
+ uint8_t boilerSymbol[8] = 
+{
+  B01110,
+  B10001,
+  B11111,
+  B10001,
+  B10001,
+  B10001,
+  B10001,
+  B01110
+};
+
+ uint8_t upTempSymbolAnimation[][8] = {
+{
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00100,
+  B01010,
+  B10001
+},
+{
+  B00000,
+  B00000,
+  B00000,
+  B00100,
+  B01010,
+  B10001,
+  B00000
+},
+{
+  B00000,
+  B00000,
+  B00100,
+  B01010,
+  B10001,
+  B00000,
+  B00000,
+  B00000
+},
+{
+  B00000,
+  B00100,
+  B01010,
+  B10001,
+  B00000,
+  B00000,
+  B00000,
+  B00000
+},
+{
+  B00100,
+  B01010,
+  B10001,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000
+},
+};
 
 
-byte newCharWifiNOTConnected[8] = {
+ uint8_t wifiNOTConnectedSymbol[8] = {
   B00000,
   B10001,
   B01010,
@@ -107,7 +205,7 @@ byte newCharWifiNOTConnected[8] = {
   B00000
 };
 
-byte newCharWifiConnected[8] = 
+ uint8_t wifiConnectedSymbol[8] = 
 {
   B01110,
   B11111,
@@ -120,7 +218,7 @@ byte newCharWifiConnected[8] =
 };
 
 
-byte newCharWifiSending[][8] = 
+ uint8_t wifiSendingSymbolAnimation[][8] = 
 {
   {
     B00000,
@@ -164,5 +262,69 @@ byte newCharWifiSending[][8] =
     B00000
   }
 };
+
+uint8_t signalStrengthSymbolAnimation[][8] = {
+{
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00011,
+  B11111,
+},
+{
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00001,
+  B01111,
+  B11111,
+  B11111,
+},
+{
+  B00000,
+  B00000,
+  B00000,
+  B00111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+},
+{
+  B00000,
+  B00011,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+},
+{
+  B01111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+},
+{
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+}
+};
+
 
 #endif

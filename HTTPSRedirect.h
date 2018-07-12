@@ -12,6 +12,16 @@
    #define DEBUG_OUTPUT RemoteDebug
 #endif
 
+
+static const char connectionCloseString[] PROGMEM = "Connection: close\r\n\r\n";
+static const char HTTPString[] PROGMEM = " HTTP/1.1\r\n";
+static const char acceptString[] PROGMEM = "Accept: */*\r\n";
+static const char conntentTypeString[] PROGMEM = "Content-Type: text/html; charset=us-ascii\r\n";
+static const char contentLengthString[] PROGMEM = "Content-Length: ";
+static const char NEW_LINE_String[] PROGMEM = "\r\n";
+
+
+
 typedef uint8_t (*CallBackFunction)(uint8_t);
 
 class HTTPSRedirect : public WiFiClientSecure {
@@ -29,17 +39,20 @@ public:
    bool GET(const String &host, const String &url)
    {
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(__PRETTY_FUNCTION__);
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(cE("!!!Free Heap: %u\n"), ESP.getFreeHeap());
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(("!!!Free Heap: %u\n"), ESP.getFreeHeap());
 
       if (establishConncetionWithServer(host, m_port) == false) return false;
 
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("requesting URL: "));
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(url.substring(0,50));
 
-      print(("GET "));print(url);print(" HTTP/1.1\r\n");
-      print("Host: ");print(host);print("\r\n");
-      print("Accept: */*\r\n");
-      print("Connection: close\r\n\r\n");
+      // String mystring(F("This string is stored in flash"));
+   
+      // print(mystring);
+      print((("GET "))); print(url); print(FPSTR(HTTPString));
+      print(("Host: ")); print(host); print(FPSTR(NEW_LINE_String));
+      print(FPSTR(acceptString));
+      print(FPSTR(connectionCloseString));
 
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("Sending GET request.."));
       while (available() == 0) 
@@ -59,11 +72,8 @@ public:
          return false;
 
       setNoDelay(true);
-      
       printHeaderPost(host, url, stringToSend.length());
-
       print(stringToSend);
-
       return readResponseAfterPostSent();
    }
 
@@ -74,11 +84,9 @@ public:
          return false;
 
       setNoDelay(true);
-      
+      fileToSend.seek(0, SeekSet);
       printHeaderPost(host, url, fileToSend.size());
-
       printFileToClient(fileToSend);
-
       return readResponseAfterPostSent();
    }
 
@@ -89,7 +97,7 @@ protected:
    bool establishConncetionWithServer(const String &host, const int &port)
    {        
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(__PRETTY_FUNCTION__);
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(cE("!!!Free Heap: %u\n"), ESP.getFreeHeap());
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(("!!!Free Heap: %u\n"), ESP.getFreeHeap());
       yield();
       animateProgress();
 
@@ -110,15 +118,13 @@ protected:
    bool printHeaderPost(const String &host, const String &url, uint32_t postSize)
    {
       
-      print(String("POST ") + url + " HTTP/1.1\r\n" +
-         "Host: " + host + "\r\n" +
-         "Accept: */*\r\n" +
+      print("POST " + url); print(FPSTR(HTTPString));
+      print("Host: " + host); print(FPSTR(NEW_LINE_String));
+      print(FPSTR(acceptString));
          // "Content-Type: text/html\r\n"+//; charset=utf-8 +
-         "Content-Type: text/html; charset=us-ascii\r\n"+
-         "Content-Length: " + (postSize) + "\r\n" +
-         "Connection: close\r\n\r\n");
-
-
+      print(FPSTR(conntentTypeString));
+      print(FPSTR(contentLengthString)); print(postSize); print(FPSTR(NEW_LINE_String));
+      print(FPSTR(connectionCloseString));
    }
 
 
@@ -132,6 +138,7 @@ protected:
       uint16_t clientCount = 0;
       uint32_t alreadySent = 0;
 
+      fileToSend.seek(0, SeekSet);
       while (fileToSend.available() && alreadySent < fileToSend.size())
       {
          clientBuf[clientCount] = fileToSend.read();
@@ -203,7 +210,8 @@ protected:
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(("!!!Free Heap: %u\n"), ESP.getFreeHeap());
 
       String locationStr = ("Location: ");
-      while (connected()) {
+      while (connected()) 
+      {
          String line = readStringUntil('\n');
          if (line.startsWith(locationStr)) {
             String address = line.substring(locationStr.length());

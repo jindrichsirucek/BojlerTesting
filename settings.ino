@@ -19,6 +19,7 @@
 // int (*fpa())[]; // function 'fpa' with return value of a pointer to array of integers
 // int (*fpf())(); // function 'fpf' with return value of a pointer to function which returns an integer
 
+//(\W)GLOBAL.TEMP.sensors(\W) $1GLOBAL.TEMP.sensors$2
 #include <Arduino.h>
 #include <EEPROM.h>
 #include "DisplayMenu.h"
@@ -26,13 +27,22 @@
 OneWire oneWire(ONE_WIRE_BUS_PIN);
 DallasTemperature DS18B20(&oneWire);
 
-struct TempSensorAddressesStruct {
-  DeviceAddress bojler;
-  DeviceAddress pipe;
-  DeviceAddress roomTemp;
-  DeviceAddress insideFlow;
-};
-TempSensorAddressesStruct tempSensorsAddresses;
+
+void runServiceMenuIfNeeded()
+{
+  pinMode(FLASH_BUTTON_PIN, INPUT_PULLUP);
+
+  DEBUG_OUTPUT.println(E("Run Service_Menu(?)"));
+  displayServiceLine(cE("Service menu?"));
+  displayServiceMessage(E(""));
+  uint16_t counter = 1000;
+  while(counter--) // wait for a second to enter service menu
+    if(isFlashButtonPressed()) 
+      showServiceMenu();
+    else
+      delay(1);
+}
+
 
 void resetSavedTempSensorAddresses()
 {
@@ -45,20 +55,19 @@ void resetSavedTempSensorAddresses()
     ERROR_OUTPUT.println(E("!!!Error: There is NO temp sensor connected!"));
     return;
   }
-  showServiceMessage(E("RESETING SETTINGS"));
+  displayServiceMessage(E("RESETING TEMP"));
   
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("Found temp sensors: ") + tempSensorsCount);
   uint8_t index = 0;
   while(index < tempSensorsCount)
   {
-    DS18B20.getAddress(tempSensors[index].address, index);
-    tempSensors[index].sensorConnected = true;
+    DS18B20.getAddress(GLOBAL.TEMP.sensors[index].address, index);
+    GLOBAL.TEMP.sensors[index].sensorConnected = true;
     index++;
   }
 
   saveTempSensorAddressesToEeprom();
 }
-
 
 
 void saveTempSensorAddressesToEeprom()
@@ -71,17 +80,18 @@ void saveTempSensorAddressesToEeprom()
   {
     //Copy device address
     for(uint8_t i = 0; i < 8; i++)
-      eepromListOfAddreses[s][i] = tempSensors[s].address[i];
+      eepromListOfAddreses[s][i] = GLOBAL.TEMP.sensors[s].address[i];
 
-    DEBUG_OUTPUT.println(sE("tempSensors[")+s+E("]: ") + getSensorAddressHexString(tempSensors[s].address) + sE(" eeprom Address: ") + getSensorAddressHexString(eepromListOfAddreses[s]));
+    DEBUG_OUTPUT.println(sE("GLOBAL.TEMP.sensors[")+s+E("]: ") + getSensorAddressHexString(GLOBAL.TEMP.sensors[s].address) + sE(" eeprom Address: ") + getSensorAddressHexString(eepromListOfAddreses[s]));
   }
   DEBUG_OUTPUT.println(E("What is going to be saved to memmory: "));
-  DEBUG_OUTPUT.println(sE("bojler: ") + getSensorAddressHexString(tempSensorsAddresses.bojler));
-  DEBUG_OUTPUT.println(sE("pipe: ") + getSensorAddressHexString(tempSensorsAddresses.pipe));
-  DEBUG_OUTPUT.println(sE("roomTemp: ") + getSensorAddressHexString(tempSensorsAddresses.roomTemp));
-  DEBUG_OUTPUT.println(sE("insideFlow: ") + getSensorAddressHexString(tempSensorsAddresses.insideFlow));
+  DEBUG_OUTPUT.println(sE("bojler: ") + getSensorAddressHexString(sensorAddresses.bojler));
+  DEBUG_OUTPUT.println(sE("pipe: ") + getSensorAddressHexString(sensorAddresses.pipe));
+  DEBUG_OUTPUT.println(sE("roomTemp: ") + getSensorAddressHexString(sensorAddresses.roomTemp));
+  DEBUG_OUTPUT.println(sE("insideFlow: ") + getSensorAddressHexString(sensorAddresses.insideFlow));
 
   saveTempSensorsStructToEeprom(sensorAddresses);
+  logNewNodeState(E("Settings: New temp addresses saved"));
   loadTempSensorAddressesFromEeprom();
 }
 
@@ -89,23 +99,23 @@ void saveTempSensorAddressesToEeprom()
 void loadTempSensorAddressesFromEeprom()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:loadTempSensorAddressesFromEeprom(): "));
-  TempSensorAddressesStruct sensorAddresses;
-  loadTempSensorsStructFromEeprom(sensorAddresses);
+  // TempSensorAddressesStruct sensorAddresses;
+  // loadSettingsStructFromEeprom(sensorAddresses);
   const char *sensorNamesList[MAX_TEMP_SENSORS_COUNT] = {"bojler","pipe","roomTemp","insideFlow"};
-  uint8_t *eepromListOfAddreses[MAX_TEMP_SENSORS_COUNT] = {sensorAddresses.bojler, sensorAddresses.pipe, sensorAddresses.roomTemp, sensorAddresses.insideFlow};
+  uint8_t *eepromListOfAddreses[MAX_TEMP_SENSORS_COUNT] = {eepromSettings_global.tempSensorAddresses.bojler, eepromSettings_global.tempSensorAddresses.pipe, eepromSettings_global.tempSensorAddresses.roomTemp, eepromSettings_global.tempSensorAddresses.insideFlow};
 
   bool resetSavedAddresses = true;
   for(uint8_t s = 0; s < MAX_TEMP_SENSORS_COUNT; s++)
   {
     //Copy device address
-    for(uint8_t i = 0; i < 8; i++) tempSensors[s].address[i] = eepromListOfAddreses[s][i];
+    for(uint8_t i = 0; i < 8; i++) GLOBAL.TEMP.sensors[s].address[i] = eepromListOfAddreses[s][i];
     
-    tempSensors[s].sensorName = sensorNamesList[s];
-    if(isTempSensorAddressValid(tempSensors[s]))
+    GLOBAL.TEMP.sensors[s].sensorName = sensorNamesList[s];
+    if(isTempSensorAddressValid(GLOBAL.TEMP.sensors[s]))
     {
       resetSavedAddresses = false;
-      if(isTempSensorConnectedAndPrintInfo(tempSensors[s]))
-        tempSensors[s].sensorConnected = true;
+      if(isTempSensorConnectedAndPrintInfo(GLOBAL.TEMP.sensors[s]))
+        GLOBAL.TEMP.sensors[s].sensorConnected = true;
     }
     yield_debug();
   }
@@ -118,40 +128,38 @@ void loadTempSensorAddressesFromEeprom()
 }
 
 
-
 void updateTempSensorAddressByNameFromHexString(const char *sensorName, const String hexString)
 {
   // DEBUG_OUTPUT.println("What is NOW State: ");
-  // DEBUG_OUTPUT.println((String)"bojler: " + getSensorAddressHexString(tempSensors[BOJLER].address) + " real NAME: " + tempSensors[BOJLER].sensorName);
-  // DEBUG_OUTPUT.println((String)"pipe: " + getSensorAddressHexString(tempSensors[PIPE].address) + " real NAME: " + tempSensors[PIPE].sensorName);
-  // DEBUG_OUTPUT.println((String)"roomTemp: " + getSensorAddressHexString(tempSensors[ROOM_TEMP].address) + " real NAME: " + tempSensors[ROOM_TEMP].sensorName);
-  // DEBUG_OUTPUT.println((String)"insideFlow: " + getSensorAddressHexString(tempSensors[INSIDE_FLOW].address) + " real NAME: " + tempSensors[INSIDE_FLOW].sensorName);
+  // DEBUG_OUTPUT.println((String)"bojler: " + getSensorAddressHexString(GLOBAL.TEMP.sensors[BOJLER].address) + " real NAME: " + GLOBAL.TEMP.sensors[BOJLER].sensorName);
+  // DEBUG_OUTPUT.println((String)"pipe: " + getSensorAddressHexString(GLOBAL.TEMP.sensors[PIPE].address) + " real NAME: " + GLOBAL.TEMP.sensors[PIPE].sensorName);
+  // DEBUG_OUTPUT.println((String)"roomTemp: " + getSensorAddressHexString(GLOBAL.TEMP.sensors[ROOM_TEMP].address) + " real NAME: " + GLOBAL.TEMP.sensors[ROOM_TEMP].sensorName);
+  // DEBUG_OUTPUT.println((String)"insideFlow: " + getSensorAddressHexString(GLOBAL.TEMP.sensors[INSIDE_FLOW].address) + " real NAME: " + GLOBAL.TEMP.sensors[INSIDE_FLOW].sensorName);
   
   DEBUG_OUTPUT.printf(cE("Settings: Updating address for sensor name: %s, new hex address: %s\n"), sensorName, hexString.c_str());
 
   if(strncmp(sensorName, cE("bojler"), 16) == 0)
-    setSensorAddressFromHexString(tempSensors[BOJLER].address, hexString);
+    setSensorAddressFromHexString(GLOBAL.TEMP.sensors[BOJLER].address, hexString);
   else 
   if(strncmp(sensorName, cE("pipe"), 16) == 0)
-    setSensorAddressFromHexString(tempSensors[PIPE].address, hexString);
+    setSensorAddressFromHexString(GLOBAL.TEMP.sensors[PIPE].address, hexString);
   else 
   if(strncmp(sensorName, cE("roomTemp"), 16) == 0)
-    setSensorAddressFromHexString(tempSensors[ROOM_TEMP].address, hexString);
+    setSensorAddressFromHexString(GLOBAL.TEMP.sensors[ROOM_TEMP].address, hexString);
   else 
   if(strncmp(sensorName, cE("insideFlow"), 16) == 0)
-    setSensorAddressFromHexString(tempSensors[INSIDE_FLOW].address, hexString);
+    setSensorAddressFromHexString(GLOBAL.TEMP.sensors[INSIDE_FLOW].address, hexString);
   else
     DEBUG_OUTPUT.printf(cE("!!!Error: Temp sensor of name: %s, is not found!!:\n"), sensorName);
 
 }
 
 
+// void loadNodeSettingsAfterBoot()
+// {
+//   // loadTempSensorsAddressesSetingsFromEeprom(GLOBAL.TEMP.sensors);
+// }
 
-
-void loadNodeSettingsAfterBoot()
-{
-  // loadTempSensorsAddressesSetingsFromEeprom(tempSensors);
-}
 
 String stringifyTempSensorAddressesStruct()
 {
@@ -159,10 +167,10 @@ String stringifyTempSensorAddressesStruct()
   settingsString.reserve(250);
   settingsString = E("");
 
-  settingsString += cE("&bojlerAddress=") + getSensorAddressHexString(tempSensorsAddresses.bojler);
-  settingsString += cE("&pipeAddress=") + getSensorAddressHexString(tempSensorsAddresses.pipe);
-  settingsString += cE("&roomTempAddress=") + getSensorAddressHexString(tempSensorsAddresses.roomTemp);
-  settingsString += cE("&insideFlowAddress=") + getSensorAddressHexString(tempSensorsAddresses.insideFlow);
+  settingsString += cE("&bojlerAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[BOJLER].address);
+  settingsString += cE("&pipeAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[PIPE].address);
+  settingsString += cE("&roomTempAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[ROOM_TEMP].address);
+  settingsString += cE("&insideFlowAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[INSIDE_FLOW].address);
 
   DS18B20.begin();
   uint8_t tempSensorsCount = DS18B20.getDS18Count();
@@ -181,20 +189,23 @@ String stringifyTempSensorAddressesStruct()
 
 void showServiceMenu()
 {
+  displayServiceLine(cE("Service menu:"));
   turnNotificationLedOn();
 
   DisplayMenu serviceMenu;
-  serviceMenu.addEntry(restartEsp, cE("CANCEL?"));
-  serviceMenu.addEntry(resetSavedTempSensorAddresses, cE("DEL SENSOR ADDR?"), PRESELECTED_MENU_ENTRY);
-  serviceMenu.addEntry(formatFileSystem, cE("FORMAT SPIFFS?"));
-  serviceMenu.addEntry(resetAllWifiSettings, cE("RESET WIFI SETS?"));
+  serviceMenu.addEntry(restartEsp, ("CANCEL?"));
+  serviceMenu.addEntry(resetSavedTempSensorAddresses, ("DEL SENSOR ADDR?"), PRESELECTED_MENU_ENTRY);
+  serviceMenu.addEntry(displayRSSI, ("Measure RSSI?"));
+  serviceMenu.addEntry(formatFileSystem, ("FORMAT SPIFFS?"));
+  serviceMenu.addEntry(resetAllWifiSettings, ("RESET WIFI SETS?"));
 
-  showServiceMessage(serviceMenu.getSelectedEntryName());
-  
+  displayServiceMessage(serviceMenu.getSelectedEntryName());
+  DEBUG_OUTPUT.println(serviceMenu.getSelectedEntryName());
+
   while(isFlashButtonPressed()) {delay(1);}
   delay(100); //debounce
   DEBUG_OUTPUT.println(E("Press SHORT 'flash' button to move in menu.. \nPress LONG 'flash' button to select.. \nOr press 'reset' button to Cancel operation"));
-  
+
   uint8_t holdCounter = 0;
   while(true)
   {
@@ -220,7 +231,8 @@ void showServiceMenu()
     if(holdCounter)
     {
       turnNotificationLedOn();
-      showServiceMessage(serviceMenu.move());
+      displayServiceMessage(serviceMenu.move());
+      DEBUG_OUTPUT.println(sE("Menu:") + serviceMenu.getSelectedEntryName());
       holdCounter = 0;
     }
   }
@@ -229,8 +241,7 @@ void showServiceMenu()
 
 void resetAllWifiSettings()
 {
-  
-  showServiceMessage(E("RESETTING WIFI!"));
+  displayServiceMessage(E("RESETTING WIFI!"));
   WiFi.softAPdisconnect(true);
   WiFi.disconnect(true);
   ESP.eraseConfig();
@@ -238,10 +249,10 @@ void resetAllWifiSettings()
 
 void formatFileSystem()
 {
+  displayServiceMessage(E("FORMATING FS!"));
   DEBUG_OUTPUT.print(E("Formating File System.."));
-  showServiceMessage(E("FORMATING DISK!"));
-  showServiceMessage(SPIFFS.format() ? E("Done!"):E("!!!Error ocured."));
-  ESP.reset();
+  displayServiceMessage(SPIFFS.format() ? E("Done!"):E("!!!Error ocured."));
+  ESP.restart();
 }
 ////////////////////////////////////////////////////////
 //  LOAD / SAVE / INITIALIZE   SETTINGS
@@ -259,11 +270,15 @@ void setSensorAddressFromHexString(DeviceAddress address, const String hexString
 }
 
 
-void loadTempSensorsStructFromEeprom(struct TempSensorAddressesStruct &tempSensorsAddressesToLoad)
+void loadSettingsStructFromEeprom(struct TempSensorAddressesStruct &tempSensorsAddressesToLoad)
 {
-  EEPROM.begin(255);
-  int loadedBytes = EEPROMAnythingRead(0, reinterpret_cast<char*>(&tempSensorsAddressesToLoad), sizeof(tempSensorsAddressesToLoad));
+  EepromSettingsStruct eepromSettings;
+
+  EEPROM.begin(EEPROM_ALOCATION_SIZE);
+  int loadedBytes = EEPROMAnythingRead(0, reinterpret_cast<char*>(&eepromSettings), sizeof(eepromSettings));
   EEPROM.end();
+
+  tempSensorsAddressesToLoad = eepromSettings.tempSensorAddresses;
 
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("From EEPROM loaded bytes: ") + loadedBytes);
 }
@@ -271,20 +286,48 @@ void loadTempSensorsStructFromEeprom(struct TempSensorAddressesStruct &tempSenso
 
 void saveTempSensorsStructToEeprom(struct TempSensorAddressesStruct &tempSensorsAddressesToSave)
 {
-  uint8_t memmorySize = 255;
+  eepromSettings_global.tempSensorAddresses = tempSensorsAddressesToSave;
 
-  EEPROM.begin(memmorySize);//Size of alocated space
+  EEPROM.begin(EEPROM_ALOCATION_SIZE);//Size of alocated space
   // write a 0 to all 512 bytes of the EEPROM
-  for (int i = 0; i < memmorySize; i++)
+  for (int i = 0; i < EEPROM_ALOCATION_SIZE; i++)
     EEPROM.write(i, 0);
   EEPROM.end();  
 
 
-  EEPROM.begin(memmorySize);//Size of alocated space
-  int loadedBytes = EEPROMAnythingWrite(0, reinterpret_cast<char*>(&tempSensorsAddressesToSave), sizeof(tempSensorsAddressesToSave));
+  EEPROM.begin(EEPROM_ALOCATION_SIZE);//Size of alocated space
+  int loadedBytes = EEPROMAnythingWrite(0, reinterpret_cast<char*>(&eepromSettings_global), sizeof(eepromSettings_global));
   EEPROM.end();
 
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("To EEPROM Saved bytes: ") + loadedBytes);
+}
+
+
+
+void saveGlobalSettingsStructToEeprom()
+{
+  //CLEARING EEPROM - write a 0 to all 512 bytes of the EEPROM
+  EEPROM.begin(EEPROM_ALOCATION_SIZE);//Size of alocated space
+  for (int i = 0; i < EEPROM_ALOCATION_SIZE; i++)
+    EEPROM.write(i, 0);
+  EEPROM.end();  
+
+
+  EEPROM.begin(EEPROM_ALOCATION_SIZE);//Size of alocated space
+  int savedBytes = EEPROMAnythingWrite(0, reinterpret_cast<char*>(&eepromSettings_global), sizeof(eepromSettings_global));
+  EEPROM.end();
+
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("To EEPROM Saved bytes: ") + savedBytes);
+}
+
+
+void loadGlobalSettingsStructFromEeprom()
+{
+  EEPROM.begin(EEPROM_ALOCATION_SIZE);
+  int loadedBytes = EEPROMAnythingRead(0, reinterpret_cast<char*>(&eepromSettings_global), sizeof(eepromSettings_global));
+  EEPROM.end();
+
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("From EEPROM loaded bytes: ") + loadedBytes);
 }
 
 
@@ -310,7 +353,8 @@ void printAddressHex(const DeviceAddress deviceAddress)
 {
   for (uint8_t i = 0; i < 8; i++)
   {
-    if (deviceAddress[i] < 16) DEBUG_OUTPUT.print(E("0"));
+    if (deviceAddress[i] < 16) 
+      DEBUG_OUTPUT.print(E("0"));
     DEBUG_OUTPUT.print(deviceAddress[i], HEX);
   }
   // DEBUG_OUTPUT.println();

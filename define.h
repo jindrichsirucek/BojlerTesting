@@ -4,12 +4,14 @@
   //GITHUB: https://github.com/wa0uwh/ERB-EspWebServer/tree/master/Main
   // Macros to force format stings and string constants into FLASH Memory
 
+  char globalCharBuf[256+1] = {0}; // Buffer, Used with cF() to store constants in program space (FLASH)
+
   //F Used insteda of F macro, Macro can be adjusted to debugging
   #define E(x) F(x) 
   //Usage:   // Serial.println(  E("<!-- Verbose -->") );
 
   // Used as an F() when being used as the first Element of a Multi-Element Expression
-  #define sE(x) String( F(x) )
+  #define sE(x) String( E(x) )
   //Usage: // Serial.println( sE("Sketch Rev: <b>") + 13.0 + E("</b>"));
 
   // Used with printf() and other fucntions where c_str parameter format is needed
@@ -26,7 +28,7 @@
   //uint8_t stringLength = snprintfTo_globalCharBuf(E("Score: %d:%d"), 3,2);
   //Serial.println(globalCharBuf);
 
-  char globalCharBuf[256+1] = {0}; // Buffer, Used with cF() to store constants in program space (FLASH)
+  
 
 
   #define xE(x) (x)
@@ -46,4 +48,4 @@
   #define WEEK (DAY * 7)
 
 
-  #define SIZE_OF_LOACAL_ARRAY(variable) sizeof variable / sizeof *variable
+  #define SIZE_OF_LOCAL_ARRAY(variable) sizeof variable / sizeof *variable

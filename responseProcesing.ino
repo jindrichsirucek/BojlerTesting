@@ -1,5 +1,6 @@
 
 #include <ArduinoJson.h>// https://github.com/bblanchon/ArduinoJson
+#include <TimeLib.h>
 
 bool isFileReceivedOk()
 {
@@ -16,8 +17,6 @@ bool isFileReceivedOk()
 
 
 
-
-//void doNecesaryActionsUponResponse(String inputJsonString) 
 bool doNecesaryActionsUponResponse()
 {
   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:doNecesaryActionsUponResponse()"));
@@ -30,7 +29,7 @@ bool doNecesaryActionsUponResponse()
   // Test if parsing succeeds.
   if (!root.success())
   {
-    showServiceMessage(E("Response Error!"));
+    displayServiceMessage(E("Response Error!"));
 
     stressAskingForResponse();
     notParsedHttpResponses_errorCount++; 
@@ -43,29 +42,56 @@ bool doNecesaryActionsUponResponse()
 
     return false;
   }
-  
-  parsedHttpResponses_notErrorCount++;
-  showServiceMessage(E("Response OK!"));
+  if(true) DEBUG_OUTPUT.println(E("responseText_global: "));
+  if(true) DEBUG_OUTPUT.println(responseText_global);
+    
 
   // Most of the time, you can rely on the implicit casts.
   // In other case, you can do root["time"].as<long>();
   byte topHeatingTemp = root[E("topHeatingTemp")];
   byte lowDropingTemp = root[E("lowDropingTemp")];
-  bool powerOff = root[E("powerOff")];
   byte lastTemperature = root[E("lastTemperature")];
   String heatingControl = root[E("heatingControl")];
   // String nowTime = root[E("nowTime")];
   // String nowDate = root[E("nowDate" )];
   bool resetNode = root[E("resetNode")];
   String syncTime = root[E("syncTime")];
+  String updateSketchUrl = root[E("updateSketchUrl")];
 
   if(INTERNET_COMMUNICATION_DEBUG) {root.prettyPrintTo(DEBUG_OUTPUT);  DEBUG_OUTPUT.println();}
 
   //----------------Procesing----------------  
-if(getObjectAskingForResponse().indexOf(cE("begining state update")) != -1);
-    synchronizeTimeByResponse(syncTime);
-  
-  nodeStatusUpdateTime_global = root[E("nodeStatusUpdateTime")];
+
+  if(isWifiConnected()) //Fresh answer from server (otherwise loaded from file)
+  {
+    parsedHttpResponses_notErrorCount++;
+    displayServiceMessage(E("Response OK!"));
+    
+    if(GLOBAL.nodeInBootSequence)
+    {
+      synchronizeTimeByResponse(syncTime);
+ 
+      if(waterFlowDisplay_global == 0 && root[E("lastSpareLitres")] != "")
+        waterFlowDisplay_global = ((float)BOILER_SIZE_LITRES - (float)root[E("lastSpareLitres")]) * PULSES_PER_LITER_WATER_SENSOR;
+    }
+    else if(year() != 1970 && minute() < 58 && abs(minute() - syncTime.substring(3,5).toInt()) > 1) //More than a minutte drift, not first time sync, and not 59 minute
+    {
+      logNewErrorState(sE("@Time: Synced (") + hour()+ "," + minute() + "," + second() + "," + day() + "," + month() + "," + year() + "/" + syncTime + ")");
+      synchronizeTimeByResponse(syncTime);
+    }
+
+    if(resetNode)
+      restartEsp();
+
+    // if(updateSketchUrl.length() > 0)
+    //   saveNewUpdateUrlToFlashMemory(updateSketchUrl);
+  }
+
+  if(GLOBAL.nodeStatusUpdateTime != root[E("nodeStatusUpdateTime")])
+  {
+    GLOBAL.nodeStatusUpdateTime = root[E("nodeStatusUpdateTime")];
+    logNewNodeState(sE("Settings: update Time changed to:") + GLOBAL.nodeStatusUpdateTime);
+  }
 
   if (heatingControl == E("ARDUINO") && getTempControleStyleStringName() != E("ARDUINO"))
     setTempControleStyle(ARDUINO_STYLE_CONTROL);
@@ -74,11 +100,9 @@ if(getObjectAskingForResponse().indexOf(cE("begining state update")) != -1);
   else if (heatingControl == E("OFF") && getTempControleStyleStringName() != E("OFF"))
     setTempControleStyle(OFF_STYLE_CONTROL);
 
-  if(resetNode)
-    restartEsp();
-
-  topHeatingTemp_global = topHeatingTemp; 
-  lowDropingTemp_global = lowDropingTemp;
+  
+  GLOBAL.TEMP.topHeating = topHeatingTemp; 
+  GLOBAL.TEMP.lowDroping = lowDropingTemp;
   
   if(root[E("newSensorAddresses")])
   {
@@ -92,6 +116,7 @@ if(getObjectAskingForResponse().indexOf(cE("begining state update")) != -1);
   if(!root[E("dataSavingError")])
   {
     saveReceivedBoilerStateToFile();
+    resetObjectAskingForResponse();
     responseText_global = E("");
     return true;
   }

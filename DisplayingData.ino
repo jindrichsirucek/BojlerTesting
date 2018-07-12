@@ -1,4 +1,4 @@
-//OLED_Display
+// OLED_Display
 /*********************************************************************
 This is an example for our Monochrome OLEDs based on SSD1306 drivers
 
@@ -39,6 +39,9 @@ LiquidCrystal_I2C lcd(LCD_DISPLAY_ADDRESS, LCD_DISPLAY_COLS_COUNT, LCD_DISPLAY_R
 #define serviceAreaDisplayStartCol 1
 #define serviceAreaDisplayStartRow 1
 
+#define ERASE_SERVICE_AREA_ONLY 0
+#define ERASE_SERVICE_AREA_AND_PIPE_TEMP_AREA 1
+
 bool lcdDisplayConnected_global = false;
 bool oledDisplayConnected_global = false;
 
@@ -50,53 +53,69 @@ byte * setActiveAnimation(byte symbol[][8], uint16_t animationStepDuration, uint
 
 void i2cBus_setup()
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + F("F:i2cBus_setup()"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:i2cBus_setup()"));
   // Wire.begin(SCL, SDA); //Wire.begin(int sda, int scl) !!! labels GPIO4 and GPIO5 on EPS8266 are swaped at old esps!!!!
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN); //Wire.begin(int sda, int scl) !!! labels GPIO4 and GPIO5 on EPS8266 are swaped at old esps!!!!
 
   Wire.beginTransmission(LCD_DISPLAY_ADDRESS);
   if (Wire.endTransmission() == 0)
-    lcd_setup();
+  {
+    lcd.begin();
+    lcdDisplayConnected_global = true;
+    lcd.createChar(0, wifiNOTConnectedSymbol);
+    displayServiceLine(cE("Initialization.."));
+    lcd.setCursor(0, 1);
+    lcd.write(0);//WiFi symbol
+  
+  }
   else
-    if(SHOW_WARNING_DEBUG_MESSAGES) DEBUG_OUTPUT.println(F("!!WARNING: 16X2 LCD display not found!"));
+    if(SHOW_WARNING_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E("!!WARNING: 16X2 LCD display not found!"));
 
   // Wire.beginTransmission(OLED_DISPLAY_ADDRESS);
   // if (Wire.endTransmission() == 0)
   //   oledDisplay_setup();
   // else
-  //   if(SHOW_WARNING_DEBUG_MESSAGES) DEBUG_OUTPUT.println(F("!!WARNING: OLED display not found!"));
+  //   if(SHOW_WARNING_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E("!!WARNING: OLED display not found!"));
+  yield();
  }
 
 
+void lcdCreateScaleChars()
+{ 
+
+  lcd.createChar(1, signalStrengthSymbolAnimation[0]);
+  lcd.createChar(2, signalStrengthSymbolAnimation[1]);
+  lcd.createChar(3, signalStrengthSymbolAnimation[2]);
+  lcd.createChar(4, signalStrengthSymbolAnimation[3]);
+  lcd.createChar(5, signalStrengthSymbolAnimation[4]);
+  lcd.createChar(6, signalStrengthSymbolAnimation[5]);
+}
+
 void lcd_setup()
 { 
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + F("F:lcd_setup()"));
-  lcdDisplayConnected_global = true;
-  // initialize the lcd
-  lcd.begin();
-  lcd.createChar(0, newCharWifiNOTConnected);
-  lcd.createChar(5, newCharC);
-  lcd.createChar(6, newCharWaterDrop);
-  lcd.createChar(7, newCharTemp);
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:lcd_setup()"));
 
-  // Turn on the blacklight and print a message.
-  lcd.backlight();
-  showServiceMessage(E("Loading..."));
+  displayServiceLine(cE("")); //erase first row
+  // initialize the lcd
+  lcd.createChar(3, degreeCelsiusSymbol);
+  lcd.createChar(4, boilerSymbol);
+  lcd.createChar(5, (degreeSymbol));
+  lcd.createChar(6, waterDropSymbol);
+  lcd.createChar(7, tempSymbol);
+
+  // displayServiceMessage(E("Loading..."));
   lcd.setCursor(10, 0);
   lcd.write(6);//drop symbol
-  // displayPrint(E("Full"));
 
   lcd.setCursor(0, 0);
   lcd.write(7);//temp symbol
-  lcd.setCursor(0, 1);
-  lcd.write(0);//created symbol
   displayData_loop(0);
 }
 
 
 // void oledDisplay_setup()
 // {
-//   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + F("F:oledDisplay_setup()"));
+//   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:oledDisplay_setup()"));
 //   oledDisplayConnected_global = true;
 //   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
 //   oledDisplay.begin(SSD1306_SWITCHCAPVCC, OLED_DISPLAY_ADDRESS);  // initialize with the I2C addr 0x3c (for the 128x64)
@@ -111,134 +130,132 @@ void lcd_setup()
 
 void displayData_loop(int)
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + F("F:displayData_loop()"));  
-  
-  char bufferCharConversion[10];               //temporarily holds data from vals
-
-  if(lcdDisplayConnected_global || oledDisplayConnected_global)
-  {
-    if(isWaterFlowingRightNow() || isDebugButtonPressed())
-    {
-      float waterFlowInLitresPerMinute = (isDebugButtonPressed()) ? 2.5 : getCurentWaterFlowInLitresPerMinute();
-      if(waterFlowInLitresPerMinute > 1)
-      {
-        displayPrintAt(getSpareWaterInLittres()+E("L  "), 11, 0); // prints rest of watter in Littres (100L minus spotřeba)
-        if(dislayRotationPosition_global % 3 == 0)
-          printServiceMessageWithSymbol((String)dtostrf(waterFlowInLitresPerMinute, 1, 1, bufferCharConversion) + E("l/m"), setActiveAnimation(newCharWaterFlow, 280, 2), SYMBOL_ANIMATION_ON); //first num is mininum width, second is precision
-        else if(dislayRotationPosition_global % 3 == 1)
-          printServiceMessageWithSymbol((String)getSpareMinutesOfHotWater(waterFlowInLitresPerMinute) + E("minut"), setActiveAnimation(newCharShower, 250, 2 ), SYMBOL_ANIMATION_ON);
-        else if(dislayRotationPosition_global % 3 == 2)
-          printServiceMessageWithSymbol(getNowTimeString(), newCharTime, SYMBOL_ANIMATION_OFF);
-        dislayRotationPosition_global++;
-      }
-      else
-        displayPrintAt(getUpTime()+E("  "), serviceAreaDisplayStartCol, serviceAreaDisplayStartRow);
-    }
-    else
-      displayPrintAt(getUpTime()+E("  "), serviceAreaDisplayStartCol, serviceAreaDisplayStartRow);
-  }
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:displayData_loop()"));  
+  char bufferCharConversion[10];//temporarily holds data from vals
 
   if(lcdDisplayConnected_global)
   {
-    if(isTemperatureCorrectMeasurment(lastTemp_global))
+    //when boilesr is heating, blink with temp sympbol to indicate that
+    lcd.createChar(7, ((lastElectricCurrentState_global == true && dislayRotationPosition_global % 2 == 0)? emptySymbol : tempSymbol));
+    //BojlerTemp
+    if(isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated))
     {
-      dtostrf(lastTemp_global, 2, 2, bufferCharConversion);  //float value lastTemp_global is copied onto buff bufferCharConversion //first num is mininum width, second is precision
+      dtostrf(GLOBAL.TEMP.lastHeated, 2, 0, bufferCharConversion);  //float value lastTemp_global is copied onto buff bufferCharConversion //first num is mininum width, second is precision
       displayPrintAt(bufferCharConversion, 1, 0); // prints temp on display
-      // lcd.print((char)223);//Degree Symbol°
-  //    oledDisplay.write(759);//° symbol
       lcd.write(5);//Degree Symbol°
       displayPrint(E("C"));
     }
     else
       displayPrintAt(E(" --- "), 1, 0); // prints
-    
-    if(isTemperatureCorrectMeasurment(tempSensors[PIPE].temp))
-    {
-      dtostrf(tempSensors[PIPE].temp, 2, 1, bufferCharConversion);  //float value lastTemp_global is copied onto buff bufferCharConversion
-      displayPrintAt(bufferCharConversion, 11, 1); // prints temp on display
-      // lcd.print((char)223);//Degree Symbol°
-      //oledDisplay.write(759);//° symbol
-      lcd.write(5);//Degree Symbol°
-      displayPrint(E("C"));
-
-
-      /////// VOLTAGE MEASURMENT
-
-      // int rawData = analogRead(A0);
-      // dtostrf((float)rawData/1023*4.43, 2, 2, bufferCharConversion);  //float value lastTemp_global is copied onto buff bufferCharConversion
-      // displayPrintAt(bufferCharConversion, 11, 1); // prints voltage
-      // displayPrint("V"); // prints voltage
-
-      // displayPrintAt((String)rawData, 1, 1); // prints voltage
-      // displayPrint("/1023"); // prints voltage
-
-    }
-    else
-      displayPrintAt(" --- ", 11, 1); // prints
   }
 
+  // Uptime - posledni nahrata teplota
+  // Minus Cas do nizkeho tarifu - nastavena teplota ohrevu
+  // Normal time - actual temp
+  if(lcdDisplayConnected_global || oledDisplayConnected_global)
+  {
+    if(!GLOBAL.nodeInBootSequence)
+      displayPrintAt(getSpareWaterInLittres()+E("L  "), 11, 0); // prints rest of watter in Littres (100L minus spotřeba)
+    if(isWaterFlowingLastStateFlag_global || isDebugButtonPressed())
+    {
+      float waterFlowInLitresPerMinute = (isDebugButtonPressed()) ? 2.5 : getCurentWaterFlowInLitresPerMinute();
+      if(waterFlowInLitresPerMinute > 1)
+      {
+        if(dislayRotationPosition_global % 3 == 0)
+        displayServiceMessageWithSymbol((String)dtostrf(waterFlowInLitresPerMinute, 1, 1, bufferCharConversion) + E("l/m"), setActiveAnimation(waterFlowSymbolAnimation, 280, 2), SYMBOL_ANIMATION_ON, ERASE_SERVICE_AREA_AND_PIPE_TEMP_AREA); //first num is mininum width, second is precision
+        else if(dislayRotationPosition_global % 3 == 1)
+        displayServiceMessageWithSymbol((String)getSpareMinutesOfHotWater(waterFlowInLitresPerMinute) + E("minut"), setActiveAnimation(showerSymbolAnimation, 250, 2 ), SYMBOL_ANIMATION_ON, ERASE_SERVICE_AREA_AND_PIPE_TEMP_AREA);
+        else if(dislayRotationPosition_global % 3 == 2)
+        displayServiceMessageWithSymbol(getNowTimeString(), timeSymbol, SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_AND_PIPE_TEMP_AREA);
 
-  // if(oledDisplayConnected_global)
-  // {
-  //   //float namerenaTeplotaVBojleru = readTemperature();
-  //   if(isTemperatureCorrectMeasurment(lastTemp_global))
-  //     if(lastTemp_global)
-  //     {
-  //       //lcd.write('^');
-  //       oledDisplay.write(24);//up arrow symbol
-  //     }
-  //     else
-  //     {
-  //       //lcd.write('_');
-  //       oledDisplay.write(25);//down arrow symbol
-  //     }
-  // }
-  
-  
-  // if(oledDisplayConnected_global)
-  // {
-  //   oledDisplay.setCursor(0, 4 * 8);//4*8 4.řádek * 8bodů font
-  //   oledDisplay.print("MainTemp: ");
-  //   oledDisplay.print(lastTemp_global);
-  //   oledDisplay.println("   ");
-  //   oledDisplay.print("FlowTemp: ");
-  //   oledDisplay.print(flowTemp_global);
-  //   oledDisplay.println("     ");
-  //   oledDisplay.print("PipeTemp: ");
-  //   oledDisplay.print(tempSensors[PIPE].temp);
-  //   oledDisplay.println("                                                  ");
+        //PipeTemp
+        displayTempInServiceAreaWithSymbol(GLOBAL.TEMP.sensors[PIPE].temp, waterFlowSymbolAnimation[1]);
+      }
+    }
+    else //Normal state - (NO Watter)
+    {
+      if(dislayRotationPosition_global % 6 <= 2)
+      {
+        //actual temp / UPTIME
+        displayServiceMessageWithSymbol(getUpTime(), isWifiConnected()? wifiConnectedSymbol : wifiNOTConnectedSymbol, SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_ONLY);
+        displayTempInServiceAreaWithSymbol(GLOBAL.TEMP.topHeating, upTempSymbol);
+      }
+      else if(dislayRotationPosition_global % 6 <= 5)
+      {
+        //Low tarif time / setHeatingTemp
+        //Time / actual pipeTemp
+        String timeString = getNowTimeString();
+        if(dislayRotationPosition_global % 6 == 4)
+          timeString.replace(":"," ");
+        displayServiceMessageWithSymbol(timeString, timeSymbol, SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_ONLY);
 
-  //   oledDisplay.display();
-  // }
+        displayTempInServiceAreaWithSymbol(GLOBAL.TEMP.sensors[BOJLER].temp, tempSymbol);
+      }
+    }
+    dislayRotationPosition_global++;
+  }
 }
 
-
-void showServiceMessage(String message) {return showServiceMessage(message.c_str());}
-void showServiceMessage(char const* message)
+void displayTempInServiceAreaWithSymbol(float temp, byte *symbolToDraw)
 {
-  if(DISPLAY_DEBUG) DEBUG_OUTPUT.print("DisplayServiceMessage: ");
-  if(DISPLAY_DEBUG) DEBUG_OUTPUT.println(message);
-
-  if(isWifiConnected())
-    printServiceMessageWithSymbol(message, newCharWifiConnected, SYMBOL_ANIMATION_OFF); 
+  lcd.createChar(4, symbolToDraw);
+  lcd.setCursor(10, 1);
+  lcd.write(4);
+  
+  char bufferCharConversion[10];               //temporarily holds data from vals
+  if(isTemperatureCorrectMeasurment(temp))
+  {
+    dtostrf(temp, 2, 1, bufferCharConversion);  //float value lastTemp_global is copied onto buff bufferCharConversion
+    displayPrintAt(bufferCharConversion, 11, 1); // prints temp on display
+    lcd.write(3);//Degree Symbol°C
+  }
   else
-    printServiceMessageWithSymbol(message, newCharWifiNOTConnected, SYMBOL_ANIMATION_OFF);
+    displayPrintAt(E(" --- "), 11, 1); // prints
+}
+
+void displayServiceLine(String message) {return displayServiceLine(message.c_str());}
+void displayServiceLine(char const* message)
+{
+  String eraseString = "";
+  uint8_t messageLength = strlen(message);
+  while(messageLength < LCD_DISPLAY_COLS_COUNT)
+  {
+    eraseString += E(" ");
+    messageLength++;
+  }
+
+  displayPrintAt((String)message + eraseString, 0, 0);
 }
 
 
-void printServiceMessageWithSymbol(String message, byte *symbolToDraw, bool isSymbolAnimated){return printServiceMessageWithSymbol(message.c_str(), symbolToDraw, isSymbolAnimated);}
-void printServiceMessageWithSymbol(char const* message, byte *symbolToDraw, bool isSymbolAnimated)
+void displayServiceMessage(String message) {return displayServiceMessage(message.c_str());}
+void displayServiceMessage(char const* message)
+{
+  if(!lcdDisplayConnected_global && !oledDisplayConnected_global)
+  {
+    DEBUG_OUTPUT.print(E("DisplayServiceMessage: "));
+    DEBUG_OUTPUT.println(message);
+    RemoteDebug.handle();
+    return; //no display
+  }
+
+  displayServiceMessageWithSymbol(message, isWifiConnected()? wifiConnectedSymbol : wifiNOTConnectedSymbol, SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_AND_PIPE_TEMP_AREA); 
+}
+
+
+void displayServiceMessageWithSymbol(String message, byte *symbolToDraw, bool isSymbolAnimated, bool erasePipeTempArea){return displayServiceMessageWithSymbol(message.c_str(), symbolToDraw, isSymbolAnimated, erasePipeTempArea);}
+void displayServiceMessageWithSymbol(char const* message, byte *symbolToDraw, bool isSymbolAnimated, bool erasePipeTempArea)
 {
   if(!isSymbolAnimated)
     stopActiveAnimation();
 
-  lcd.createChar(0, symbolToDraw);      
+  lcd.createChar(0, symbolToDraw);
 
   String eraseString = "";
   uint8_t messageLength = strlen(message);
-  while(messageLength < (LCD_DISPLAY_COLS_COUNT-1))
+  while(messageLength < (LCD_DISPLAY_COLS_COUNT-(erasePipeTempArea? 1 : 7)))
   {
-    eraseString += " ";
+    eraseString += E(" ");
     messageLength++;
   }
 
@@ -294,11 +311,11 @@ byte * setActiveAnimation(byte symbol[][8], uint16_t animationStepDuration, uint
   if(DISPLAY_ANIMATIONS_ENABLED)
   {
     // Serial.println(sE("Setting Animation on! frames: ") + animationFramesCount);
-    activeAnimationSymbol_global = symbol;
-    animationProgress_global = 0;
-    activeAnimationStepDuration_global = animationStepDuration;
-    activeAnimationFramesCount_global = animationFramesCount;
-    tasker.setTimeout(animateActiveSymbol_taskerLoop, activeAnimationStepDuration_global, TASKER_SKIP_WHEN_NEEDED);
+    GLOBAL.ANIMATION.activeSymbol = symbol;
+    GLOBAL.ANIMATION.progress = 0;
+    GLOBAL.ANIMATION.stepDuration = animationStepDuration;
+    GLOBAL.ANIMATION.framesCount = animationFramesCount;
+    !tasker.setTimeout(animateActiveSymbol_taskerLoop, GLOBAL.ANIMATION.stepDuration, TASKER_SKIP_NEVER);
   }
   // else
   //   Serial.println("Animations are turned Off!");
@@ -308,7 +325,7 @@ byte * setActiveAnimation(byte symbol[][8], uint16_t animationStepDuration, uint
 
 uint8_t animateWiFiProgressSymbol(uint8_t progressAnimationCounter)
 {
-  lcd.createChar(0, newCharWifiSending[progressAnimationCounter]);
+  lcd.createChar(0, wifiSendingSymbolAnimation[progressAnimationCounter]);
   if(++progressAnimationCounter < 4)//Array length
     return progressAnimationCounter;
   else
@@ -317,26 +334,27 @@ uint8_t animateWiFiProgressSymbol(uint8_t progressAnimationCounter)
 
 void animateActiveSymbol_taskerLoop(int)
 {
-  if(animationProgress_global != -1)
+  if(GLOBAL.ANIMATION.progress != -1)
   {
-    // Serial.println(sE("Animating next step: ") + animationProgress_global);
-    lcd.createChar(0, activeAnimationSymbol_global[incrementAnimationCount(activeAnimationFramesCount_global)]);
-    if(DISPLAY_ANIMATIONS_ENABLED) tasker.setTimeout(animateActiveSymbol_taskerLoop, activeAnimationStepDuration_global, TASKER_SKIP_WHEN_NEEDED);
+    // Serial.println(sE("Animating next step: ") + GLOBAL.ANIMATION.progress);
+    lcd.createChar(0, GLOBAL.ANIMATION.activeSymbol[incrementAnimationCount(GLOBAL.ANIMATION.framesCount)]);
+    if(DISPLAY_ANIMATIONS_ENABLED) 
+      tasker.setTimeout(animateActiveSymbol_taskerLoop, GLOBAL.ANIMATION.stepDuration, TASKER_SKIP_NEVER);
   }
   // else
-  // Serial.println(sE("Animation is stopped: ") + animationProgress_global);
+  // Serial.println(sE("Animation is stopped: ") + GLOBAL.ANIMATION.progress);
 }
 
 void stopActiveAnimation()
 {
-  animationProgress_global = -1;
+  GLOBAL.ANIMATION.progress = -1;
 }
 
 
 uint8_t incrementAnimationCount(const uint8_t animationFramesCount)
 {
-  // Serial.println(sE("Incrementing Animation from: ") + animationProgress_global);
-  return animationProgress_global = (++animationProgress_global >= animationFramesCount) ? 0 : animationProgress_global;
+  // Serial.println(sE("Incrementing Animation from: ") + GLOBAL.ANIMATION.progress);
+  return GLOBAL.ANIMATION.progress = (++GLOBAL.ANIMATION.progress >= animationFramesCount) ? 0 : GLOBAL.ANIMATION.progress;
 }
 
 

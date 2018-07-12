@@ -3,32 +3,31 @@
 #define PULSES_PER_LITER_WATER_SENSOR 369*2 // model: G1/2 (bigger) - YF-S201 - 450 pulses per liter *2 becouse measuring both rising and falling edges. 369 changed value to precise measuring
 //recounted during test with CHANGE - 369 * 2
 
-void ISR_flowCount();//Preprocesor
-
 void waterFlowSensor_setup()
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + F("F:waterFlowSensor_setup()"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:waterFlowSensor_setup()"));
 
   pinMode(WATER_FLOW_SENSOR_PIN, INPUT_PULLUP);
   // attachInterrupt(digitalPinToInterrupt(WATER_FLOW_SENSOR_PIN), ISR_flowCount, RISING); // Setup Interrupt  // see http://arduino.cc/en/Reference/attachInterrupt
   attachInterrupt(digitalPinToInterrupt(WATER_FLOW_SENSOR_PIN), ISR_flowCount, CHANGE); // 2 times more impulses for more acurate measurment
   sei(); // Enable interrupts
+  yield();
 }
 
 float readFlowInLitres()
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + F("F:readFlowInLitres()"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:readFlowInLitres()"));
 
   if(waterFlowSensorCount_ISR_global > lastWaterFlowSensorCount_global)
   {
     lastWaterFlowSensorCount_global = waterFlowSensorCount_ISR_global;
     float spotreba = convertWaterFlowSensorImpulsesToLitres(lastWaterFlowSensorCount_global);
 
-    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.println(("Otacky: ") + (String)waterFlowSensorCount_ISR_global);
-    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.print(F("Spotreba: "));
+    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.println(sE("Otacky: ") + waterFlowSensorCount_ISR_global);
+    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.print(E("Spotreba: "));
     if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.print(spotreba, 4);
-    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.println(F(" L"));
-    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.print(F("Celková spotřeba v litrech: "));
+    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.println(E(" L"));
+    if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.print(E("Celková spotřeba v litrech: "));
     if(WATER_FLOW_DEBUG) DEBUG_OUTPUT.println(waterFlowDisplay_global/PULSES_PER_LITER_WATER_SENSOR);
 
     return spotreba;
@@ -39,8 +38,8 @@ float readFlowInLitres()
 
 String getSpareWaterInLittres()
 {
-  char bufferCharConversion[10];               //temporarily holds data from vals
-  dtostrf(convertWaterFlowSensorImpulsesToLitres((float)100*PULSES_PER_LITER_WATER_SENSOR-(waterFlowDisplay_global + lastWaterFlowSensorCount_global + waterFlowSensorCount_ISR_global)), 1, 1, bufferCharConversion);  //first num is mininum width, second is precision
+  char bufferCharConversion[10]; //temporarily holds data from vals
+  dtostrf(convertWaterFlowSensorImpulsesToLitres((float)BOILER_SIZE_LITRES*PULSES_PER_LITER_WATER_SENSOR-(waterFlowDisplay_global + lastWaterFlowSensorCount_global + waterFlowSensorCount_ISR_global)), 1, 1, bufferCharConversion);  //first num is mininum width, second is precision
   return (String)bufferCharConversion;
 }
 
@@ -73,7 +72,9 @@ void enableInterupts()                  // Interrupt function
 
 bool isWaterFlowingRightNow()
 {//isWaterFlowingFlag_global;
-  return (waterFlowSensorCount_ISR_global != 0);
+  uint16_t actualISR = waterFlowSensorCount_ISR_global;
+  delay(150);
+  return actualISR != waterFlowSensorCount_ISR_global;
 }
 
 void resetflowCount()
@@ -95,7 +96,7 @@ float convertWaterFlowSensorImpulsesToLitres(float count)
 //Display function only
 float getCurentWaterFlowInLitresPerMinute()
 {
-  unsigned long measuredImpulsesPerOneSecond = waterFlowSensorCount_ISR_global;
+  uint16_t measuredImpulsesPerOneSecond = waterFlowSensorCount_ISR_global;
   delay(500);
   measuredImpulsesPerOneSecond = waterFlowSensorCount_ISR_global - measuredImpulsesPerOneSecond;
 
@@ -107,7 +108,7 @@ float getCurentWaterFlowInLitresPerMinute()
 
 int getSpareMinutesOfHotWater(float waterFlowInLitresPerMinute)
 {
-  float spareHotWaterInLitres = 100 - convertWaterFlowSensorImpulsesToLitres(waterFlowDisplay_global);
+  float spareHotWaterInLitres = BOILER_SIZE_LITRES - convertWaterFlowSensorImpulsesToLitres(waterFlowDisplay_global);
   
   float spareTimeOfShoweringImMinutes = spareHotWaterInLitres / waterFlowInLitresPerMinute;
 

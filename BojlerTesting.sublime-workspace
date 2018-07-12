@@ -4,8 +4,116 @@
 		"selected_items":
 		[
 			[
+				"if",
+				"if\tDeviot Macro if"
+			],
+			[
 				"uint",
-				"uint16_t"
+				"uint8_t"
+			],
+			[
+				"pro",
+				"PROGMEM_T"
+			],
+			[
+				"DEb",
+				"DEBUG_OUTPUT"
+			],
+			[
+				"err",
+				"ERROR_OUTPUT"
+			],
+			[
+				"Err",
+				"ERROR_OUTPUT"
+			],
+			[
+				"ERR",
+				"ERROR_OUTPUT"
+			],
+			[
+				"FA",
+				"false"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"att",
+				"attempt"
+			],
+			[
+				"uin",
+				"uint8_t"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"RXD",
+				"RXD_PIN"
+			],
+			[
+				"add",
+				"address"
+			],
+			[
+				"INP",
+				"INPUT_PULLUP"
+			],
+			[
+				"sam",
+				"sampleCounter"
+			],
+			[
+				"Last",
+				"lastCurrentMeasurment_global"
+			],
+			[
+				"led",
+				"LED_BUILTIN"
+			],
+			[
+				"te",
+				"template\tTag"
+			],
+			[
+				"digit",
+				"digitalWrite\tDeviot digitalWrite"
+			],
+			[
+				"conn",
+				"connect"
+			],
+			[
+				"yi",
+				"yield_debug"
+			],
+			[
+				"connect",
+				"connected"
+			],
+			[
+				"ui",
+				"uint8_t"
+			],
+			[
+				"int",
+				"int8_t"
+			],
+			[
+				"n",
+				"number"
+			],
+			[
+				"disp",
+				"displayIPAddress"
+			],
+			[
+				"pulldown",
+				"INPUT_PULLDOWN_16"
 			],
 			[
 				"E",
@@ -58,10 +166,6 @@
 			[
 				"setO",
 				"setOutroTask"
-			],
-			[
-				"uin",
-				"uint32_t"
 			],
 			[
 				"deb",
@@ -287,69 +391,7 @@
 			"file": "BojlerTesting.ino",
 			"settings":
 			{
-				"buffer_size": 27233,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "WaterFlowMetter.ino",
-			"settings":
-			{
-				"buffer_size": 4328,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "HTTPSRedirect.h",
-			"settings":
-			{
-				"buffer_size": 7359,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "internet_comunication.ino",
-			"settings":
-			{
-				"buffer_size": 4774,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "debugging.ino",
-			"settings":
-			{
-				"buffer_size": 3933,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "settings.ino",
-			"settings":
-			{
-				"buffer_size": 14525,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "OTA.ino",
-			"settings":
-			{
-				"buffer_size": 2391,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/sE_macro.sublime-snippet",
-			"settings":
-			{
-				"buffer_size": 417,
+				"buffer_size": 28764,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -358,16 +400,15 @@
 			"file": "responseProcesing.ino",
 			"settings":
 			{
-				"buffer_size": 3964,
-				"encoding": "UTF-8",
+				"buffer_size": 4988,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "temperatureModule.ino",
+			"file": "define.h",
 			"settings":
 			{
-				"buffer_size": 5515,
+				"buffer_size": 1915,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -376,18 +417,36 @@
 			"file": "dataLoging.ino",
 			"settings":
 			{
-				"buffer_size": 15892,
+				"buffer_size": 21952,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "[ Deviot 2.1.6 ] Serial Monitor | /dev/tty.wchusbserial1410\n\nsd\u0000lܟ<\u0000�l�<\u0003\f\u0004\f�\u0004l�\fc|��\u0003�\u0013�r�#�\u0004c��gn�dog���\u0004c\u001c8ćlrd;lx�o�\u0018\u0003\f\u0004�\f$\f��\f\u0004\f#\fg�|\u0002d�\f\u0004�#��og�\u0000l��l \u0003�\u001b\u0013og\u0004l \u0003\u000f\u0002n{���g\u0004\fc\u0004�\u0007l\u0007s��n\f\u0004c\f�\u0007d�\u0003l���\u001bl�l \u0003��o�\u0003�!�������begin\n\n FreeHeap:34592\nFS OK!\nblockSize: 8192\npageSize: 256\nmaxOpenFiles: 5\nmaxPathLength: 32\ntotal space: 957kB  used: 4kB  free: 953kB\n/progressFile.logB - size: 197\n/exception.stack - size: 0\n/settings.json - size: 244\n/progressFile.logA - size: 2233\n\n\n00:00:00 (315ms) (32600)>F:i2cBus_setup()\n00:00:00 (316ms) (32600)>>F:lcd_setup()\nDisplayServiceMessage: Loading...\n00:00:01 (1488ms) (32600)>>>F:oneWireBus_setup()\nDisplayServiceMessage: Service Menu?\nDisplayServiceMessage: Booting..\nDisplayServiceMessage: Con: APJindra\nWifi connecting to: APJindra.....................................................................\nConnected!\n00:00:10 (10182ms) (32136)>>>>F:logNewNodeState(String fireEventName): WiFi: connected\nDisplayServiceMessage: WiFi: connected\n00:00:10 (10218ms) (32136)>>>>>F:setPendingEventToSend(bool isThereEventToSend): true\n00:00:10 (10221ms) (31408)>>>>>>F:openCurentLogFileForApending() curentLogNumber_global: 0\nNo log file yet! Creating new Log File: /Log_1.csv\n00:00:10 (10244ms) (31280)>>>>>>>F:createNewEventLogFile(uint16_t newFileNumber): 1\nCreating NEW Log file: '/Log_1.csv'. Free space: 953kB\n) of ssize: 0\nAdding a header to file: '/Log_1.csv'.\nOpening Curent Logging file name: '/Log_1.csv' of size: 180\nDisplayServiceMessage: 192.168.43.69\n00:00:11 (11363ms) (31832)>>>>>>>>>F:MAIN_setup()\nDoma node initializing..\nDisplayServiceMessage: Con: APJindra\nWifi connecting to: APJindra..\nConnected!\nDisplayServiceMessage: 192.168.43.69\n00:00:12 (12434ms) (31832)>F:sendDebugInformationsAfterReset()\nDisplayServiceMessage: Reboot:EXTERNAL_REASON\n00:00:12 (12562ms) (31336)>>F:uploadDebugLogFile(String uriParamsEncoded) :&quickEvent=Reboot%3aEXTERNAL%5fREASON&bojlerAddress=0000000000000000&pipeAddress=0000000000000000&roomTempAddress=0000000000000000&insideFlowAddress=0000000000000000tempSensorsCount=&allTempSensorsInfo=-28FFB7E262160356-28.44-\nSending request: script.google.com/macros/s/AKfycbziCOySJ-cxsjn6-v8WpIbcsmlE77RqkzGX728nht2wO4HYmvVK/exec?chipId=1487021&ip=192%2e168%2e43%2e69&nodeName=Doma&macAddress=A0%3a20%3aA6%3a16%3aB0%3aAD&timeStamp=1%2e1%2e1970%2000%3a00%3a12&nodeStatusUpdateTime_global=3600000&quickEvent=Reboot%3aEXTERNAL%5fREASON&bojlerAddress=0000000000000000&pipeAddress=0000000000000000&roomTempAddress=0000000000000000&insideFlowAddress=0000000000000000tempSensorsCount=&allTempSensorsInfo=-28FFB7E262160356-28.44-\nFile to send: /progressFile.logA\nHTTPSRedirect Connection Free Heap: 11256\nHTTPSRedirect Connection Free Heap: 9464\nResponse text: {\"topHeatingTemp\":40,\"lowDropingTemp\":39,\"heatingControl\":\"ARDUINO\",\"lastTemperature\":28.31,\"nodeStatusUpdateTime\":3640000,\"resetNode\":false,\"nowDate\":\"03.01.2018\",\"nowTime\":\"01:25:30\",\"syncTime\":\"01,25,30,03,01,2018\",\"dataSavingError\":false}\nDisplayServiceMessage: Event sent!\n) of ssize: 0\n) of ssize: 22\n00:00:18 (18357ms) (13048)>>>>>F:doNecesaryActionsUponResponse()\nDisplayServiceMessage: Response OK!\n{\n  \"topHeatingTemp\": 40,\n  \"lowDropingTemp\": 39,\n  \"heatingControl\": \"ARDUINO\",\n  \"lastTemperature\": 28.31,\n  \"nodeStatusUpdateTime\": 3640000,\n  \"resetNode\": false,\n  \"nowDate\": \"03.01.2018\",\n  \"nowTime\": \"01:25:30\",\n  \"syncTime\": \"01,25,30,03,01,2018\",\n  \"dataSavingError\": false\n}\n01:25:30 (18408ms) (11920)>>>>>>F:setTempControleStyle(newState): ARDUINO\n01:25:30 (18414ms) (11792)>>>>>>>F:logNewNodeState(String fireEventName): TempControl_ARDUINO\nDisplayServiceMessage: TempControl_ARDUINO\n01:25:30 (18463ms) (11792)>>>>>>>>F:setPendingEventToSend(bool isThereEventToSend): true\n01:25:30 (18466ms) (11048)>>>>>>>>>F:openCurentLogFileForApending() curentLogNumber_global: 1\n) of ssize: 607\nOpening Curent Logging file name: '/Log_1.csv' of size: 607\n01:25:30 (18479ms) (11920)>>>>>>>>>>>F:saveReceivedBoilerStateToFile()\n) of ssize: 0\n01:25:30 (18509ms) (13136)>>>>>>>>>>>>>F:temperature_setup()\n01:25:30 (18509ms) (13136)>>>>>>>>>>>>>>F:loadTempSensorAddressesFromEeprom(): \nFrom EEPROM loaded bytes: 32\nbojler sensor of address: 28FFB7E262160356 Current temp:28.37°C\n!!WARNING: Given address: 0000000000000000 of sensor: pipe is not valid!\n!!WARNING: Given address: 0000000000000000 of sensor: roomTemp is not valid!\n!!WARNING: Given address: 0000000000000000 of sensor: insideFlow is not valid!\n01:25:30 (19220ms) (13136)>>>>>>>>>>>>>>>F:readTemperatures(): \n1. 28FFB7E262160356 bojler temp trial: 28.38\n2. 28FFB7E262160356 bojler temp trial: 28.38 Temp difference: 0.00\n3. 28FFB7E262160356 bojler temp trial: 28.38 Temp difference: 0.00\nbojler: Temp measurment successful.. Average temperature: 28.38\n01:25:34 (22537ms) (13120)>>>>>>>>>>>>>>>>F:isThereElectricCurrent(): NO\n01:25:34 (22547ms) (13120)>>>>>>>>>>>>>>>>>F:waterFlowSensor_setup()\n01:25:34 (22548ms) (13120)>>>>>>>>>>>>>>>>>>F:relayBoard_setup()\n01:25:34 (22549ms) (13120)>>>>>>>>>>>>>>>>>>>F:sendAllLogFiles()\nlogFileIndex: 1 - getNumberOfOldestLogFile()\n01:25:34 (22576ms) (13120)>>>>>>>>>>>>>>>>>>>>F:LOOP sendAllLogFiles(): /Log_1.csv\n01:25:34 (22576ms) (13120)>>>>>>>>>>>>>>>>>>>>>F:openLogFileForReadingByNumber(uint16_t logNumber) : 1\n) of ssize: 1039\n01:25:34 (22586ms) (13032)>>>>>>>>>>>>>>>>>>>>>>>F:uploadLogFile(File fileToSent) :/Log_1.csv\nDisplayServiceMessage: Sending:/Log_1.csv\nSending request: script.google.com/macros/s/AKfycbziCOySJ-cxsjn6-v8WpIbcsmlE77RqkzGX728nht2wO4HYmvVK/exec?chipId=1487021&ip=192%2e168%2e43%2e69&nodeName=Doma&macAddress=A0%3a20%3aA6%3a16%3aB0%3aAD&timeStamp=3%2e1%2e2018%2001%3a25%3a34&nodeStatusUpdateTime_global=3640000&logFileName=%2fLog%5f1%2ecsv\nFile to send: /Log_1.csv\nHTTPSRedirect Connection Free Heap: 11928\nHTTPSRedirect Connection Free Heap: 10776\nDisplayServiceMessage: File sent!\nResponse text: {\"topHeatingTemp\":40,\"lowDropingTemp\":39,\"heatingControl\":\"ARDUINO\",\"lastTemperature\":28.31,\"nodeStatusUpdateTime\":3640000,\"resetNode\":false,\"nowDate\":\"03.01.2018\",\"nowTime\":\"01:25:41\",\"syncTime\":\"01,25,41,03,01,2018\",\"dataSavingError\":false}\n01:25:41 (29670ms) (13032)>>>>>>>>>>>>>>>>>>>>>>>>F:deleteFileByName(const char* fileName): '/Log_1.csv'\n01:25:41 (29700ms) (13120)>>>>>>>>>>>>>>>>>>>>>>>>>F:OTA_setup()\nSketch size: 392kB\nFree size: 2752kB\n\nWaiting for OTA upload at IP address: 192.168.43.69\n FreeHeap:12328\n\nF:MAIN_loop()\n01:25:42 (30706ms) (12368)>F:displayData_loop()\n01:25:43 (31738ms) (12368)>F:displayData_loop()\n01:25:44 (32770ms) (12368)>F:displayData_loop()\n01:25:45 (33802ms) (12368)>F:displayData_loop()\n01:25:46 (34834ms) (12368)>F:displayData_loop()\n01:25:47 (35706ms) (12368)>F:current_loop()\n01:25:47 (35706ms) (12368)>>F:isThereElectricCurrent(): NO\n01:25:47 (35866ms) (12368)>F:displayData_loop()\n01:25:48 (36898ms) (12368)>F:displayData_loop()\n01:25:49 (37930ms) (12368)>F:displayData_loop()\n01:25:50 (38962ms) (12368)>F:displayData_loop()\n01:25:51 (39706ms) (12368)>F:uploadLogFile_loop(int)\n01:25:51 (39706ms) (12368)>>F:sendAllLogFiles()\nlogFileIndex: 0 - getNumberOfOldestLogFile()\n01:25:51 (39729ms) (12368)>>>F:setPendingEventToSend(bool isThereEventToSend): false\n01:25:51 (39730ms) (12368)>>>>F:doNecesaryActionsUponResponse()\nDisplayServiceMessage: Response OK!\n{\n  \"topHeatingTemp\": 40,\n  \"lowDropingTemp\": 39,\n  \"heatingControl\": \"ARDUINO\",\n  \"lastTemperature\": 28.31,\n  \"nodeStatusUpdateTime\": 3640000,\n  \"resetNode\": false,\n  \"nowDate\": \"03.01.2018\",\n  \"nowTime\": \"01:25:41\",\n  \"syncTime\": \"01,25,41,03,01,2018\",\n  \"dataSavingError\": false\n}\n01:25:41 (39788ms) (11240)>>>>>F:saveReceivedBoilerStateToFile()\n) of ssize: 0\n01:25:41 (39797ms) (12368)>F:temperature_loop()\n01:25:41 (39799ms) (12368)>>F:readTemperatures(): \n1. 28FFB7E262160356 bojler temp trial: 28.38\n2. 28FFB7E262160356 bojler temp trial: 28.38 Temp difference: 0.00\n3. 28FFB7E262160356 bojler temp trial: 28.38 Temp difference: 0.00\nbojler: Temp measurment successful.. Average temperature: 28.38\n01:25:44 (43136ms) (12368)>F:displayData_loop()\n01:25:44 (43171ms) (12368)>F:current_loop()\n01:25:44 (43171ms) (12368)>>F:isThereElectricCurrent(): NO\n01:25:45 (44175ms) (12368)>F:displayData_loop()\n01:25:46 (45215ms) (12368)>F:displayData_loop()\n01:25:47 (46255ms) (12368)>F:displayData_loop()\n01:25:48 (47295ms) (12368)>F:displayData_loop()\n01:25:49 (48335ms) (12368)>F:displayData_loop()\n01:25:50 (49182ms) (12368)>F:current_loop()\n01:25:50 (49182ms) (12368)>>F:isThereElectricCurrent(): NO\n01:25:50 (49375ms) (12368)>F:displayData_loop()\n01:25:50 (49706ms) (12368)>F:waterFlow_loop()\n01:25:51 (49797ms) (12368)>F:uploadLogFile_loop(int) - Nothing to send!\n01:25:51 (50415ms) (12368)>F:displayData_loop()\n01:25:52 (51455ms) (12368)>F:displayData_loop()\n01:25:53 (52495ms) (12368)>F:displayData_loop()\n01:25:54 (53115ms) (12368)>F:temperature_loop()\n01:25:54 (53115ms) (12368)>>F:readTemperatures(): \n1. 28FFB7E262160356 bojler temp trial: 28.38\n2. 28FFB7E262160356 bojler temp trial: 28.38 Temp difference: 0.00\n3. 28FFB7E262160356 bojler temp trial: 28.44 Temp difference: 0.00\nbojler: Temp measurment successful.. Average temperature: 28.40\n01:25:57 (56427ms) (12368)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 28.40(°C)\n01:25:57 (56449ms) (12368)>F:displayData_loop()\n01:25:57 (56484ms) (12368)>F:current_loop()\n01:25:57 (56485ms) (12368)>>F:isThereElectricCurrent(): NO\n01:25:58 (57489ms) (12368)>F:displayData_loop()\n01:25:59 (58529ms) (12368)>F:displayData_loop()\n01:26:00 (59569ms) (12368)>F:displayData_loop()\n01:26:01 (59797ms) (12368)>F:uploadLogFile_loop(int) - Nothing to send!\n01:26:01 (60609ms) (12368)>F:displayData_loop()\n01:26:02 (61649ms) (12368)>F:displayData_loop()\n01:26:03 (62495ms) (12368)>F:current_loop()\n01:26:03 (62495ms) (12368)>>F:isThereElectricCurrent(): NO\n01:26:03 (62689ms) (12368)>F:displayData_loop()\n01:26:04 (63729ms) (12368)>F:displayData_loop()\n01:26:05 (64769ms) (12368)>F:displayData_loop()\n01:26:07 (65809ms) (12368)>F:displayData_loop()\n01:26:07 (66429ms) (12368)>F:temperature_loop()\n01:26:07 (66429ms) (12368)>>F:readTemperatures(): \n1. 28FFB7E262160356 bojler temp trial: 28.38\n2. 28FFB7E262160356 bojler temp trial: 28.44 Temp difference: 0.00\n3. 28FFB7E262160356 bojler temp trial: 28.44 Temp difference: 0.00\nbojler: Temp measurment successful.. Average temperature: 28.42\n01:26:10 (69741ms) (12368)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 28.42(°C)\n01:26:10 (69763ms) (12368)>F:displayData_loop()\n01:26:11 (69798ms) (12368)>F:waterFlow_loop()\n01:26:11 (69798ms) (12368)>F:current_loop()\n01:26:11 (69799ms) (12368)>>F:isThereElectricCurrent(): NO\n01:26:11 (69824ms) (12368)>F:uploadLogFile_loop(int) - Nothing to send!01:26:12 (70803ms) (12368)>F:displayData_loop()\n01:26:13 (71843ms) (12368)>F:displayData_loop()\n01:26:14 (72883ms) (12368)>F:displayData_loop()\n01:26:15 (73923ms) (12368)>F:displayData_loop()\n01:26:16 (74963ms) (12368)>F:displayData_loop()\n01:26:17 (75811ms) (12368)>F:current_loop()\n01:26:17 (75811ms) (12368)>>F:isThereElectricCurrent(): NO\n01:26:17 (76003ms) (12368)>F:displayData_loop()\n01:26:18 (77043ms) (12368)>F:displayData_loop()\n01:26:19 (78083ms) (12368)>F:displayData_loop()\n01:26:20 (79123ms) (12368)>F:displayData_loop()\n01:26:20 (79742ms) (12368)>F:temperature_loop()\n01:26:20 (79742ms) (12368)>>F:readTemperatures(): \n1. 28FFB7E262160356 bojler temp trial: 28.38\n2. 28FFB7E262160356 bojler temp trial: 28.44 Temp difference: 0.00\n3. 28FFB7E262160356 bojler temp trial: 28.44 Temp difference: 0.00\nbojler: Temp measurment successful.. Average temperature: 28.42\n01:26:24 (83053ms) (12368)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 28.42(°C)\n01:26:24 (83056ms) (12368)>F:uploadLogFile_loop(int) - Nothing to send!\n01:26:24 (83082ms) (12368)>F:displayData_loop()\n01:26:24 (83117ms) (12368)>F:current_loop()\n01:26:24 (83118ms) (12368)>>F:isThereElectricCurrent(): NO\n01:26:25 (84122ms) (12368)>F:displayData_loop()\n01:26:26 (85162ms) (12368)>F:displayData_loop()\n01:26:27 (86202ms) (12368)>F:displayData_loop()\n",
+			"file": "debugging.ino",
 			"settings":
 			{
-				"buffer_size": 11986,
+				"buffer_size": 8887,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "OTA.ino",
+			"settings":
+			{
+				"buffer_size": 3866,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "sd\u0000$ܟ|\u0000�l�<\u0003\f\u0004\u0004�\u0004l�\u0004c|��\u0003�\u0013�;�c�\u0004c��gn�dog���\u0004c\u001c8��lrl;lp�'�\u0010\u0002\u0004\f�\u0004l\u0004��\u0004\f\u0004c\u0004o�<\u0003l�\u0004\f�c��gn�\u0000dćd`\u0002�\u001b\u0012'o\fd`\u0003\u000e\u0003gs���o\f\u0004b\u0004�\u000f$\u000fr��g\u0004\fc\u0004�\u0007l�s�ܜ�p���xsd��n�\u0003�\n\nStarted Serial, free ram: 34176\n⚠ - 00:00:00 (268ms) (34144)>F:i2cBus_setup()\nLast reset reason: External System\nrinfo->reason:   6, External System\nrinfo->exccause: 0\nrinfo->epc1:     0\nrinfo->epc2:     0\nrinfo->epc3:     0\nrinfo->excvaddr: 0\nrinfo->depc:     0\n\nbootflags.raw_rst_cause: 2\nbootflags.raw_bootdevice: 3\nbootflags.raw_bootmode: 6\nbootflags.rst_normal_boot: 0\nbootflags.rst_reset_pin: 1\nbootflags.rst_watchdog: 0\nbootflags.bootdevice_ram: 0\nbootflags.bootdevice_flash: 1\nLoop watchdog attaching interrupt\n\nSPIFFS loading: OK!\nChipRealSize: 4194304\nblockSize: 8192\npageSize: 256\nmaxOpenFiles: 5\nmaxPathLength: 32\ntotal space: 2949kB  used: 13kB  free: 2935kB\n/settings.json - size: 270\n/exception.stack - size: 0\n\n\nFrom EEPROM loaded bytes: 40\nΨ - 00:00:01 (1552ms) (31760)>>F:oneWireBus_setup()\nΨ - 00:00:01 (1602ms) (31760)>>>F:temperature_setup()\nΨ - 00:00:01 (1626ms) (31760)>>>>F:loadTempSensorAddressesFromEeprom(): \nΨ - 00:00:02 (2309ms) (31760)>>>>>F:waterFlowSensor_setup()\nΨ - 00:00:02 (2334ms) (31760)>>>>>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:00:03 (3281ms) (31760)>>>>>>>F:relayBoard_setup()\nRun Service_Menu(?)\nMD5 CurrentSketch: 988dd29492d4981ca78c9664fbafd722\nΨ - 00:00:04 (4572ms) (31320)>>>>>>>>F:getContentOfFile()\nΨ - 00:00:04 (4573ms) (31296)>>>>>>>>>F:openFile(fileName='httpUpdate.adr', mode='r') of size: 0\nΨ - 00:00:04 (4576ms) (31344)>>>>>>>>>>F:MAIN_setup()\nInitializing node Testing\nΨ - 00:00:04 (4618ms) (31344)>F:sendDebugInformationsAfterReset()\nΨ - 00:00:04 (4747ms) (30848)>>F:uploadDebugLogFile(String uriParamsEncoded) :&quickEvent=Reboot%3aExternal%20System&bojlerAddress=28FFB7E262160356&pipeAddress=31302D4A696E6472&roomTempAddress=6100000000000000&insideFlowAddress=0000000000000000tempSensorsCount=&allTempSensorsInfo=-28FFB7E262160356-29.75-\nHTTPSRedirect Connection Free Heap: 13712\nHTTPSRedirect Connection Free Heap: 11704\nΨ - 00:00:16 (16315ms) (31088)>>>F:sendAllLogFiles()\n!!Warning: There is no log file to send.\nΨ - 00:00:16 (16381ms) (31088)>>>>F:doNecesaryActionsUponResponse()\nresponseText_global: \n{\"topHeatingTemp\":40,\"lowDropingTemp\":39,\"heatingControl\":\"ARDUINO\",\"lastTemperature\":29.35,\"lastSpareLitres\":\"100.0\",\"nodeStatusUpdateTime\":3600000,\"resetNode\":false,\"nowDate\":\"09.07.2018\",\"nowTime\":\"13:41:32\",\"syncTime\":\"13,41,32,09,07,2018\",\"dataSavingError\":false}\nΨ - 00:00:16 (16440ms) (29920)>>>>>F:saveReceivedBoilerStateToFile()\nΨ - 00:00:16 (16441ms) (29896)>>>>>>F:openFile(fileName='/settings.json', mode='w') of size: 0\nΨ - 00:00:16 (16528ms) (31088)>>>>>>>F:lcd_setup()\nΨ - 00:00:16 (16620ms) (31088)>F:displayData_loop()\nFreeHeap:31200\n\nF:MAIN_loop()\nΨ - 00:00:17 (17691ms) (31088)>F:displayData_loop()\nΨ - 00:00:18 (18691ms) (31088)>F:temperature_loop()\nΨ - 00:00:18 (18691ms) (31088)>>F:readTemperaturesAsync(): 1\nΨ - 00:00:18 (18774ms) (31088)>F:displayData_loop()\nΨ - 00:00:19 (19856ms) (31088)>F:displayData_loop()\nΨ - 00:00:20 (20707ms) (31088)>F:temperature_loop()\nΨ - 00:00:20 (20707ms) (31088)>>F:readTemperaturesAsync(): 2\nΨ - 00:00:20 (20939ms) (31088)>F:displayData_loop()\nΨ - 00:00:22 (22022ms) (31088)>F:displayData_loop()\nΨ - 00:00:22 (22691ms) (31088)>F:current_loop()\nΨ - 00:00:22 (22691ms) (31088)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:00:23 (23639ms) (31088)>F:displayData_loop()\nΨ - 00:00:23 (23722ms) (31088)>F:temperature_loop()\nΨ - 00:00:23 (23722ms) (31088)>>F:readTemperaturesAsync(): 3\nΨ - 00:00:24 (24722ms) (31088)>F:displayData_loop()\nΨ - 00:00:25 (25737ms) (31088)>F:temperature_loop()\nΨ - 00:00:25 (25737ms) (31088)>>F:readTemperaturesAsync(): 4\nΨ - 00:00:25 (25740ms) (31088)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.73(°C)\nΨ - 00:00:25 (25744ms) (31088)>>>>F:lcd_setup()\nΨ - 00:00:25 (25840ms) (31088)>F:displayData_loop()\nΨ - 00:00:25 (25924ms) (31088)>>F:turnOnBoilerHeating()\nΨ - 00:00:25 (25925ms) (31088)>>>F:setOpenBoilerHeatingRelay(newState): 0\nΨ - 00:00:25 (25925ms) (31016)>>>>F:logNewNodeState(String fireEventName): Heating: set ON\nΨ - 00:00:25 (25933ms) (31016)>>>>>F:setPendingEventToSend(): true\nΨ - 00:00:26 (26008ms) (30576)>F:displayData_loop()\nΨ - 00:00:26 (26691ms) (30576)>F:uploadLogFile_loop(int)\nΨ - 00:00:26 (26691ms) (30576)>>F:sendAllLogFiles()\nΨ - 00:00:26 (26757ms) (30264)>>>F:sendNewNodeStateByPostString(String dataToSend): 9.7.2018 13:41:41;Heating: set ON;29.73;;;;0.039;;;100.0;0;begining state update;1;ARDUINO;Uptime:00:00:25UpdateTime:01:00:00topHeatingTemp:40lowDropingTemp:39totalErrors:0notParsed: 0parsedOk: 1WaterFlowCount:0waterFlowDisplay:0lastWaterFlowResetTime00:00:00WiFi.RSSI(): -59dBm\nHTTPSRedirect Connection Free Heap: 12720\nHTTPSRedirect Connection Free Heap: 11304\nΨ - 00:00:38 (38560ms) (30576)>>>>F:setPendingEventToSend(): false\nΨ - 00:00:38 (38560ms) (30576)>>>>>F:doNecesaryActionsUponResponse()\nresponseText_global: \n{\"topHeatingTemp\":40,\"lowDropingTemp\":39,\"heatingControl\":\"ARDUINO\",\"lastTemperature\":29.73,\"lastSpareLitres\":\"100.0\",\"nodeStatusUpdateTime\":3600000,\"resetNode\":false,\"nowDate\":\"09.07.2018\",\"nowTime\":\"13:41:54\",\"syncTime\":\"13,41,54,09,07,2018\",\"dataSavingError\":false}\nΨ - 00:00:38 (38623ms) (29408)>>>>>>F:saveReceivedBoilerStateToFile()\nΨ - 00:00:38 (38623ms) (29384)>>>>>>>F:openFile(fileName='/settings.json', mode='w') of size: 0\nΨ - 00:00:38 (38638ms) (30576)>F:displayData_loop()\nΨ - 00:00:38 (38721ms) (30576)>F:temperature_loop()\nΨ - 00:00:38 (38721ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:00:38 (38737ms) (30576)>F:waterFlow_loop()\nΨ - 00:00:38 (38887ms) (30576)>F:current_loop()\nΨ - 00:00:38 (38888ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:00:39 (39836ms) (30576)>F:displayData_loop()\nΨ - 00:00:40 (40736ms) (30576)>F:temperature_loop()\nΨ - 00:00:40 (40736ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:00:40 (40919ms) (30576)>F:displayData_loop()\nΨ - 00:00:42 (42002ms) (30576)>F:displayData_loop()\nΨ - 00:00:42 (42751ms) (30576)>F:temperature_loop()\nΨ - 00:00:42 (42751ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:00:43 (43085ms) (30576)>F:displayData_loop()\nΨ - 00:00:44 (44168ms) (30576)>F:displayData_loop()\nΨ - 00:00:44 (44766ms) (30576)>F:temperature_loop()\nΨ - 00:00:44 (44766ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:00:44 (44769ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:00:45 (45251ms) (30576)>F:displayData_loop()\nΨ - 00:00:45 (45835ms) (30576)>F:current_loop()\nΨ - 00:00:45 (45835ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:00:46 (46783ms) (30576)>F:displayData_loop()\nΨ - 00:00:46 (46866ms) (30576)>F:temperature_loop()\nΨ - 00:00:46 (46866ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:00:47 (47866ms) (30576)>F:displayData_loop()\nΨ - 00:00:48 (48631ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:00:48 (48881ms) (30576)>F:temperature_loop()\nΨ - 00:00:48 (48881ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:00:48 (48949ms) (30576)>F:displayData_loop()\nΨ - 00:00:50 (50031ms) (30576)>F:displayData_loop()\nΨ - 00:00:50 (50896ms) (30576)>F:temperature_loop()\nΨ - 00:00:50 (50896ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:00:51 (51114ms) (30576)>F:displayData_loop()\nΨ - 00:00:52 (52196ms) (30576)>F:displayData_loop()\nΨ - 00:00:52 (52782ms) (30576)>F:current_loop()\nΨ - 00:00:52 (52782ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:00:53 (53730ms) (30576)>F:displayData_loop()\nΨ - 00:00:53 (53813ms) (30576)>F:temperature_loop()\nΨ - 00:00:53 (53814ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:00:53 (53816ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:00:54 (54813ms) (30576)>F:displayData_loop()\nΨ - 00:00:55 (55821ms) (30576)>F:temperature_loop()\nΨ - 00:00:55 (55821ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:00:55 (55896ms) (30576)>F:displayData_loop()\nΨ - 00:00:56 (56978ms) (30576)>F:displayData_loop()\nΨ - 00:00:57 (57836ms) (30576)>F:temperature_loop()\nΨ - 00:00:57 (57836ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:00:58 (58061ms) (30576)>F:displayData_loop()\nΨ - 00:00:58 (58631ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:00:58 (58887ms) (30576)>F:waterFlow_loop()\nΨ - 00:00:59 (59143ms) (30576)>F:displayData_loop()\nΨ - 00:00:59 (59729ms) (30576)>F:current_loop()\nΨ - 00:00:59 (59730ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:00 (60677ms) (30576)>F:displayData_loop()\nΨ - 00:01:00 (60760ms) (30576)>F:temperature_loop()\nΨ - 00:01:00 (60761ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:01 (61760ms) (30576)>F:displayData_loop()\nΨ - 00:01:02 (62776ms) (30576)>F:temperature_loop()\nΨ - 00:01:02 (62776ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:02 (62779ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:02 (62843ms) (30576)>F:displayData_loop()\nΨ - 00:01:03 (63925ms) (30576)>F:displayData_loop()\nΨ - 00:01:04 (64783ms) (30576)>F:temperature_loop()\nΨ - 00:01:04 (64783ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:01:05 (65008ms) (30576)>F:displayData_loop()\nΨ - 00:01:06 (66091ms) (30576)>F:displayData_loop()\nΨ - 00:01:06 (66676ms) (30576)>F:current_loop()\nΨ - 00:01:06 (66676ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:07 (67624ms) (30576)>F:displayData_loop()\nΨ - 00:01:07 (67707ms) (30576)>F:temperature_loop()\nΨ - 00:01:07 (67707ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:01:08 (68631ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:01:08 (68706ms) (30576)>F:displayData_loop()\nΨ - 00:01:09 (69722ms) (30576)>F:temperature_loop()\nΨ - 00:01:09 (69722ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:09 (69789ms) (30576)>F:displayData_loop()\nΨ - 00:01:10 (70871ms) (30576)>F:displayData_loop()\nΨ - 00:01:11 (71737ms) (30576)>F:temperature_loop()\nΨ - 00:01:11 (71737ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:11 (71740ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:11 (71954ms) (30576)>F:displayData_loop()\nΨ - 00:01:13 (73037ms) (30576)>F:displayData_loop()\nΨ - 00:01:13 (73623ms) (30576)>F:current_loop()\nΨ - 00:01:13 (73623ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:14 (74571ms) (30576)>F:displayData_loop()\nΨ - 00:01:14 (74654ms) (30576)>F:temperature_loop()\nΨ - 00:01:14 (74654ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:01:15 (75654ms) (30576)>F:displayData_loop()\nΨ - 00:01:16 (76669ms) (30576)>F:temperature_loop()\nΨ - 00:01:16 (76669ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:01:16 (76737ms) (30576)>F:displayData_loop()\nΨ - 00:01:17 (77819ms) (30576)>F:displayData_loop()\nΨ - 00:01:18 (78631ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:01:18 (78684ms) (30576)>F:temperature_loop()\nΨ - 00:01:18 (78684ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:18 (78902ms) (30576)>F:displayData_loop()\nΨ - 00:01:19 (79037ms) (30576)>F:waterFlow_loop()\nΨ - 00:01:19 (79985ms) (30576)>F:displayData_loop()\nΨ - 00:01:20 (80570ms) (30576)>F:current_loop()\nΨ - 00:01:20 (80570ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:21 (81518ms) (30576)>F:displayData_loop()\nΨ - 00:01:21 (81601ms) (30576)>F:temperature_loop()\nΨ - 00:01:21 (81601ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:21 (81604ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:22 (82601ms) (30576)>F:displayData_loop()\nΨ - 00:01:23 (83608ms) (30576)>F:temperature_loop()\nΨ - 00:01:23 (83608ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:01:23 (83684ms) (30576)>F:displayData_loop()\nΨ - 00:01:24 (84767ms) (30576)>F:displayData_loop()\nΨ - 00:01:25 (85623ms) (30576)>F:temperature_loop()\nΨ - 00:01:25 (85623ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:01:25 (85850ms) (30576)>F:displayData_loop()\nΨ - 00:01:26 (86933ms) (30576)>F:displayData_loop()\nΨ - 00:01:27 (87517ms) (30576)>F:current_loop()\nΨ - 00:01:27 (87517ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:28 (88465ms) (30576)>F:displayData_loop()\nΨ - 00:01:28 (88548ms) (30576)>F:temperature_loop()\nΨ - 00:01:28 (88548ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:28 (88631ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:01:29 (89548ms) (30576)>F:displayData_loop()\nΨ - 00:01:30 (90563ms) (30576)>F:temperature_loop()\nΨ - 00:01:30 (90563ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:30 (90566ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:30 (90631ms) (30576)>F:displayData_loop()\nΨ - 00:01:31 (91713ms) (30576)>F:displayData_loop()\nΨ - 00:01:32 (92570ms) (30576)>F:temperature_loop()\nΨ - 00:01:32 (92570ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:01:32 (92796ms) (30576)>F:displayData_loop()\nΨ - 00:01:33 (93879ms) (30576)>F:displayData_loop()\nΨ - 00:01:34 (94464ms) (30576)>F:current_loop()\nΨ - 00:01:34 (94464ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:01:35 (95412ms) (30576)>F:displayData_loop()\nΨ - 00:01:35 (95495ms) (30576)>F:temperature_loop()\nΨ - 00:01:35 (95495ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:01:36 (96495ms) (30576)>F:displayData_loop()\nΨ - 00:01:37 (97510ms) (30576)>F:temperature_loop()\nΨ - 00:01:37 (97510ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:37 (97578ms) (30576)>F:displayData_loop()\nΨ - 00:01:38 (98631ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:01:38 (98660ms) (30576)>F:displayData_loop()\nΨ - 00:01:39 (99187ms) (30576)>F:waterFlow_loop()\nΨ - 00:01:39 (99525ms) (30576)>F:temperature_loop()\nΨ - 00:01:39 (99526ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:39 (99528ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:39 (99743ms) (30576)>F:displayData_loop()\nΨ - 00:01:40 (100826ms) (30576)>F:displayData_loop()\nΨ - 00:01:41 (101411ms) (30576)>F:current_loop()\nΨ - 00:01:41 (101411ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:42 (102359ms) (30576)>F:displayData_loop()\nΨ - 00:01:42 (102442ms) (30576)>F:temperature_loop()\nΨ - 00:01:42 (102442ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:01:43 (103442ms) (30576)>F:displayData_loop()\nΨ - 00:01:44 (104457ms) (30576)>F:temperature_loop()\nΨ - 00:01:44 (104457ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:01:44 (104525ms) (30576)>F:displayData_loop()\nΨ - 00:01:45 (105607ms) (30576)>F:displayData_loop()\nΨ - 00:01:46 (106472ms) (30576)>F:temperature_loop()\nΨ - 00:01:46 (106472ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:46 (106690ms) (30576)>F:displayData_loop()\nΨ - 00:01:47 (107773ms) (30576)>F:displayData_loop()\nΨ - 00:01:48 (108358ms) (30576)>F:current_loop()\nΨ - 00:01:48 (108358ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:49 (109306ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:01:49 (109313ms) (30576)>F:displayData_loop()\nΨ - 00:01:49 (109396ms) (30576)>F:temperature_loop()\nΨ - 00:01:49 (109396ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:49 (109399ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:50 (110396ms) (30576)>F:displayData_loop()\nΨ - 00:01:51 (111404ms) (30576)>F:temperature_loop()\nΨ - 00:01:51 (111404ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:01:51 (111479ms) (30576)>F:displayData_loop()\nΨ - 00:01:52 (112562ms) (30576)>F:displayData_loop()\nΨ - 00:01:53 (113419ms) (30576)>F:temperature_loop()\nΨ - 00:01:53 (113419ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:01:53 (113645ms) (30576)>F:displayData_loop()\nΨ - 00:01:54 (114728ms) (30576)>F:displayData_loop()\nΨ - 00:01:55 (115305ms) (30576)>F:current_loop()\nΨ - 00:01:55 (115305ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:01:56 (116253ms) (30576)>F:displayData_loop()\nΨ - 00:01:56 (116336ms) (30576)>F:temperature_loop()\nΨ - 00:01:56 (116336ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:01:57 (117336ms) (30576)>F:displayData_loop()\nΨ - 00:01:58 (118351ms) (30576)>F:temperature_loop()\nΨ - 00:01:58 (118351ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:01:58 (118354ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:01:58 (118419ms) (30576)>F:displayData_loop()\nΨ - 00:01:59 (119306ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:01:59 (119337ms) (30576)>F:waterFlow_loop()\nΨ - 00:01:59 (119502ms) (30576)>F:displayData_loop()\nΨ - 00:02:00 (120359ms) (30576)>F:temperature_loop()\nΨ - 00:02:00 (120360ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:02:00 (120585ms) (30576)>F:displayData_loop()\nΨ - 00:02:01 (121668ms) (30576)>F:displayData_loop()\nΨ - 00:02:02 (122252ms) (30576)>F:current_loop()\nΨ - 00:02:02 (122252ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:03 (123200ms) (30576)>F:displayData_loop()\nΨ - 00:02:03 (123283ms) (30576)>F:temperature_loop()\nΨ - 00:02:03 (123283ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:02:04 (124283ms) (30576)>F:displayData_loop()\nΨ - 00:02:05 (125298ms) (30576)>F:temperature_loop()\nΨ - 00:02:05 (125298ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:02:05 (125366ms) (30576)>F:displayData_loop()\nΨ - 00:02:06 (126448ms) (30576)>F:displayData_loop()\nΨ - 00:02:07 (127313ms) (30576)>F:temperature_loop()\nΨ - 00:02:07 (127313ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:02:07 (127316ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:02:07 (127531ms) (30576)>F:displayData_loop()\nΨ - 00:02:08 (128614ms) (30576)>F:displayData_loop()\nΨ - 00:02:09 (129199ms) (30576)>F:current_loop()\nΨ - 00:02:09 (129199ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:10 (130147ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:02:10 (130154ms) (30576)>F:displayData_loop()\nΨ - 00:02:10 (130237ms) (30576)>F:temperature_loop()\nΨ - 00:02:10 (130237ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:02:11 (131237ms) (30576)>F:displayData_loop()\nΨ - 00:02:12 (132252ms) (30576)>F:temperature_loop()\nΨ - 00:02:12 (132252ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:02:12 (132320ms) (30576)>F:displayData_loop()\nΨ - 00:02:13 (133403ms) (30576)>F:displayData_loop()\nΨ - 00:02:14 (134267ms) (30576)>F:temperature_loop()\nΨ - 00:02:14 (134267ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:02:14 (134486ms) (30576)>F:displayData_loop()\nΨ - 00:02:15 (135569ms) (30576)>F:displayData_loop()\nΨ - 00:02:16 (136146ms) (30576)>F:current_loop()\nΨ - 00:02:16 (136146ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:17 (137094ms) (30576)>F:displayData_loop()\nΨ - 00:02:17 (137177ms) (30576)>F:temperature_loop()\nΨ - 00:02:17 (137177ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:02:17 (137180ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:02:18 (138177ms) (30576)>F:displayData_loop()\nΨ - 00:02:19 (139184ms) (30576)>F:temperature_loop()\nΨ - 00:02:19 (139184ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:02:19 (139260ms) (30576)>F:displayData_loop()\nΨ - 00:02:19 (139487ms) (30576)>F:waterFlow_loop()\nΨ - 00:02:20 (140147ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:02:20 (140342ms) (30576)>F:displayData_loop()\nΨ - 00:02:21 (141199ms) (30576)>F:temperature_loop()\nΨ - 00:02:21 (141199ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:02:21 (141425ms) (30576)>F:displayData_loop()\nΨ - 00:02:22 (142508ms) (30576)>F:displayData_loop()\nΨ - 00:02:23 (143093ms) (30576)>F:current_loop()\nΨ - 00:02:23 (143093ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:24 (144041ms) (30576)>F:displayData_loop()\nΨ - 00:02:24 (144124ms) (30576)>F:temperature_loop()\nΨ - 00:02:24 (144124ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:02:25 (145124ms) (30576)>F:displayData_loop()\nΨ - 00:02:26 (146139ms) (30576)>F:temperature_loop()\nΨ - 00:02:26 (146139ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:02:26 (146142ms) (30552)>>>F:logNewNodeState(String fireEventName): Temp: changed\nΨ - 00:02:26 (146146ms) (30552)>>>>F:setPendingEventToSend(): true\nΨ - 00:02:26 (146220ms) (30576)>>>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:02:26 (146229ms) (30576)>F:displayData_loop()\nΨ - 00:02:27 (147311ms) (30576)>F:displayData_loop()\nΨ - 00:02:28 (148220ms) (30576)>F:temperature_loop()\nΨ - 00:02:28 (148220ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:02:28 (148394ms) (30576)>F:displayData_loop()\nΨ - 00:02:29 (149476ms) (30576)>F:displayData_loop()\nΨ - 00:02:30 (150040ms) (30576)>F:current_loop()\nΨ - 00:02:30 (150040ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:30 (150988ms) (30576)>F:uploadLogFile_loop(int)\nΨ - 00:02:30 (150989ms) (30576)>>F:sendAllLogFiles()\nΨ - 00:02:31 (151054ms) (30280)>>>F:sendNewNodeStateByPostString(String dataToSend): 9.7.2018 13:43:41;Temp: changed;29.79;;;;0.039;;;100.0;0;begining state update;1;ARDUINO;Uptime:00:02:26UpdateTime:01:00:00topHeatingTemp:40lowDropingTemp:39totalErrors:0notParsed: 0parsedOk: 2WaterFlowCount:0waterFlowDisplay:0lastWaterFlowResetTime00:00:00WiFi.RSSI(): -59dBm\nHTTPSRedirect Connection Free Heap: 12736\nHTTPSRedirect Connection Free Heap: 11528\nΨ - 00:02:42 (162659ms) (30576)>>>>F:setPendingEventToSend(): false\nΨ - 00:02:42 (162659ms) (30576)>>>>>F:doNecesaryActionsUponResponse()\nresponseText_global: \n{\"topHeatingTemp\":40,\"lowDropingTemp\":39,\"heatingControl\":\"ARDUINO\",\"lastTemperature\":29.79,\"lastSpareLitres\":\"100.0\",\"nodeStatusUpdateTime\":3600000,\"resetNode\":false,\"nowDate\":\"09.07.2018\",\"nowTime\":\"13:43:58\",\"syncTime\":\"13,43,58,09,07,2018\",\"dataSavingError\":false}\nΨ - 00:02:42 (162722ms) (29408)>>>>>>F:saveReceivedBoilerStateToFile()\nΨ - 00:02:42 (162722ms) (29384)>>>>>>>F:openFile(fileName='/settings.json', mode='w') of size: 0\nΨ - 00:02:42 (162906ms) (30576)>F:displayData_loop()\nΨ - 00:02:42 (162990ms) (30576)>F:temperature_loop()\nΨ - 00:02:42 (162990ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:02:43 (163006ms) (30576)>F:waterFlow_loop()\nΨ - 00:02:43 (163157ms) (30576)>F:current_loop()\nΨ - 00:02:43 (163157ms) (30576)>>F:isThereElectricCurrent(): NO (0.098A)\nΨ - 00:02:43 (163989ms) (30576)>F:displayData_loop()\nΨ - 00:02:45 (165005ms) (30576)>F:temperature_loop()\nΨ - 00:02:45 (165005ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:02:45 (165072ms) (30576)>F:displayData_loop()\nΨ - 00:02:46 (166154ms) (30576)>F:displayData_loop()\nΨ - 00:02:47 (167020ms) (30576)>F:temperature_loop()\nΨ - 00:02:47 (167020ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:02:47 (167023ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:02:47 (167237ms) (30576)>F:displayData_loop()\nΨ - 00:02:48 (168320ms) (30576)>F:displayData_loop()\nΨ - 00:02:49 (169028ms) (30576)>F:temperature_loop()\nΨ - 00:02:49 (169028ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:02:49 (169403ms) (30576)>F:displayData_loop()\nΨ - 00:02:49 (169562ms) (30576)>F:current_loop()\nΨ - 00:02:49 (169562ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:50 (170510ms) (30576)>F:displayData_loop()\nΨ - 00:02:51 (171043ms) (30576)>F:temperature_loop()\nΨ - 00:02:51 (171043ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:02:51 (171593ms) (30576)>F:displayData_loop()\nΨ - 00:02:52 (172676ms) (30576)>F:displayData_loop()\nΨ - 00:02:52 (172906ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:02:53 (173058ms) (30576)>F:temperature_loop()\nΨ - 00:02:53 (173058ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:02:53 (173759ms) (30576)>F:displayData_loop()\nΨ - 00:02:54 (174842ms) (30576)>F:displayData_loop()\nΨ - 00:02:55 (175073ms) (30576)>F:temperature_loop()\nΨ - 00:02:55 (175073ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:02:55 (175076ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:02:55 (175925ms) (30576)>F:displayData_loop()\nΨ - 00:02:56 (176509ms) (30576)>F:current_loop()\nΨ - 00:02:56 (176509ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:02:57 (177457ms) (30576)>F:displayData_loop()\nΨ - 00:02:57 (177540ms) (30576)>F:temperature_loop()\nΨ - 00:02:57 (177540ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:02:58 (178540ms) (30576)>F:displayData_loop()\nΨ - 00:02:59 (179555ms) (30576)>F:temperature_loop()\nΨ - 00:02:59 (179555ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:02:59 (179623ms) (30576)>F:displayData_loop()\nΨ - 00:03:00 (180705ms) (30576)>F:displayData_loop()\nΨ - 00:03:01 (181570ms) (30576)>F:temperature_loop()\nΨ - 00:03:01 (181570ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:01 (181788ms) (30576)>F:displayData_loop()\nΨ - 00:03:02 (182871ms) (30576)>F:displayData_loop()\nΨ - 00:03:02 (182954ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:03:03 (183156ms) (30576)>F:waterFlow_loop()\nΨ - 00:03:03 (183456ms) (30576)>F:current_loop()\nΨ - 00:03:03 (183457ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:04 (184404ms) (30576)>F:displayData_loop()\nΨ - 00:03:04 (184487ms) (30576)>F:temperature_loop()\nΨ - 00:03:04 (184487ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:03:04 (184490ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:03:05 (185487ms) (30576)>F:displayData_loop()\nΨ - 00:03:06 (186495ms) (30576)>F:temperature_loop()\nΨ - 00:03:06 (186495ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:03:06 (186570ms) (30576)>F:displayData_loop()\nΨ - 00:03:07 (187652ms) (30576)>F:displayData_loop()\nΨ - 00:03:08 (188510ms) (30576)>F:temperature_loop()\nΨ - 00:03:08 (188510ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:03:08 (188735ms) (30576)>F:displayData_loop()\nΨ - 00:03:09 (189818ms) (30576)>F:displayData_loop()\nΨ - 00:03:10 (190403ms) (30576)>F:current_loop()\nΨ - 00:03:10 (190403ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:03:11 (191351ms) (30576)>F:displayData_loop()\nΨ - 00:03:11 (191434ms) (30576)>F:temperature_loop()\nΨ - 00:03:11 (191434ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:12 (192433ms) (30576)>F:displayData_loop()\nΨ - 00:03:12 (192954ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:03:13 (193449ms) (30576)>F:temperature_loop()\nΨ - 00:03:13 (193449ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:03:13 (193452ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:03:13 (193516ms) (30576)>F:displayData_loop()\nΨ - 00:03:14 (194598ms) (30576)>F:displayData_loop()\nΨ - 00:03:15 (195457ms) (30576)>F:temperature_loop()\nΨ - 00:03:15 (195457ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:03:15 (195681ms) (30576)>F:displayData_loop()\nΨ - 00:03:16 (196764ms) (30576)>F:displayData_loop()\nΨ - 00:03:17 (197350ms) (30576)>F:current_loop()\nΨ - 00:03:17 (197350ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:18 (198298ms) (30576)>F:displayData_loop()\nΨ - 00:03:18 (198381ms) (30576)>F:temperature_loop()\nΨ - 00:03:18 (198381ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:03:19 (199380ms) (30576)>F:displayData_loop()\nΨ - 00:03:20 (200396ms) (30576)>F:temperature_loop()\nΨ - 00:03:20 (200396ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:20 (200463ms) (30576)>F:displayData_loop()\nΨ - 00:03:21 (201545ms) (30576)>F:displayData_loop()\nΨ - 00:03:22 (202411ms) (30576)>F:temperature_loop()\nΨ - 00:03:22 (202411ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:03:22 (202414ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:03:22 (202628ms) (30576)>F:displayData_loop()\nΨ - 00:03:22 (202954ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:03:23 (203306ms) (30576)>F:waterFlow_loop()\nΨ - 00:03:23 (203711ms) (30576)>F:displayData_loop()\nΨ - 00:03:24 (204297ms) (30576)>F:current_loop()\nΨ - 00:03:24 (204297ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:25 (205245ms) (30576)>F:displayData_loop()\nΨ - 00:03:25 (205328ms) (30576)>F:temperature_loop()\nΨ - 00:03:25 (205328ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:03:26 (206328ms) (30576)>F:displayData_loop()\nΨ - 00:03:27 (207343ms) (30576)>F:temperature_loop()\nΨ - 00:03:27 (207343ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:03:27 (207411ms) (30576)>F:displayData_loop()\nΨ - 00:03:28 (208493ms) (30576)>F:displayData_loop()\nΨ - 00:03:29 (209358ms) (30576)>F:temperature_loop()\nΨ - 00:03:29 (209358ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:29 (209576ms) (30576)>F:displayData_loop()\nΨ - 00:03:30 (210659ms) (30576)>F:displayData_loop()\nΨ - 00:03:31 (211244ms) (30576)>F:current_loop()\nΨ - 00:03:31 (211244ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:32 (212192ms) (30576)>F:displayData_loop()\nΨ - 00:03:32 (212275ms) (30576)>F:temperature_loop()\nΨ - 00:03:32 (212275ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:03:32 (212278ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:03:32 (212954ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:03:33 (213275ms) (30576)>F:displayData_loop()\nΨ - 00:03:34 (214282ms) (30576)>F:temperature_loop()\nΨ - 00:03:34 (214282ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:03:34 (214358ms) (30576)>F:displayData_loop()\nΨ - 00:03:35 (215440ms) (30576)>F:displayData_loop()\nΨ - 00:03:36 (216297ms) (30576)>F:temperature_loop()\nΨ - 00:03:36 (216297ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:03:36 (216523ms) (30576)>F:displayData_loop()\nΨ - 00:03:37 (217606ms) (30576)>F:displayData_loop()\nΨ - 00:03:38 (218191ms) (30576)>F:current_loop()\nΨ - 00:03:38 (218191ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:39 (219139ms) (30576)>F:displayData_loop()\nΨ - 00:03:39 (219222ms) (30576)>F:temperature_loop()\nΨ - 00:03:39 (219223ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:40 (220222ms) (30576)>F:displayData_loop()\nΨ - 00:03:41 (221238ms) (30576)>F:temperature_loop()\nΨ - 00:03:41 (221238ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:03:41 (221241ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:03:41 (221305ms) (30576)>F:displayData_loop()\nΨ - 00:03:42 (222387ms) (30576)>F:displayData_loop()\nΨ - 00:03:42 (222954ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:03:43 (223246ms) (30576)>F:temperature_loop()\nΨ - 00:03:43 (223246ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:03:43 (223456ms) (30576)>F:waterFlow_loop()\nΨ - 00:03:43 (223607ms) (30576)>F:displayData_loop()\nΨ - 00:03:44 (224690ms) (30576)>F:displayData_loop()\nΨ - 00:03:45 (225138ms) (30576)>F:current_loop()\nΨ - 00:03:45 (225138ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:46 (226086ms) (30576)>F:displayData_loop()\nΨ - 00:03:46 (226169ms) (30576)>F:temperature_loop()\nΨ - 00:03:46 (226169ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:03:47 (227169ms) (30576)>F:displayData_loop()\nΨ - 00:03:48 (228184ms) (30576)>F:temperature_loop()\nΨ - 00:03:48 (228184ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:48 (228252ms) (30576)>F:displayData_loop()\nΨ - 00:03:49 (229334ms) (30576)>F:displayData_loop()\nΨ - 00:03:50 (230199ms) (30576)>F:temperature_loop()\nΨ - 00:03:50 (230199ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:03:50 (230202ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:03:50 (230417ms) (30576)>F:displayData_loop()\nΨ - 00:03:51 (231500ms) (30576)>F:displayData_loop()\nΨ - 00:03:52 (232085ms) (30576)>F:current_loop()\nΨ - 00:03:52 (232085ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:53 (233033ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:03:53 (233040ms) (30576)>F:displayData_loop()\nΨ - 00:03:53 (233123ms) (30576)>F:temperature_loop()\nΨ - 00:03:53 (233123ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:03:54 (234123ms) (30576)>F:displayData_loop()\nΨ - 00:03:55 (235138ms) (30576)>F:temperature_loop()\nΨ - 00:03:55 (235138ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:03:55 (235206ms) (30576)>F:displayData_loop()\nΨ - 00:03:56 (236288ms) (30576)>F:displayData_loop()\nΨ - 00:03:57 (237153ms) (30576)>F:temperature_loop()\nΨ - 00:03:57 (237153ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:03:57 (237371ms) (30576)>F:displayData_loop()\nΨ - 00:03:58 (238454ms) (30576)>F:displayData_loop()\nΨ - 00:03:59 (239032ms) (30576)>F:current_loop()\nΨ - 00:03:59 (239032ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:03:59 (239980ms) (30576)>F:displayData_loop()\nΨ - 00:04:00 (240062ms) (30576)>F:temperature_loop()\nΨ - 00:04:00 (240063ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:00 (240065ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.77(°C)\nΨ - 00:04:01 (241062ms) (30576)>F:displayData_loop()\nΨ - 00:04:02 (242070ms) (30576)>F:temperature_loop()\nΨ - 00:04:02 (242070ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:02 (242145ms) (30576)>F:displayData_loop()\nΨ - 00:04:03 (243033ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:04:03 (243227ms) (30576)>F:displayData_loop()\nΨ - 00:04:03 (243606ms) (30576)>F:waterFlow_loop()\nΨ - 00:04:04 (244085ms) (30576)>F:temperature_loop()\nΨ - 00:04:04 (244086ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:04 (244309ms) (30576)>F:displayData_loop()\nΨ - 00:04:05 (245392ms) (30576)>F:displayData_loop()\nΨ - 00:04:05 (245979ms) (30576)>F:current_loop()\nΨ - 00:04:05 (245979ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:06 (246927ms) (30576)>F:displayData_loop()\nΨ - 00:04:07 (247010ms) (30576)>F:temperature_loop()\nΨ - 00:04:07 (247010ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:04:08 (248010ms) (30576)>F:displayData_loop()\nΨ - 00:04:09 (249025ms) (30576)>F:temperature_loop()\nΨ - 00:04:09 (249025ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:09 (249028ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.75(°C)\nΨ - 00:04:09 (249093ms) (30576)>F:displayData_loop()\nΨ - 00:04:10 (250175ms) (30576)>F:displayData_loop()\nΨ - 00:04:11 (251033ms) (30576)>F:temperature_loop()\nΨ - 00:04:11 (251033ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:11 (251258ms) (30576)>F:displayData_loop()\nΨ - 00:04:12 (252341ms) (30576)>F:displayData_loop()\nΨ - 00:04:12 (252926ms) (30576)>F:current_loop()\nΨ - 00:04:12 (252926ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:13 (253874ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:04:13 (253881ms) (30576)>F:displayData_loop()\nΨ - 00:04:13 (253964ms) (30576)>F:temperature_loop()\nΨ - 00:04:13 (253964ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:14 (254964ms) (30576)>F:displayData_loop()\nΨ - 00:04:15 (255979ms) (30576)>F:temperature_loop()\nΨ - 00:04:15 (255979ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:04:16 (256047ms) (30576)>F:displayData_loop()\nΨ - 00:04:17 (257129ms) (30576)>F:displayData_loop()\nΨ - 00:04:17 (257994ms) (30576)>F:temperature_loop()\nΨ - 00:04:17 (257994ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:17 (257997ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:04:18 (258212ms) (30576)>F:displayData_loop()\nΨ - 00:04:19 (259295ms) (30576)>F:displayData_loop()\nΨ - 00:04:19 (259873ms) (30576)>F:current_loop()\nΨ - 00:04:19 (259873ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:20 (260821ms) (30576)>F:displayData_loop()\nΨ - 00:04:20 (260904ms) (30576)>F:temperature_loop()\nΨ - 00:04:20 (260904ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:21 (261904ms) (30576)>F:displayData_loop()\nΨ - 00:04:22 (262919ms) (30576)>F:temperature_loop()\nΨ - 00:04:22 (262919ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:22 (262987ms) (30576)>F:displayData_loop()\nΨ - 00:04:23 (263756ms) (30576)>F:waterFlow_loop()\nΨ - 00:04:23 (263907ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:04:24 (264069ms) (30576)>F:displayData_loop()\nΨ - 00:04:24 (264934ms) (30576)>F:temperature_loop()\nΨ - 00:04:24 (264934ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:04:25 (265152ms) (30576)>F:displayData_loop()\nΨ - 00:04:26 (266234ms) (30576)>F:displayData_loop()\nΨ - 00:04:26 (266820ms) (30576)>F:current_loop()\nΨ - 00:04:26 (266820ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:27 (267768ms) (30576)>F:displayData_loop()\nΨ - 00:04:27 (267851ms) (30576)>F:temperature_loop()\nΨ - 00:04:27 (267851ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:27 (267854ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:04:28 (268851ms) (30576)>F:displayData_loop()\nΨ - 00:04:29 (269858ms) (30576)>F:temperature_loop()\nΨ - 00:04:29 (269858ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:29 (269934ms) (30576)>F:displayData_loop()\nΨ - 00:04:31 (271016ms) (30576)>F:displayData_loop()\nΨ - 00:04:31 (271873ms) (30576)>F:temperature_loop()\nΨ - 00:04:31 (271873ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:32 (272099ms) (30576)>F:displayData_loop()\nΨ - 00:04:33 (273182ms) (30576)>F:displayData_loop()\nΨ - 00:04:33 (273767ms) (30576)>F:current_loop()\nΨ - 00:04:33 (273767ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:34 (274715ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:04:34 (274722ms) (30576)>F:displayData_loop()\nΨ - 00:04:34 (274805ms) (30576)>F:temperature_loop()\nΨ - 00:04:34 (274805ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:04:35 (275805ms) (30576)>F:displayData_loop()\nΨ - 00:04:36 (276820ms) (30576)>F:temperature_loop()\nΨ - 00:04:36 (276820ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:36 (276823ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:04:36 (276888ms) (30576)>F:displayData_loop()\nΨ - 00:04:37 (277970ms) (30576)>F:displayData_loop()\nΨ - 00:04:38 (278828ms) (30576)>F:temperature_loop()\nΨ - 00:04:38 (278828ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:39 (279053ms) (30576)>F:displayData_loop()\nΨ - 00:04:40 (280136ms) (30576)>F:displayData_loop()\nΨ - 00:04:40 (280714ms) (30576)>F:current_loop()\nΨ - 00:04:40 (280714ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:41 (281662ms) (30576)>F:displayData_loop()\nΨ - 00:04:41 (281745ms) (30576)>F:temperature_loop()\nΨ - 00:04:41 (281745ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:42 (282745ms) (30576)>F:displayData_loop()\nΨ - 00:04:43 (283760ms) (30576)>F:temperature_loop()\nΨ - 00:04:43 (283760ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:04:43 (283828ms) (30576)>F:displayData_loop()\nΨ - 00:04:43 (283911ms) (30576)>F:waterFlow_loop()\nΨ - 00:04:44 (284715ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:04:44 (284910ms) (30576)>F:displayData_loop()\nΨ - 00:04:45 (285775ms) (30576)>F:temperature_loop()\nΨ - 00:04:45 (285775ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:45 (285778ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:04:45 (285993ms) (30576)>F:displayData_loop()\nΨ - 00:04:47 (287076ms) (30576)>F:displayData_loop()\nΨ - 00:04:47 (287661ms) (30576)>F:current_loop()\nΨ - 00:04:47 (287661ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:04:48 (288609ms) (30576)>F:displayData_loop()\nΨ - 00:04:48 (288692ms) (30576)>F:temperature_loop()\nΨ - 00:04:48 (288692ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:49 (289692ms) (30576)>F:displayData_loop()\nΨ - 00:04:50 (290707ms) (30576)>F:temperature_loop()\nΨ - 00:04:50 (290707ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:50 (290775ms) (30576)>F:displayData_loop()\nΨ - 00:04:51 (291857ms) (30576)>F:displayData_loop()\nΨ - 00:04:52 (292722ms) (30576)>F:temperature_loop()\nΨ - 00:04:52 (292722ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:04:52 (292940ms) (30576)>F:displayData_loop()\nΨ - 00:04:54 (294023ms) (30576)>F:displayData_loop()\nΨ - 00:04:54 (294608ms) (30576)>F:current_loop()\nΨ - 00:04:54 (294608ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:04:55 (295556ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:04:55 (295563ms) (30576)>F:displayData_loop()\nΨ - 00:04:55 (295646ms) (30576)>F:temperature_loop()\nΨ - 00:04:55 (295646ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:04:55 (295649ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:04:56 (296646ms) (30576)>F:displayData_loop()\nΨ - 00:04:57 (297653ms) (30576)>F:temperature_loop()\nΨ - 00:04:57 (297653ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:04:57 (297729ms) (30576)>F:displayData_loop()\nΨ - 00:04:58 (298811ms) (30576)>F:displayData_loop()\nΨ - 00:04:59 (299668ms) (30576)>F:temperature_loop()\nΨ - 00:04:59 (299668ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:04:59 (299894ms) (30576)>F:displayData_loop()\nΨ - 00:05:00 (300977ms) (30576)>F:displayData_loop()\nΨ - 00:05:01 (301555ms) (30576)>F:current_loop()\nΨ - 00:05:01 (301555ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:05:02 (302503ms) (30576)>F:displayData_loop()\nΨ - 00:05:02 (302586ms) (30576)>F:temperature_loop()\nΨ - 00:05:02 (302586ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:03 (303585ms) (30576)>F:displayData_loop()\nΨ - 00:05:04 (304061ms) (30576)>F:waterFlow_loop()\nΨ - 00:05:04 (304601ms) (30576)>F:temperature_loop()\nΨ - 00:05:04 (304602ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:05:04 (304604ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:05:04 (304668ms) (30576)>F:displayData_loop()\nΨ - 00:05:05 (305556ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:05:05 (305750ms) (30576)>F:displayData_loop()\nΨ - 00:05:06 (306609ms) (30576)>F:temperature_loop()\nΨ - 00:05:06 (306609ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:05:06 (306832ms) (30576)>F:displayData_loop()\nΨ - 00:05:07 (307915ms) (30576)>F:displayData_loop()\nΨ - 00:05:08 (308502ms) (30576)>F:current_loop()\nΨ - 00:05:08 (308502ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:05:09 (309450ms) (30576)>F:displayData_loop()\nΨ - 00:05:09 (309533ms) (30576)>F:temperature_loop()\nΨ - 00:05:09 (309533ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:05:10 (310533ms) (30576)>F:displayData_loop()\nΨ - 00:05:11 (311548ms) (30576)>F:temperature_loop()\nΨ - 00:05:11 (311548ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:11 (311616ms) (30576)>F:displayData_loop()\nΨ - 00:05:12 (312698ms) (30576)>F:displayData_loop()\nΨ - 00:05:13 (313563ms) (30576)>F:temperature_loop()\nΨ - 00:05:13 (313563ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:05:13 (313566ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:05:13 (313781ms) (30576)>F:displayData_loop()\nΨ - 00:05:14 (314864ms) (30576)>F:displayData_loop()\nΨ - 00:05:15 (315449ms) (30576)>F:current_loop()\nΨ - 00:05:15 (315449ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:05:16 (316397ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:05:16 (316404ms) (30576)>F:displayData_loop()\nΨ - 00:05:16 (316487ms) (30576)>F:temperature_loop()\nΨ - 00:05:16 (316487ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:05:17 (317487ms) (30576)>F:displayData_loop()\nΨ - 00:05:18 (318502ms) (30576)>F:temperature_loop()\nΨ - 00:05:18 (318502ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:05:18 (318570ms) (30576)>F:displayData_loop()\nΨ - 00:05:19 (319652ms) (30576)>F:displayData_loop()\nΨ - 00:05:20 (320517ms) (30576)>F:temperature_loop()\nΨ - 00:05:20 (320517ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:20 (320735ms) (30576)>F:displayData_loop()\nΨ - 00:05:21 (321818ms) (30576)>F:displayData_loop()\nΨ - 00:05:22 (322396ms) (30576)>F:current_loop()\nΨ - 00:05:22 (322396ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:05:23 (323344ms) (30576)>F:displayData_loop()\nΨ - 00:05:23 (323427ms) (30576)>F:temperature_loop()\nΨ - 00:05:23 (323427ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:05:23 (323430ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:05:24 (324211ms) (30576)>F:waterFlow_loop()\nΨ - 00:05:24 (324426ms) (30576)>F:displayData_loop()\nΨ - 00:05:25 (325434ms) (30576)>F:temperature_loop()\nΨ - 00:05:25 (325434ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:05:25 (325511ms) (30576)>F:displayData_loop()\nΨ - 00:05:26 (326397ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:05:26 (326593ms) (30576)>F:displayData_loop()\nΨ - 00:05:27 (327450ms) (30576)>F:temperature_loop()\nΨ - 00:05:27 (327450ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:05:27 (327675ms) (30576)>F:displayData_loop()\nΨ - 00:05:28 (328758ms) (30576)>F:displayData_loop()\nΨ - 00:05:29 (329343ms) (30576)>F:current_loop()\nΨ - 00:05:29 (329343ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:05:30 (330291ms) (30576)>F:displayData_loop()\nΨ - 00:05:30 (330374ms) (30576)>F:temperature_loop()\nΨ - 00:05:30 (330374ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:31 (331374ms) (30576)>F:displayData_loop()\nΨ - 00:05:32 (332389ms) (30576)>F:temperature_loop()\nΨ - 00:05:32 (332389ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:05:32 (332392ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:05:32 (332457ms) (30576)>F:displayData_loop()\nΨ - 00:05:33 (333539ms) (30576)>F:displayData_loop()\nΨ - 00:05:34 (334397ms) (30576)>F:temperature_loop()\nΨ - 00:05:34 (334397ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:05:34 (334622ms) (30576)>F:displayData_loop()\nΨ - 00:05:35 (335705ms) (30576)>F:displayData_loop()\nΨ - 00:05:36 (336290ms) (30576)>F:current_loop()\nΨ - 00:05:36 (336290ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:05:37 (337238ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:05:37 (337245ms) (30576)>F:displayData_loop()\nΨ - 00:05:37 (337328ms) (30576)>F:temperature_loop()\nΨ - 00:05:37 (337328ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:05:38 (338328ms) (30576)>F:displayData_loop()\nΨ - 00:05:39 (339343ms) (30576)>F:temperature_loop()\nΨ - 00:05:39 (339343ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:39 (339411ms) (30576)>F:displayData_loop()\nΨ - 00:05:40 (340494ms) (30576)>F:displayData_loop()\nΨ - 00:05:41 (341358ms) (30576)>F:temperature_loop()\nΨ - 00:05:41 (341358ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:05:41 (341361ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:05:41 (341577ms) (30576)>F:displayData_loop()\nΨ - 00:05:42 (342660ms) (30576)>F:displayData_loop()\nΨ - 00:05:43 (343237ms) (30576)>F:current_loop()\nΨ - 00:05:43 (343237ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:05:44 (344185ms) (30576)>F:displayData_loop()\nΨ - 00:05:44 (344268ms) (30576)>F:temperature_loop()\nΨ - 00:05:44 (344268ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:05:44 (344361ms) (30576)>F:waterFlow_loop()\nΨ - 00:05:45 (345268ms) (30576)>F:displayData_loop()\nΨ - 00:05:46 (346283ms) (30576)>F:temperature_loop()\nΨ - 00:05:46 (346283ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:05:46 (346351ms) (30576)>F:displayData_loop()\nΨ - 00:05:47 (347238ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:05:47 (347433ms) (30576)>F:displayData_loop()\nΨ - 00:05:48 (348298ms) (30576)>F:temperature_loop()\nΨ - 00:05:48 (348298ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:48 (348516ms) (30576)>F:displayData_loop()\nΨ - 00:05:49 (349599ms) (30576)>F:displayData_loop()\nΨ - 00:05:50 (350184ms) (30576)>F:current_loop()\nΨ - 00:05:50 (350184ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:05:51 (351132ms) (30576)>F:displayData_loop()\nΨ - 00:05:51 (351215ms) (30576)>F:temperature_loop()\nΨ - 00:05:51 (351215ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:05:51 (351218ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:05:52 (352215ms) (30576)>F:displayData_loop()\nΨ - 00:05:53 (353223ms) (30576)>F:temperature_loop()\nΨ - 00:05:53 (353223ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:05:53 (353298ms) (30576)>F:displayData_loop()\nΨ - 00:05:54 (354380ms) (30576)>F:displayData_loop()\nΨ - 00:05:55 (355238ms) (30576)>F:temperature_loop()\nΨ - 00:05:55 (355238ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:05:55 (355463ms) (30576)>F:displayData_loop()\nΨ - 00:05:56 (356546ms) (30576)>F:displayData_loop()\nΨ - 00:05:57 (357131ms) (30576)>F:current_loop()\nΨ - 00:05:57 (357131ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:05:58 (358079ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:05:58 (358086ms) (30576)>F:displayData_loop()\nΨ - 00:05:58 (358169ms) (30576)>F:temperature_loop()\nΨ - 00:05:58 (358169ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:05:59 (359169ms) (30576)>F:displayData_loop()\nΨ - 00:06:00 (360184ms) (30576)>F:temperature_loop()\nΨ - 00:06:00 (360184ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:00 (360187ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:06:00 (360252ms) (30576)>F:displayData_loop()\nΨ - 00:06:01 (361334ms) (30576)>F:displayData_loop()\nΨ - 00:06:02 (362192ms) (30576)>F:temperature_loop()\nΨ - 00:06:02 (362192ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:02 (362417ms) (30576)>F:displayData_loop()\nΨ - 00:06:03 (363500ms) (30576)>F:displayData_loop()\nΨ - 00:06:04 (364078ms) (30576)>F:current_loop()\nΨ - 00:06:04 (364078ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:06:05 (365026ms) (30576)>F:displayData_loop()\nΨ - 00:06:05 (365109ms) (30576)>F:temperature_loop()\nΨ - 00:06:05 (365109ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:06:05 (365124ms) (30576)>F:waterFlow_loop()\nΨ - 00:06:06 (366109ms) (30576)>F:displayData_loop()\nΨ - 00:06:07 (367124ms) (30576)>F:temperature_loop()\nΨ - 00:06:07 (367124ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:06:07 (367192ms) (30576)>F:displayData_loop()\nΨ - 00:06:08 (368079ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:06:08 (368275ms) (30576)>F:displayData_loop()\nΨ - 00:06:09 (369139ms) (30576)>F:temperature_loop()\nΨ - 00:06:09 (369139ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:09 (369142ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:06:09 (369357ms) (30576)>F:displayData_loop()\nΨ - 00:06:10 (370440ms) (30576)>F:displayData_loop()\nΨ - 00:06:11 (371025ms) (30576)>F:current_loop()\nΨ - 00:06:11 (371025ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:06:11 (371973ms) (30576)>F:displayData_loop()\nΨ - 00:06:12 (372056ms) (30576)>F:temperature_loop()\nΨ - 00:06:12 (372056ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:13 (373055ms) (30576)>F:displayData_loop()\nΨ - 00:06:14 (374071ms) (30576)>F:temperature_loop()\nΨ - 00:06:14 (374071ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:06:14 (374138ms) (30576)>F:displayData_loop()\nΨ - 00:06:15 (375221ms) (30576)>F:displayData_loop()\nΨ - 00:06:16 (376086ms) (30576)>F:temperature_loop()\nΨ - 00:06:16 (376086ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:06:16 (376304ms) (30576)>F:displayData_loop()\nΨ - 00:06:17 (377387ms) (30576)>F:displayData_loop()\nΨ - 00:06:17 (377972ms) (30576)>F:current_loop()\nΨ - 00:06:17 (377972ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:06:18 (378920ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:06:18 (378927ms) (30576)>F:displayData_loop()\nΨ - 00:06:19 (379010ms) (30576)>F:temperature_loop()\nΨ - 00:06:19 (379010ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:19 (379013ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:06:20 (380010ms) (30576)>F:displayData_loop()\nΨ - 00:06:21 (381017ms) (30576)>F:temperature_loop()\nΨ - 00:06:21 (381017ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:21 (381093ms) (30576)>F:displayData_loop()\nΨ - 00:06:22 (382176ms) (30576)>F:displayData_loop()\nΨ - 00:06:23 (383032ms) (30576)>F:temperature_loop()\nΨ - 00:06:23 (383032ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:06:23 (383259ms) (30576)>F:displayData_loop()\nΨ - 00:06:24 (384342ms) (30576)>F:displayData_loop()\nΨ - 00:06:24 (384919ms) (30576)>F:current_loop()\nΨ - 00:06:24 (384919ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:06:25 (385867ms) (30576)>F:displayData_loop()\nΨ - 00:06:25 (385950ms) (30576)>F:temperature_loop()\nΨ - 00:06:25 (385950ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:06:25 (385966ms) (30576)>F:waterFlow_loop()\nΨ - 00:06:26 (386950ms) (30576)>F:displayData_loop()\nΨ - 00:06:27 (387965ms) (30576)>F:temperature_loop()\nΨ - 00:06:27 (387965ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:27 (387968ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:06:28 (388033ms) (30576)>F:displayData_loop()\nΨ - 00:06:28 (388920ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:06:29 (389115ms) (30576)>F:displayData_loop()\nΨ - 00:06:29 (389973ms) (30576)>F:temperature_loop()\nΨ - 00:06:29 (389973ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:30 (390197ms) (30576)>F:displayData_loop()\nΨ - 00:06:31 (391280ms) (30576)>F:displayData_loop()\nΨ - 00:06:31 (391866ms) (30576)>F:current_loop()\nΨ - 00:06:31 (391866ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:06:32 (392814ms) (30576)>F:displayData_loop()\nΨ - 00:06:32 (392897ms) (30576)>F:temperature_loop()\nΨ - 00:06:32 (392897ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:06:33 (393897ms) (30576)>F:displayData_loop()\nΨ - 00:06:34 (394912ms) (30576)>F:temperature_loop()\nΨ - 00:06:34 (394912ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:06:34 (394980ms) (30576)>F:displayData_loop()\nΨ - 00:06:36 (396062ms) (30576)>F:displayData_loop()\nΨ - 00:06:36 (396927ms) (30576)>F:temperature_loop()\nΨ - 00:06:36 (396927ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:36 (396930ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:06:37 (397145ms) (30576)>F:displayData_loop()\nΨ - 00:06:38 (398228ms) (30576)>F:displayData_loop()\nΨ - 00:06:38 (398813ms) (30576)>F:current_loop()\nΨ - 00:06:38 (398813ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:06:39 (399761ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:06:39 (399768ms) (30576)>F:displayData_loop()\nΨ - 00:06:39 (399851ms) (30576)>F:temperature_loop()\nΨ - 00:06:39 (399851ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:40 (400851ms) (30576)>F:displayData_loop()\nΨ - 00:06:41 (401866ms) (30576)>F:temperature_loop()\nΨ - 00:06:41 (401866ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:06:41 (401934ms) (30576)>F:displayData_loop()\nΨ - 00:06:43 (403016ms) (30576)>F:displayData_loop()\nΨ - 00:06:43 (403881ms) (30576)>F:temperature_loop()\nΨ - 00:06:43 (403881ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:06:44 (404099ms) (30576)>F:displayData_loop()\nΨ - 00:06:45 (405182ms) (30576)>F:displayData_loop()\nΨ - 00:06:45 (405760ms) (30576)>F:current_loop()\nΨ - 00:06:45 (405760ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:06:46 (406708ms) (30576)>F:displayData_loop()\nΨ - 00:06:46 (406791ms) (30576)>F:temperature_loop()\nΨ - 00:06:46 (406791ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:46 (406794ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:06:46 (406810ms) (30576)>F:waterFlow_loop()\nΨ - 00:06:47 (407790ms) (30576)>F:displayData_loop()\nΨ - 00:06:48 (408798ms) (30576)>F:temperature_loop()\nΨ - 00:06:48 (408798ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:48 (408873ms) (30576)>F:displayData_loop()\nΨ - 00:06:49 (409761ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:06:49 (409956ms) (30576)>F:displayData_loop()\nΨ - 00:06:50 (410813ms) (30576)>F:temperature_loop()\nΨ - 00:06:50 (410813ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:06:51 (411038ms) (30576)>F:displayData_loop()\nΨ - 00:06:52 (412121ms) (30576)>F:displayData_loop()\nΨ - 00:06:52 (412707ms) (30576)>F:current_loop()\nΨ - 00:06:52 (412707ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:06:53 (413655ms) (30576)>F:displayData_loop()\nΨ - 00:06:53 (413738ms) (30576)>F:temperature_loop()\nΨ - 00:06:53 (413738ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:06:54 (414737ms) (30576)>F:displayData_loop()\nΨ - 00:06:55 (415753ms) (30576)>F:temperature_loop()\nΨ - 00:06:55 (415753ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:06:55 (415756ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:06:55 (415820ms) (30576)>F:displayData_loop()\nΨ - 00:06:56 (416903ms) (30576)>F:displayData_loop()\nΨ - 00:06:57 (417761ms) (30576)>F:temperature_loop()\nΨ - 00:06:57 (417761ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:06:57 (417986ms) (30576)>F:displayData_loop()\nΨ - 00:06:59 (419069ms) (30576)>F:displayData_loop()\nΨ - 00:06:59 (419654ms) (30576)>F:current_loop()\nΨ - 00:06:59 (419654ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:07:00 (420602ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:07:00 (420609ms) (30576)>F:displayData_loop()\nΨ - 00:07:00 (420692ms) (30576)>F:temperature_loop()\nΨ - 00:07:00 (420692ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:01 (421692ms) (30576)>F:displayData_loop()\nΨ - 00:07:02 (422707ms) (30576)>F:temperature_loop()\nΨ - 00:07:02 (422707ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:02 (422775ms) (30576)>F:displayData_loop()\nΨ - 00:07:03 (423858ms) (30576)>F:displayData_loop()\nΨ - 00:07:04 (424722ms) (30576)>F:temperature_loop()\nΨ - 00:07:04 (424722ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:07:04 (424725ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:07:04 (424941ms) (30576)>F:displayData_loop()\nΨ - 00:07:06 (426024ms) (30576)>F:displayData_loop()\nΨ - 00:07:06 (426601ms) (30576)>F:current_loop()\nΨ - 00:07:06 (426601ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:07:07 (427549ms) (30576)>F:displayData_loop()\nΨ - 00:07:07 (427632ms) (30576)>F:temperature_loop()\nΨ - 00:07:07 (427632ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:07:07 (427647ms) (30576)>F:waterFlow_loop()\nΨ - 00:07:08 (428632ms) (30576)>F:displayData_loop()\nΨ - 00:07:09 (429647ms) (30576)>F:temperature_loop()\nΨ - 00:07:09 (429647ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:09 (429715ms) (30576)>F:displayData_loop()\nΨ - 00:07:10 (430602ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:07:10 (430798ms) (30576)>F:displayData_loop()\nΨ - 00:07:11 (431662ms) (30576)>F:temperature_loop()\nΨ - 00:07:11 (431662ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:11 (431881ms) (30576)>F:displayData_loop()\nΨ - 00:07:12 (432964ms) (30576)>F:displayData_loop()\nΨ - 00:07:13 (433548ms) (30576)>F:current_loop()\nΨ - 00:07:13 (433548ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:07:14 (434496ms) (30576)>F:displayData_loop()\nΨ - 00:07:14 (434579ms) (30576)>F:temperature_loop()\nΨ - 00:07:14 (434579ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:07:14 (434582ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:07:15 (435578ms) (30576)>F:displayData_loop()\nΨ - 00:07:16 (436586ms) (30576)>F:temperature_loop()\nΨ - 00:07:16 (436586ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:07:16 (436661ms) (30576)>F:displayData_loop()\nΨ - 00:07:17 (437743ms) (30576)>F:displayData_loop()\nΨ - 00:07:18 (438601ms) (30576)>F:temperature_loop()\nΨ - 00:07:18 (438601ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:18 (438826ms) (30576)>F:displayData_loop()\nΨ - 00:07:19 (439909ms) (30576)>F:displayData_loop()\nΨ - 00:07:20 (440495ms) (30576)>F:current_loop()\nΨ - 00:07:20 (440495ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:07:21 (441443ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:07:21 (441450ms) (30576)>F:displayData_loop()\nΨ - 00:07:21 (441533ms) (30576)>F:temperature_loop()\nΨ - 00:07:21 (441533ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:22 (442533ms) (30576)>F:displayData_loop()\nΨ - 00:07:23 (443548ms) (30576)>F:temperature_loop()\nΨ - 00:07:23 (443548ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:07:23 (443551ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:07:23 (443616ms) (30576)>F:displayData_loop()\nΨ - 00:07:24 (444698ms) (30576)>F:displayData_loop()\nΨ - 00:07:25 (445556ms) (30576)>F:temperature_loop()\nΨ - 00:07:25 (445556ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:07:25 (445781ms) (30576)>F:displayData_loop()\nΨ - 00:07:26 (446864ms) (30576)>F:displayData_loop()\nΨ - 00:07:27 (447442ms) (30576)>F:current_loop()\nΨ - 00:07:27 (447442ms) (30576)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:07:28 (448390ms) (30576)>F:displayData_loop()\nΨ - 00:07:28 (448473ms) (30576)>F:temperature_loop()\nΨ - 00:07:28 (448473ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:28 (448488ms) (30576)>F:waterFlow_loop()\nΨ - 00:07:29 (449473ms) (30576)>F:displayData_loop()\nΨ - 00:07:30 (450488ms) (30576)>F:temperature_loop()\nΨ - 00:07:30 (450488ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:30 (450556ms) (30576)>F:displayData_loop()\nΨ - 00:07:31 (451443ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:07:31 (451639ms) (30576)>F:displayData_loop()\nΨ - 00:07:32 (452503ms) (30576)>F:temperature_loop()\nΨ - 00:07:32 (452503ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:07:32 (452506ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:07:32 (452721ms) (30576)>F:displayData_loop()\nΨ - 00:07:33 (453804ms) (30576)>F:displayData_loop()\nΨ - 00:07:34 (454389ms) (30576)>F:current_loop()\nΨ - 00:07:34 (454389ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:07:35 (455337ms) (30576)>F:displayData_loop()\nΨ - 00:07:35 (455420ms) (30576)>F:temperature_loop()\nΨ - 00:07:35 (455420ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:07:36 (456419ms) (30576)>F:displayData_loop()\nΨ - 00:07:37 (457435ms) (30576)>F:temperature_loop()\nΨ - 00:07:37 (457435ms) (30576)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:37 (457502ms) (30576)>F:displayData_loop()\nΨ - 00:07:38 (458585ms) (30576)>F:displayData_loop()\nΨ - 00:07:39 (459450ms) (30576)>F:temperature_loop()\nΨ - 00:07:39 (459450ms) (30576)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:39 (459668ms) (30576)>F:displayData_loop()\nΨ - 00:07:40 (460751ms) (30576)>F:displayData_loop()\nΨ - 00:07:41 (461336ms) (30576)>F:current_loop()\nΨ - 00:07:41 (461336ms) (30576)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:07:42 (462284ms) (30576)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:07:42 (462291ms) (30576)>F:displayData_loop()\nΨ - 00:07:42 (462374ms) (30576)>F:temperature_loop()\nΨ - 00:07:42 (462374ms) (30576)>>F:readTemperaturesAsync(): 4\nΨ - 00:07:42 (462377ms) (30576)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:07:43 (463374ms) (30576)>F:displayData_loop()\nΨ - 00:07:44 (464381ms) (30576)>F:temperature_loop()\nΨ - 00:07:44 (464381ms) (30576)>>F:readTemperaturesAsync(): 1\nΨ - 00:07:44 (464457ms) (30576)>F:displayData_loop()\nΨ - 00:07:45 (465540ms) (30408)>F:displayData_loop()\nΨ - 00:07:46 (466396ms) (30408)>F:temperature_loop()\nΨ - 00:07:46 (466396ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:46 (466623ms) (30408)>F:displayData_loop()\nΨ - 00:07:47 (467706ms) (30408)>F:displayData_loop()\nΨ - 00:07:48 (468283ms) (30408)>F:current_loop()\nΨ - 00:07:48 (468283ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:07:49 (469231ms) (30408)>F:displayData_loop()\nΨ - 00:07:49 (469314ms) (30408)>F:temperature_loop()\nΨ - 00:07:49 (469314ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:49 (469329ms) (30408)>F:waterFlow_loop()\nΨ - 00:07:50 (470314ms) (30408)>F:displayData_loop()\nΨ - 00:07:51 (471329ms) (30408)>F:temperature_loop()\nΨ - 00:07:51 (471329ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:07:51 (471332ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:07:51 (471397ms) (30408)>F:displayData_loop()\nΨ - 00:07:52 (472284ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:07:52 (472480ms) (30408)>F:displayData_loop()\nΨ - 00:07:53 (473337ms) (30408)>F:temperature_loop()\nΨ - 00:07:53 (473337ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:07:53 (473563ms) (30408)>F:displayData_loop()\nΨ - 00:07:54 (474646ms) (30408)>F:displayData_loop()\nΨ - 00:07:55 (475230ms) (30408)>F:current_loop()\nΨ - 00:07:55 (475230ms) (30408)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:07:56 (476178ms) (30408)>F:displayData_loop()\nΨ - 00:07:56 (476261ms) (30408)>F:temperature_loop()\nΨ - 00:07:56 (476261ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:07:57 (477260ms) (30408)>F:displayData_loop()\nΨ - 00:07:58 (478276ms) (30408)>F:temperature_loop()\nΨ - 00:07:58 (478276ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:07:58 (478343ms) (30408)>F:displayData_loop()\nΨ - 00:07:59 (479425ms) (30408)>F:displayData_loop()\nΨ - 00:08:00 (480291ms) (30408)>F:temperature_loop()\nΨ - 00:08:00 (480291ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:00 (480294ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:00 (480508ms) (30408)>F:displayData_loop()\nΨ - 00:08:01 (481591ms) (30408)>F:displayData_loop()\nΨ - 00:08:02 (482177ms) (30408)>F:current_loop()\nΨ - 00:08:02 (482177ms) (30408)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:08:03 (483125ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:08:03 (483132ms) (30408)>F:displayData_loop()\nΨ - 00:08:03 (483215ms) (30408)>F:temperature_loop()\nΨ - 00:08:03 (483215ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:04 (484215ms) (30408)>F:displayData_loop()\nΨ - 00:08:05 (485231ms) (30408)>F:temperature_loop()\nΨ - 00:08:05 (485231ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:08:05 (485298ms) (30408)>F:displayData_loop()\nΨ - 00:08:06 (486380ms) (30408)>F:displayData_loop()\nΨ - 00:08:07 (487246ms) (30408)>F:temperature_loop()\nΨ - 00:08:07 (487246ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:08:07 (487463ms) (30408)>F:displayData_loop()\nΨ - 00:08:08 (488546ms) (30408)>F:displayData_loop()\nΨ - 00:08:09 (489124ms) (30408)>F:current_loop()\nΨ - 00:08:09 (489124ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:08:10 (490072ms) (30408)>F:displayData_loop()\nΨ - 00:08:10 (490155ms) (30408)>F:temperature_loop()\nΨ - 00:08:10 (490155ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:10 (490158ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:10 (490174ms) (30408)>F:waterFlow_loop()\nΨ - 00:08:11 (491154ms) (30408)>F:displayData_loop()\nΨ - 00:08:12 (492162ms) (30408)>F:temperature_loop()\nΨ - 00:08:12 (492162ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:12 (492237ms) (30408)>F:displayData_loop()\nΨ - 00:08:13 (493126ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:08:13 (493319ms) (30408)>F:displayData_loop()\nΨ - 00:08:14 (494177ms) (30408)>F:temperature_loop()\nΨ - 00:08:14 (494177ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:08:14 (494401ms) (30408)>F:displayData_loop()\nΨ - 00:08:15 (495484ms) (30408)>F:displayData_loop()\nΨ - 00:08:16 (496071ms) (30408)>F:current_loop()\nΨ - 00:08:16 (496071ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:08:17 (497019ms) (30408)>F:displayData_loop()\nΨ - 00:08:17 (497102ms) (30408)>F:temperature_loop()\nΨ - 00:08:17 (497102ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:08:18 (498101ms) (30408)>F:displayData_loop()\nΨ - 00:08:19 (499117ms) (30408)>F:temperature_loop()\nΨ - 00:08:19 (499117ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:19 (499120ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:19 (499184ms) (30408)>F:displayData_loop()\nΨ - 00:08:20 (500267ms) (30408)>F:displayData_loop()\nΨ - 00:08:21 (501125ms) (30408)>F:temperature_loop()\nΨ - 00:08:21 (501125ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:21 (501350ms) (30408)>F:displayData_loop()\nΨ - 00:08:22 (502433ms) (30408)>F:displayData_loop()\nΨ - 00:08:23 (503018ms) (30408)>F:current_loop()\nΨ - 00:08:23 (503018ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:08:23 (503966ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:08:23 (503973ms) (30408)>F:displayData_loop()\nΨ - 00:08:24 (504056ms) (30408)>F:temperature_loop()\nΨ - 00:08:24 (504056ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:08:25 (505055ms) (30408)>F:displayData_loop()\nΨ - 00:08:26 (506071ms) (30408)>F:temperature_loop()\nΨ - 00:08:26 (506071ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:08:26 (506138ms) (30408)>F:displayData_loop()\nΨ - 00:08:27 (507221ms) (30408)>F:displayData_loop()\nΨ - 00:08:28 (508086ms) (30408)>F:temperature_loop()\nΨ - 00:08:28 (508086ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:28 (508089ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:28 (508304ms) (30408)>F:displayData_loop()\nΨ - 00:08:29 (509387ms) (30408)>F:displayData_loop()\nΨ - 00:08:29 (509965ms) (30408)>F:current_loop()\nΨ - 00:08:29 (509965ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:08:30 (510913ms) (30408)>F:displayData_loop()\nΨ - 00:08:30 (510996ms) (30408)>F:temperature_loop()\nΨ - 00:08:30 (510996ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:31 (511011ms) (30408)>F:waterFlow_loop()\nΨ - 00:08:31 (511995ms) (30408)>F:displayData_loop()\nΨ - 00:08:33 (513011ms) (30408)>F:temperature_loop()\nΨ - 00:08:33 (513011ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:08:33 (513078ms) (30408)>F:displayData_loop()\nΨ - 00:08:33 (513966ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:08:34 (514161ms) (30408)>F:displayData_loop()\nΨ - 00:08:35 (515026ms) (30408)>F:temperature_loop()\nΨ - 00:08:35 (515026ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:08:35 (515243ms) (30408)>F:displayData_loop()\nΨ - 00:08:36 (516326ms) (30408)>F:displayData_loop()\nΨ - 00:08:36 (516912ms) (30408)>F:current_loop()\nΨ - 00:08:36 (516912ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:08:37 (517860ms) (30408)>F:displayData_loop()\nΨ - 00:08:37 (517943ms) (30408)>F:temperature_loop()\nΨ - 00:08:37 (517943ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:37 (517946ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:38 (518943ms) (30408)>F:displayData_loop()\nΨ - 00:08:39 (519951ms) (30408)>F:temperature_loop()\nΨ - 00:08:39 (519951ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:40 (520026ms) (30408)>F:displayData_loop()\nΨ - 00:08:41 (521109ms) (30408)>F:displayData_loop()\nΨ - 00:08:41 (521966ms) (30408)>F:temperature_loop()\nΨ - 00:08:41 (521966ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:08:42 (522192ms) (30408)>F:displayData_loop()\nΨ - 00:08:43 (523275ms) (30408)>F:displayData_loop()\nΨ - 00:08:43 (523859ms) (30408)>F:current_loop()\nΨ - 00:08:43 (523859ms) (30408)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:08:44 (524807ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:08:44 (524814ms) (30408)>F:displayData_loop()\nΨ - 00:08:44 (524897ms) (30408)>F:temperature_loop()\nΨ - 00:08:44 (524898ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:08:45 (525897ms) (30408)>F:displayData_loop()\nΨ - 00:08:46 (526913ms) (30408)>F:temperature_loop()\nΨ - 00:08:46 (526913ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:46 (526916ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:46 (526980ms) (30408)>F:displayData_loop()\nΨ - 00:08:48 (528062ms) (30408)>F:displayData_loop()\nΨ - 00:08:48 (528921ms) (30408)>F:temperature_loop()\nΨ - 00:08:48 (528921ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:49 (529145ms) (30408)>F:displayData_loop()\nΨ - 00:08:50 (530228ms) (30408)>F:displayData_loop()\nΨ - 00:08:50 (530806ms) (30408)>F:current_loop()\nΨ - 00:08:50 (530806ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:08:51 (531754ms) (30408)>F:displayData_loop()\nΨ - 00:08:51 (531837ms) (30408)>F:temperature_loop()\nΨ - 00:08:51 (531837ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:08:51 (531852ms) (30408)>F:waterFlow_loop()\nΨ - 00:08:52 (532837ms) (30408)>F:displayData_loop()\nΨ - 00:08:53 (533852ms) (30408)>F:temperature_loop()\nΨ - 00:08:53 (533852ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:08:53 (533920ms) (30408)>F:displayData_loop()\nΨ - 00:08:54 (534808ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:08:55 (535002ms) (30408)>F:displayData_loop()\nΨ - 00:08:55 (535867ms) (30408)>F:temperature_loop()\nΨ - 00:08:55 (535867ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:08:55 (535870ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:08:56 (536084ms) (30408)>F:displayData_loop()\nΨ - 00:08:57 (537167ms) (30408)>F:displayData_loop()\nΨ - 00:08:57 (537753ms) (30408)>F:current_loop()\nΨ - 00:08:57 (537753ms) (30408)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:08:58 (538701ms) (30408)>F:displayData_loop()\nΨ - 00:08:58 (538784ms) (30408)>F:temperature_loop()\nΨ - 00:08:58 (538784ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:08:59 (539784ms) (30408)>F:displayData_loop()\nΨ - 00:09:00 (540799ms) (30408)>F:temperature_loop()\nΨ - 00:09:00 (540799ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:00 (540867ms) (30408)>F:displayData_loop()\nΨ - 00:09:01 (541950ms) (30408)>F:displayData_loop()\nΨ - 00:09:02 (542814ms) (30408)>F:temperature_loop()\nΨ - 00:09:02 (542814ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:09:03 (543033ms) (30408)>F:displayData_loop()\nΨ - 00:09:04 (544116ms) (30408)>F:displayData_loop()\nΨ - 00:09:04 (544700ms) (30408)>F:current_loop()\nΨ - 00:09:04 (544700ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:09:05 (545648ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:09:05 (545655ms) (30408)>F:displayData_loop()\nΨ - 00:09:05 (545738ms) (30408)>F:temperature_loop()\nΨ - 00:09:05 (545738ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:09:05 (545741ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:09:06 (546738ms) (30408)>F:displayData_loop()\nΨ - 00:09:07 (547745ms) (30408)>F:temperature_loop()\nΨ - 00:09:07 (547745ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:09:07 (547821ms) (30408)>F:displayData_loop()\nΨ - 00:09:08 (548904ms) (30408)>F:displayData_loop()\nΨ - 00:09:09 (549760ms) (30408)>F:temperature_loop()\nΨ - 00:09:09 (549760ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:09 (549987ms) (30408)>F:displayData_loop()\nΨ - 00:09:11 (551070ms) (30408)>F:displayData_loop()\nΨ - 00:09:11 (551647ms) (30408)>F:current_loop()\nΨ - 00:09:11 (551647ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:09:12 (552595ms) (30408)>F:displayData_loop()\nΨ - 00:09:12 (552678ms) (30408)>F:temperature_loop()\nΨ - 00:09:12 (552678ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:09:12 (552695ms) (30408)>F:waterFlow_loop()\nΨ - 00:09:13 (553678ms) (30408)>F:displayData_loop()\nΨ - 00:09:14 (554693ms) (30408)>F:temperature_loop()\nΨ - 00:09:14 (554693ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:09:14 (554696ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:09:14 (554761ms) (30408)>F:displayData_loop()\nΨ - 00:09:15 (555648ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:09:15 (555844ms) (30408)>F:displayData_loop()\nΨ - 00:09:16 (556701ms) (30408)>F:temperature_loop()\nΨ - 00:09:16 (556701ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:09:16 (556927ms) (30408)>F:displayData_loop()\nΨ - 00:09:18 (558010ms) (30408)>F:displayData_loop()\nΨ - 00:09:18 (558594ms) (30408)>F:current_loop()\nΨ - 00:09:18 (558594ms) (30408)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:09:19 (559542ms) (30408)>F:displayData_loop()\nΨ - 00:09:19 (559625ms) (30408)>F:temperature_loop()\nΨ - 00:09:19 (559625ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:20 (560625ms) (30408)>F:displayData_loop()\nΨ - 00:09:21 (561640ms) (30408)>F:temperature_loop()\nΨ - 00:09:21 (561640ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:09:21 (561708ms) (30408)>F:displayData_loop()\nΨ - 00:09:22 (562791ms) (30408)>F:displayData_loop()\nΨ - 00:09:23 (563655ms) (30408)>F:temperature_loop()\nΨ - 00:09:23 (563655ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:09:23 (563658ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:09:23 (563874ms) (30408)>F:displayData_loop()\nΨ - 00:09:24 (564957ms) (30408)>F:displayData_loop()\nΨ - 00:09:25 (565541ms) (30408)>F:current_loop()\nΨ - 00:09:25 (565541ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:09:26 (566489ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:09:26 (566496ms) (30408)>F:displayData_loop()\nΨ - 00:09:26 (566579ms) (30408)>F:temperature_loop()\nΨ - 00:09:26 (566579ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:09:27 (567579ms) (30408)>F:displayData_loop()\nΨ - 00:09:28 (568594ms) (30408)>F:temperature_loop()\nΨ - 00:09:28 (568594ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:28 (568662ms) (30408)>F:displayData_loop()\nΨ - 00:09:29 (569744ms) (30408)>F:displayData_loop()\nΨ - 00:09:30 (570609ms) (30408)>F:temperature_loop()\nΨ - 00:09:30 (570609ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:09:30 (570827ms) (30408)>F:displayData_loop()\nΨ - 00:09:31 (571910ms) (30408)>F:displayData_loop()\nΨ - 00:09:32 (572488ms) (30408)>F:current_loop()\nΨ - 00:09:32 (572488ms) (30408)>>F:isThereElectricCurrent(): NO (0.029A)\nΨ - 00:09:33 (573436ms) (30408)>F:displayData_loop()\nΨ - 00:09:33 (573519ms) (30408)>F:temperature_loop()\nΨ - 00:09:33 (573519ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:09:33 (573522ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.81(°C)\nΨ - 00:09:33 (573538ms) (30408)>F:waterFlow_loop()\nΨ - 00:09:34 (574519ms) (30408)>F:displayData_loop()\nΨ - 00:09:35 (575526ms) (30408)>F:temperature_loop()\nΨ - 00:09:35 (575526ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:09:35 (575602ms) (30408)>F:displayData_loop()\nΨ - 00:09:36 (576489ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:09:36 (576684ms) (30408)>F:displayData_loop()\nΨ - 00:09:37 (577541ms) (30408)>F:temperature_loop()\nΨ - 00:09:37 (577541ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:37 (577766ms) (30408)>F:displayData_loop()\nΨ - 00:09:38 (578849ms) (30408)>F:displayData_loop()\nΨ - 00:09:39 (579435ms) (30408)>F:current_loop()\nΨ - 00:09:39 (579435ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:09:40 (580383ms) (30408)>F:displayData_loop()\nΨ - 00:09:40 (580466ms) (30408)>F:temperature_loop()\nΨ - 00:09:40 (580466ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:09:41 (581466ms) (30408)>F:displayData_loop()\nΨ - 00:09:42 (582481ms) (30408)>F:temperature_loop()\nΨ - 00:09:42 (582481ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:09:42 (582484ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.79(°C)\nΨ - 00:09:42 (582549ms) (30408)>F:displayData_loop()\nΨ - 00:09:43 (583632ms) (30408)>F:displayData_loop()\nΨ - 00:09:44 (584489ms) (30408)>F:temperature_loop()\nΨ - 00:09:44 (584489ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:09:44 (584715ms) (30408)>F:displayData_loop()\nΨ - 00:09:45 (585798ms) (30408)>F:displayData_loop()\nΨ - 00:09:46 (586382ms) (30408)>F:current_loop()\nΨ - 00:09:46 (586382ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:09:47 (587330ms) (30408)>F:uploadLogFile_loop(int) - Nothing to send!\nΨ - 00:09:47 (587337ms) (30408)>F:displayData_loop()\nΨ - 00:09:47 (587420ms) (30408)>F:temperature_loop()\nΨ - 00:09:47 (587420ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:48 (588420ms) (30408)>F:displayData_loop()\nΨ - 00:09:49 (589435ms) (30408)>F:temperature_loop()\nΨ - 00:09:49 (589435ms) (30408)>>F:readTemperaturesAsync(): 3\nΨ - 00:09:49 (589503ms) (30408)>F:displayData_loop()\nΨ - 00:09:50 (590586ms) (30408)>F:displayData_loop()\nΨ - 00:09:51 (591450ms) (30408)>F:temperature_loop()\nΨ - 00:09:51 (591450ms) (30408)>>F:readTemperaturesAsync(): 4\nΨ - 00:09:51 (591453ms) (30408)>>>F:controlHeating_loop(namerenaTeplotaVBojleru): 29.77(°C)\nΨ - 00:09:51 (591669ms) (30408)>F:displayData_loop()\nΨ - 00:09:52 (592752ms) (30408)>F:displayData_loop()\nΨ - 00:09:53 (593329ms) (30408)>F:current_loop()\nΨ - 00:09:53 (593329ms) (30408)>>F:isThereElectricCurrent(): NO (0.039A)\nΨ - 00:09:54 (594277ms) (30408)>F:displayData_loop()\nΨ - 00:09:54 (594360ms) (30408)>F:temperature_loop()\nΨ - 00:09:54 (594360ms) (30408)>>F:readTemperaturesAsync(): 1\nΨ - 00:09:54 (594377ms) (30408)>F:waterFlow_loop()\nΨ - 00:09:55 (595359ms) (30408)>F:displayData_loop()\nΨ - 00:09:56 (596375ms) (30408)>F:temperature_loop()\nΨ - 00:09:56 (596375ms) (30408)>>F:readTemperaturesAsync(): 2\nΨ - 00:09:56 (596442ms) (30408)>F:displayData_loop()\n",
+			"settings":
+			{
+				"buffer_size": 79558,
 				"line_ending": "Unix",
-				"name": "[ Deviot 2.1.6 ] Serial Monitor | /dev/tty.wchusbserial1410",
+				"name": "[ Deviot 2.2.1 ] Serial Monitor | /dev/cu.wchusbserial1410",
 				"scratch": true
 			}
 		}
@@ -435,21 +494,93 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 329.0,
-		"last_filter": "macr",
+		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"macr",
-				"Snippet: cE MACRO"
+				"",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"uni",
+				"Build With: Platformio - Clean"
+			],
+			[
+				"comp",
+				"Deviot: Compile"
 			],
 			[
 				"set de",
 				"Set Syntax: Deviot"
 			],
 			[
+				"c",
+				"Deviot: Compile"
+			],
+			[
+				"se thml",
+				"Set Syntax: HTML"
+			],
+			[
+				"set js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set hm",
+				"Set Syntax: HTML"
+			],
+			[
+				"set ht",
+				"Set Syntax: HTML (Tcl)"
+			],
+			[
+				"set sy de",
+				"Set Syntax: Deviot"
+			],
+			[
+				"se d",
+				"Set Syntax: Deviot"
+			],
+			[
+				"se de",
+				"Set Syntax: Deviot"
+			],
+			[
+				"de",
+				"Deviot: Examples"
+			],
+			[
+				"set html",
+				"Set Syntax: HTML"
+			],
+			[
+				"se ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"set d",
+				"Set Syntax: Deviot"
+			],
+			[
 				"macro",
 				"Snippet: E MACRO"
+			],
+			[
+				"macr",
+				"Snippet: sE MACRO"
+			],
+			[
+				"set jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set j",
+				"Set Syntax: Java"
 			],
 			[
 				"se",
@@ -458,10 +589,6 @@
 			[
 				"se m",
 				"Snippet: cE MACRO"
-			],
-			[
-				"set d",
-				"Set Syntax: Deviot"
 			],
 			[
 				"ce",
@@ -508,10 +635,6 @@
 				"Build: Cancel"
 			],
 			[
-				"",
-				"Build: Cancel"
-			],
-			[
 				"s dev",
 				"Set Syntax: Deviot"
 			],
@@ -522,10 +645,6 @@
 			[
 				"s de",
 				"Set Syntax: Deviot"
-			],
-			[
-				"comp",
-				"Deviot: Compile"
 			],
 			[
 				"upl",
@@ -586,10 +705,6 @@
 			[
 				"htm",
 				"Set Syntax: HTML"
-			],
-			[
-				"de",
-				"Set Syntax: Deviot IoT"
 			],
 			[
 				"got",
@@ -688,10 +803,6 @@
 				"Build: Cancel"
 			],
 			[
-				"remov",
-				"Package Control: Remove Package"
-			],
-			[
 				"re",
 				"Package Control: Remove Package"
 			],
@@ -740,7 +851,7 @@
 				"git: commit"
 			]
 		],
-		"width": 412.0
+		"width": 449.0
 	},
 	"console":
 	{
@@ -762,136 +873,140 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting"
+	],
 	"file_history":
 	[
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/pgmspace.h",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/E_macro.sublime-snippet",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/cE_macro.sublime-snippet",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/WString.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/DisplayMenu.h",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/Jindra - E snippet",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/temperatureModule.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/TwoPRograms/TwoPRograms.ino",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/exception",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/cpp_type_traits.h",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/functexcept.h",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/xtensa-lx106-elf/bits/c++config.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src/ESP8266WiFi.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266httpUpdate/src/ESP8266httpUpdate.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/Udp.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/IPAddress.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/HeatingControl.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/curentMetter.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/WaterFlowMetter.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/DisplayingData.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/HeatingControl.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/internet_comunication.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/HTTPSRedirect.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/wifi.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/define.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/settings.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/DisplayMenu.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/responseProcesing.ino",
+		"/Users/jindra/Downloads/IOT-Appstore-master/IotAppStoreLoaderV1/IotAppStoreLoaderV1.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/symbolsDefine.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/pgmspace.h",
+		"/Users/jindra/Documents/Arduino/libraries/EspSaveCrash-masterArduino/src/EspSaveCrash.cpp",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/SPI/SPI.h",
+		"/Users/jindra/Documents/Arduino/libraries/LiquidCrystal-I2C-library-master/LiquidCrystal_I2C.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/WString.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/debugging.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/TaskerModified.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino",
+		"/Users/jindra/Documents/Arduino/libraries/Time_ID44/TimeLib.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/time.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino.cpp",
 		"/tmp/Deviot/BojlerTesting/platformio.ini",
+		"/tmp/Deviot/1529931966/src/1529931966.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/dBi scanner/dBi scanner.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/WiFi SCan/WiFi SCan.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/dataLoging.ino",
+		"/tmp/Deviot/1524999277/src/1524999277.ino",
+		"/private/tmp/Deviot/1524999277/src/1524999277.ino",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/string.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/OTA.ino",
+		"/Users/jindra/Downloads/blank_1MB.bin",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/SPIFFS.ino",
+		"/tmp/Deviot/1524852365/src/1524852365.ino",
+		"/private/tmp/Deviot/1524819769/src/1524819769.ino",
+		"/tmp/Deviot/1524819769/src/1524819769.ino",
+		"/Users/jindra/Documents/Arduino/libraries/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/Documents/Arduino/libraries/RemoteDebug/RemoteDebug.h",
+		"/tmp/Deviot/1524768565/src/1524768565.ino",
+		"/private/tmp/Deviot/1524768565/src/1524768565.ino",
+		"/private/tmp/Deviot/1524767832/src/1524767832.ino",
+		"/tmp/Deviot/1524767832/src/1524767832.ino",
+		"/tmp/Deviot/1524343729/src/1524343729.ino",
+		"/private/tmp/Deviot/1524343729/src/1524343729.ino",
+		"/private/var/folders/2d/ty0jy3q97fv5vyyyk5mtq7f80000gn/T/beb8f691-7198-495d-b64d-8e428376dbcf/www/wp-config.php",
+		"/private/tmp/Deviot/1522838300/src/1522838300.ino",
+		"/tmp/Deviot/1522838300/src/1522838300.ino",
+		"/Users/jindra/Desktop/Strojové učení/Start.html",
+		"/Users/jindra/Desktop/Strojové učení/script.html",
+		"/Users/jindra/Downloads/aresdata.js.txt",
+		"/tmp/Deviot/1521767237/src/1521767237.ino",
+		"/private/tmp/Deviot/1521767237/src/1521767237.ino",
+		"/tmp/Deviot/1521302616/src/1521302616.ino",
+		"/private/tmp/Deviot/1521302616/src/1521302616.ino",
+		"/tmp/Deviot/temperatureModule/platformio.ini",
+		"/tmp/Deviot/1521085275/src/1521085275.ino",
+		"/private/tmp/Deviot/1521085275/src/1521085275.ino",
+		"/tmp/Deviot/1521080997/src/1521080997.ino",
+		"/private/tmp/Deviot/1521080997/src/1521080997.ino",
+		"/tmp/Deviot/1521080324/src/1521080324.ino",
+		"/private/tmp/Deviot/1521080324/src/1521080324.ino",
+		"/private/tmp/Deviot/1521080187/src/1521080187.ino",
+		"/tmp/Deviot/1521080187/src/1521080187.ino",
+		"/tmp/Deviot/1521074707/src/1521074707.ino",
+		"/private/tmp/Deviot/1521074707/src/1521074707.ino",
+		"/private/tmp/Deviot/1521074261/src/1521074261.ino",
+		"/tmp/Deviot/1521074261/src/1521074261.ino",
+		"/tmp/Deviot/1521073771/src/1521073771.ino",
+		"/private/tmp/Deviot/1521073771/src/1521073771.ino",
+		"/tmp/Deviot/1521073351/src/1521073351.ino",
+		"/private/tmp/Deviot/1521073351/src/1521073351.ino",
+		"/tmp/Deviot/1521071242/src/1521071242.ino",
+		"/private/tmp/Deviot/1521071242/src/1521071242.ino",
+		"/private/tmp/Deviot/1521067363/src/1521067363.ino",
+		"/tmp/Deviot/1521067363/src/1521067363.ino",
+		"/tmp/Deviot/1521066021/src/1521066021.ino",
+		"/private/tmp/Deviot/1521066021/src/1521066021.ino",
+		"/private/tmp/Deviot/1521065646/src/1521065646.ino",
+		"/tmp/Deviot/1521065646/src/1521065646.ino",
+		"/tmp/Deviot/1521062280/src/1521062280.ino",
+		"/private/tmp/Deviot/1521062280/src/1521062280.ino",
+		"/private/tmp/Deviot/1521053387/src/1521053387.ino",
+		"/tmp/Deviot/1521053387/src/1521053387.ino",
+		"/tmp/Deviot/1520993563/src/1520993563.ino",
+		"/tmp/Deviot/1520992527/src/1520992527.ino",
+		"/private/tmp/Deviot/1520992527/src/1520992527.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/MereniProudu/MereniProudu.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/MereniProudu/MereniProudu/MereniProudu.ino",
+		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/WaitForConversion/WaitForConversion.pde",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/blink/blink.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/dallasParasitic/dallasParasitic.ino",
+		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/WaitForConversion2/WaitForConversion2.pde",
+		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/TwoPin_DS18B20/TwoPin_DS18B20.ino",
+		"/Users/jindra/Desktop/oneContactTmpl.txt",
+		"/Users/jindra/Desktop/ekovesnice-users (1).csv",
+		"/Users/jindra/Desktop/oneContact.html",
+		"/Users/jindra/Desktop/oneContact.tmpl",
+		"/Users/jindra/Downloads/Workbook1.csv",
+		"/Users/jindra/Downloads/3967172-181e463c868d4f92091435d0fba408941b064acd/window.location.href",
+		"/Users/jindra/Downloads/Celý seznam zakazani prijemci a nefunkcni emaily.adrsn",
+		"/Users/jindra/Downloads/Celý seznam zakazani prijemci2.adrsn",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/ExpandRegion/ExpandRegion.sublime-settings",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Inc-Dec-Value/inc_dec_value.sublime-settings",
+		"/tmp/Deviot/1516492803/src/1516492803.ino",
+		"/tmp/Deviot/1516492703/src/1516492703.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/ReplacePatern",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/binary.h",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/Default.sublime-commands",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/sE_macro.sublime-snippet",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/E_macro.sublime-snippet",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/cE_macro.sublime-snippet",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/Jindra - E snippet",
 		"/tmp/Deviot/1514841338/src/1514841338.ino",
 		"/tmp/Deviot/1514818335/src/1514818335.ino",
 		"/Users/jindra/Documents/Arduino/libraries/TurnWifiModemOnOFF/TurnWifiModemOnOFF.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/MainCode.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/globalDefinitions.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/_globalDefinitions.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/ReplacePatern",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/OTA.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/debugging.ino",
-		"/Users/jindra/Documents/Arduino/libraries/EspSaveCrash-masterArduino/src/EspSaveCrash.cpp",
-		"/Users/jindra/Documents/Arduino/libraries/EspSaveCrash-masterArduino/src/EspSaveCrash.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/temperatureModule.ino",
-		"/Users/jindra/.platformio/lib/EspSaveCrash-master/src/EspSaveCrash.h",
-		"/Users/jindra/.platformio/lib/EspSaveCrash-master/src/EspSaveCrash.cpp",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/SPIFFS.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/TaskerModified.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/curentMetter.ino",
-		"/Users/jindra/.platformio/lib/ESP8266-RemoteDebug-Telnet-master/RemoteDebug.h",
-		"/Users/jindra/.platformio/lib/ESP8266-RemoteDebug-Telnet-master/RemoteDebug.cpp",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/aa_globalDefinitions.ino",
-		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/unique_ptr.h",
-		"/Users/jindra/Documents/Platform.IO Projects/https example/HTTPSRedirect.h",
-		"/Users/jindra/Documents/Platform.IO Projects/https example/https example.ino",
-		"/Users/jindra/Downloads/untitled.html",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/dataStructures.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/responseProcesing.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/internet_comunication.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/time.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/symbolsDefine.h",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot/Settings-Default/Deviot Preferences.sublime-settings",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/Deviot/Deviot Preferences.sublime-settings",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot/Settings-Default/Default (OSX).sublime-keymap",
-		"/Users/jindra/.platformio/packages/ldscripts/esp8266.flash.4m1m.ld",
-		"/Users/jindra/.platformio/packages/ldscripts/esp8266.flash.4m.ld",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/FS.h",
-		"/Users/jindra/.platformio/lib/Json_ID64/include/ArduinoJson/Polyfills/math.hpp",
-		"/tmp/Deviot/1489222815/src/1489222815.ino",
-		"/Users/jindra/Documents/Arduino/displayChars/displayChars.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/RelayControl.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino.cpp",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/^\n/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino",
-		"/Users/jindra/.platformio/lib/DallasTemperature/examples/Alarm/Alarm.ino",
-		"/Users/jindra/.platformio/lib/DallasTemperature/examples/setUserData/SetUserData.ino",
-		"/Users/jindra/.platformio/lib/DallasTemperature/examples/TwoPin_DS18B20/TwoPin_DS18B20.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/src/OTA.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/src/WaterFlowMetter.ino",
-		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/stl_pair.h",
-		"/Users/jindra/.platformio/lib/Adafruit-GFX-Library-master/Adafruit_GFX.h",
-		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/move.h",
-		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/exception",
-		"/Users/jindra/Documents/Platform.IO Projects/Platform.IO Files/rotaryEncoder/rotaryEncoder.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/nodeInfo.ino",
-		"/Users/jindra/Downloads/taper.txt",
-		"/Users/jindra/Documents/Platform.IO Projects/Platform.IO Files/analogMeasurment/analogMeasurment.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/aaa",
-		"/Users/jindra/.platformio/platforms/espressif8266/ldscripts/esp8266.flash.4m.ld",
-		"/Users/jindra/.platformio/platforms/espressif8266/ldscripts/esp8266.flash.4m1m.ld",
-		"/private/tmp/Deviot/1487026427/src/1487026427.ino",
-		"/tmp/Deviot/1487025380/src/1487025380.ino",
-		"/tmp/Deviot/1487026427/src/1487026427.ino",
-		"/private/tmp/Deviot/1487025380/src/1487025380.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/Serial Monitor - :dev:tty.SLAB_USBtoUART",
-		"/tmp/Deviot/1486816727/src/1486816727.ino",
-		"/private/tmp/Deviot/1486816727/src/1486816727.ino",
-		"/Users/jindra/.platformio/lib/Json_ID64/include/ArduinoJson.h",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif/libraries/ESP8266HTTPClient/examples/BasicHttpClient/BasicHttpClient.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/httpClient/httpClient.ino",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif/libraries/ESP8266HTTPClient/examples/ReuseConnection/ReuseConnection.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/httpsPostRequest/httpsPostRequest.ino",
-		"/Users/jindra/Documents/Moje doc, jpg, smlouvy atd/RestartWifi.sh",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/jsonWork.ino",
-		"/Users/jindra/.platformio/lib/PrintEx-master/examples/basic_usage/basic_usage.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/prinExPokus/prinExPokus.ino",
-		"/tmp/Deviot/1481026760/src/1481026760.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/platformio.ini",
-		"/tmp/Deviot/testingUploadScetch/platformio.ini",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/BojlerDoma.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/pokus2/pokus2.ino",
-		"/Users/jindra/.platformio/lib/DallasTemperature/DallasTemperature.h",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/TestCommand.py",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Zaloha pluginy/CopyWordUnderCursor.py",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/TaskerModified.h",
-		"/private/var/folders/2d/ty0jy3q97fv5vyyyk5mtq7f80000gn/T/858f4ee7-258d-40f4-ae21-d4f1fb873b65/jindrichsirucek.cz/web/gethdmap.php",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDomdfdfadsfasdfa/BojlerDo/dfma.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/BojlerDo/dfma.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/BojlerDo/dma.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/BojlerDo/ma.ino",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Zaloha pluginy/Messages.py",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Zaloha pluginy/SetingsPluginsJindra.sublime-workspace",
-		"/tmp/Deviot/1469390054/src/1469390054.ino",
-		"/Users/jindra/.platformio/lib/arduinoTaskerMaster/Tasker.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/HeatingControl.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/nodeInfo.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/temperatureModule.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/curentMetter.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/DisplayingData.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/internet_comunication.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/HTTPSRedirect.h",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/OTA.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/RelayControl.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/SPIFFS.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerDoma/WaterFlowMetter.ino",
-		"/tmp/Deviot/BojlerDoma/platformio.ini",
-		"/Users/jindra/Documents/Platform.IO Projects/Platform.IO Files/Builds/BojlerDoma/platformio.ini",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot/Preset/Arduino.syntax",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/Arduino.sublime-settings",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/GitSavvy.sublime-settings",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/GitSavvy/GitSavvy.sublime-settings",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/FindUnderInAllFiles.py",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/jindra/.platformio/lib/arduinoTaskerMaster/examples/MultiBlink/MultiBlink.ino",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif/libraries/esp8266/examples/TestEspApi/TestEspApi.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/Platform.IO Files/Builds/DisplayingData/platformio.ini"
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/MainCode.ino"
 	],
 	"find":
 	{
@@ -915,134 +1030,134 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"curentLogNumber_global",
-			"numberOfPacket_global",
-			"lastWaterFlowResetTime_global",
-			"lastWaterFlowSensorCount_global",
-			"detachedTime_global",
-			"//",
-			"CUTTING_OFF_BOILER_ELECTRICITY_SAFE_TEMPERATURE",
-			"HR",
-			"s",
-			"Adding a header to file",
-			"DATA_LOGGING_DEBUG",
-			"Creating NEW Log file",
-			"xE",
-			"size",
-			"Opening Curent Logging file name",
-			"cE",
-			"(String)",
-			"(\\\".*?\\\")",
-			"AP_SSID",
-			"F(\"",
-			"E(\"",
-			"Found a log file from previous se",
-			"of size",
-			"cE\\(\\\"(.)\\\"\\)",
-			"turnWifi",
-			"printf\\((\\\".*?\\\")",
-			"E(\";\")",
-			"\";\"",
-			"(\\\".*?\\\")",
-			"F(\"",
-			"\"\"",
-			"F(\"",
-			"\\(String\\)(\\\".*?\\\")",
-			"(\\\".*?\\\")",
-			"String",
-			"(\\\".*?\\\")",
-			"\\\".*?\\\"",
-			"\", exccause=0x\"",
-			"return (String(RST_REASONS[pRstInfo->reason]) + cE(\", exccause=0x\") + String(pRstInfo->exccause, HEX) + \", epc1=0x\" + String(pRstInfo->epc1, HEX) + \", epc2=0x\" + String(pRstInfo->epc2,HEX) + \", epc3=0x\" + String(pRstInfo->epc3, HEX) + \", excvaddr=\" + String(pRstInfo->excvaddr, HEX) + \", depc=0x\" + String(pRstInfo->depc, HEX));",
-			"F(\"",
-			"FLASH_SIZE_MAP_NAMES",
-			"F(\"",
-			"\"-\"",
-			"stringifySensorAddressToHexString",
-			"INTERNET_COMMUNICATION_DEBUG",
-			"turnWifi.",
-			"WIFI_RADIO_OFF",
-			"WIFI_RADIO_OFF_DURING_BATTERY_POWERSOURCE",
-			"WiFi",
-			"WiFiOff",
-			"WiFi",
-			"Fifi",
-			"wifi",
-			"WIFI_RADIO_ON",
-			"WIFI_RADIO_OFF_ON_BATTERY",
-			"temp",
-			"controlHeating_loop",
-			"namerenaTeplotaVBojleru",
-			"debugButt",
-			"debug",
-			"debugButt",
-			"DEBUG_OUTPUT",
-			"16)",
-			"*",
-			"&",
-			"]));",
-			"tempSensorsAddresses",
-			"20",
-			"Serial",
-			"loadNodeSettingsAfterBoot",
-			"saveTempSensorAddressesToEeprom",
-			"updatin",
-			".",
-			"saveTempSensorsStructToEeprom",
-			"rese",
-			"allTempSensorsInfo",
-			"ESP",
-			"\";\"",
-			";",
-			"PULSES_PER_LITER_WATER_SENSOR",
-			"lastTemp_global",
-			"mainTemp",
-			"lcd_setup",
-			"chipId",
-			"ch",
-			"chipId",
+			"runHog1",
+			"relayBoard_setup",
+			"current_setup",
+			"waterFlowSensor_setup",
+			"temperature_setup",
+			"oneWireBus_setup",
 			"OTA_MODULE_ENABLED",
-			"RADIO_OFF_ON_BATTERY",
-			" =",
-			"lastTemp_global",
-			"sensorMeasurmentDoneCount",
-			"cnt",
-			"      ",
-			"WARNING: Given address",
-			",\n",
-			"tempAverage",
-			"TEMP_SENSORS_COUNT",
-			"UknownResetInfo",
-			"'[",
+			"#if",
+			"OTA_MODULE_ENABLED",
+			"File",
+			"fileToSent",
+			"sendGetParamsWithPostFile",
+			".stack",
+			"exis",
+			"@",
+			"setPendingEventToSend",
+			"url",
+			"delete",
+			"saveNewUpdateUrlToFlashMemmory",
+			"saveNewUpdateUrlToEeprom",
+			"saveReceivedBoilerStateToFile",
+			"SETTINGS_FILENAME",
+			"settings.json",
 			"();\n",
-			"nowDate_global",
-			"nowTime_global",
-			"Debug.",
-			"oledDisplay",
-			"UknownResetInfo",
-			"unknwo",
-			"exc",
-			"UknownResetInfo",
-			"unk",
-			"unknown",
-			"unk",
-			"unkwno",
-			"!!!Error: ",
-			"FormatedSpiffs",
+			"settings.json",
+			"currentLinearizationCoeficient",
+			"eepromSettings_global",
+			"  ",
+			"sensorAddresses",
+			"tempSensorAddresses",
+			"loadSettingsStructFromEeprom",
+			"loadTempSensorAddressesFromEeprom",
+			"loadSettingsStructFromEeprom",
+			"loadGlobalSettingsStructFromEeprom",
+			"eepromSettings",
+			"loadedBytes",
+			"saveTempSensorsStructToEeprom",
+			"memmorySize",
+			"eepromSettings_global",
+			"EepromSettingsStruct",
+			"loadTempSensorAddressesFromEeprom",
+			"loadSettingsStructFromEeprom",
+			"loadTempSensorsStructFromEeprom",
+			"EepromSettingsStruct",
+			"loadTempSensorsStructFromEeprom",
+			"eepromSettings_global",
+			"newLineHeaderString",
+			"closeConnection",
+			"\" HTTP/1.1\\r\\n\"",
+			"FPSTR",
+			"\n uint8_t",
+			"= {",
+			"strcmp",
+			"ESP_CONST_DATA",
+			"PROGMEM_T",
+			"uint8_t",
+			"byte",
+			"int8_t",
+			" (",
+			"F(",
+			"f(",
+			"F(",
+			"f(",
+			"F(",
+			"F",
+			"f",
+			"F",
+			"spaceCountDebug_global",
+			"-E(\"",
+			"-E\\(\"",
 			");\n",
-			"ESP.",
-			"uploadDebugLogFileWithGetParams",
-			"RemoteDebug",
-			"D1",
-			"^(.*DEBUG_OUTPUT.prin)",
-			"esp8266",
-			"loadTempSensorsAddressesSetings",
-			"getCssStyleCodeByProvisionLevel",
-			"break;",
-			"case",
-			",",
-			"Wire.h",
-			"checkSystemState_loop"
+			"doNecesaryActionsUponResponse",
+			"sendNewNodeStateByPostString",
+			"getSpareWaterInLittres",
+			"snprintfTo_globalCharBuf",
+			"ce",
+			"cE",
+			"ce",
+			"cE",
+			"lastCurrentMeasurmentText_global",
+			"activeAnimationStepDuration_global",
+			"activeAnimationFramesCount_global",
+			"animationProgress_global",
+			"activeAnimationSymbol_global",
+			"Stream",
+			"ERROR_OUTPUT",
+			"tasker",
+			"ERROR_OUTPUT",
+			"DEBUG_OUTPUT",
+			"ERROR_OUTPUT",
+			"SIZE_OF_LOACAL_ARRAY",
+			"WiFinetworks",
+			"TASKER_SKIP_NEVER",
+			"TASKER_DEBUG",
+			"OUTPUT.",
+			"ERROR_OUTPUT",
+			"_normalDebugOutput",
+			"(&",
+			"&",
+			"&Serial",
+			"t_prioritized",
+			"prioritized",
+			"TASKER",
+			"tasker",
+			"getESPStatusUpdate",
+			"String",
+			"systemStateInfo_global",
+			"getSystemStateInfo",
+			"systemStateInfo_global",
+			"espRestartTime_global",
+			"connectToLastRememberedWifi_global",
+			"GLOBAL.tempSensors",
+			"tempSensors",
+			"GLOBAL.TEMP.",
+			"tempMeasurmentAsyncCounter_global",
+			"resolution",
+			"tempSensorResoulution_global",
+			"boilerTempControlStyle_global",
+			"lastHeatedTemp_global",
+			"lowDropingTemp_global",
+			"topHeatingTemp_global",
+			"tempSensors_global",
+			"\n  ",
+			"remoteDebug_setup",
+			"objectAskingForResponse_global",
+			"showServiceMenu",
+			"spare",
+			"getSpareWaterInLittres"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1050,134 +1165,134 @@
 		"regex": false,
 		"replace_history":
 		[
-			"curentLogNumber_global",
-			"numberOfPacket_global",
-			"lastWaterFlowResetTime_global",
-			"lastWaterFlowSensorCount_global",
-			"detachedTime_global",
-			"CUTTING_OFF_BOILER_ELECTRICITY_SAFE_TEMPERATURE",
-			"Creating NEW Log file",
-			"cE",
-			"xE",
-			"sE($1)",
-			"E(\"",
-			"F(\"",
-			"\"$1\"",
-			"printf(cE($1)",
-			"E($1)",
-			"E(\"",
-			"\"\"",
-			"E(\"",
-			"sE($1)",
-			"E($1)",
-			"cE($1)",
-			"cE($)",
-			"cE($1)",
-			"E(\"",
-			"saveTempSensorAddressesToEeprom",
-			"INTERNET_COMMUNICATION_DEBUG",
-			"turnWifi",
-			"controlHeating_loop",
-			"debug",
-			"DEBUG_OUTPUT",
-			"loadNodeSettingsAfterBoot",
-			"saveTempSensorAddressesToEeprom",
-			"saveTempSensorsStructToEeprom",
-			"ESP",
-			"PULSES_PER_LITER_WATER_SENSOR",
-			"ch",
-			"lastTemp_global",
-			",\n",
-			"MAX_TEMP_SENSORS_COUNT",
-			"TEMP_SENSORS_COUNT",
-			"'[",
-			"nowDate_global",
-			"nowTime_global",
-			"unk",
-			"!!!Error: ",
-			");\n",
-			"uploadDebugLogFileWithGetParams",
-			"D1",
-			";//@##$1",
-			"esp8266",
-			"loadTempSensorsAddressesSetings",
-			"TempSensorAddressesStruct",
-			"\n    ",
-			";\n",
-			"!!Warning",
-			"());\n",
-			"saveNodeStateIntoFile",
-			"\n    ",
-			"saveNodeStateIntoFile",
-			"logNewNodeState",
-			"}\n",
-			"\")))\n",
-			"logNewNodeState\\(F\\(\\\"$1\\\"\\)\\)",
-			"\\(\\\"(.*)\\\"\\)\n",
-			"logNewNodeState\\(F\\(\\\"$1\\\"\\)\\)",
-			"TASKER",
-			"tasker",
-			"TASKER",
-			"tasker",
-			"TASKER",
-			"tasker",
-			"TASKER",
-			"tasker",
-			"TASKER",
-			"tasker",
-			"TASKER",
-			"tasker",
-			"}\n",
-			"logNewNodeState(\"Settings file loaded\")",
-			"logNewNodeState(",
-			"isThereEventToSend",
-			"getESPResetInfo",
-			"sendDebugInfo",
-			"lcd.print",
-			"ip",
-			"SHOW_WARNING_DEBUG_MESSAGES",
-			"SHOW_ERROR_DEBUG_MESSAGES",
-			"SHOW_ERROR_DEBUG_INFORMATION",
-			"electricity",
-			"ERROR_TEMP_VALUE_PLUS_85",
-			"ERROR_TEMP_VALUE_MINUS_127",
-			"openOldestLogFileForReading",
-			"getNowDateString",
-			"getNowTimeString",
+			"relayBoard_setup",
+			"current_setup",
+			"waterFlowSensor_setup",
+			"temperature_setup",
+			"oneWireBus_setup",
+			"OTA_MODULE_ENABLED",
+			"sendGetParamsWithPostFile",
+			"setPendingEventToSend",
+			"saveNewUpdateUrlToFlashMemory",
+			"saveNewUpdateUrlToFlashMemmory",
+			"saveNewUpdateUrlToEeprom",
+			"saveReceivedBoilerStateToFile",
+			"SETTINGS_FILENAME",
 			"();\n",
-			"\");\n",
-			"ESP.reset();",
-			"     \n",
-			"Searching",
-			"IP",
-			"iP",
-			"RESET_SPACE_COUNT_DEBUG",
-			"RESET_DEBUGGER_LEVEL_TO_ZERO",
+			"loadTempSensorAddressesFromEeprom",
+			"loadSettingsStructFromEeprom",
+			"saveTempSensorsStructToEeprom",
+			"eepromSettings_global",
+			"EepromSettingsStruct",
+			"loadTempSensorAddressesFromEeprom",
+			"loadSettingsStructFromEeprom",
+			"loadTempSensorsStructFromEeprom",
+			"closeConnection",
+			"ESP_CONST_DATA",
+			"uint8_t",
+			"GLOBAL.spaceCountDebug",
 			"spaceCountDebug_global",
-			"debuggerLevel_global",
-			"animateProgressSymbol",
-			"animateWaitSymbol",
-			"newCharWifiNOTConnected",
-			"B00000,\n  B10001,\n  B01010,\n  B00100,\n  B01010,\n  B10001,\n  B00000,\n  B00000",
-			"silentOTA_loop",
+			");\n",
+			"doNecesaryActionsUponResponse",
+			"sendNewNodeStateByPostString",
+			"getSpareWaterInLittres",
+			"snprintfTo_globalCharBuf",
+			"lastCurrentMeasurmentText_global",
+			"GLOBAL.ANIMATION.stepDuration",
+			"activeAnimationStepDuration_global",
+			"GLOBAL.ANIMATION.framesCount",
+			"activeAnimationFramesCount_global",
+			"GLOBAL.ANIMATION.progress",
+			"animationProgress_global",
+			"GLOBAL.ANIMATION.activeSymbol",
+			"activeAnimationSymbol_global",
+			"Print",
+			"ERROR_OUTPUT",
+			"tasker",
+			"ERROR_OUTPUT",
+			"DEBUG_OUTPUT",
+			"ERROR_OUTPUT",
+			"SIZE_OF_LOACAL_ARRAY",
+			"TASKER_SKIP_NEVER",
+			"OUTPUT->",
+			"(&",
+			"TASKER",
+			"getESPStatusUpdate",
+			"String",
+			"systemStateInfo_global",
+			"getSystemStateInfo",
+			"systemStateInfo_global",
+			"espRestartTime_global",
+			"GLOBAL.connectToLastRememberedWifi",
+			"connectToLastRememberedWifi_global",
+			"GLOBAL.TEMP.sensors",
+			"tempSensors",
+			"GLOBAL.TEMP.asyncMeasurmentCounter",
+			"tempMeasurmentAsyncCounter_global",
+			"resolution",
+			"GLOBAL.TEMP.sensorsResoulution",
+			"tempSensorResoulution_global",
+			"GLOBAL.TEMP.boilerControlStyle",
+			"boilerTempControlStyle_global",
+			"GLOBAL.TEMP.lastHeated",
+			"lastHeatedTemp_global",
+			"GLOBAL.TEMP.lowDroping",
+			"lowDropingTemp_global",
+			"GLOBAL.TEMP.topHeating",
+			"topHeatingTemp_global",
+			"GLOBAL.tempSensors",
+			"tempSensors_global",
+			"\n  ",
+			"remoteDebug_setup",
+			"objectAskingForResponse_global",
+			"showServiceMenu",
+			"getSpareWaterInLittres",
+			"();\n",
+			"Searching",
+			"////////////////////////////////////////////////////////",
+			"begining state update",
+			"logNewNodeState",
+			"setTime",
+			"synchronizeTimeByResponse",
 			"waterFlowDisplay_global",
-			"uploadLogFile",
-			"quickSendNewEventInfo",
-			"displayPrint",
-			"showServiceMessage",
-			"HTTPSRedirect",
-			"formatSpiffs()",
-			"getFreeSpaceSPIFFS",
 			"}\n",
-			"\");\n",
-			"}\n",
-			"R",
-			"eraseServiceDisplayArea",
-			"getNowTimeString",
-			"/////////////////////////////////////////////////////",
-			"message",
-			"getWaterFlowLitresInMinutes",
-			"()"
+			"getCurentWaterFlowInLitresPerMinute",
+			"lastCurrentMeasurmentText_global",
+			"wifiSendingSymbolAnimation",
+			"newCharWifiSending",
+			"wifiConnectedSymbol",
+			"newCharWifiConnected",
+			"wifiNOTConnectedSymbol",
+			"newCharWifiNOTConnected",
+			"upTempSymbolAnimation",
+			"newCharUpTempAnimation",
+			"boilerSymbol",
+			"newCharBoilerSymbol",
+			"upTempSymbol",
+			"newCharUpTempSymbol",
+			"degreeCelsiusSymbol",
+			"newCharDegreeCelsiusSymbol",
+			"emptySymbol",
+			"newCharEmptySymbol",
+			"waterFlowSymbolAnimation",
+			"newCharWaterFlow",
+			"showerSymbolAnimation",
+			"newCharShower",
+			"timeSymbol",
+			"newCharTime",
+			"waterDropSymbol",
+			"newCharWaterDrop",
+			"degreeSymbol",
+			"newCharC",
+			"tempSymbol",
+			"newCharTemp",
+			"F(\"",
+			"DEBUG_OUTPUT.print$1(E(\"($2)\")",
+			"newCharC",
+			"displayServiceMessage",
+			"displayServiceMessageWithSymbol",
+			"displayTempInServiceAreaWithSymbol",
+			"displayTempInServiceArea"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1188,7 +1303,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1197,187 +1312,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27233,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9843,
-								9865
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3740.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "WaterFlowMetter.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4328,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2450,
-								2450
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 467.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "HTTPSRedirect.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7359,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								279,
-								279
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 3,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "internet_comunication.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4774,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1005,
-								1005
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "debugging.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3933,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2347,
-								2347
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1063.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "settings.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14525,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8734,
-								8734
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 6.0,
-						"translation.y": 2705.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "OTA.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2391,
+						"buffer_size": 28764,
 						"regions":
 						{
 						},
@@ -1395,55 +1330,147 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 92.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/sE_macro.sublime-snippet",
+					"buffer": 1,
+					"file": "responseProcesing.ino",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 417,
+						"buffer_size": 4988,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								417,
-								417
+								3119,
+								3119
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.sublime-syntax"
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 822.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "define.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1915,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								696,
+								696
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dataLoging.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21952,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								695,
+								695
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "debugging.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8887,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8207,
+								8207
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 2.0,
+						"translation.y": 2522.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "responseProcesing.ino",
+					"buffer": 5,
+					"file": "OTA.ino",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3964,
+						"buffer_size": 3866,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3551,
-								3551
+								3174,
+								3174
 							]
 						],
 						"settings":
@@ -1453,70 +1480,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1233.0,
+						"translation.y": 830.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "temperatureModule.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5515,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2458,
-								2458
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 5.0,
-						"translation.y": 347.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "dataLoging.ino",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15892,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15063,
-								15063
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5426.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1526,19 +1493,19 @@
 			"sheets":
 			[
 				{
-					"buffer": 11,
+					"buffer": 6,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11986,
+						"buffer_size": 79558,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3115,
-								3115
+								1319,
+								1351
 							]
 						],
 						"settings":
@@ -1547,10 +1514,10 @@
 							"word_wrap": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 618.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1558,7 +1525,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 38.0
 	},
 	"input":
 	{
@@ -1584,7 +1551,7 @@
 		"cols":
 		[
 			0.0,
-			0.702931436567,
+			0.590532154976,
 			1.0
 		],
 		"rows":
@@ -5950,13 +5917,17 @@
 	{
 		"height": 100.0
 	},
+	"output.deviot":
+	{
+		"height": 157.0
+	},
 	"output.deviot_console":
 	{
 		"height": 0.0
 	},
 	"output.exec":
 	{
-		"height": 157.0
+		"height": 125.0
 	},
 	"output.find_results":
 	{

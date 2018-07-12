@@ -4,48 +4,73 @@
 
 void SPIFFS_setup()
 {
+   Serial.print(E("\nSPIFFS loading: "));
    bool spiffsLoaded = SPIFFS.begin();
-   Serial.println((spiffsLoaded) ? "FS OK!" : "FS not loaded");
+   Serial.println((spiffsLoaded) ? E("OK!") : E("NOT loaded!"));
    if(spiffsLoaded == false)
    {
-     logNewErrorState(F("SPIFFS not loaded - formating and restarting ESP"));
+     logNewErrorState(E("SPIFFS not loaded - formating and restarting ESP"));
      formatSpiffs();
-     ESP.reset();
+     ESP.restart();
    }
-
 
    FSInfo fs_info;
    SPIFFS.info(fs_info);
-   getFreeSpaceSPIFFS();
 
-   Serial.print("blockSize: ");
-   Serial.println(fs_info.blockSize);
-   Serial.print("pageSize: ");
-   Serial.println(fs_info.pageSize);
-   Serial.print("maxOpenFiles: ");
-   Serial.println(fs_info.maxOpenFiles);
-   Serial.print("maxPathLength: ");
-   Serial.println(fs_info.maxPathLength);
-   Serial.print("total space: ");
-   Serial.print(fs_info.totalBytes/1000);
-   Serial.print("kB  used: ");
-   Serial.print(fs_info.usedBytes/1000);
-   Serial.print("kB  free: ");
-   Serial.print((fs_info.totalBytes-fs_info.usedBytes)/1000);
-   Serial.println("kB");
-   
-   Dir dir = SPIFFS.openDir("/");
-   
-   while (dir.next()) 
+   if(SPIFFS_DEBUG)
    {
-      Serial.print(dir.fileName());
-      Serial.print(" - size: ");
-      File f = dir.openFile("r");
-      Serial.println(f.size());
+      Serial.print(E("ChipRealSize: "));
+      Serial.println(ESP.getFlashChipRealSize());
+      Serial.print(E("blockSize: "));
+      Serial.println(fs_info.blockSize);
+      Serial.print(E("pageSize: "));
+      Serial.println(fs_info.pageSize);
+      Serial.print(E("maxOpenFiles: "));
+      Serial.println(fs_info.maxOpenFiles);
+      Serial.print(E("maxPathLength: "));
+      Serial.println(fs_info.maxPathLength);
    }
 
-   Serial.println("");
-   Serial.println("");
+   Serial.print(E("Total space: "));
+   Serial.print(fs_info.totalBytes/1024);
+   Serial.print(E("kB  Used: "));
+   Serial.print(fs_info.usedBytes/1024);
+   Serial.print(E("kB  Free: "));
+   Serial.print((fs_info.totalBytes-fs_info.usedBytes)/1024);
+   Serial.println(E("kB"));
+   Serial.println();
+
+   Serial.println(E("/(ROOT)"));
+   Dir dir = SPIFFS.openDir("/");
+   dir.next();
+   while(true)
+   {
+      String line = dir.fileName() + E(" - size: ") + dir.fileSize();
+      bool isLastItem = !dir.next();
+      Serial.println(String(isLastItem ? E("╚⟹") : E("╠⟹")) + line);
+      if(isLastItem) 
+        break;
+   }
+
+   if(SPIFFS_DEBUG)
+   {
+      String divider = E("  --------------  ");
+      Dir dir = SPIFFS.openDir("/");
+      while(dir.next())
+      {
+         Serial.println(divider + dir.fileName() + E(" - size: ") + dir.fileSize() +  divider);
+
+         File f = dir.openFile("r");
+         while(f.available())
+         Serial.println(f.readStringUntil('\n'));
+         f.close();
+         Serial.println("\n"+divider + divider + divider + "\n"+divider + divider + divider + "\n"+divider + divider + divider + "\n");
+      }
+   }
+
+   Serial.println();
+   Serial.println();
+   yield();
 }
 
 uint32_t getFreeSpaceSPIFFS()
@@ -58,7 +83,7 @@ uint32_t getFreeSpaceSPIFFS()
 
 bool formatSpiffs()
 {
-   DEBUG_OUTPUT.print("Formating File System..");
+   DEBUG_OUTPUT.print(E("Formating File System.."));
    bool success = SPIFFS.format();
    DEBUG_OUTPUT.println(success ? "Done!":"!!!Error ocured.");
    curentLogNumber_global = 0;
