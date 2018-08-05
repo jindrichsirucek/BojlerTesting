@@ -53,7 +53,7 @@ bool logNewNodeState(String fireEventName)
   newState.fireEventName = fireEventName;
   newState.controlState = getTempControleStyleStringName();
   newState.heatingState = (isBoilerHeatingOn()) ? E("1") : E("0");
-  newState.objectAskingForResponse = getObjectAskingForResponse();
+  newState.objectAskingForResponse = "";
   newState.nodeInfoString = getSystemStateInfo();
 
   return saveNewNodeState(newState);
@@ -151,7 +151,6 @@ bool flushTemporaryStringNodeStateIntoCsvFile()
       if(f.size() > previousFileSize)
       {
         resetflowCount();
-        resetObjectAskingForResponse();
         if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("New line saved into file: %s\n"),f.name());
         f.close();
         if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(getContentOfFile(getLogFileNameByLogNumber(curentLogNumber_global)));        
@@ -215,10 +214,11 @@ bool sendAllLogFiles()
     return false;
   }
 
+  bool success = false;
   //node state ssaved only in temp string
   if(logFileIndex == 0)
   {
-    sendNewNodeStateByPostString(lastNodeStateTempString_global);
+    success = sendNewNodeStateByPostString(lastNodeStateTempString_global);
   }
   else//Actual files to send
   {
@@ -244,6 +244,7 @@ bool sendAllLogFiles()
             if(isFileReceivedOk())
             {
               deleteFileByName(fileName);
+              success = true;
               break;
             }
             else
@@ -253,14 +254,18 @@ bool sendAllLogFiles()
               {
                 if(SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: File was NOT procesed by google script repeatedly - Deleting file. File '%s' size %d\n"), f.name(), f.size());
                 deleteFileByName(fileName);
+                break;
               }
             }
           }
           else
           DEBUG_OUTPUT.printf(cE("!!Warning: File was NOT sent. File '%s' size %d. Repeating.. \n"), f.name(), f.size());
-
-          if(attempts == 0)
+        }
+        if(attempts == 0)
+        {
+          success = false;
           if (SHOW_ERROR_DEBUG_MESSAGES) ERROR_OUTPUT.printf(cE("!!!Error: File was NOT possible to send repeatedly. File '%s' size %d\n"), f.name(), f.size());
+          wifiConnectBySavedCredentials();
         }
       }    
       logFileIndex = getNumberOfOldestLogFile(logFileIndex);
@@ -269,7 +274,7 @@ bool sendAllLogFiles()
   curentLogNumber_global = 0;
   logFileRowsCount_global = 0;//reset rows counter
   setPendingEventToSend(false);
-  return true;
+  return success;
 }
 
 
@@ -521,14 +526,14 @@ File openFile(const char* fileName, const char* mode)
       if(!SPIFFS.exists(fileName))
       {
         if (MAIN_DEBUG) DEBUG_OUTPUT.println();
-        if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("!!!Error:Cannot open file: '%s' its NOT exists!\n"), fileName);
+        if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("\n!!!Error:Cannot open file: '%s' its NOT exists!\n"), fileName);
 
          return file;
       }
 
    file = SPIFFS.open(fileName, mode);
    if (!file) 
-     if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("!!!Error: Opening of file: '%s' has failed!\n"), fileName);
+     if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("\n!!!Error: Opening of file: '%s' has failed!\n"), fileName);
    else
      if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(xE("File: '%s' opened, size: %d\n"), fileName, file.size());
    if (MAIN_DEBUG) DEBUG_OUTPUT.printf(cE(" of size: %d\n"), file.size());

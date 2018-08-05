@@ -5,11 +5,12 @@
 void SPIFFS_setup()
 {
    Serial.print(E("\nSPIFFS loading: "));
+   yield();
    bool spiffsLoaded = SPIFFS.begin();
    Serial.println((spiffsLoaded) ? E("OK!") : E("NOT loaded!"));
    if(spiffsLoaded == false)
    {
-     logNewErrorState(E("SPIFFS not loaded - formating and restarting ESP"));
+     Serial.println(E("SPIFFS not loaded - formating and restarting ESP"));
      formatSpiffs();
      ESP.restart();
    }
@@ -47,31 +48,43 @@ void SPIFFS_setup()
    {
       String line = dir.fileName() + E(" - size: ") + dir.fileSize();
       bool isLastItem = !dir.next();
-      Serial.println(String(isLastItem ? E("╚⟹") : E("╠⟹")) + line);
+      Serial.println(String(isLastItem ? E(" ╚⟹") : E(" ╠⟹")) + line);
       if(isLastItem) 
         break;
+      yield();  
    }
 
+   
    if(SPIFFS_DEBUG)
-   {
-      String divider = E("  --------------  ");
-      Dir dir = SPIFFS.openDir("/");
-      while(dir.next())
-      {
-         Serial.println(divider + dir.fileName() + E(" - size: ") + dir.fileSize() +  divider);
-
-         File f = dir.openFile("r");
-         while(f.available())
-         Serial.println(f.readStringUntil('\n'));
-         f.close();
-         Serial.println("\n"+divider + divider + divider + "\n"+divider + divider + divider + "\n"+divider + divider + divider + "\n");
-      }
-   }
-
+     printAllSpiffsFiles();
    Serial.println();
    Serial.println();
    yield();
 }
+
+
+void printAllSpiffsFiles()
+{
+   String divider = E("  --------------  ");
+   Dir dir = SPIFFS.openDir("/");
+   while(dir.next())
+   {
+      Serial.println(divider + dir.fileName() + E(" - size: ") + dir.fileSize() +  divider + E("'"));
+
+      if(dir.fileSize() < MAXIM_FILE_LOG_SIZE)
+      {
+         File f = dir.openFile("r");
+         while(yield(), f.available())
+         Serial.println(f.readStringUntil('\n'));
+         f.close();
+      }
+      else
+      Serial.println(E("__ Too big fileSize to list file content! __"));
+
+      Serial.println("'\n"+divider + divider + divider + "\n"+divider + divider + divider + "\n"+divider + divider + divider + "\n");
+   }
+}
+
 
 uint32_t getFreeSpaceSPIFFS()
 {
@@ -85,7 +98,7 @@ bool formatSpiffs()
 {
    DEBUG_OUTPUT.print(E("Formating File System.."));
    bool success = SPIFFS.format();
-   DEBUG_OUTPUT.println(success ? "Done!":"!!!Error ocured.");
+   DEBUG_OUTPUT.println(success ? E("Done!"):E("!!!Error ocured."));
    curentLogNumber_global = 0;
    return success;
 }

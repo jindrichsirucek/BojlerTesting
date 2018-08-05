@@ -28,9 +28,9 @@ void relayBoard_setup()
 }
 
 
-void controlHeating_loop(float namerenaTeplotaVBojleru)
+void controlHeating_loop(float temp)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:controlHeating_loop(namerenaTeplotaVBojleru): ") + namerenaTeplotaVBojleru + E("(°C)"));
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:controlHeating_loop(temp): ") + temp + E("(°C)"));
 
   if(getTempControleStyle() != ARDUINO_STYLE_CONTROL)
   {
@@ -39,12 +39,12 @@ void controlHeating_loop(float namerenaTeplotaVBojleru)
   }
 
   if(RELAY_DEBUG) DEBUG_OUTPUT.println(sE("GLOBAL.TEMP.lowDroping: ") + GLOBAL.TEMP.lowDroping);
-  if(namerenaTeplotaVBojleru < GLOBAL.TEMP.lowDroping)
+  if(temp < GLOBAL.TEMP.lowDroping)
     if(isBoilerHeatingOn() == false)
       turnOnBoilerHeating();
 
   if(RELAY_DEBUG) DEBUG_OUTPUT.println(sE("GLOBAL.TEMP.topHeating: ") + GLOBAL.TEMP.topHeating);
-  if(namerenaTeplotaVBojleru >= GLOBAL.TEMP.topHeating)
+  if(temp >= GLOBAL.TEMP.topHeating)
     if(isBoilerHeatingOn() == true)
       turnOffBoilerHeating();
 }
@@ -118,6 +118,12 @@ String getTempControleStyleStringName()
 bool isBoilerHeatingOn()
 {
 	return !isBoilerHeatingRelayOpen();
+}
+
+bool isBoilerInHeatingProcessNow()
+{
+  return lastElectricCurrentState_global;
+  // return isBoilerHeatingOn() && isElectricityConnected();
 }
 
 void setLastHeatedTemp()

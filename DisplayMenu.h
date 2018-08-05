@@ -4,7 +4,6 @@
 * Copyright (c) 2017  Jindřich Širůček
 */  
 
-#define PRESELECTED_MENU_ENTRY true
 #define DISPLAY_MENU_DEBUG false
 #ifdef DEBUG_OUTPUT
   #define INTERNAL_DEBUG_OUTPUT DEBUG_OUTPUT 
@@ -22,15 +21,15 @@ typedef void (*FunctionCallback)();
 class DisplayMenu
 {
 public:
-  bool addEntry(FunctionCallback funcName, const char *entryName, bool preSelected = false);
-  const char* move(bool reverse = false);
-  const char* getSelectedEntryName();
+  bool addEntry(FunctionCallback funcName, String entryName, bool preSelected = false);
+  String move(bool reverse = false);
+  String getSelectedEntryName();
   void runSelectedMenuEntry();
 
 private:
   struct DisplayMenuEntriesStruct {
     FunctionCallback call;
-    const char* entryName;
+    String entryName;
   };
 
   DisplayMenuEntriesStruct menuEntries[DISPLAY_MENU_MAX_ENTRIES];
@@ -39,7 +38,7 @@ private:
 };
 
 
-bool DisplayMenu::addEntry(FunctionCallback funcName, const char *entryName, bool preSelected)
+bool DisplayMenu::addEntry(FunctionCallback funcName, String entryName, bool preSelected)
 {
   if(_menuEntriesCount >= DISPLAY_MENU_MAX_ENTRIES)
     return false;
@@ -54,13 +53,13 @@ bool DisplayMenu::addEntry(FunctionCallback funcName, const char *entryName, boo
   return true;
 }
 
-const char* DisplayMenu::getSelectedEntryName()
+String DisplayMenu::getSelectedEntryName()
 {
-  if (DISPLAY_MENU_DEBUG) DEBUG_OUTPUT.printf("MENU: getSelectedEntryName (%d): %s\n",_selectedEntry, menuEntries[_selectedEntry].entryName);
+  if (DISPLAY_MENU_DEBUG) DEBUG_OUTPUT.printf("MENU: getSelectedEntryName (%d): %s\n",_selectedEntry, menuEntries[_selectedEntry].entryName.c_str());
   return menuEntries[_selectedEntry].entryName;
 }
 
-const char* DisplayMenu::move(bool reverse)
+String DisplayMenu::move(bool reverse)
 {
   if(reverse)
   {//Move Up (reverese direction)
@@ -72,13 +71,13 @@ const char* DisplayMenu::move(bool reverse)
     if(++_selectedEntry >= _menuEntriesCount)
       _selectedEntry = 0;
   }
-  if (DISPLAY_MENU_DEBUG) DEBUG_OUTPUT.printf("MENU: moved to entry: %d name: %s\n",_selectedEntry, menuEntries[_selectedEntry].entryName);
+  if (DISPLAY_MENU_DEBUG) DEBUG_OUTPUT.printf("MENU: moved to entry: %d name: %s\n",_selectedEntry, menuEntries[_selectedEntry].entryName.c_str());
   return menuEntries[_selectedEntry].entryName;
 };
 
 void DisplayMenu::runSelectedMenuEntry()
 {
-  if (DISPLAY_MENU_DEBUG) INTERNAL_DEBUG_OUTPUT.println((String)F("\nMENU: pressed: ") + (String)menuEntries[_selectedEntry].entryName);
+  if (DISPLAY_MENU_DEBUG) INTERNAL_DEBUG_OUTPUT.println((String)F("\nMENU: pressed: ") + menuEntries[_selectedEntry].entryName);
   if(_menuEntriesCount == 0)
     return;
 

@@ -81,10 +81,12 @@ struct bootflags bootmode_detect(void)
 void printResetInfo()
 {
   rst_info* rinfo = ESP.getResetInfoPtr();
-  if(rinfo->reason == 4)
-  DEBUG_OUTPUT.println("'");
+  DEBUG_OUTPUT.println(sE("Reset reason: ") + (String)rinfo->reason + E(": ") + ESP.getResetReason());
+
+  // if(rinfo->reason == 4)DEBUG_OUTPUT.println("'");
+
   
-  DEBUG_OUTPUT.printf(cE("rinfo->reason:   %d, %s\n"), rinfo->reason, ESP.getResetReason().c_str());
+  DEBUG_OUTPUT.printf(cE("rinfo->reason:   %d\n"), rinfo->reason);
   DEBUG_OUTPUT.printf(cE("rinfo->exccause: %d\n"), rinfo->exccause);
   DEBUG_OUTPUT.printf(cE("rinfo->epc1:     %d\n"), rinfo->epc1);
   DEBUG_OUTPUT.printf(cE("rinfo->epc2:     %d\n"), rinfo->epc2);
@@ -102,6 +104,7 @@ void printResetInfo()
   DEBUG_OUTPUT.printf(cE("bootflags.rst_watchdog: %d\n"), bflags.rst_watchdog);
   DEBUG_OUTPUT.printf(cE("bootflags.bootdevice_ram: %d\n"), bflags.bootdevice_ram);
   DEBUG_OUTPUT.printf(cE("bootflags.bootdevice_flash: %d\n"), bflags.bootdevice_flash);
+  DEBUG_OUTPUT.println();
 
   if (bflags.raw_bootdevice == 1) {
     DEBUG_OUTPUT.println(E("The sketch has just been uploaded over the serial link to the ESP8266"));
@@ -109,6 +112,7 @@ void printResetInfo()
     DEBUG_OUTPUT.println(E("It will be necessary to manually reset the device or to power cycle it"));
     DEBUG_OUTPUT.println(E("and thereafter the ESP8266 will continuously reboot."));
   }
+  DEBUG_OUTPUT.println();
 }
 
 void saveAndSendExceptionLogFile()
@@ -274,4 +278,23 @@ bool sendDebugInformationsAfterReset()
   uri += stringifyTempSensorAddressesStruct();
 
   return uploadDebugLogFileWithGetParams(uri);
+}
+
+
+void printBegginGraphics()
+{
+  Serial.println(E("\n/*"));
+  Serial.println(E("888888b.                     d8b"));
+  Serial.println(E("888  \"88b                    Y8P"));
+  Serial.println(E("888  .88P"));
+  Serial.println(E("8888888K.   .d88b.   .d88b.  888 88888b."));
+  Serial.println(E("888  \"Y88b d8P  Y8b d88P\"88b 888 888 \"88b"));
+  Serial.println(E("888    888 88888888 888  888 888 888  888"));
+  Serial.println(E("888   d88P Y8b.     Y88b 888 888 888  888"));
+  Serial.println(E("8888888P\"   \"Y8888   \"Y88888 888 888  888"));
+  Serial.println(E("                         888"));
+  Serial.println(E("                    Y8b d88P"));
+  Serial.println(E("                     \"Y88P\""));
+  Serial.println(E("*/\n"));
+
 }

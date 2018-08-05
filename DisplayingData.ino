@@ -53,11 +53,12 @@ byte * setActiveAnimation(byte symbol[][8], uint16_t animationStepDuration, uint
 
 void i2cBus_setup()
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:i2cBus_setup()"));
+  // if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:i2cBus_setup()"));
   // Wire.begin(SCL, SDA); //Wire.begin(int sda, int scl) !!! labels GPIO4 and GPIO5 on EPS8266 are swaped at old esps!!!!
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN); //Wire.begin(int sda, int scl) !!! labels GPIO4 and GPIO5 on EPS8266 are swaped at old esps!!!!
 
   Wire.beginTransmission(LCD_DISPLAY_ADDRESS);
+  uint8_t result = Wire.endTransmission();
   if (Wire.endTransmission() == 0)
   {
     lcd.begin();
@@ -69,7 +70,7 @@ void i2cBus_setup()
   
   }
   else
-    if(SHOW_WARNING_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E("!!WARNING: 16X2 LCD display not found!"));
+    if(SHOW_WARNING_DEBUG_MESSAGES) DEBUG_OUTPUT.println(sE("!!WARNING: 16X2 LCD display not found! Error:") + result); //error codes:      0:success     1:data too long to fit in transmit buffer     2:received NACK on transmit of address     3:received NACK on transmit of data     4:other error https://www.arduino.cc/en/Reference/WireEndTransmission
 
   // Wire.beginTransmission(OLED_DISPLAY_ADDRESS);
   // if (Wire.endTransmission() == 0)
@@ -233,8 +234,7 @@ void displayServiceMessage(char const* message)
 {
   if(!lcdDisplayConnected_global && !oledDisplayConnected_global)
   {
-    DEBUG_OUTPUT.print(E("DisplayServiceMessage: "));
-    DEBUG_OUTPUT.println(message);
+    if(DISPLAY_DEBUG) DEBUG_OUTPUT.println(sE("DisplayServiceMessage: ") + message);
     RemoteDebug.handle();
     return; //no display
   }
@@ -261,6 +261,42 @@ void displayServiceMessageWithSymbol(char const* message, byte *symbolToDraw, bo
 
   displayPrintAt((String)message + eraseString, serviceAreaDisplayStartCol, serviceAreaDisplayStartRow);
 }
+
+
+// String displayServiceMessage(String message) {return displayServiceMessage(message.c_str());}
+// String displayServiceMessage(char const* message)
+// {
+//   if(!lcdDisplayConnected_global && !oledDisplayConnected_global)
+//   {
+//     if(DISPLAY_DEBUG) DEBUG_OUTPUT.println(sE("DisplayServiceMessage: ") + message);
+//     RemoteDebug.handle();
+//     return; //no display
+//   }
+
+//   return displayServiceMessageWithSymbol(message, isWifiConnected()? wifiConnectedSymbol : wifiNOTConnectedSymbol, SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_AND_PIPE_TEMP_AREA); 
+// }
+
+
+// String displayServiceMessageWithSymbol(String message, byte *symbolToDraw, bool isSymbolAnimated, bool erasePipeTempArea){return displayServiceMessageWithSymbol(message.c_str(), symbolToDraw, isSymbolAnimated, erasePipeTempArea);}
+// String displayServiceMessageWithSymbol(char const* message, byte *symbolToDraw, bool isSymbolAnimated, bool erasePipeTempArea)
+// {
+//   if(!isSymbolAnimated)
+//     stopActiveAnimation();
+
+//   lcd.createChar(0, symbolToDraw);
+
+//   String eraseString = "";
+//   uint8_t messageLength = strlen(message);
+//   while(messageLength < (LCD_DISPLAY_COLS_COUNT-(erasePipeTempArea? 1 : 7)))
+//   {
+//     eraseString += E(" ");
+//     messageLength++;
+//   }
+
+//   displayPrintAt((String)message + eraseString, serviceAreaDisplayStartCol, serviceAreaDisplayStartRow);
+
+//   return message;
+// }
 
 
 /////////////////////////////////////////////////////
@@ -325,6 +361,7 @@ byte * setActiveAnimation(byte symbol[][8], uint16_t animationStepDuration, uint
 
 uint8_t animateWiFiProgressSymbol(uint8_t progressAnimationCounter)
 {
+  DEBUG_OUTPUT.print(E("."));
   lcd.createChar(0, wifiSendingSymbolAnimation[progressAnimationCounter]);
   if(++progressAnimationCounter < 4)//Array length
     return progressAnimationCounter;

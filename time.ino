@@ -65,7 +65,7 @@ String getUpTime()
 }
 
 
-String formatTimeToString(long timeInMilliseconds)
+String formatTimeToString(uint32_t timeInMilliseconds)
 {
   byte hoursFromLastSend = timeInMilliseconds / 1000 / 60 / 60;
   byte minutesFromLastSend = timeInMilliseconds / 1000 / 60 - hoursFromLastSend * 60;

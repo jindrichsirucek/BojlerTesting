@@ -5,7 +5,7 @@
   // Macros to force format stings and string constants into FLASH Memory
 
   char globalCharBuf[256+1] = {0}; // Buffer, Used with cF() to store constants in program space (FLASH)
-
+  
   //F Used insteda of F macro, Macro can be adjusted to debugging
   #define E(x) F(x) 
   //Usage:   // Serial.println(  E("<!-- Verbose -->") );
@@ -49,3 +49,24 @@
 
 
   #define SIZE_OF_LOCAL_ARRAY(variable) sizeof variable / sizeof *variable
+
+
+
+
+  #define Q(x) #x
+  #define QUOTE(x) E(Q(x))
+  #define _GET_MACRO(_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,NAME,...) NAME
+
+  #define  _PRINT_STRUCT_1_MEMBER(struct, member) DEBUG_OUTPUT.print(sE("  - ") + QUOTE(member) + E(" -> ") + struct.member + E("\n"))
+  #define _PRINT_STRUCT_2_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct, member); _PRINT_STRUCT_1_MEMBER(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_3_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_2_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_4_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_3_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_5_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_4_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_6_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_5_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_7_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_6_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_8_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_7_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_9_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_8_MEMBERS(struct, __VA_ARGS__);
+  #define _PRINT_STRUCT_10_MEMBERS(struct, member, ...) _PRINT_STRUCT_1_MEMBER(struct,member); _PRINT_STRUCT_9_MEMBERS(struct, __VA_ARGS__);
+
+
+  #define PRINT_STRUCT_MEMBERS(struct,...) DEBUG_OUTPUT.print(sE("- ") + QUOTE(struct) + E("\n")) ; _GET_MACRO(__VA_ARGS__, _PRINT_STRUCT_10_MEMBERS,_PRINT_STRUCT_9_MEMBERS,_PRINT_STRUCT_8_MEMBERS,_PRINT_STRUCT_7_MEMBERS,_PRINT_STRUCT_6_MEMBERS,_PRINT_STRUCT_5_MEMBERS,_PRINT_STRUCT_4_MEMBERS, _PRINT_STRUCT_3_MEMBERS, _PRINT_STRUCT_2_MEMBERS, _PRINT_STRUCT_1_MEMBER, VOID_MACRO)(struct,__VA_ARGS__)

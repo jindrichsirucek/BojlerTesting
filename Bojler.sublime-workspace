@@ -1,0 +1,5496 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"if",
+				"if\tDeviot Macro if"
+			],
+			[
+				"uint",
+				"uint8_t"
+			],
+			[
+				"pro",
+				"PROGMEM_T"
+			],
+			[
+				"DEb",
+				"DEBUG_OUTPUT"
+			],
+			[
+				"err",
+				"ERROR_OUTPUT"
+			],
+			[
+				"Err",
+				"ERROR_OUTPUT"
+			],
+			[
+				"ERR",
+				"ERROR_OUTPUT"
+			],
+			[
+				"FA",
+				"false"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"att",
+				"attempt"
+			],
+			[
+				"uin",
+				"uint8_t"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"RXD",
+				"RXD_PIN"
+			],
+			[
+				"add",
+				"address"
+			],
+			[
+				"INP",
+				"INPUT_PULLUP"
+			],
+			[
+				"sam",
+				"sampleCounter"
+			],
+			[
+				"Last",
+				"lastCurrentMeasurment_global"
+			],
+			[
+				"led",
+				"LED_BUILTIN"
+			],
+			[
+				"te",
+				"template\tTag"
+			],
+			[
+				"digit",
+				"digitalWrite\tDeviot digitalWrite"
+			],
+			[
+				"conn",
+				"connect"
+			],
+			[
+				"yi",
+				"yield_debug"
+			],
+			[
+				"connect",
+				"connected"
+			],
+			[
+				"ui",
+				"uint8_t"
+			],
+			[
+				"int",
+				"int8_t"
+			],
+			[
+				"n",
+				"number"
+			],
+			[
+				"disp",
+				"displayIPAddress"
+			],
+			[
+				"pulldown",
+				"INPUT_PULLDOWN_16"
+			],
+			[
+				"E",
+				"E\tE MACRO"
+			],
+			[
+				"Deb",
+				"DEBUG_OUTPUT"
+			],
+			[
+				"temp",
+				"tempSensors"
+			],
+			[
+				"succ",
+				"successful"
+			],
+			[
+				"sens",
+				"sensorName"
+			],
+			[
+				"senso",
+				"sensorIndex"
+			],
+			[
+				"file",
+				"fileTosend"
+			],
+			[
+				"getTe",
+				"getTempC"
+			],
+			[
+				"request",
+				"requestTemperatures"
+			],
+			[
+				"IPS",
+				"IPString"
+			],
+			[
+				"new",
+				"newState"
+			],
+			[
+				"show",
+				"SHOW_WARNING_DEBUG_MESSAGES"
+			],
+			[
+				"setO",
+				"setOutroTask"
+			],
+			[
+				"deb",
+				"INTERNAL_DEBUG_OUTPUT"
+			],
+			[
+				"measu",
+				"measurment"
+			],
+			[
+				"newCharW",
+				"newCharWifiNOTConnected"
+			],
+			[
+				"LO",
+				"LOGGER_FILE_NAME"
+			],
+			[
+				"wa",
+				"waitSymbolCounter"
+			],
+			[
+				"un",
+				"uint8_t"
+			],
+			[
+				"ad",
+				"address"
+			],
+			[
+				"pin",
+				"pinState"
+			],
+			[
+				"cl",
+				"close"
+			],
+			[
+				"cu",
+				"CURRENT_SENSOR_PIN"
+			],
+			[
+				"respon",
+				"response"
+			],
+			[
+				"AP_",
+				"AP_SSID"
+			],
+			[
+				"filec",
+				"fileContent"
+			],
+			[
+				"pars",
+				"parsedLogNumber"
+			],
+			[
+				"getF",
+				"getFreeSpaceSPIFFS"
+			],
+			[
+				"s",
+				"success"
+			],
+			[
+				"si",
+				"size"
+			],
+			[
+				"size",
+				"size_t"
+			],
+			[
+				"CSTR",
+				"c_str"
+			],
+			[
+				"Pri",
+				"println"
+			],
+			[
+				"cs",
+				"c_str"
+			],
+			[
+				"ope",
+				"openFile"
+			],
+			[
+				"data",
+				"dataSentOk"
+			],
+			[
+				"Spi",
+				"SPIFFS"
+			],
+			[
+				"fil",
+				"fileSizeToSend"
+			],
+			[
+				"flow",
+				"flowTemp_global"
+			],
+			[
+				"Ser",
+				"Serial"
+			],
+			[
+				"prin",
+				"println"
+			],
+			[
+				"tes",
+				"testFIle"
+			],
+			[
+				"l",
+				"line"
+			],
+			[
+				"else",
+				"else"
+			],
+			[
+				"POSTdata",
+				"postDataToServer"
+			],
+			[
+				"pri",
+				"println"
+			],
+			[
+				"Us",
+				"USE_SERIAL"
+			],
+			[
+				"Data",
+				"DATA_LOGGING_DEBUG"
+			],
+			[
+				"in",
+				"interval"
+			],
+			[
+				"se",
+				"selectedRegion"
+			],
+			[
+				"t",
+				"t_idx"
+			],
+			[
+				"ne",
+				"neverSkip"
+			],
+			[
+				"Ard",
+				"ARDUINO_STYLE_CONTROL"
+			],
+			[
+				"isp",
+				"isProgramaticControl"
+			],
+			[
+				"lcd",
+				"lcdDisplayConnected_global"
+			],
+			[
+				"old",
+				"oledDisplayConnected_global"
+			],
+			[
+				"oled",
+				"OLED_Display"
+			],
+			[
+				"f",
+				"false"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"de",
+				"delay\tDeviot delay()"
+			],
+			[
+				"time",
+				"timeDateStrig"
+			],
+			[
+				"tim",
+				"timeDateStrig"
+			],
+			[
+				"Conn",
+				"connected"
+			],
+			[
+				"Beg",
+				"begining"
+			],
+			[
+				"respons",
+				"responseText"
+			],
+			[
+				"print",
+				"println"
+			],
+			[
+				"mi",
+				"millis\tDeviot millis()"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Bojler.ino",
+			"settings":
+			{
+				"buffer_size": 28107,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/Platformio.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Platformio.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/User/Platformio.sublime-build",
+					"Upload"
+				]
+			],
+			[
+				"Packages/User/Platformio.sublime-build",
+				"Upload"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"uni",
+				"Build With: Platformio - Clean"
+			],
+			[
+				"comp",
+				"Deviot: Compile"
+			],
+			[
+				"set de",
+				"Set Syntax: Deviot"
+			],
+			[
+				"c",
+				"Deviot: Compile"
+			],
+			[
+				"se thml",
+				"Set Syntax: HTML"
+			],
+			[
+				"set js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set hm",
+				"Set Syntax: HTML"
+			],
+			[
+				"set ht",
+				"Set Syntax: HTML (Tcl)"
+			],
+			[
+				"set sy de",
+				"Set Syntax: Deviot"
+			],
+			[
+				"se d",
+				"Set Syntax: Deviot"
+			],
+			[
+				"se de",
+				"Set Syntax: Deviot"
+			],
+			[
+				"de",
+				"Deviot: Examples"
+			],
+			[
+				"set html",
+				"Set Syntax: HTML"
+			],
+			[
+				"se ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"set d",
+				"Set Syntax: Deviot"
+			],
+			[
+				"macro",
+				"Snippet: E MACRO"
+			],
+			[
+				"macr",
+				"Snippet: sE MACRO"
+			],
+			[
+				"set jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set j",
+				"Set Syntax: Java"
+			],
+			[
+				"se",
+				"Snippet: E MACRO"
+			],
+			[
+				"se m",
+				"Snippet: cE MACRO"
+			],
+			[
+				"ce",
+				"Snippet: cE MACRO"
+			],
+			[
+				"E ma",
+				"Snippet: E MACRO"
+			],
+			[
+				"sE",
+				"Snippet: sE MACRO"
+			],
+			[
+				"cE",
+				"Snippet: cE MACRO"
+			],
+			[
+				"E",
+				"Snippet: E MACRO"
+			],
+			[
+				"E MA",
+				"Snippet: E MACRO"
+			],
+			[
+				"undef",
+				"Snippet: Jindra Macro undef"
+			],
+			[
+				"\tdefine",
+				"Snippet: Deviot Macro define"
+			],
+			[
+				"snipp",
+				"Snippet: Deviot abs()"
+			],
+			[
+				"com",
+				"Deviot: Compile"
+			],
+			[
+				"can",
+				"Build: Cancel"
+			],
+			[
+				"s dev",
+				"Set Syntax: Deviot"
+			],
+			[
+				"d ser",
+				"Deviot: Serial Port(s)"
+			],
+			[
+				"s de",
+				"Set Syntax: Deviot"
+			],
+			[
+				"upl",
+				"Deviot: Upload"
+			],
+			[
+				"a dev",
+				"Set Syntax: Deviot"
+			],
+			[
+				"moni",
+				"Deviot: Start/Stop Monitor"
+			],
+			[
+				"serial",
+				"Deviot: Serial Port(s)"
+			],
+			[
+				"mon",
+				"Deviot: Start/Stop Monitor"
+			],
+			[
+				"up",
+				"Deviot: Upload"
+			],
+			[
+				"uplo",
+				"Deviot: Upload"
+			],
+			[
+				"Deviot: u",
+				"Deviot: Upload"
+			],
+			[
+				"setde",
+				"Set Syntax: Deviot"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"html",
+				"HTMLPrettify"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packa ins",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"htm",
+				"Set Syntax: HTML"
+			],
+			[
+				"got",
+				"Go To Definition"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"DEV",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"dev",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"packeremo",
+				"Package Control: Remove Package"
+			],
+			[
+				"jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"glue",
+				"Glue - Launch"
+			],
+			[
+				"DEVI",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"package u",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"d",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"packat",
+				"Package Control: List Packages"
+			],
+			[
+				"synta",
+				"Set Syntax: Java"
+			],
+			[
+				"syn",
+				"Set Syntax: NAnt Build File"
+			],
+			[
+				"devi",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"devio",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"setc",
+				"Set Syntax: C++"
+			],
+			[
+				"build",
+				"Build: Cancel"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Channel"
+			],
+			[
+				"syntade",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"syntc",
+				"Set Syntax: Objective-C++"
+			],
+			[
+				"synde",
+				"Set Syntax: Deviot IoT"
+			],
+			[
+				"git",
+				"git: branch"
+			],
+			[
+				"stat",
+				"git: status"
+			],
+			[
+				"gitb",
+				"git: branch"
+			],
+			[
+				"push",
+				"git: push"
+			],
+			[
+				"stage",
+				"git: commit including unstaged files"
+			],
+			[
+				"gitP",
+				"git: push"
+			],
+			[
+				"g",
+				"git: commit"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"glue telnet 192.168.0.12",
+			"hi",
+			"platformio platform update --only-check",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/Bojler.sublime-workspace",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/BojlerTesting.sublime-workspace",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/BojlerTesting.sublime-project",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/BojlerTesting.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/temperatureModule.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/TwoPRograms/TwoPRograms.ino",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/exception",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/cpp_type_traits.h",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/bits/functexcept.h",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/xtensa-lx106-elf/bits/c++config.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src/ESP8266WiFi.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266httpUpdate/src/ESP8266httpUpdate.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/Udp.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/IPAddress.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/HeatingControl.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/curentMetter.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/WaterFlowMetter.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/DisplayingData.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/internet_comunication.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/HTTPSRedirect.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/wifi.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/define.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/settings.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/DisplayMenu.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/responseProcesing.ino",
+		"/Users/jindra/Downloads/IOT-Appstore-master/IotAppStoreLoaderV1/IotAppStoreLoaderV1.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/symbolsDefine.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/pgmspace.h",
+		"/Users/jindra/Documents/Arduino/libraries/EspSaveCrash-masterArduino/src/EspSaveCrash.cpp",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/SPI/SPI.h",
+		"/Users/jindra/Documents/Arduino/libraries/LiquidCrystal-I2C-library-master/LiquidCrystal_I2C.h",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/WString.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/debugging.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/TaskerModified.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino",
+		"/Users/jindra/Documents/Arduino/libraries/Time_ID44/TimeLib.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/time.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino.cpp",
+		"/tmp/Deviot/BojlerTesting/platformio.ini",
+		"/tmp/Deviot/1529931966/src/1529931966.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/dBi scanner/dBi scanner.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/WiFi SCan/WiFi SCan.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/dataLoging.ino",
+		"/tmp/Deviot/1524999277/src/1524999277.ino",
+		"/private/tmp/Deviot/1524999277/src/1524999277.ino",
+		"/Users/jindra/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/string.h",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/OTA.ino",
+		"/Users/jindra/Downloads/blank_1MB.bin",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/SPIFFS.ino",
+		"/tmp/Deviot/1524852365/src/1524852365.ino",
+		"/private/tmp/Deviot/1524819769/src/1524819769.ino",
+		"/tmp/Deviot/1524819769/src/1524819769.ino",
+		"/Users/jindra/Documents/Arduino/libraries/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/Documents/Arduino/libraries/RemoteDebug/RemoteDebug.h",
+		"/tmp/Deviot/1524768565/src/1524768565.ino",
+		"/private/tmp/Deviot/1524768565/src/1524768565.ino",
+		"/private/tmp/Deviot/1524767832/src/1524767832.ino",
+		"/tmp/Deviot/1524767832/src/1524767832.ino",
+		"/tmp/Deviot/1524343729/src/1524343729.ino",
+		"/private/tmp/Deviot/1524343729/src/1524343729.ino",
+		"/private/var/folders/2d/ty0jy3q97fv5vyyyk5mtq7f80000gn/T/beb8f691-7198-495d-b64d-8e428376dbcf/www/wp-config.php",
+		"/private/tmp/Deviot/1522838300/src/1522838300.ino",
+		"/tmp/Deviot/1522838300/src/1522838300.ino",
+		"/Users/jindra/Desktop/Strojové učení/Start.html",
+		"/Users/jindra/Desktop/Strojové učení/script.html",
+		"/Users/jindra/Downloads/aresdata.js.txt",
+		"/tmp/Deviot/1521767237/src/1521767237.ino",
+		"/private/tmp/Deviot/1521767237/src/1521767237.ino",
+		"/tmp/Deviot/1521302616/src/1521302616.ino",
+		"/private/tmp/Deviot/1521302616/src/1521302616.ino",
+		"/tmp/Deviot/temperatureModule/platformio.ini",
+		"/tmp/Deviot/1521085275/src/1521085275.ino",
+		"/private/tmp/Deviot/1521085275/src/1521085275.ino",
+		"/tmp/Deviot/1521080997/src/1521080997.ino",
+		"/private/tmp/Deviot/1521080997/src/1521080997.ino",
+		"/tmp/Deviot/1521080324/src/1521080324.ino",
+		"/private/tmp/Deviot/1521080324/src/1521080324.ino",
+		"/private/tmp/Deviot/1521080187/src/1521080187.ino",
+		"/tmp/Deviot/1521080187/src/1521080187.ino",
+		"/tmp/Deviot/1521074707/src/1521074707.ino",
+		"/private/tmp/Deviot/1521074707/src/1521074707.ino",
+		"/private/tmp/Deviot/1521074261/src/1521074261.ino",
+		"/tmp/Deviot/1521074261/src/1521074261.ino",
+		"/tmp/Deviot/1521073771/src/1521073771.ino",
+		"/private/tmp/Deviot/1521073771/src/1521073771.ino",
+		"/tmp/Deviot/1521073351/src/1521073351.ino",
+		"/private/tmp/Deviot/1521073351/src/1521073351.ino",
+		"/tmp/Deviot/1521071242/src/1521071242.ino",
+		"/private/tmp/Deviot/1521071242/src/1521071242.ino",
+		"/private/tmp/Deviot/1521067363/src/1521067363.ino",
+		"/tmp/Deviot/1521067363/src/1521067363.ino",
+		"/tmp/Deviot/1521066021/src/1521066021.ino",
+		"/private/tmp/Deviot/1521066021/src/1521066021.ino",
+		"/private/tmp/Deviot/1521065646/src/1521065646.ino",
+		"/tmp/Deviot/1521065646/src/1521065646.ino",
+		"/tmp/Deviot/1521062280/src/1521062280.ino",
+		"/private/tmp/Deviot/1521062280/src/1521062280.ino",
+		"/private/tmp/Deviot/1521053387/src/1521053387.ino",
+		"/tmp/Deviot/1521053387/src/1521053387.ino",
+		"/tmp/Deviot/1520993563/src/1520993563.ino",
+		"/tmp/Deviot/1520992527/src/1520992527.ino",
+		"/private/tmp/Deviot/1520992527/src/1520992527.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/MereniProudu/MereniProudu.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/MereniProudu/MereniProudu/MereniProudu.ino",
+		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/WaitForConversion/WaitForConversion.pde",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/blink/blink.ino",
+		"/Users/jindra/Documents/Arduino/Sketchbooks/dallasParasitic/dallasParasitic.ino",
+		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/WaitForConversion2/WaitForConversion2.pde",
+		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/TwoPin_DS18B20/TwoPin_DS18B20.ino",
+		"/Users/jindra/Desktop/oneContactTmpl.txt",
+		"/Users/jindra/Desktop/ekovesnice-users (1).csv",
+		"/Users/jindra/Desktop/oneContact.html",
+		"/Users/jindra/Desktop/oneContact.tmpl",
+		"/Users/jindra/Downloads/Workbook1.csv",
+		"/Users/jindra/Downloads/3967172-181e463c868d4f92091435d0fba408941b064acd/window.location.href",
+		"/Users/jindra/Downloads/Celý seznam zakazani prijemci a nefunkcni emaily.adrsn",
+		"/Users/jindra/Downloads/Celý seznam zakazani prijemci2.adrsn",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/ExpandRegion/ExpandRegion.sublime-settings",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Inc-Dec-Value/inc_dec_value.sublime-settings",
+		"/tmp/Deviot/1516492803/src/1516492803.ino",
+		"/tmp/Deviot/1516492703/src/1516492703.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/ReplacePatern",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/binary.h",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/Default.sublime-commands",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/sE_macro.sublime-snippet",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/E_macro.sublime-snippet",
+		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/cE_macro.sublime-snippet"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Bojler.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28107,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 38.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Deviot|Build1467836414.641733":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467836465.063132":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467836569.468524":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467836595.613198":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467837221.037764":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Build1467837247.187606":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467838904.417634":
+	{
+		"height": 320.0
+	},
+	"output.Deviot|Build1467839006.935112":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467839748.135487":
+	{
+		"height": 484.0
+	},
+	"output.Deviot|Build1467840083.146981":
+	{
+		"height": 406.0
+	},
+	"output.Deviot|Build1467842420.551007":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467842731.00641":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1467918284.000705":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468170822.431783":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468171001.204817":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468171056.45144":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468171102.58334":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468171117.862361":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468178731.903342":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468178759.886881":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468190902.378062":
+	{
+		"height": 343.0
+	},
+	"output.Deviot|Build1468190968.53397":
+	{
+		"height": 431.0
+	},
+	"output.Deviot|Build1468191671.298917":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468242372.886665":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468242426.074104":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468242786.043159":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468277964.559645":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468278017.539909":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468278038.61988":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578260.695276":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578289.98047":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578441.850393":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578477.928299":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578515.958563":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578615.445167":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578635.204889":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468578673.549014":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468580132.027537":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468580279.089187":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468586157.812084":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468586186.185908":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468589670.895958":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468590005.497943":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468592847.051738":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468602695.597841":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468602739.671466":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468602898.157853":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468602906.924421":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468603304.385464":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468603549.461615":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468606453.75715":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468606513.900219":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468606557.990698":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468606788.956806":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468607570.770138":
+	{
+		"height": 186.0
+	},
+	"output.Deviot|Build1468607617.926425":
+	{
+		"height": 356.0
+	},
+	"output.Deviot|Build1468607696.654732":
+	{
+		"height": 279.0
+	},
+	"output.Deviot|Build1468607723.648671":
+	{
+		"height": 280.0
+	},
+	"output.Deviot|Build1468607744.63186":
+	{
+		"height": 305.0
+	},
+	"output.Deviot|Build1468607775.332075":
+	{
+		"height": 230.0
+	},
+	"output.Deviot|Build1468608037.87702":
+	{
+		"height": 279.0
+	},
+	"output.Deviot|Build1468608468.148711":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468608858.439551":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468608908.276242":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468608962.161711":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468609037.956863":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468611774.74685":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468611814.896249":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468611837.040563":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468614050.791102":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468614096.00489":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468615011.247872":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468615048.842673":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468834007.473017":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468834047.978589":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468834090.861012":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468834118.805267":
+	{
+		"height": 25.0
+	},
+	"output.Deviot|Build1468834166.331067":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468871306.269518":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468871337.279794":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468883301.437179":
+	{
+		"height": 84.0
+	},
+	"output.Deviot|Build1468883399.681446":
+	{
+		"height": 350.0
+	},
+	"output.Deviot|Build1468883469.860141":
+	{
+		"height": 396.0
+	},
+	"output.Deviot|Build1468883587.466279":
+	{
+		"height": 229.0
+	},
+	"output.Deviot|Build1468962532.74601":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468963903.782457":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468963946.51439":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1468965971.594862":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469112363.510544":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469114750.85283":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469114784.203348":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469114808.500918":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469135459.421239":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469135513.862428":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469135730.339251":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469135950.801983":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469136055.750996":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469137383.991647":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469137420.824394":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469224714.997321":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469224824.852904":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469225446.319646":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469225480.893391":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469230069.237029":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469230095.362116":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469232890.540427":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469264965.625116":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469265005.29833":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469298808.88296":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Build1469299660.070542":
+	{
+		"height": 498.0
+	},
+	"output.Deviot|Build1469299869.969435":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Build1469300477.000238":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Build1469300500.16591":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Build1469300522.055969":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Build1469300573.152627":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Build1469305756.696082":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469311934.092558":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469343553.500005":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469343603.165763":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469343616.588813":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469343672.923133":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469344906.676125":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469345264.52847":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469345280.956341":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469345312.587646":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469346652.928741":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469346695.099955":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469346724.258208":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469346789.220905":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469346807.818143":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469347088.182031":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469347100.243916":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469347115.087738":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469348595.54853":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469348656.902216":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469348687.946535":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469348723.50345":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469348815.422021":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469367544.405875":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469367591.026662":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469367615.764964":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469367679.49808":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469367686.387105":
+	{
+		"height": 415.0
+	},
+	"output.Deviot|Build1469367794.781419":
+	{
+		"height": 367.0
+	},
+	"output.Deviot|Build1469367888.398057":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469367912.179842":
+	{
+		"height": 294.0
+	},
+	"output.Deviot|Build1469374691.860886":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469376009.032236":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469386529.389448":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469386534.579013":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469394482.925473":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469395707.96464":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469398930.977169":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469399254.209309":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469400659.47627":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469400796.934849":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469401551.21351":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469403518.502417":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469435410.240708":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469436206.879323":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Build1469437240.844071":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1467842739.170509":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1467843289.823908":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1468190964.78341":
+	{
+		"height": 435.0
+	},
+	"output.Deviot|Clean1469310387.118132":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1469343614.469668":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1469343669.689003":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1469346801.59484":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Clean1469347112.9414":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|GetBoards1467839622.236174":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Library1467919169.523789":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1467920702.474639":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1467920703.411562":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468068905.325713":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468068906.447694":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468069001.712267":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468069002.323204":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468069128.787039":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468069129.436569":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468069130.91625":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Library1468163908.902814":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468163910.307422":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468163921.194619":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Library1468190091.350084":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468190092.456556":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468242411.244862":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468242412.026169":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468395531.636477":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1468395532.422923":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1469224887.104497":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Library1469224887.905609":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Pio_Install1467835276.069938":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Pio_Install1467836422.817401":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Pio_Install1467839716.418969":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Pio_Install1467919242.598551":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Pio_Install1468578278.365231":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Pio_Install1469348477.54428":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Pio_Install1469348482.911286":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upgrade1467836422.813008":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Upgrade1467919242.594157":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Upgrade1468578278.35118":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Upload1467836634.0616":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467836685.539861":
+	{
+		"height": 197.0
+	},
+	"output.Deviot|Upload1467836888.336428":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467837811.360419":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840166.012347":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840198.790732":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840364.86979":
+	{
+		"height": 479.0
+	},
+	"output.Deviot|Upload1467840383.398704":
+	{
+		"height": 423.0
+	},
+	"output.Deviot|Upload1467840435.989742":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840452.474644":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840729.310969":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840763.964985":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840803.80807":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840853.228437":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467840934.022926":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841004.761187":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841414.355647":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841423.738382":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841423.905962":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841482.159799":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841486.726907":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467841932.314077":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842080.931362":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842089.381226":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842365.525006":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842385.194447":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842391.19161":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842400.800157":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842412.966464":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842418.086791":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842423.353498":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842678.675758":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842724.41595":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842727.621583":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842732.841448":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842744.17131":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842761.877709":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467842827.384128":
+	{
+		"height": 222.0
+	},
+	"output.Deviot|Upload1467842895.803765":
+	{
+		"height": 286.0
+	},
+	"output.Deviot|Upload1467843029.415065":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843044.910833":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843062.781275":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843078.756041":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843094.147698":
+	{
+		"height": 259.0
+	},
+	"output.Deviot|Upload1467843121.01521":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843156.808438":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843197.813415":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843245.775139":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843292.143368":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843338.459512":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843550.143381":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843643.14967":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843713.797759":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843759.723666":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467843800.42008":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467890600.887607":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467890813.807447":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467890909.203446":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467890920.353768":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467890934.112377":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467890953.459659":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891097.453815":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891173.563826":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891204.995384":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891253.112836":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891303.496724":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891356.212435":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891381.591996":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891441.977014":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467891504.789905":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916136.772163":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916237.853232":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916290.568784":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916331.760468":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916457.952136":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916817.607232":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916851.676216":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916928.748651":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916939.271972":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916950.536943":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467916989.436584":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917017.405292":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917209.858589":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917257.771468":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917292.975477":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917376.754139":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917395.801955":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917418.219632":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917434.094944":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917452.829358":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917558.017093":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917578.063968":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917587.569942":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917615.897891":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917651.391803":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917679.972825":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917715.935653":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917772.44998":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917784.463067":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917799.32202":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917817.907176":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917855.074982":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467917986.442082":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918001.408312":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918023.178718":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918040.95781":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918063.131721":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918100.32322":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918214.102287":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918305.261164":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918312.622526":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918386.947785":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918456.238312":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918489.142969":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918516.955418":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918532.834373":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918568.38801":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918612.274491":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467918653.368999":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467919132.790032":
+	{
+		"height": 240.0
+	},
+	"output.Deviot|Upload1467920347.940839":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920548.902765":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920564.958735":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920579.238794":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920603.273157":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920640.733157":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920659.137368":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920672.361709":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920686.047281":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920735.991341":
+	{
+		"height": 191.0
+	},
+	"output.Deviot|Upload1467920911.448143":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467920970.079808":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921065.996479":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921089.691335":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921108.047251":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921129.19918":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921147.257381":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921179.755689":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921204.841442":
+	{
+		"height": 514.0
+	},
+	"output.Deviot|Upload1467921276.545417":
+	{
+		"height": 192.0
+	},
+	"output.Deviot|Upload1467921318.361162":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921463.911758":
+	{
+		"height": 240.0
+	},
+	"output.Deviot|Upload1467921606.215536":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921611.484519":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921636.426131":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921787.342176":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467921811.232629":
+	{
+		"height": 208.0
+	},
+	"output.Deviot|Upload1467921999.3509":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922050.083316":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922120.571436":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922222.5251":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922280.739814":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922397.891931":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922579.865452":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922643.245441":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467922672.657128":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923087.477746":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923208.429546":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923350.901629":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923372.676728":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923395.750254":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923495.502087":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923507.378933":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923528.97213":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923549.906906":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923585.428406":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467923615.262908":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925026.877394":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925055.410899":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925095.067618":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925136.435723":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925183.954933":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925749.981662":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925808.378969":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467925950.239403":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467926051.756683":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467926081.507983":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927325.412352":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927363.524905":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927702.687357":
+	{
+		"height": 211.0
+	},
+	"output.Deviot|Upload1467927729.14383":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927774.944906":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927909.664424":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927936.007856":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1467927955.193969":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468004539.234582":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468005023.952082":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468006778.60212":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468006818.487708":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468006859.206652":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468006917.958593":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468007223.545925":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468007244.71265":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468007285.969849":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468007663.287935":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468007769.557552":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468007903.010713":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468008127.880946":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468008360.332336":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468008751.677405":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009003.864662":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009184.481562":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009312.621721":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009657.739331":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009689.421892":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009846.556655":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468009918.635624":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468010155.125529":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468082363.32136":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468088841.00751":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Upload1468143459.222359":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468143481.301609":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468143505.904209":
+	{
+		"height": 204.0
+	},
+	"output.Deviot|Upload1468143525.711108":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146121.928629":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146155.51826":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146284.932123":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146316.638403":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146383.490534":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146428.758766":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146588.792285":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146607.785196":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146640.682262":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146857.590602":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146909.383752":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468146932.641947":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468147360.227669":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468147397.841179":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468153277.818226":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468153588.627183":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468153640.047191":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468153683.305868":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468153809.572986":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468153925.254976":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468154024.609203":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468154200.795901":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468154750.652135":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468154832.122167":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468155025.465416":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468161769.515896":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468162241.047103":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468167411.754766":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468167622.881121":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468167680.598838":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468167722.132024":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468168114.080832":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468168248.101508":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468168333.686646":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468168869.596142":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468168909.618548":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468168935.104378":
+	{
+		"height": 103.0
+	},
+	"output.Deviot|Upload1468169070.775476":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169100.691663":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169129.701798":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169230.56888":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169265.629885":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169543.130234":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169565.385126":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169736.007601":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169796.314985":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169858.092537":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468169908.091141":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170110.759824":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170278.651586":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170298.093677":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170430.188502":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170469.678916":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170489.593905":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170564.199463":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468170608.723425":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468171157.213086":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468171361.263454":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468172214.489777":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468174095.207":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468174765.396842":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468174779.051799":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468174881.666858":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468175279.501898":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468175828.387754":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468175828.653421":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468176545.229807":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468176708.331113":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468176987.100965":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178493.206075":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178512.569814":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178538.170655":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178772.189268":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178840.384776":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178840.545279":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178842.605241":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178843.966537":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178860.173458":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468178869.836537":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468179630.118154":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468179647.209353":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468179660.790505":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468179678.397598":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468179711.011155":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468179729.910964":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180580.941083":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180605.332697":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180623.197165":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180637.235172":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180770.301511":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180779.765149":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180785.521251":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180866.920483":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180879.896961":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180898.755287":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180919.328318":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180933.662837":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468180956.609315":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468181208.70815":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468181898.498136":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468183935.291851":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468188164.120374":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468188667.171897":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468188694.221884":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468188810.71033":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468188949.691757":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190177.495268":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190220.675549":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190433.433844":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190473.157914":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190496.243436":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190537.140978":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468190822.808246":
+	{
+		"height": 354.0
+	},
+	"output.Deviot|Upload1468190942.186027":
+	{
+		"height": 447.0
+	},
+	"output.Deviot|Upload1468191079.473957":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468191712.200002":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192082.805101":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192132.351054":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192167.679681":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192309.114352":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192325.458055":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192512.095671":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192660.243689":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192728.610722":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468192923.010309":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468193136.275653":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468193189.696345":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468193264.407742":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468193313.859714":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468193369.37888":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468242810.456981":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468242853.636686":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468243021.971392":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468243081.706962":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468243590.379006":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468243615.048171":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468243756.486675":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468244172.686264":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468244189.354374":
+	{
+		"height": 25.0
+	},
+	"output.Deviot|Upload1468279277.604065":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468340763.748158":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468340820.493312":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468340880.704158":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468340932.758752":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468340966.665741":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468342497.696911":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468343116.220162":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468343228.217535":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468343302.521421":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468343325.471266":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468396010.650859":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468396018.193472":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468396044.296093":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580472.051205":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580511.453624":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580629.904519":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580743.447639":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580798.932937":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580879.513063":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580923.579723":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468580985.232737":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468581303.205772":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468586488.153751":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468586746.250771":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468586874.431211":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468588294.863571":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468590336.455936":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468591084.444986":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468591137.733003":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468591460.979575":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468592104.748299":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468592942.698498":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468592950.833106":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468593775.537737":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468593861.603735":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468593930.605488":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468593952.487415":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468595288.928338":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468598313.746784":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468602480.116779":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468602514.617994":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468602547.598326":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468602922.461427":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468603356.417896":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468603564.94312":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468604568.245637":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468604578.230027":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468604725.290997":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468605552.669956":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468605608.695828":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468607504.666344":
+	{
+		"height": 363.0
+	},
+	"output.Deviot|Upload1468608054.362809":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468608088.399974":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468608254.017611":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468608322.312231":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468608398.365248":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609065.036564":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609142.128498":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609203.456958":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609269.461266":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609478.247759":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609535.522888":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468609563.689629":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468611676.432204":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468611709.508603":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468611909.613778":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468612237.91482":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468612299.819629":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468612618.449128":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468613982.838479":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468614107.554436":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468614127.783265":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468614175.146683":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468614261.13031":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468615058.095187":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468615233.494123":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468615252.769862":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468615592.237506":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468615614.261996":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468616126.2749":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468616356.595135":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468616536.417675":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617051.100308":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617112.018155":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617158.017961":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617218.602705":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617319.117314":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617665.690309":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468617951.442512":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468618152.683186":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468618428.699708":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468618961.087999":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468619033.380483":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646449.717539":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646474.154082":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646495.902935":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646673.47729":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646715.524215":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646746.545422":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646785.110475":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646844.349391":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468646864.123":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647221.329919":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647344.370421":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647429.226772":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647463.984121":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647636.427657":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647656.987522":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647681.379207":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468647708.675447":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648186.2101":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648203.551752":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648237.712549":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648377.58611":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648409.069391":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648431.716243":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648453.575184":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648502.111679":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648607.725959":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648647.103622":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648702.080604":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648744.068817":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648848.746404":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468648870.164582":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708041.852293":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708113.771037":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708133.408717":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708176.455578":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708202.655259":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708358.462257":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468708381.76122":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468797560.060488":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468797648.607252":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468797678.036091":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468830375.929038":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468830505.030816":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468830548.789883":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468830564.064047":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833019.211241":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833394.042381":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833441.163256":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833697.234214":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833726.780446":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833759.459497":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468833921.202709":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468834178.176913":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468843372.762036":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468843721.342422":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468843779.554969":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468844467.117872":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468852370.937996":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468852508.134296":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468870130.465325":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468870154.336092":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468871532.960419":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468871720.532155":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468872041.511148":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468873542.54587":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468873566.37932":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468875358.151179":
+	{
+		"height": 0.0
+	},
+	"output.Deviot|Upload1468880992.424874":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468883695.987829":
+	{
+		"height": 311.0
+	},
+	"output.Deviot|Upload1468884626.776792":
+	{
+		"height": 306.0
+	},
+	"output.Deviot|Upload1468884738.870346":
+	{
+		"height": 347.0
+	},
+	"output.Deviot|Upload1468885522.387534":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468885562.51472":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468885800.909607":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468885840.638628":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468885868.983589":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468885918.01572":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468886112.640678":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468962565.834172":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468962615.570239":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468962957.56951":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468963002.145958":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468963061.142207":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468963208.375621":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468963264.327493":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964039.959853":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964320.950117":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964383.789711":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964515.378358":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964566.292743":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964656.703042":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964752.960444":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468964848.755081":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965011.340401":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965210.942665":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965538.558245":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965561.194543":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965586.979781":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965619.005847":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965656.029647":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965683.67503":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965714.12649":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965746.592151":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468965771.534611":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468966198.718686":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468966352.696073":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468966874.831058":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468967113.498255":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468967450.900278":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468997035.008307":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468997133.470031":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468997231.296412":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1468998787.827819":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469027212.748903":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469028111.442235":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469111889.028705":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469115242.430954":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469115259.555547":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469116547.285626":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469116578.832784":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469117906.814295":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469118817.279191":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469120136.005259":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469120704.575997":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469120909.862372":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469120967.264348":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469122323.751483":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469123652.968323":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469123710.596473":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469124104.038026":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469125019.911144":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469125245.118406":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469126072.907621":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469126192.029747":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469126254.807751":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469131599.840712":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469132233.245947":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469132470.407972":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469132511.100989":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469133114.160106":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469133522.228407":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469135807.233612":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469136131.87005":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469136330.690054":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469136537.533318":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469136723.452847":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469137298.772389":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469137463.627926":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469138079.726893":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469138436.773314":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469224516.956196":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469224532.346332":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469224655.392047":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469224908.452977":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469224936.754643":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469224974.330089":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469232907.273724":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469232933.688765":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469232959.496845":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469233016.91394":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258052.478824":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258103.651814":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258337.816792":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258797.069934":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258857.316932":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258903.236434":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469258930.549704":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469259075.491133":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469259237.968349":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469289975.542296":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469290089.705851":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469290112.463958":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469290138.552357":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469290469.82323":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297588.93566":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297722.53087":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297751.740302":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297773.371143":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297793.822467":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297809.673707":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297824.577357":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469297839.797798":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298418.075252":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298458.460736":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298474.911568":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298491.078044":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298509.554661":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298548.667403":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298592.782427":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298669.38984":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298713.691445":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298730.701144":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298746.772881":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469298772.916142":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469299132.137673":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469299152.482394":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469300926.513468":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469300959.17736":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469300976.454092":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469300996.97171":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301046.659516":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301082.417577":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301107.839038":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301141.821298":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301179.724562":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301217.631213":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301250.570829":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301282.905911":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301313.09082":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301342.93771":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301367.758073":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301415.476391":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301443.407347":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301459.551375":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301477.941889":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301494.504712":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301511.297399":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301572.88557":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301699.238099":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301713.847576":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469301944.516538":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302258.969618":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302309.055372":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302552.255195":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302576.056112":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302633.482721":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302676.397274":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302693.597072":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469302731.515255":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303192.920157":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303236.99835":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303279.302439":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303362.619268":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303385.322287":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303408.812662":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303434.287058":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303494.407937":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303536.494574":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303567.820215":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303599.580428":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303632.119569":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303710.061716":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303746.928825":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303770.836009":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469303800.298057":
+	{
+		"height": 112.0
+	},
+	"output.Deviot|Upload1469305827.640151":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469305907.524634":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469305929.540228":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469305950.391394":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469305996.827787":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469306041.624095":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469306068.039644":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469306231.069759":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307373.87975":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307399.126862":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307818.012487":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307852.669035":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307869.654337":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307888.96294":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307911.244326":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469307943.828461":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469308425.024818":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469308452.232178":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469308768.830164":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469308870.228849":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469308890.476382":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309609.081331":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309630.349883":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309649.980725":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309738.288315":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309760.385236":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309780.408129":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309801.255876":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309844.751187":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309927.664226":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309947.530281":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309969.576613":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469309989.926951":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310005.158375":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310022.909206":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310096.388094":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310140.764814":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310141.296978":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310167.916221":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310193.652612":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310229.181315":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310268.471921":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310295.967948":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310361.241719":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310395.937693":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310752.277293":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469310776.087298":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469311025.497373":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469311059.997844":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469311507.386105":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469345973.589296":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469349192.678045":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469349241.503022":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469349320.63249":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469363689.574367":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469363839.853107":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469363908.129409":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469365007.835303":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469365035.316885":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469365063.773439":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469365293.932842":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469365361.824018":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469365392.815024":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469366651.522861":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469366689.714124":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469366824.43891":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469366853.930477":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469366983.169891":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469367493.198521":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469367971.680935":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469368004.423205":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469368027.866036":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469368121.583419":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469368639.350902":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469373601.224639":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469373624.566785":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469373764.857559":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469373910.341903":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469373947.476349":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469373969.674918":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374004.00377":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374021.227277":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374045.034221":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374049.501718":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374147.962203":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374501.967158":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374522.109758":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374638.237216":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374814.762892":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374830.904579":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374868.672161":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374907.174362":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374915.436439":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469374937.192972":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375122.700147":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375142.833113":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375147.674349":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375166.910093":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375185.149628":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375207.423672":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375246.651577":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375266.299366":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375332.12743":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375349.388513":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375426.746449":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375650.702658":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375678.419444":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375697.621523":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375716.908444":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375751.998959":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375780.553601":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375785.980182":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375842.406158":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375878.452098":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375918.182804":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469375978.082571":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469376034.372644":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469381498.534308":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469381522.30981":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469381550.548593":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383569.464589":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383633.442893":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383653.109193":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383673.529431":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383689.095319":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383768.622691":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383840.509317":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383870.116588":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383915.852815":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469383937.935852":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469384568.989164":
+	{
+		"height": 290.0
+	},
+	"output.Deviot|Upload1469384703.781913":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469385316.360615":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469385337.433243":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469385346.17884":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469385366.666847":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469385808.525108":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469385845.287133":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469386423.199052":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469386502.422581":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469386781.562436":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387005.012415":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387024.969269":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387048.640181":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387052.87623":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387126.349742":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387225.976002":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387425.622105":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387493.197735":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387667.921977":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387760.788968":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387811.288216":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387835.184002":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387842.40387":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469387929.698407":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388003.9414":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388039.643736":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388169.365367":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388186.297831":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388205.411948":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388223.915778":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388583.696566":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388746.349368":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469388927.193361":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469389005.995354":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469389145.808763":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469389165.955938":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469389209.908726":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390030.806243":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390054.979306":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390065.934262":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390070.331661":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390746.326844":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390768.211019":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469390877.602657":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469391041.622663":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469391112.79437":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469391129.733206":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469391131.418523":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469391148.261114":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469391167.618654":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469392771.842591":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469392800.545227":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469392936.081148":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469392960.297325":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393080.14172":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393205.672359":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393230.615529":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393265.999753":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393292.251428":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393328.30849":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393355.614436":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469393404.134724":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469394095.509319":
+	{
+		"height": 100.0
+	},
+	"output.Deviot|Upload1469394430.350863":
+	{
+		"height": 100.0
+	},
+	"output.GitSavvy":
+	{
+		"height": 100.0
+	},
+	"output.deviot":
+	{
+		"height": 157.0
+	},
+	"output.deviot_console":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 125.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.show_commit_info":
+	{
+		"height": 100.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "Packages/User/Platformio.sublime-build",
+	"project": "Bojler.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/Platform.IO Projects/BojlerTesting/dataLoging.ino"
+			],
+			[
+				"displa",
+				"~/Documents/Platform.IO Projects/BojlerTesting/DisplayingData.ino"
+			],
+			[
+				"uptime",
+				"~/Documents/Platform.IO Projects/BojlerDoma/curentMetter.ino"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/Platform.IO Projects/Bojler/Bojler.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 431.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

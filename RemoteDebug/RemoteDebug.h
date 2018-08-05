@@ -47,7 +47,7 @@ class RemoteDebug: public Print
 	bool isThereWarningMessage() {return _isThereWarningMessage;}
 	String getLastWarningMessage() {_isThereWarningMessage = false; return getLastErrorMessage();}
 	File getWarningsAsFile() {_eraseWarningsFile = true; return SPIFFS.open(_warningsFileName, "a");}
-	// void resetErrorLog() {_isThereErrorLog = false; SPIFFS.remove(_loggingFileName + "A"); SPIFFS.remove(_loggingFileName + "B");}
+	void clearLogFiles() { SPIFFS.remove(_loggingFileName + 0); SPIFFS.remove(_loggingFileName + 1);};
 
 	void setResetCmdEnabled(bool enable);
 
@@ -101,7 +101,7 @@ private:
 
 	
 	bool _logingToFileEnabled = false;
-	const String _loggingFileName = "/log";
+	const String _loggingFileName = ("/debugLog_");
 	const String _warningsFileName;
 	bool _logingFileFirstOrSecond = 0;
 	bool _isThereErrorMessage = false;

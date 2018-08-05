@@ -1,10 +1,14 @@
 
-//Freeheap during loops: (29144) 33600 - at start
-// 32144 35704 - no ota no http
-//RESET FLASH: esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash
-//DOWNLOAD BINARY esptool.py --port /dev/cu.wchusbserial1410 --baud 115200 read_flash 0x00000 0x400000 backup.img
-//ls /dev/tty.* | ls /dev/cu.*
-
+/*Freeheap during loops: loop(31280) 35232 - at start
+RESET FLASH: 
+esptool.py --port $(ls  /dev/cu.* | grep -v 'Blue') erase_flash
+Upload EMPTY BIN
+esptool.py --port $(ls  /dev/cu.* | grep -v 'Blue') write_flash 0x000000 /Users/jindra/Documents/Platform.IO\ Projects/_Empty\ sketch\ -\ erase\ flash/blank4mb.bin
+Upload AT COMMANDS
+esptool.py --port /dev/cu.SLAB_USBtoUART write_flash 0x000000 /Users/jindra/Downloads/AT_bin/512+512/user1.1024.new.2.bin
+DOWNLOAD BINARY 
+esptool.py --port $(ls  /dev/cu.* | grep -v 'Blue') --baud 115200 read_flash 0x00000 0x400000 backup.img
+ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 
 //MANUAL
 //Po výměně tepelného čidla je potřeba udělat plný reset
@@ -19,6 +23,7 @@
   See www.jindrichsirucek.cz
   Email: jindrich.sirucek@gmail.com
 */
+
 /*Platformio Settings
   [env:esp12e]
   platform = espressif8266
@@ -26,9 +31,10 @@
   framework = arduino
   upload_speed = 921600
   upload_speed = 460800
-  #build_flags = -Wl, -Wl,-T${PIOPACKAGES_DIR}/ldscripts/esp8266.flash.4m1m.ld
-  Users/jindra/.platformio/platforms/espressif8266/ldscripts
-  #esp8266.flash.4m.ld - tenhle je 3MB SPIFFS a 1MB scetch tímto nahradit tento: esp8266.flash.4m1m.ld
+  #build_flags = -Wl,-Tesp8266.flash.4m.ld
+  board_build.f_flash = 20000000L #flesh speed 
+
+  board_build.flash_mode = dout #http://docs.platformio.org/en/latest/platforms/espressif8266.html
 */
 
 //Libraries included
@@ -37,7 +43,6 @@
 #include "FS.h"
 #include "RemoteDebug/RemoteDebug.h" //700B of RAM
 #include "TaskerModified.h"
-
 #include <ESP8266WiFi.h>
 #include <OneWire.h> //its here because of using typeDefs in different tabs
 #include <DallasTemperature.h>
@@ -45,35 +50,22 @@
 #include <Ticker.h>
 
   
-//------------------------- PIN DEFINITIONS ----------------------------
-//  0 - D3   |   D0 - 16
-//  1 - D10  |   D1 - 5
-//  2 - D4   |   D2 - 4
-//  3 - D9   |   D3 - 0
-//  4 - D2   |   D4 - 2
-//  5 - D1   |   D5 - 14
-//  9 - D11  |   D6 - 12
-// 10 - D12  |   D7 - 13
-// 16 - D0   |   D8 - 15
-// 13 - D7   |   D9 - 3
-// 14 - D5   |  D10 - 1
-// 15 - D8   |  D11 - 9
-// 16 - D0   |  D12 - 10
+//------------------ PIN DEFINITIONS ----------------------------
 
-// A0 - IN - Current sensor
-// D0 - 16  -  Electricity sensor
-// D1 - 5  -   I2C SDA
-// D2 - 4  -   I2C SCL
-// D3 - 0  -   IN - FLASH button
-// D4 - 2  -   LED pin
-// D5 - 14  -  
-// D6 - 12  -  IN - WaterFlow sensor
-// D7 - 13  -  OneWire
-// D8 - 15  -  
-// D9 - 3  -   RXD / Heating Relay control
-// D10 - 1  -  TXD 
-// D11 - 9  -  NOT ACCESIBLE
-// D12 - 10 -  NOT ACCESIBLE
+// A0 - A0   |   A0 - IN  -  Current sensor
+//  0 - D3   |   D0 - 16  -  Electricity sensor
+//  1 - D10  |   D1 - 5   -  I2C SDA
+//  2 - D4   |   D2 - 4   -  I2C SCL
+//  3 - D9   |   D3 - 0   -  IN - FLASH button
+//  4 - D2   |   D4 - 2   -  LED pin
+//  5 - D1   |   D5 - 14  -  
+//  9 - D11  |   D6 - 12  -  IN - WaterFlow sensor
+// 10 - D12  |   D7 - 13  -  OneWire
+// 16 - D0   |   D8 - 15  -  
+// 13 - D7   |   D9 - 3   -  RXD / Heating Relay control
+// 14 - D5   |   D10 - 1  -  TXD 
+// 15 - D8   |   D11 - 9  -  NOT ACCESIBLE
+// 16 - D0   |   D12 - 10 -  NOT ACCESIBLE
 
 //GPIO 0 and 2,can be used only in special cases viz: http://www.instructables.com/id/ESP8266-Using-GPIO0-GPIO2-as-inputs/
 //!!GPIO 16 is left next to ch_pd pin, uncorectly signed as GPIO15 on universal white board!!!
@@ -141,12 +133,10 @@
 #define DATA_SERVER_SCRIPT_URL F("/macros/s/AKfycbziCOySJ-cxsjn6-v8WpIbcsmlE77RqkzGX728nht2wO4HYmvVK/exec"); //Testing script, data goes here: https://docs.google.com/spreadsheets/d/1JyISlQ2zlttjRfxDFLuECTkgKGiBDn5A_I6WSVT3l5s/edit#gid=538340115   //Script address: https://script.google.com/macros/d/Magj9VtC_7VJMKhlPxI7rWgcRztdqeR-I/edit?uiv=2&mid=ACjPJvEivmgMleau6F0s_c2EsMfGlndE8W7Ls8gVj1MQ_8lgOg0eUus8N2GJ4NBMyAmUaa3dtUi9fnETPQNdpStDwnuy1LGlfiQFRvEOzq0JVA3E0nz5a-Jfqqk9GdIOuEocXf9pIdvamg
 
 #define SETTINGS_FILENAME F("/settings.json")
-#define LOGGER_FILE_NAME F("/progressFile.log")
 
 ////////////////////////////////////////////////////////
 //BASIC DEFINITIONS
 ////////////////////////////////////////////////////////
-#define TEMP_DIFFERENCE_TO_ASK_FOR_RESPONSE 1 //in degrees of celsia
 #define MIMIMAL_SENDING_TEMP_DIFFERENCE 0.07 // after the difference between two measurments cross this level, data will be uploaded. Lower values bigger acuracy, but values can jump up and down around one value - too many samples with no real value
 #define CORRECT_TEMP_SAMPLES_COUNT 3 // number of samples from which count average temperature
 #define MAX_TEMPERATURE_SAMPLES_COUNT 7 // number of trials to get correct temperature samples
@@ -166,8 +156,8 @@
 ////////////////////////////////////////////////////////
 //DEVELOPMENT SETTINGS
 ////////////////////////////////////////////////////////
-// #define TEST_MODULE "" //Comment when working on home 
-#define DOMA_MODULE "" //Comment when working on home 
+#define TEST_MODULE "" //Comment when working on home 
+// #define DOMA_MODULE "" //Comment when working on home 
 // #define PRODUCTION_MODULE "" //Comment when working on home 
 
 #ifdef TEST_MODULE
@@ -182,7 +172,7 @@
   #define NODE_NAME "Testing"
   #define DISPLAY_LOG_MESSAGES false
   #define QUICK_DEVELOPMENT_BOOT !true
-  #define WIFI_RADIO_OFF !true
+  #define WIFI_RADIO_OFF true
   // #define UPLOADING_DATA_MODULE_ENABLED false
 
   // #define DEBUG_OUTPUT Serial
@@ -198,6 +188,8 @@
   #define QUICK_DEVELOPMENT_BOOT false
   #define DEBUG_OUTPUT RemoteDebug
   #define ERROR_OUTPUT RemoteDebug
+  #undef SPIFFS_DEBUG
+  #define SPIFFS_DEBUG false
   #undef OTA_MODULE_ENABLED
   #define OTA_MODULE_ENABLED true
 #endif
@@ -211,6 +203,8 @@
   #define ERROR_OUTPUT RemoteDebug
   #undef OTA_MODULE_ENABLED
   #define OTA_MODULE_ENABLED false
+  #undef SPIFFS_DEBUG
+  #define SPIFFS_DEBUG false
 #endif
 
 #define COMPILATION_DATE sE(__TIME__) + E(" ")+ E(__DATE__)
@@ -240,12 +234,21 @@ struct TempSensorAddressesStruct {
   DeviceAddress insideFlow;
 };
 
+
+
 struct EepromSettingsStruct {
   struct TempSensorAddressesStruct tempSensorAddresses;
+  struct {
+    IPAddress ipAddress;
+    IPAddress maskAddress;
+    IPAddress gatewayAddress;
+    char ssid[40];
+    bool initialized = false;
+    } wifi;
+
   float currentLinearizationCoeficient = 1.0986;
   float currentBurdenResistorValue = 77.5;
 };
-EepromSettingsStruct eepromSettings_global;
 
 
 struct TempSensorStruct {
@@ -347,24 +350,28 @@ void ICACHE_RAM_ATTR ISR_flowCount();//Preprocesor
 void setup()
 {
   Serial.begin(115200);
-  Serial.println(sE("'\n\nStarted Serial, free ram: ") + ESP.getFreeHeap());
-  addObjectAskingForResponse(E("begining state update"));
-
+  Serial.println(sE("\n\nStarted Serial, free ram: ") + ESP.getFreeHeap());
+  
+  if(DISPLAY_MODULE_ENABLED) 
+    i2cBus_setup();//+Display setup
+  
+  runServiceMenuIfNeeded();
+  
   SPIFFS_setup();
+  printBegginGraphics();
   remoteDebug_setup();
+
+  printSettingsStructSavedInEeeprom();
   printResetInfo();
 
-  if(DISPLAY_MODULE_ENABLED) i2cBus_setup();//+Display setup
-  loadGlobalSettingsStructFromEeprom();
   ////////////////////////
   // BUSES & SENSORS & CONTROLS INITIALIZATION
   ////////////////////////
-  if(TEMP_MODULE_ENABLED) oneWireBus_setup();  
-  if(TEMP_MODULE_ENABLED) temperature_setup();
-  runServiceMenuIfNeeded();
-  if(WATER_FLOW_MODULE_ENABLED) waterFlowSensor_setup();
-  if(CURRENT_MODULE_ENABLED) currentAndElectricity_setup();
-  if(HEATING_CONTROL_MODULE_ENABLED)relayBoard_setup();
+  if(TEMP_MODULE_ENABLED)            oneWireBus_setup();  
+  if(TEMP_MODULE_ENABLED)            temperature_setup();
+  if(WATER_FLOW_MODULE_ENABLED)      waterFlowSensor_setup();
+  if(CURRENT_MODULE_ENABLED)         currentAndElectricity_setup();
+  if(HEATING_CONTROL_MODULE_ENABLED) relayBoard_setup();
 
   ////////////////////////
   // LOOP WATCHDOG
@@ -377,13 +384,15 @@ void setup()
   // WIFI, DEBUG, TELNET
   ////////////////////////
   if(QUICK_DEVELOPMENT_BOOT == false)
-    wifiConnect();
-  
+    autoWifiConnect();
+
+  //Automatic check new FW Update
+  bool restartAfterInitalSequence = (isWifiConnected() && QUICK_DEVELOPMENT_BOOT == false)? checkUpdatesFromHttpServer() : false;
   
   ////////////////////////
   // BOOTING SEQUENCE
   ////////////////////////
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:MAIN_setup()"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:MAIN_setup()"));
   DEBUG_OUTPUT.println(sE("Initializing node ") + E(NODE_NAME));
 
   RemoteDebug.handle();
@@ -397,11 +406,8 @@ void setup()
     sendDebugInformationsAfterReset();
     RemoteDebug.handle();
 
-    sendAllLogFiles();
-    doNecesaryActionsUponResponse();
-
-    //Automatic check new FW Update
-    checkUpdatesFromHttpServer();
+    if(sendAllLogFiles())
+      doNecesaryActionsUponResponse();
   }
   else
   {//Without internet connection
@@ -422,6 +428,10 @@ void setup()
   if(OTA_MODULE_ENABLED) OTA_setup();
 
   if(DISPLAY_MODULE_ENABLED) lcd_setup();
+
+  if(restartAfterInitalSequence)
+    restartEsp(E("HTTP FW Updated"));
+
   GLOBAL.nodeInBootSequence = false;
 }
 
@@ -436,9 +446,7 @@ void loop()
   //---------------------------------- NON-SKIPABLE TASKS ------------------------------------------
   if(true)                          tasker.setInterval(feedWatchDog_taskerLoop, 1*SEC, TASKER_SKIP_NEVER);
   if(UPLOADING_DATA_MODULE_ENABLED) tasker.setInterval(uploadLogFile_loop, 0*MIN + 10*SEC, TASKER_SKIP_NEVER);
-  #if OTA_MODULE_ENABLED
-                                    tasker.setInterval(silentOTA_loop,  500*MSEC, TASKER_SKIP_NEVER); 
-  #endif
+  if(OTA_MODULE_ENABLED)            tasker.setInterval(silentOTA_loop,  500*MSEC, TASKER_SKIP_NEVER);
   if(DISPLAY_MODULE_ENABLED)        tasker.setInterval(displayData_loop, 1*SEC, TASKER_SKIP_NEVER);
   if(TEMP_MODULE_ENABLED)           tasker.setInterval(temperature_loop, 2*SEC, TASKER_SKIP_NEVER);
   //---------------------------------- SKIPABLE TASKS ----------------------------------------------
@@ -499,17 +507,18 @@ void uploadLogFile_loop(int)
   if(wifi_get_opmode() == NULL_MODE)
     turnWifiOn();
   
-  #if OTA_MODULE_ENABLED
+  if(OTA_MODULE_ENABLED) 
     OTA_begin();
-  #endif
 
   if(MAIN_DEBUG) DEBUG_OUTPUT.print(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:uploadLogFile_loop(int)"));
 
   if(isThereAnyPendingEventsToSend())
   {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println();
+    
     bool success = sendAllLogFiles();
     if(success)
+      if(success)
       doNecesaryActionsUponResponse();
   }
   else if(MAIN_DEBUG) DEBUG_OUTPUT.println(E(" - Nothing to send!"));
@@ -529,7 +538,6 @@ void setPendingEventToSend(bool isThereEventToSend)
 
 
 
-//No temp measurment - relay driving Off,//zamezit zbytečném relé spínání
 // HOTOVO? přichozí timestamp uložit do notes a když bude rozdíl velký tak podbarvit červeně - aby to šlo vidět
 //Funkce reset spiffs s parametrem - debug log, nacte nejdriv debugovací infomrace z extra logu, přidá důvot resetu a pak uloží do nového souboru , tak abych nepřišel o olog co se stalo a proč se to stalo..
 //Při formátování SPIFFS error sobor zkusit zachránit načtením do Stringu RAMKY ale nastavit max několik řádků at to nespadne na nedostatek ramky
@@ -537,19 +545,16 @@ void setPendingEventToSend(bool isThereEventToSend)
 //vyřešit extra ERROR loging!! to se nesmí ztrácet, nedoručené packety odpovědi apod.. to chci vše zapisovat do logu
 //NodeName - nastavovat v Debug sheetu ne pevně v kodu!!
 //Porestartu modulu zkontrolovat nejdříve zda kolem není připojená "servisní síť" ESP-sevice - pokud ano, tak se připojí na ní a hodí se do konfiguaračního režimu, zapne se server, který bude přijímat webové požadavky přes get params a později vytvoří normálně servisí webové rozhraní
-//Nastavit statickou IP adresu po prvním načtením z DHCP - by mohlo zlepšit spojení u DANA na té jeho slabší wifině
 //Logovat vsechny warningy jako nlze se připojit k wifi, nebo teplotní vzorek nebyl dobře načte a errory jako není připjen teplotní senzro apod
 //Inteligentní nastavení startu času ohřevu vody v noci, tak aby se ohřev ukončil právě v okamžik kdy dojde k vypnutí NT, aby nebyl bojler nahřátej a pak ještě 2 hodiny nejel NT a bojler nám mezitím chládnul (zbytečné ztráty)
-//Někde na display zobrazit ohřev (blíkání teplotního symbolu např? nebo tečka v levém rohu?)
+//HOTOVO? //Někde na display zobrazit ohřev (blíkání teplotního symbolu např? nebo tečka v levém rohu?) 
 //Zobrazovat ne počet litrů v bojleru, ale vynásobeno koeficentem ředění na 40°C vodu - prostě kolik zbývá 40°C vody aby šlo poznat kolik tam ej vody na praktické využití ibez toho,že bych musel vědět původní teplotu
-//Zbavit se stringu v getSpareWaterInLittres místo toho předat refenrecni na proměnou
 //Hodnotu koeficientu u ampérměřáku uložit do eeprom a udělat možnost tuto hotnotu měnit v google sheetu namísto v kodu
-// the connection gets lost – WiFiEventStationModeDisconnected  connectedEventHandler = WiFi.onStationModeConnected(&gotCon);
-// a connection is established – WiFiEventStationModeConnected  disconnectedEventHandler = WiFi.onStationModeDisconnected(&lostCon);
-// an IP address was assigned – WiFiEventStationModeGotIP       gotIPEventHandler = WiFi.onStationModeGotIP(&gotIP);
-
-
-
+//SPeed up upload preocess https://github.com/esp8266/Arduino/issues/1853
+//Write/read test of SPIFF in each cycle
+//v remote debug - předělat telnet pouze na přání, vyhodit ho z těch funckí aby se server nestartoval automaticky
+//v remote debug - zbavit se error buferu - použít nějak ten normální buffer 150 ramky ušetřené
+//Udělat měřená zda teče voda jde tak, že se hodí do ISR funkce global flag, případně se porovná poslední ISR s aktuálním ISR aby se vědělo zda od posledně tekla voda
 
 
 void temperature_loop(int)
@@ -591,8 +596,6 @@ void temperature_loop(int)
   if(abs(GLOBAL.TEMP.sensors[BOJLER].temp - GLOBAL.TEMP.sensors[BOJLER].lastTemp) >= MIMIMAL_SENDING_TEMP_DIFFERENCE)
   {
     if(abs((int)GLOBAL.TEMP.sensors[BOJLER].temp - (int)GLOBAL.TEMP.sensors[BOJLER].lastTemp) >= 1) //pokud měření právě překročilo hranici stupně
-      if(((int)GLOBAL.TEMP.sensors[BOJLER].temp % TEMP_DIFFERENCE_TO_ASK_FOR_RESPONSE) == 0) //každé dva stupně si zažádej o vedení
-        addObjectAskingForResponse(sE("Temp_") + TEMP_DIFFERENCE_TO_ASK_FOR_RESPONSE);
     logNewNodeState(E("Temp: changed"));
     GLOBAL.TEMP.sensors[BOJLER].lastTemp = GLOBAL.TEMP.sensors[BOJLER].temp;
   }
@@ -613,7 +616,7 @@ void current_loop(int)
   if(lastElectricityConnectedState_global != isElectricityConnected())
   {
     lastElectricityConnectedState_global = !lastElectricityConnectedState_global;
-    logNewNodeState(sE("Electricity: turned ") + (lastElectricityConnectedState_global? E("ON") : E("OFF")));
+    logNewNodeState(sE("Electricity: ") + (lastElectricityConnectedState_global? E("ON") : E("OFF")));
   }
 
   //Curent
@@ -659,25 +662,21 @@ void waterFlow_loop(int)
 
 String getSystemStateInfo()
 {
-  String systemStateInfo = sE("");
-  systemStateInfo += sE("Uptime:") + getUpTime();
-  systemStateInfo += sE("\rUpdateTime:") + formatTimeToString(GLOBAL.nodeStatusUpdateTime);
-  systemStateInfo += sE("\rtopHeatingTemp:") + GLOBAL.TEMP.topHeating;
-  systemStateInfo += sE("\rlowDropingTemp:") + GLOBAL.TEMP.lowDroping;
-
-  //systemStateInfo +=\r sE("TimeFromLastUpdate: ") + getTimeFromLastUpdate() + sE("\r");
-  systemStateInfo += sE("\rtotalErrors:") + totalErrorCount_global;
-  //systemStateInfo += sE("\rERROR_COUNT_PER_HOUR: ") + (totalErrorCount_global / millis() / 1000 / 60 / 60) + sE("\r");
-
-  systemStateInfo += sE("\rnotParsed: ") + notParsedHttpResponses_errorCount;
-  systemStateInfo += sE("\rparsedOk: ") + parsedHttpResponses_notErrorCount;
-
-  systemStateInfo += sE("\rWaterFlowCount:") + lastWaterFlowSensorCount_global;
-  systemStateInfo += sE("\rwaterFlowDisplay:") + waterFlowDisplay_global;
-  systemStateInfo += sE("\rlastWaterFlowResetTime") + formatTimeToString(lastWaterFlowResetTime_global);
-
-  // systemStateInfo += sE("\rTime&Date: ") + getNowTimeDateString();
-  systemStateInfo += sE("\rWiFi.RSSI(): ") + WiFi.RSSI() + E("dBm");
+  String systemStateInfo = sE(" ") +
+  E("Uptime:") + getUpTime() +
+  E("\rUpdateTime:") + formatTimeToString(GLOBAL.nodeStatusUpdateTime) +
+  E("\rtopHeatingTemp:") + GLOBAL.TEMP.topHeating +
+  E("\rlowDropingTemp:") + GLOBAL.TEMP.lowDroping +
+  //E("TimeFromLastUpdate: ") + getTimeFromLastUpdate() + E("\r");
+  E("\rtotalErrors:") + totalErrorCount_global +
+  // E("\rERROR_COUNT_PER_HOUR: ") + (totalErrorCount_global / millis() / 1000 / 60 / 60) + E("\r");
+  E("\rnotParsed: ") + notParsedHttpResponses_errorCount +
+  E("\rparsedOk: ") + parsedHttpResponses_notErrorCount +
+  E("\rWaterFlowCount:") + lastWaterFlowSensorCount_global +
+  E("\rwaterFlowDisplay:") + waterFlowDisplay_global +
+  E("\rlastWaterFlowResetTime") + formatTimeToString(lastWaterFlowResetTime_global) +
+  // E("\rTime&Date: ") + getNowTimeDateString();
+  E("\rWiFi.RSSI(): ") + WiFi.RSSI() + E("dBm");
   return systemStateInfo;
 }
 
@@ -686,7 +685,6 @@ void checkSystemState_loop(int)
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:checkSystemState_loop()"));
 
-  addObjectAskingForResponse(E("checkSystemState_loop"));
   logNewNodeState(E("Node: beacon alive"));//zároveň slouží jako beacon alive
 
   if(RemoteDebug.isThereWarningMessage())

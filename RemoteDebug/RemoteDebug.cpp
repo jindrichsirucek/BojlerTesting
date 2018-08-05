@@ -125,7 +125,7 @@ void RemoteDebug::handle() {
       yield();
         */
 
-        // File fileLog = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond) ? "A" : "B"), "r"); //cant be used, because sending last log file during boot sequence connects files together
+        // File fileLog = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond)), "r"); //cant be used, because sending last log file during boot sequence connects files together
         File fileLog = getLastRuntimeLogAsFile(); //it shows ALL saved hisory in log files when telnet connects
         while(fileLog.available())
           telnetClient.println(fileLog.readStringUntil('\n'));
@@ -397,8 +397,8 @@ size_t RemoteDebug::write(uint8_t character) {
                }
                // Serial.println("_isThereErrorMessage: " + (String)_isThereErrorMessage);
                
-               File loggingFile = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond) ? "A" : "B"), "a");
-               // Serial.println((String)"loggingToFile: " + (_loggingFileName + ((_logingFileFirstOrSecond) ? "A" : "B")) + " FileSize: " + loggingFile.size());
+               File loggingFile = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond)), "a");
+               // Serial.println((String)"loggingToFile: " + (_loggingFileName + ((_logingFileFirstOrSecond))) + " FileSize: " + loggingFile.size());
                // loggingFile.print((String)((_logingFileFirstOrSecond) ? "A - " : "B - ") + bufferPrint);
                
                loggingFile.print(bufferPrint);
@@ -410,7 +410,7 @@ size_t RemoteDebug::write(uint8_t character) {
                  loggingFile.close();
                  // Serial.println((String)"Removing file" + fileNameToDelete);
                  // SPIFFS.remove(fileNameToDelete);
-                 SPIFFS.remove(_loggingFileName + ((_logingFileFirstOrSecond) ? "A" : "B"));
+                 SPIFFS.remove(_loggingFileName + ((_logingFileFirstOrSecond)));
                }
                else
                  loggingFile.close();
@@ -428,15 +428,11 @@ void RemoteDebug::setLogFileEnabled(bool enable)
     getLastRuntimeLogAsFile().close();//connects log into one file ready to send, so it can start logging new session to fresh empty file
 }
 
-// void RemoteDebug::setLogFileName(char const* loggingFileName) {
-//     _loggingFileName = loggingFileName;
-// }
-
 
 File RemoteDebug::getLastRuntimeLogAsFile()
 {
-  File AFile = SPIFFS.open(_loggingFileName + "A","a+");
-  File BFile = SPIFFS.open(_loggingFileName + "B","a+");
+  File AFile = SPIFFS.open(_loggingFileName + 1,"a+");
+  File BFile = SPIFFS.open(_loggingFileName + 0,"a+");
   
   String outputFileName = "";
   if(AFile.size() <= BFile.size())
@@ -445,7 +441,7 @@ File RemoteDebug::getLastRuntimeLogAsFile()
     while(AFile.available())
       BFile.println(AFile.readStringUntil('\n'));
     outputFileName = BFile.name();
-    SPIFFS.remove(_loggingFileName + "A");//erase copied log file
+    SPIFFS.remove(_loggingFileName + 1);//erase copied log file
     _logingFileFirstOrSecond = 1;
   }
   else
@@ -454,7 +450,7 @@ File RemoteDebug::getLastRuntimeLogAsFile()
     while(BFile.available())
       AFile.println(BFile.readStringUntil('\n'));
     outputFileName = AFile.name();
-    SPIFFS.remove(_loggingFileName + "B");//erase copied log file
+    SPIFFS.remove(_loggingFileName + 0);//erase copied log file
     _logingFileFirstOrSecond = 0;
   }
   AFile.close();

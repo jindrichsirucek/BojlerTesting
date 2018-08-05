@@ -1,6 +1,6 @@
 //internet_comunication.ino
 #include "HTTPSRedirect.h"
-;
+
 
 bool uploadLogFile(File fileToSent)
 {
@@ -23,6 +23,10 @@ bool uploadLogFile(File fileToSent)
   url += cE("&logFileName=") + URLEncode(fileToSent.name());
 
   if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Sending request: ") + host + url + E("\nFile to send: ") + fileToSent.name());
+
+
+  if(isThereEnoughHeapToSendData() == false)
+    return false;
 
   HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
@@ -63,6 +67,9 @@ bool sendNewNodeStateByPostString(String dataToSend)
 
   if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Sending request: ") + host + url + E("\nData to send: tempString"));
 
+  if(isThereEnoughHeapToSendData() == false)
+    return false;
+
   HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
 
@@ -75,8 +82,6 @@ bool sendNewNodeStateByPostString(String dataToSend)
   else
     displayServiceMessage(E("Data: Sent!"));
 
-  //It drops html structure during google script erros
-  // client.readStringUntil('max-width:600px');
   responseText_global = client.readStringUntil('\n');
   
   client.stop();
@@ -85,10 +90,52 @@ bool sendNewNodeStateByPostString(String dataToSend)
 }
 
 
+bool isThereEnoughHeapToSendData()
+{
+  //Not enough heap
+  if(ESP.getFreeHeap() < 26000)
+    return ERROR_OUTPUT.println(sE("!!!Error: Not enough heap to establish connection with server: ") + ESP.getFreeHeap()), false;
+
+  if(ESP.getFreeHeap() < 30000)
+    ERROR_OUTPUT.println(sE("!!Warning: Small heap when establishing connection with server: ") + ESP.getFreeHeap());
+
+    return true;
+}
+
+
 bool uploadDebugLogFileWithGetParams(String uriParamsEncoded)
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:uploadDebugLogFile(String uriParamsEncoded) :") + uriParamsEncoded);
-  return sendGetParamsWithPostFile(uriParamsEncoded, RemoteDebug.getLastRuntimeLogAsFile());
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:uploadDebugLogFileWithGetParams(String uriParamsEncoded) :") + uriParamsEncoded);
+  bool successfullySent = sendGetParamsWithPostFile(uriParamsEncoded, RemoteDebug.getLastRuntimeLogAsFile());
+  if(successfullySent)
+    RemoteDebug.clearLogFiles();
+  return successfullySent;
+}
+
+
+bool sendQuickEventNotification(String quickEventString)
+{
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:sendQuickEventNotification(String quickEventString): \"") + quickEventString + "\"");
+
+  const String host = DATA_SERVER_HOST_ADDRESS;
+  String url = DATA_SERVER_SCRIPT_URL;
+  appendUriNodeIdentification(url);
+
+  String uri = E("&quickEvent=");
+  uri += URLEncode(quickEventString);
+  url += uri;
+
+  if(isThereEnoughHeapToSendData() == false)
+    return false;
+
+  HTTPSRedirect client;
+  client.setAnimationProgressCallback(animateWiFiProgressSymbol);
+
+  bool successfullySent = client.GET(host, url);
+  responseText_global = client.readStringUntil('\n');
+  client.stop();
+
+  return successfullySent;
 }
 
 
@@ -102,6 +149,14 @@ bool sendGetParamsWithPostFile(String uriParamsEncoded, File fileToSend)
   url += uriParamsEncoded;
 
   if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Sending request: ") + host + url + E("\nFile to send: ") + fileToSend.name());
+
+  if(isThereEnoughHeapToSendData() == false)
+    return false;
+
+
+    if(isThereEnoughHeapToSendData() == false)
+    return false;
+
   HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
 

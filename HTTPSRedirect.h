@@ -7,11 +7,8 @@
   #define HTTPS_REDIRECT_DEBUG false
 #endif
 
-#ifdef DEBUG_OUTPUT
-#else
-   #define DEBUG_OUTPUT RemoteDebug
-#endif
-
+#define LE(string_literal) (reinterpret_cast<const __FlashStringHelper *>(((__extension__({static const char __c[]     __attribute__((section(".irom.text.template")))     = ((string_literal)); &__c[0];})))))
+#define sLE(s) (String)LE(s)
 
 static const char connectionCloseString[] PROGMEM = "Connection: close\r\n\r\n";
 static const char HTTPString[] PROGMEM = " HTTP/1.1\r\n";
@@ -39,18 +36,15 @@ public:
    bool GET(const String &host, const String &url)
    {
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(__PRETTY_FUNCTION__);
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(("!!!Free Heap: %u\n"), ESP.getFreeHeap());
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(sLE("!!!Free Heap: ") + ESP.getFreeHeap());
 
       if (establishConncetionWithServer(host, m_port) == false) return false;
 
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("requesting URL: "));
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(url.substring(0,50));
 
-      // String mystring(F("This string is stored in flash"));
-   
-      // print(mystring);
-      print((("GET "))); print(url); print(FPSTR(HTTPString));
-      print(("Host: ")); print(host); print(FPSTR(NEW_LINE_String));
+      print(LE("GET ")); print(url); print(FPSTR(HTTPString));
+      print(LE("Host: ")); print(host); print(FPSTR(NEW_LINE_String));
       print(FPSTR(acceptString));
       print(FPSTR(connectionCloseString));
 
@@ -97,7 +91,8 @@ protected:
    bool establishConncetionWithServer(const String &host, const int &port)
    {        
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(__PRETTY_FUNCTION__);
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(("!!!Free Heap: %u\n"), ESP.getFreeHeap());
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(sLE("!!!Free Heap: ")+ ESP.getFreeHeap());
+
       yield();
       animateProgress();
 
@@ -118,15 +113,14 @@ protected:
    bool printHeaderPost(const String &host, const String &url, uint32_t postSize)
    {
       
-      print("POST " + url); print(FPSTR(HTTPString));
-      print("Host: " + host); print(FPSTR(NEW_LINE_String));
+      print(sLE("POST ") + url); print(FPSTR(HTTPString));
+      print(sLE("Host: ") + host); print(FPSTR(NEW_LINE_String));
       print(FPSTR(acceptString));
          // "Content-Type: text/html\r\n"+//; charset=utf-8 +
       print(FPSTR(conntentTypeString));
       print(FPSTR(contentLengthString)); print(postSize); print(FPSTR(NEW_LINE_String));
       print(FPSTR(connectionCloseString));
    }
-
 
    void printFileToClient(File fileToSend)
    {
@@ -186,13 +180,13 @@ protected:
    bool processHeader()
    {
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(__PRETTY_FUNCTION__);
-      if (true) DEBUG_OUTPUT.printf(("HTTPSRedirect Connection Free Heap: %u\n"), ESP.getFreeHeap());
+      if (true) Serial.println(sLE("  HTTPSRedirect Free Heap: ") + ESP.getFreeHeap());
 
       while (available()) 
       {
          String line = readStringUntil('\n');
    // if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println("line: " + line);
-         if (line.startsWith(("HTTP/1.1 302 Moved Temporarily")))
+         if (line.startsWith(sLE("HTTP/1.1 302 Moved Temporarily")))
          {
             return redirect();
          }
@@ -207,9 +201,9 @@ protected:
    bool redirect()
    {
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(__PRETTY_FUNCTION__);        
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(("!!!Free Heap: %u\n"), ESP.getFreeHeap());
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(sLE("!!!Free Heap: ") + ESP.getFreeHeap());
 
-      String locationStr = ("Location: ");
+      String locationStr = LE("Location: ");
       while (connected()) 
       {
          String line = readStringUntil('\n');
@@ -231,10 +225,10 @@ protected:
 
    void parseUrl(const String &address, String &host, String &url)
    {
-//if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print();
+   //if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print();
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf("%s !Heap(%u)\n", String(__PRETTY_FUNCTION__).c_str(), ESP.getFreeHeap());
 
-      int protocolEnd = address.indexOf("://");
+      int protocolEnd = address.indexOf(LE("://"));
 
       int hostBegin = protocolEnd;
       if (protocolEnd != 0) {

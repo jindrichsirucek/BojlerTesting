@@ -5,14 +5,10 @@
 bool isFileReceivedOk()
 {
   String inputJsonString = responseText_global;
-  // (".errorMessage");
-
   DynamicJsonBuffer  jsonBuffer;
-
   JsonObject& root = jsonBuffer.parseObject(inputJsonString);
-
-  // Test if parsing succeeds.
-  return root.success();
+  // Test if parsing succeeds and no error.
+  return root.success()  && !root[E("dataSavingError")];
 }
 
 
@@ -31,19 +27,18 @@ bool doNecesaryActionsUponResponse()
   {
     displayServiceMessage(E("Response Error!"));
 
-    stressAskingForResponse();
     notParsedHttpResponses_errorCount++; 
     totalErrorCount_global++;
     if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E("responseText_global: "));
     if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(responseText_global);
-    if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E(""));
+    if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println();
     if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println((String)notParsedHttpResponses_errorCount + E(" responses not parsed, ") + parsedHttpResponses_notErrorCount + E(" parsed OK!"));
     if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("NOT Parsed response Text:") + inputJsonString);
 
     return false;
   }
-  if(true) DEBUG_OUTPUT.println(E("responseText_global: "));
-  if(true) DEBUG_OUTPUT.println(responseText_global);
+  DEBUG_OUTPUT.println(E("responseText_global: "));
+  DEBUG_OUTPUT.println(responseText_global);
     
 
   // Most of the time, you can rely on the implicit casts.
@@ -82,9 +77,6 @@ bool doNecesaryActionsUponResponse()
 
     if(resetNode)
       restartEsp();
-
-    // if(updateSketchUrl.length() > 0)
-    //   saveNewUpdateUrlToFlashMemory(updateSketchUrl);
   }
 
   if(GLOBAL.nodeStatusUpdateTime != root[E("nodeStatusUpdateTime")])
@@ -116,7 +108,6 @@ bool doNecesaryActionsUponResponse()
   if(!root[E("dataSavingError")])
   {
     saveReceivedBoilerStateToFile();
-    resetObjectAskingForResponse();
     responseText_global = E("");
     return true;
   }
@@ -125,33 +116,33 @@ bool doNecesaryActionsUponResponse()
 }
 
 
-void addObjectAskingForResponse(String object)
-{
-  if (WAITING_FOR_RESPONSES_MODULE_ENABLED)
-    objectAskingForResponse_global = ((objectAskingForResponse_global == cE("")) ? sE("") : sE(" ")) + object;
-}
+// void addObjectAskingForResponse(String object)
+// {
+//   if (WAITING_FOR_RESPONSES_MODULE_ENABLED)
+//     objectAskingForResponse_global = ((objectAskingForResponse_global == cE("")) ? sE("") : sE(" ")) + object;
+// }
 
 
-bool isSomebodyAskingForResponse()
-{
-  return (objectAskingForResponse_global != sE("")) ? true : false;
-}
+// bool isSomebodyAskingForResponse()
+// {
+//   return (objectAskingForResponse_global != sE("")) ? true : false;
+// }
 
 
-String getObjectAskingForResponse()
-{
-  return objectAskingForResponse_global;
-}
+// String getObjectAskingForResponse()
+// {
+//   return objectAskingForResponse_global;
+// }
 
-void resetObjectAskingForResponse()
-{
-  objectAskingForResponse_global = E("");
-}
+// void resetObjectAskingForResponse()
+// {
+//   objectAskingForResponse_global = E("");
+// }
 
-void stressAskingForResponse()
-{
-  objectAskingForResponse_global = sE("!") + objectAskingForResponse_global;
-}
+// void stressAskingForResponse()
+// {
+//   objectAskingForResponse_global = sE("!") + objectAskingForResponse_global;
+// }
 
 
 
