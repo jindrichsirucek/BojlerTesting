@@ -1,6 +1,5 @@
 
 
-
 void currentAndElectricity_setup()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:currentAndElectricity_setup()"));
@@ -17,9 +16,8 @@ bool isThereElectricCurrent()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.print(getUpTimeDebug() + E("F:isThereElectricCurrent(): "));
   bool isThereCurrent = false;
-  float actualCurrent = 0;
+  float actualCurrent = getActualCurrentValue(getMaxAnalogValue(10000));
   
-  actualCurrent = getActualCurrentValue();
   char bufferCharConversion[10];               //temporarily holds data from vals
   dtostrf(actualCurrent, 1, 3, bufferCharConversion);  //first num is mininum width, second is precision
   lastCurrentMeasurmentText_global = bufferCharConversion;
@@ -27,7 +25,7 @@ bool isThereElectricCurrent()
   if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("Current saved in lastCurrentMeasurmentText_global: "));
   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(lastCurrentMeasurmentText_global);
 
-  isThereCurrent = actualCurrent > 8; //1A treshold?
+  isThereCurrent = actualCurrent > CURRENT_TRESHOLD_VALUE; //1A treshold?
 
   if(MAIN_DEBUG) DEBUG_OUTPUT.print((isThereCurrent? sE("YES") : sE("NO")));
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE(" (") + lastCurrentMeasurmentText_global + E("A)"));
@@ -36,7 +34,7 @@ bool isThereElectricCurrent()
 }
 
 
-float getActualCurrentValue()
+float getActualCurrentValue(int maxAnalogValue)
  {
    float resistorValue = 77.5;
    float vRef = 1;
@@ -46,7 +44,6 @@ float getActualCurrentValue()
    float nCurrThruResistorRMS; // RMS current through Resistor
    float nCurrentThruWire;     // Actual RMS current in Wire
 
-   int maxAnalogValue = getMaxAnalogValue();
    if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("\nMeasured analog input: "));
    if(CURRENT_DEBUG) DEBUG_OUTPUT.print(maxAnalogValue);
    if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("/1024"));
@@ -98,11 +95,11 @@ the peak to peak voltage measured at the output across a Resistor
 The following function takes one second worth of samples
 and returns the peak value that is measured
 *************************************/
-float getMaxAnalogValue()
+float getMaxAnalogValue(uint32_t cyclesCount)
 {
   int readValue;             //value read from the sensor
   int maxValue = 0;          // store max value here
-  uint32_t sampleCounter = 10000;
+  uint32_t sampleCounter = cyclesCount;
   while(sampleCounter--) //sample for 1 Sec
   {
     readValue = analogRead(CURRENT_SENSOR_PIN);
@@ -110,6 +107,17 @@ float getMaxAnalogValue()
      maxValue = readValue;
   }
   return maxValue;
+}
+
+
+bool isThereCurrentTimeouted(uint32_t timeout)
+{
+  size_t startTime = millis();
+  while((millis() - startTime) < timeout)
+    if(getActualCurrentValue(getMaxAnalogValue(10)) > CURRENT_TRESHOLD_VALUE)
+      return DEBUG_OUTPUT.print(sE("isThereCurrentTimeouted: neededTime: ") + (millis() - startTime)), true;
+
+  return false;
 }
 
 
@@ -181,9 +189,9 @@ float getMaxAnalogValue()
 
 
 
-// void current_loop(int)
+// void current_electricity_loop(int)
 // {
-//   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + F("F:current_loop()"));
+//   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + F("F:current_electricity_loop()"));
     
 
 

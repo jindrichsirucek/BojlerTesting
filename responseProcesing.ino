@@ -43,9 +43,9 @@ bool doNecesaryActionsUponResponse()
 
   // Most of the time, you can rely on the implicit casts.
   // In other case, you can do root["time"].as<long>();
-  byte topHeatingTemp = root[E("topHeatingTemp")];
-  byte lowDropingTemp = root[E("lowDropingTemp")];
-  byte lastTemperature = root[E("lastTemperature")];
+  uint8_t topHeatingTemp = root[E("topHeatingTemp")];
+  uint8_t lowDropingTemp = root[E("lowDropingTemp")];
+  uint8_t lastHeatedTemperature = root[E("lastHeatedTemperature")];
   String heatingControl = root[E("heatingControl")];
   // String nowTime = root[E("nowTime")];
   // String nowDate = root[E("nowDate" )];
@@ -68,10 +68,15 @@ bool doNecesaryActionsUponResponse()
  
       if(waterFlowDisplay_global == 0 && root[E("lastSpareLitres")] != "")
         waterFlowDisplay_global = ((float)BOILER_SIZE_LITRES - (float)root[E("lastSpareLitres")]) * PULSES_PER_LITER_WATER_SENSOR;
+      
+      if(lastHeatedTemperature)
+        setLastHeatedTemp(lastHeatedTemperature);
+      else
+        DEBUG_OUTPUT.println(sE("!!WARNING: Recieved wrong lastHeatedTemperature: ") + lastHeatedTemperature);
     }
-    else if(year() != 1970 && minute() < 58 && abs(minute() - syncTime.substring(3,5).toInt()) > 1) //More than a minutte drift, not first time sync, and not 59 minute
+    else if(/*year() != 1970 && */minute() < 58 && abs(minute() - syncTime.substring(3,5).toInt()) > 1) //More than a minutte drift, not first time sync, and not 59 minute
     {
-      logNewErrorState(sE("@Time: Synced (") + hour()+ "," + minute() + "," + second() + "," + day() + "," + month() + "," + year() + "/" + syncTime + ")");
+      logNewStateWithEmail(sE("@Time: Synced (") + hour()+ "," + minute() + "," + second() + "," + day() + "," + month() + "," + year() + "/" + syncTime + ")");
       synchronizeTimeByResponse(syncTime);
     }
 
@@ -86,11 +91,11 @@ bool doNecesaryActionsUponResponse()
   }
 
   if (heatingControl == E("ARDUINO") && getTempControleStyleStringName() != E("ARDUINO"))
-    setTempControleStyle(ARDUINO_STYLE_CONTROL);
+    setTempControleStyle(BOILER_CONTROL_PROGRAMATIC);
   else if (heatingControl == E("MANUAL") && getTempControleStyleStringName() != E("MANUAL"))
-    setTempControleStyle(MANUAL_STYLE_CONTROL);
+    setTempControleStyle(BOILER_CONTROL_MANUAL);
   else if (heatingControl == E("OFF") && getTempControleStyleStringName() != E("OFF"))
-    setTempControleStyle(OFF_STYLE_CONTROL);
+    setTempControleStyle(BOILER_CONTROL_OFF);
 
   
   GLOBAL.TEMP.topHeating = topHeatingTemp; 

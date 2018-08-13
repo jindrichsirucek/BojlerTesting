@@ -61,7 +61,6 @@ bool autoWifiConnect()
 
 bool wifiConnectBySavedCredentials()
 {
-
   WiFiCredential wifiCredentials[] = {
     {"DS1","daniel12"},
     {"Konfer_net_7","lydia456"},
@@ -225,7 +224,7 @@ bool onWiFiSuccesfullyConnected()
   DEBUG_OUTPUT.println(sE("IPAddress: ") + WiFi.localIP().toString());
   DEBUG_OUTPUT.println(sE("macAddress: ") + WiFi.macAddress());
   saveIpAddressesToEepromSettings();
-  logNewNodeState(sE("WiFi: connected to: ") + WiFi.SSID() + E(" (")+ WiFi.RSSI()+ E("dBm)"));
+  // logNewNodeState(sE("WiFi: connected to: ") + WiFi.SSID() + E(" (")+ WiFi.RSSI()+ E("dBm)"));
 
   return true;
 }
@@ -265,7 +264,7 @@ void displayRSSI()
   lcdCreateScaleChars();
   while(true)
   {
-    while(!wifiConnectBySavedCredentials());
+    while(!wifiConnectBySavedCredentials())
     displayServiceLine(WiFi.SSID());
     displayServiceMessage(String(WiFi.RSSI()) + F("dbm ") + String("\1\2\3\4\5\6").substring(0,-(-90-WiFi.RSSI())/10));
     DEBUG_OUTPUT.println(WiFi.RSSI());

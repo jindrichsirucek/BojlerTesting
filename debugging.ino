@@ -129,7 +129,7 @@ void saveAndSendExceptionLogFile()
   fileTosend.close();
 
   if(successfullySend)
-    deleteFileByName(("/exception"));
+    deleteFileByName(E("/exception"));
 }
 
 String getESPResetInfo()
@@ -137,7 +137,7 @@ String getESPResetInfo()
   struct rst_info *pRstInfo;
   pRstInfo = system_get_rst_info();
   if(pRstInfo->reason != 2)
-    return sE("Reboot:") + ESP.getResetReason().c_str();
+    return sE("Reboot: ") + ESP.getResetReason().c_str();
   else
     return (String(ESP.getResetReason().c_str()) + cE(", exccause=0x") + (pRstInfo->exccause, HEX) + cE(", exccause=0x") + (pRstInfo->epc1, HEX) + cE(", exccause=0x") + (pRstInfo->epc2,HEX) + cE(", exccause=0x") + (pRstInfo->epc3, HEX) + cE(", exccause=0x") + (pRstInfo->excvaddr, HEX) + cE(", exccause=0x") + (pRstInfo->depc, HEX));
 }
@@ -149,33 +149,40 @@ bool isESPLastResetReasonException()
   return (pRstInfo->reason == 2); //Exception
 }
 
-String getESPStatusUpdate()
-{
-  String infoStrin = E("");
+// String getESPStatusUpdate()
+// {
+//   String infoStrin = E("");
 
-  infoStrin += E("\nCompilation date: ");
-  infoStrin += COMPILATION_DATE;
-  infoStrin += E("\nUptime: ");
-  infoStrin += getUpTimeDebug();
-  infoStrin += E("\nfreeHeap: ");
-  infoStrin += system_get_free_heap_size();
-  infoStrin += E("\nsystem_get_os_print(): ");
-  infoStrin += system_get_os_print();
-  infoStrin += E("\nsystem_get_chip_id(): 0x");
-  infoStrin += system_get_chip_id();
-  infoStrin += E("\nsystem_get_sdk_version(): ");
-  infoStrin += system_get_sdk_version();
-  infoStrin += E("\nsystem_get_boot_version(): ");
-  infoStrin += system_get_boot_version();
-  infoStrin += E("\nsystem_get_userbin_addr(): 0x");
-  infoStrin += system_get_userbin_addr();
-  infoStrin += E("\nsystem_get_boot_mode(): ");
-  infoStrin += (system_get_boot_mode() == 0) ? E("\nSYS_BOOT_ENHANCE_MODE") : E("\nSYS_BOOT_NORMAL_MODE");
-  infoStrin += E("\nsystem_get_cpu_freq(): ");
-  infoStrin += system_get_cpu_freq();
+//   infoStrin += E("\nCompilation date: ");
+//   infoStrin += COMPILATION_DATE;
+//   infoStrin += E("\nUptime: ");
+//   infoStrin += getUpTimeDebug();
+//   infoStrin += E("\nfreeHeap: ");
+//   infoStrin += system_get_free_heap_size();
+//   infoStrin += E("\nsystem_get_os_print(): ");
+//   infoStrin += system_get_os_print();
+//   infoStrin += E("\nsystem_get_chip_id(): 0x");
+//   infoStrin += system_get_chip_id();
+//   infoStrin += E("\nsystem_get_sdk_version(): ");
+//   infoStrin += system_get_sdk_version();
+//   infoStrin += E("\nsystem_get_boot_version(): ");
+//   infoStrin += system_get_boot_version();
+//   infoStrin += E("\nsystem_get_userbin_addr(): 0x");
+//   infoStrin += system_get_userbin_addr();
+//   infoStrin += E("\nsystem_get_boot_mode(): ");
+//   infoStrin += (system_get_boot_mode() == 0) ? E("\nSYS_BOOT_ENHANCE_MODE") : E("\nSYS_BOOT_NORMAL_MODE");
+//   infoStrin += E("\nsystem_get_cpu_freq(): ");
+//   infoStrin += system_get_cpu_freq();
 
-  return infoStrin;
-}
+//   return infoStrin;
+// }
+
+
+
+
+
+
+
 
 void remoteDebug_setup()
 {
@@ -183,7 +190,6 @@ void remoteDebug_setup()
   RemoteDebug.setSerialEnabled(true);
   RemoteDebug.begin(cE("Telnet_HostName")); // Initiaze the telnet server
   RemoteDebug.setResetCmdEnabled(true); // Enable the reset command
-  RemoteDebug.showDebugLevel(false);
   RemoteDebug.setCallBackProjectCmds(checkSystemState_loop);
   RemoteDebug.setHelpProjectsCmds(cE("Type R to update from Server"));
   RemoteDebug.handle();
@@ -259,9 +265,10 @@ void restartEsp(String reason)
 {
   //https://github.com/esp8266/Arduino/issues/1722
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:restartEsp()"));
-  logNewNodeState(sE("ESP: restart (")+reason+E(")"));
+  logNewNodeState(sE("ESP: restart (reason: ")+reason+E(")"));
   digitalWrite(0, HIGH);//When gpio0 used as output, need to by high before reseting ESP
   flushTemporaryStringNodeStateIntoCsvFile();
+  setHeatingRelayOpen(false); //Release relay pin to avoid switching big currents during restart
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("Restarting.."));
   RemoteDebug.handle();
   yield_debug();
@@ -271,13 +278,26 @@ void restartEsp(String reason)
 bool sendDebugInformationsAfterReset()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:sendDebugInformationsAfterReset()"));
-  String uri = getESPResetInfo();
+  saveAndSendExceptionLogFile();
+  sendUpdateModuleInfoIfAny();
+  String uri = getESPResetInfo() + E(" | FreeHeap: ") + GLOBAL.lastFreeHeap;
   displayServiceMessage(uri);
-
   uri = sE("&quickEvent=") + URLEncode(uri);
-  uri += stringifyTempSensorAddressesStruct();
+  uri += sE("&compilationDate=") + URLEncode(COMPILATION_DATE);
+  uri += sE("&sketchMd5=") + ESP.getSketchMD5();
 
+  DEBUG_OUTPUT.println(E("Temp Sensor adresses: "));
+  DEBUG_OUTPUT.println(stringifyTempSensorAddressesStruct());
   return uploadDebugLogFileWithGetParams(uri);
+}
+
+void sendUpdateModuleInfoIfAny()
+{
+  if(isFileExist(MODULE_UPDATE_FILE_NAME))
+  {
+    logNewStateWithEmail(sE("@Module: Updated (") + E(NEWEST_CODE_MODIFICATIONS) + E(")"));
+    deleteFileByName(MODULE_UPDATE_FILE_NAME);
+  }
 }
 
 

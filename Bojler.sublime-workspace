@@ -4,12 +4,84 @@
 		"selected_items":
 		[
 			[
-				"if",
-				"if\tDeviot Macro if"
+				"ret",
+				"returnValue"
+			],
+			[
+				"ui",
+				"uint8_t"
+			],
+			[
+				"buff",
+				"bufferPrint"
+			],
+			[
+				"uin",
+				"uint16_p"
+			],
+			[
+				"u",
+				"uint16_p"
 			],
 			[
 				"uint",
-				"uint8_t"
+				"uint16_t"
+			],
+			[
+				"de",
+				"define\tDeviot Macro define"
+			],
+			[
+				"NOD",
+				"NODE_NAME"
+			],
+			[
+				"v",
+				"void"
+			],
+			[
+				"vo",
+				"VERSION"
+			],
+			[
+				"if",
+				"ifdef\tDeviot Macro ifdef"
+			],
+			[
+				"c",
+				"c_str"
+			],
+			[
+				"succ",
+				"successfullySent"
+			],
+			[
+				"Addres",
+				"addresses"
+			],
+			[
+				"S",
+				"SSID"
+			],
+			[
+				"fi",
+				"fileToSend"
+			],
+			[
+				"y",
+				"yield"
+			],
+			[
+				"IP",
+				"IPAddress"
+			],
+			[
+				"fom",
+				"from"
+			],
+			[
+				"ye",
+				"yield_debug"
 			],
 			[
 				"pro",
@@ -42,10 +114,6 @@
 			[
 				"att",
 				"attempt"
-			],
-			[
-				"uin",
-				"uint8_t"
 			],
 			[
 				"for",
@@ -96,10 +164,6 @@
 				"connected"
 			],
 			[
-				"ui",
-				"uint8_t"
-			],
-			[
 				"int",
 				"int8_t"
 			],
@@ -126,10 +190,6 @@
 			[
 				"temp",
 				"tempSensors"
-			],
-			[
-				"succ",
-				"successful"
 			],
 			[
 				"sens",
@@ -352,10 +412,6 @@
 				"true"
 			],
 			[
-				"de",
-				"delay\tDeviot delay()"
-			],
-			[
 				"time",
 				"timeDateStrig"
 			],
@@ -391,9 +447,74 @@
 			"file": "Bojler.ino",
 			"settings":
 			{
-				"buffer_size": 28107,
+				"buffer_size": 29667,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "RemoteDebug/RemoteDebug.cpp",
+			"settings":
+			{
+				"buffer_size": 12513,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "RemoteDebug/RemoteDebug.h",
+			"settings":
+			{
+				"buffer_size": 3046,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "debugging.ino",
+			"settings":
+			{
+				"buffer_size": 10326,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 25 files for \"_isThereWarningMessage\"\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.cpp:\n  317                   if(i == 1)\n  318                   {\n  319:                    _isThereWarningMessage = true;\n  320                     bufferPrint.replace(\"!!\",\"\");\n  321                     bufferPrint.replace(\"\\n\",\"\");\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.h:\n   42       \tString getLastErrorMessage() {_isThereErrorMessage = false; return \"\";} //if(_lastErrorRepetition > 1) {_lastErrorRepetition = 1; return (_lastErrorWarningMessage + \" (\" + _lastErrorRepetition + \"x)\");} else\n   43  \n   44:      \tbool isThereWarningMessage() {bool returnValue = _isThereWarningMessage; _isThereWarningMessage = false; return returnValue;}\n   45       \tbool isThereErrorMessage() {bool returnValue = _isThereErrorMessage; _isThereErrorMessage = false; return returnValue;;}\n   46: \t    // String getLastWarningMessage() {_isThereWarningMessage = false; return getLastErrorMessage();}\n   47  \t\n   48       \tFile getErrorFile() {return SPIFFS.open(_warningsFileName, \"a\");}\n   49:      \tbool removeErrorLogFile() {_isThereWarningMessage = false; _isThereErrorMessage = false; return SPIFFS.remove(_warningsFileName);}\n   50  \t    // void clearLogFiles() { SPIFFS.remove(_loggingFileName + 0); SPIFFS.remove(_loggingFileName + 1);};\n   51  //END Oneliners\n   ..\n  106  \tbool _logingFileFirstOrSecond = 0;\n  107  \tbool _isThereErrorMessage = false;\n  108: \tbool _isThereWarningMessage = false;\n  109  \tbool _eraseWarningsFile = false;\n  110  \t//REMOVED:String _lastErrorWarningMessage;\n\n6 matches across 2 files\n\n\nSearching 25 files for \"getLastCommand\"\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.cpp:\n  444  // Get last command received\n  445  \n  446: String RemoteDebug::getLastCommand() {\n  447  \n  448      return _command;\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.h:\n   55  \tvoid setHelpProjectsCmds(String help);\n   56  \tvoid setCallBackProjectCmds(void (*callback)());\n   57: \tString getLastCommand();\n   58  \tvoid showTime(bool show);\n   59  \tvoid showProfiler(bool show, uint32_t minTime = 0);\n\n2 matches across 2 files\n\n\nSearching 25 files for \"getErrorFile\"\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/Bojler.ino:\n  461    {\n  462      if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E(\"F:outroTask_loop(): Logging error messages\"));\n  463:     File errorLogFile = RemoteDebug.getErrorFile();\n  464      uint8_t maxWarnings = 10;\n  465      uint8_t curentDebuggerLevel = getDebuggerSpacesCount();\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.cpp:\n  266                     bufferPrint.replace(\"\\n\",\"\");\n  267                     bufferPrint.replace(\"\\r\",\"\");\n  268:                    File errorFile = getErrorFile();\n  269                     errorFile.print(bufferPrint);\n  270                     errorFile.print('$');\n\n/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.h:\n   46  \t    // String getLastWarningMessage() {_isThereWarningMessage = false; return getLastErrorMessage();}\n   47  \t\n   48:      \tFile getErrorFile() {return SPIFFS.open(_warningsFileName, \"r\");}\n   49       \tbool removeErrorLogFile() {_isThereWarningMessage = false; _isThereErrorMessage = false; return SPIFFS.remove(_warningsFileName);}\n   50  \t    // void clearLogFiles() { SPIFFS.remove(_loggingFileName + 0); SPIFFS.remove(_loggingFileName + 1);};\n\n3 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 3600,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "internet_comunication.ino",
+			"settings":
+			{
+				"buffer_size": 6883,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dataLoging.ino",
+			"settings":
+			{
+				"buffer_size": 20689,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "[ Deviot 2.2.1 ] Serial Monitor | /dev/cu.wchusbserial1420",
+				"scratch": true
 			}
 		}
 	],
@@ -444,6 +565,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"jso",
+				"Set Syntax: JSON"
+			],
 			[
 				"",
 				"Indentation: Reindent Lines"
@@ -819,9 +944,66 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler"
+	],
 	"file_history":
 	[
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/Stream.h",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/debugging.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/HeatingControl.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/curentMetter.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/Bojler/platformio.ini",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/define.h",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/settings.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/WString.h",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/responseProcesing.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/dataLoging.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/RemoteDebug/RemoteDebug.h",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/internet_comunication.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/OTA.ino",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/pgmspace.h",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/WaterFlowMetter.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/DisplayingData.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/Bojler/Bojler.sublime-workspace",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/temperatureModule.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/symbolsDefine.h",
+		"/Users/jindra/Documents/Arduino/libraries/ArduinoJson-master/src/ArduinoJson/DynamicJsonBuffer.hpp",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1534003577/src/1534003577.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/SPIFFS.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/Bojler/.pioenvs/esp12e/DOMA - UploadFileToFTP.sh",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/wifi.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/Bojler/.pioenvs/esp12e/UploadFileToFTP copy.sh",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/Bojler/.pioenvs/esp12e/UploadFileToFTP.sh",
+		"/Users/jindra/Downloads/poznejsvetalenty-cz-1493632692-complete-2017-05-01-11-58-58/wp-content/themes/mioweb/modules/visualeditor/web_templates/reality3/pages/blog.php",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/Bojler/.pioenvs/esp12e/UploadFileToFTP.bash",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/DisplayMenu.h",
+		"/Users/jindra/Documents/Platform.IO Projects/SSR and Relay driving/SSR and Relay driving.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler 2/dataLoging.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/testingUploadScetch.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/HTTPSRedirect.h",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1532096960/src/1532096960.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/Bojler.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/RemoteDebug/RemoteDebug.h",
+		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/RemoteDebug/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/RemoteDebug/RemoteDebug/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/Documents/Platform.IO Projects/testingUploadScetch/RemoteDebug/RemoteDebug/RemoteDebug/RemoteDebug/RemoteDebug.cpp",
+		"/Users/jindra/Documents/Arduino/libraries/EspSaveCrash-masterArduino/src/EspSaveCrash.cpp",
+		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src/ESP8266HTTPClient.cpp",
+		"/Users/jindra/Documents/Arduino/libraries/ArduinoJson-master/src/ArduinoJson/JsonObject.hpp",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/Bojler/.pioenvs/esp12e/src/Bojler.ino.cpp.o",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/time.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1532023978/src/1532023978.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1532022115/src/1532022115.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1532021601/src/1532021601.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/testingUploadScetch/platformio.ini",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1531918702/src/1531918702.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/Bojler.sublime-project",
+		"/Users/jindra/Documents/Platform.IO Projects/PlatformioBuilds/1531867214/src/1531867214.ino",
+		"/Users/jindra/Documents/Platform.IO Projects/Bojler/Bojler.ino.cpp",
 		"/Users/jindra/Documents/Platform.IO Projects/Bojler/BojlerTesting.sublime-workspace",
 		"/Users/jindra/Documents/Platform.IO Projects/Bojler/BojlerTesting.sublime-project",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting",
@@ -849,11 +1031,8 @@
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/responseProcesing.ino",
 		"/Users/jindra/Downloads/IOT-Appstore-master/IotAppStoreLoaderV1/IotAppStoreLoaderV1.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/symbolsDefine.h",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/pgmspace.h",
-		"/Users/jindra/Documents/Arduino/libraries/EspSaveCrash-masterArduino/src/EspSaveCrash.cpp",
 		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/libraries/SPI/SPI.h",
 		"/Users/jindra/Documents/Arduino/libraries/LiquidCrystal-I2C-library-master/LiquidCrystal_I2C.h",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/WString.h",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/debugging.ino",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/TaskerModified.h",
 		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/BojlerTesting.ino",
@@ -898,57 +1077,7 @@
 		"/tmp/Deviot/1521080997/src/1521080997.ino",
 		"/private/tmp/Deviot/1521080997/src/1521080997.ino",
 		"/tmp/Deviot/1521080324/src/1521080324.ino",
-		"/private/tmp/Deviot/1521080324/src/1521080324.ino",
-		"/private/tmp/Deviot/1521080187/src/1521080187.ino",
-		"/tmp/Deviot/1521080187/src/1521080187.ino",
-		"/tmp/Deviot/1521074707/src/1521074707.ino",
-		"/private/tmp/Deviot/1521074707/src/1521074707.ino",
-		"/private/tmp/Deviot/1521074261/src/1521074261.ino",
-		"/tmp/Deviot/1521074261/src/1521074261.ino",
-		"/tmp/Deviot/1521073771/src/1521073771.ino",
-		"/private/tmp/Deviot/1521073771/src/1521073771.ino",
-		"/tmp/Deviot/1521073351/src/1521073351.ino",
-		"/private/tmp/Deviot/1521073351/src/1521073351.ino",
-		"/tmp/Deviot/1521071242/src/1521071242.ino",
-		"/private/tmp/Deviot/1521071242/src/1521071242.ino",
-		"/private/tmp/Deviot/1521067363/src/1521067363.ino",
-		"/tmp/Deviot/1521067363/src/1521067363.ino",
-		"/tmp/Deviot/1521066021/src/1521066021.ino",
-		"/private/tmp/Deviot/1521066021/src/1521066021.ino",
-		"/private/tmp/Deviot/1521065646/src/1521065646.ino",
-		"/tmp/Deviot/1521065646/src/1521065646.ino",
-		"/tmp/Deviot/1521062280/src/1521062280.ino",
-		"/private/tmp/Deviot/1521062280/src/1521062280.ino",
-		"/private/tmp/Deviot/1521053387/src/1521053387.ino",
-		"/tmp/Deviot/1521053387/src/1521053387.ino",
-		"/tmp/Deviot/1520993563/src/1520993563.ino",
-		"/tmp/Deviot/1520992527/src/1520992527.ino",
-		"/private/tmp/Deviot/1520992527/src/1520992527.ino",
-		"/Users/jindra/Documents/Arduino/Sketchbooks/MereniProudu/MereniProudu.ino",
-		"/Users/jindra/Documents/Arduino/Sketchbooks/MereniProudu/MereniProudu/MereniProudu.ino",
-		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/WaitForConversion/WaitForConversion.pde",
-		"/Users/jindra/Documents/Arduino/Sketchbooks/blink/blink.ino",
-		"/Users/jindra/Documents/Arduino/Sketchbooks/dallasParasitic/dallasParasitic.ino",
-		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/WaitForConversion2/WaitForConversion2.pde",
-		"/Users/jindra/Documents/Arduino/libraries/DallasTemperature_ID54/examples/TwoPin_DS18B20/TwoPin_DS18B20.ino",
-		"/Users/jindra/Desktop/oneContactTmpl.txt",
-		"/Users/jindra/Desktop/ekovesnice-users (1).csv",
-		"/Users/jindra/Desktop/oneContact.html",
-		"/Users/jindra/Desktop/oneContact.tmpl",
-		"/Users/jindra/Downloads/Workbook1.csv",
-		"/Users/jindra/Downloads/3967172-181e463c868d4f92091435d0fba408941b064acd/window.location.href",
-		"/Users/jindra/Downloads/Celý seznam zakazani prijemci a nefunkcni emaily.adrsn",
-		"/Users/jindra/Downloads/Celý seznam zakazani prijemci2.adrsn",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/ExpandRegion/ExpandRegion.sublime-settings",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Inc-Dec-Value/inc_dec_value.sublime-settings",
-		"/tmp/Deviot/1516492803/src/1516492803.ino",
-		"/tmp/Deviot/1516492703/src/1516492703.ino",
-		"/Users/jindra/Documents/Platform.IO Projects/BojlerTesting/ReplacePatern",
-		"/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/binary.h",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/Default.sublime-commands",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/sE_macro.sublime-snippet",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/E_macro.sublime-snippet",
-		"/Users/jindra/Library/Application Support/Sublime Text 3/Packages/Deviot (Arduino IDE)/snippets/cE_macro.sublime-snippet"
+		"/private/tmp/Deviot/1521080324/src/1521080324.ino"
 	],
 	"find":
 	{
@@ -959,6 +1088,8 @@
 		"height": 101.0,
 		"where_history":
 		[
+			"/Users/jindra/Documents/Platform.IO Projects/Bojler",
+			""
 		]
 	},
 	"find_state":
@@ -966,6 +1097,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"getErrorFile",
+			"_callbackProjectCmds",
+			"showDe",
+			"getLastCommand",
+			"_isThereWarningMessage",
+			"_callbackProjectCmds",
+			"setCallBackProjectCmds",
+			"_callbackProjectCmds",
+			" \n",
+			"_callbackProjectCmds",
+			"setNoFilter",
+			"setFilter",
+			"_isThereWarningMessage",
+			"getLastRuntimeLogAsFile",
+			"clearLogFiles",
+			"f",
+			"\\r\\n",
+			"warnin",
+			"logWarningMessage",
+			"!!warning",
+			"}\n",
+			"freeLoopHeap",
+			"uint",
+			"> 8",
+			"ROOM_TEMP",
+			"getMaxAnalogValue",
+			"reset",
+			"rese",
+			"extern",
+			"restartEsp",
+			"reset",
+			"rised",
+			"\n      ",
+			"Pipe Temp: rised",
+			"DEBUG_OUTPUT.println",
+			"Pipe Temp: rised",
+			"rparsedOk",
+			"\\r\\n",
+			"cE",
+			"settingsString",
+			"COMPILATION_DATE",
+			"debugFIle",
+			"getLastRuntimeLogAsFile",
+			"SensorsCount=",
+			"Searching",
+			"sensorCOunt",
+			"Searching",
+			"sensorCo",
+			"ReceiveFailed",
+			"ess",
+			"_lastErrorWarningMessage",
+			"getLastErrorMessage",
+			"_lastErrorWarningMessage",
+			"lastNodeStateTempString_global",
+			"\\r\\n",
+			"\\r",
+			",",
+			"stringifyTempSensorAddressesStruct",
+			"reserve",
+			"nowTime",
+			"displayServiceMessag",
+			"warning",
+			"else",
+			"byte",
+			"uint16_p",
+			"uint8_t",
+			"lastHeated",
+			"getSpareWater",
+			"isTemperatureCorrectMeasurment",
+			"COMFORT_TEMPERATURE",
+			"createChar",
+			"dislayRotationPosition_global",
+			"getSpareWaterInLittres",
+			"byte",
+			"DISPLAY_LOG_MESSAGES",
+			"TempControl_",
+			"false",
+			"TempControl_ARDUINO",
+			"false",
+			"AKfycbwFJj3SJfLfwpMtJbl-gbb82HPShWVxqU2GHaLN2XlLdN_NUuju",
+			"result",
+			"DS18B20",
+			"DS18B20.begin",
+			"���rl",
+			"lastWaterFlowResetTime_global",
+			"waterFlowDisplay_global",
+			"current_electricity_loop",
+			"elctricity_gotoLabel",
+			"actualElectricCurrentState",
+			"MODULE_UPDATE_FILE_NAME",
+			"NEWEST_CODE_MODIFICATIONS",
+			"setLastHeatedTemp",
+			"LastHeated",
+			"lastHeated",
+			"lastTemperature",
+			" \")",
+			"  \"",
+			"  ",
+			":",
+			"sendUpdateModuleInfoIfAny",
+			"Module: Updated",
+			"system",
+			"setHeatingRelay",
+			"HTTP FW Updated",
+			"();\n",
+			"MODULE_UPDATE_FILE_NAME",
+			"saveTextToFile",
+			"deleteFileByName",
+			"EepromSettingsStruct",
+			"getESPResetInfo",
+			"getESPStatusUpdate",
+			"@",
+			"show colors",
+			"H",
+			"establishing",
+			"      setHeatingRelay(0); //Release relay pin to avoid switching back and forth during turning ON electricity\n",
+			"setBoilerHeatingRelay",
+			"GLOBAL.TEMP.heatingOn",
+			"External",
+			"();\n",
+			"system",
+			"Reboot:",
+			"convertWaterFlowSensorImpulsesToLitres",
+			"New updated module",
+			"setBoilerHeatingRelay",
+			"\n  ",
+			"setBoilerHeatingRelay",
+			"TempGenericStruct"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -973,6 +1232,134 @@
 		"regex": false,
 		"replace_history":
 		[
+			"getErrorFile",
+			"getLastCommand",
+			"_isThereWarningMessage",
+			"setNoFilter",
+			"setFilter",
+			"getLastRuntimeLogAsFile",
+			"clearLogFiles",
+			"logWarningMessage",
+			"}\n",
+			"uint",
+			"ROOM_TEMP",
+			"getMaxAnalogValue",
+			"restartEsp",
+			"\n      ",
+			"DEBUG_OUTPUT.println",
+			"rparsedOk",
+			"COMPILATION_DATE",
+			"getLastRuntimeLogAsFile",
+			"Searching",
+			"ReceiveFailed",
+			"getLastErrorMessage",
+			"_lastErrorWarningMessage",
+			"lastNodeStateTempString_global",
+			"stringifyTempSensorAddressesStruct",
+			"reserve",
+			"else",
+			"uint8_t",
+			"lastHeated",
+			"getSpareHotWater",
+			"getSpareWater",
+			"isTemperatureCorrectMeasurment",
+			"createChar",
+			"displayRotationPosition_global",
+			"dislayRotationPosition_global",
+			"getSpareWaterString",
+			"getSpareWaterInLittres",
+			"DISPLAY_LOG_MESSAGES",
+			"false",
+			"result",
+			"DS18B20",
+			"���rl",
+			"lastWaterFlowResetTime_global",
+			"waterFlowDisplay_global",
+			"MODULE_UPDATE_FILE_NAME",
+			"NEWEST_CODE_MODIFICATIONS",
+			"setLastHeatedTemp",
+			"LastHeated",
+			" \")",
+			"sendUpdateModuleInfoIfAny",
+			"system",
+			"setHeatingRelayOpen",
+			"setHeatingRelay",
+			"();\n",
+			"MODULE_UPDATE_FILE_NAME",
+			"saveTextToFile",
+			"deleteFileByName",
+			"EepromSettingsStruct",
+			"getESPStatusUpdate",
+			"H",
+			"      setHeatingRelay(0); //Release relay pin to avoid switching back and forth during turning ON electricity\n",
+			"setHeatingRelay",
+			"setBoilerHeatingRelay",
+			"GLOBAL.TEMP.heatingState",
+			"GLOBAL.TEMP.heatingOn",
+			"();\n",
+			"system",
+			"convertWaterFlowSensorImpulsesToLitres",
+			"setBoilerHeatingRelay",
+			"\n  ",
+			"setBoilerHeatingRelay",
+			"TempGenericStruct",
+			"logNewNodeState",
+			"BOILER_CONTROL_OFF",
+			"OFF_STYLE_CONTROL",
+			"BOILER_CONTROL_MANUAL",
+			"MANUAL_STYLE_CONTROL",
+			"BOILER_CONTROL_PROGRAMATIC",
+			"ARDUINO_STYLE_CONTROL",
+			"BOILER_CONTROL_PROGRAMATIC",
+			"ARDUINO_STYLE_CONTROL",
+			"BOILER_CONTROL_PROGRAMATIC",
+			"PULL_HEATING_RELAY",
+			"PULL_HEATING_RELAY_SET_HEATING_OFF",
+			"RELEASE_HEATING_RELAY",
+			"RELEASE_HEATING_RELAY_SET_HEATING_ON",
+			"controlHeating_loop",
+			"setBoilerHeatingRelay",
+			"setBoilerHeating",
+			"PULL_HEATING_RELAY_SET_HEATING_OFF",
+			"HEATING_STATE_OFF",
+			"RELEASE_HEATING_RELAY_SET_HEATING_ON",
+			"SET_HEATING_RELAY_RELEASE_HEATING_ON",
+			"HEATING_STATE_ON",
+			"current_electricity_loop(",
+			"current_loop",
+			"    \n",
+			"setBoilerHeating",
+			"logNewStateWithEmail",
+			"logNewErrorState",
+			"(\"!!!",
+			"Searching",
+			"DOMA_MODULE",
+			"DOMA_MOpDULE",
+			"}\n",
+			"_lastErrorWarningMessage",
+			"getLastWarningMessage",
+			"getWarningsAsFile",
+			"_eraseWarningsFile",
+			")\n",
+			"before uploading",
+			"}\n",
+			"{\n",
+			"D4",
+			"getNumberOfOldestLogFile",
+			";\n",
+			"  \n",
+			"isThereAnyPendingEventsToSend",
+			"_",
+			"Searching",
+			" \n",
+			"{\n",
+			" \n",
+			"cE",
+			" \n",
+			"EL",
+			"voda",
+			"resetflowCount",
+			"waterFlowSensorCount_ISR_global"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -992,7 +1379,278 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28107,
+						"buffer_size": 29667,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18300,
+								18300
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6304.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "RemoteDebug/RemoteDebug.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12513,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7308,
+								7308
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3233.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "RemoteDebug/RemoteDebug.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3046,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1318,
+								1330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 323.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "debugging.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6396,
+								6417
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2292.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3600,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										217,
+										239
+									],
+									[
+										731,
+										753
+									],
+									[
+										755,
+										777
+									],
+									[
+										989,
+										1011
+									],
+									[
+										1180,
+										1202
+									],
+									[
+										1526,
+										1548
+									],
+									[
+										1871,
+										1885
+									],
+									[
+										2125,
+										2139
+									],
+									[
+										2561,
+										2573
+									],
+									[
+										2918,
+										2930
+									],
+									[
+										3255,
+										3267
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								2921,
+								2921
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/BetterFindBuffer/FindResults.hidden-tmTheme",
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 3,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 686.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "internet_comunication.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6883,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2829,
+								2829
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1078.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "dataLoging.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20689,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18885,
+								18901
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6598.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
 						"regions":
 						{
 						},
@@ -1006,8 +1664,7 @@
 						"settings":
 						{
 							"syntax": "Packages/Deviot (Arduino IDE)/deviot.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"word_wrap": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1021,7 +1678,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 38.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -1036,11 +1693,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.649898847703,
 			1.0
 		],
 		"rows":
@@ -5434,7 +6098,7 @@
 	"project": "Bojler.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 42.0
 	},
 	"save_all_on_build": false,
 	"select_file":

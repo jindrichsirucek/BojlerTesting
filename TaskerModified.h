@@ -35,7 +35,7 @@ public:
   bool setTimeout(TaskCallback funcName, unsigned long interval, bool neverSkip, int param = 0);
   bool setInterval(TaskCallback funcName, unsigned long interval, bool neverSkip, int param = 0);
   bool setRepeated(TaskCallback funcName, unsigned long interval, unsigned int repeat, bool neverSkip, int param = 0);
-  bool setOutroTask(TaskCallbackWithoutParam funcName, bool enabled = true);
+  bool setOutroTask(TaskCallbackWithoutParam funcName, bool enabled = true) {outroTask = funcName;  _isOutroTaskEnabled = enabled;}
   void loop(void);
   void run(void) { loop(); }
   void runTask(byte *taskIndex);
@@ -118,11 +118,6 @@ bool Tasker::setRepeated(TaskCallback funcName, unsigned long interval, unsigned
   return true;
 }
 
-bool Tasker::setOutroTask(TaskCallbackWithoutParam funcName, bool enabled)
-{
-  outroTask = funcName;
-  _isOutroTaskEnabled = enabled;
-}
 
 #ifdef TASKER_DEBUG
   String LOOP_FUNCTIONS[] =

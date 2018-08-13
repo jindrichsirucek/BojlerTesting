@@ -1,5 +1,6 @@
+#define NEWEST_CODE_MODIFICATIONS "heap aptimization"
 
-/*Freeheap during loops: loop(31280) 35232 - at start
+/*Freeheap during loops: loop(34640) 38488 - at start
 RESET FLASH: 
 esptool.py --port $(ls  /dev/cu.* | grep -v 'Blue') erase_flash
 Upload EMPTY BIN
@@ -61,7 +62,7 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 //  5 - D1   |   D5 - 14  -  
 //  9 - D11  |   D6 - 12  -  IN - WaterFlow sensor
 // 10 - D12  |   D7 - 13  -  OneWire
-// 16 - D0   |   D8 - 15  -  
+// 16 - D0   |   D8 - 15  -  SSR
 // 13 - D7   |   D9 - 3   -  RXD / Heating Relay control
 // 14 - D5   |   D10 - 1  -  TXD 
 // 15 - D8   |   D11 - 9  -  NOT ACCESIBLE
@@ -81,7 +82,8 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 #define WATER_FLOW_SENSOR_PIN 12 // 12-D6
 #define ONE_WIRE_BUS_PIN 13 // 13-D7 // DS18B20 pin
 #define CURRENT_SENSOR_PIN A0 // 14-D5
-#define HEATING_SWITCH_OFF_RELAY_PIN RXD_PIN //D9 = RXD -  15 - not booting!! when used for relay
+#define HEATING_SWITCH_OFF_RELAY_PIN 15 //D9 = RXD -  15 - not booting!! when used for relay
+#define HEATING_SWITCH_ON_SSR_PIN RXD_PIN
 #define ELECTRICITY_SENSOR_PIN 16 // 16-D0 it has to be 16 only port with input INPUT_PULLDOWN_16
 
 //----------------------------------------------------------------------
@@ -125,14 +127,11 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 ////////////////////////////////////////////////////////
 //PROJECT SETTINGS
 ////////////////////////////////////////////////////////
-//WIFI AP
-// #define AP_SSID "APJindra"
-// #define AP_PASSWORD "cargocargo"
-
 #define DATA_SERVER_HOST_ADDRESS F("script.google.com")
 #define DATA_SERVER_SCRIPT_URL F("/macros/s/AKfycbziCOySJ-cxsjn6-v8WpIbcsmlE77RqkzGX728nht2wO4HYmvVK/exec"); //Testing script, data goes here: https://docs.google.com/spreadsheets/d/1JyISlQ2zlttjRfxDFLuECTkgKGiBDn5A_I6WSVT3l5s/edit#gid=538340115   //Script address: https://script.google.com/macros/d/Magj9VtC_7VJMKhlPxI7rWgcRztdqeR-I/edit?uiv=2&mid=ACjPJvEivmgMleau6F0s_c2EsMfGlndE8W7Ls8gVj1MQ_8lgOg0eUus8N2GJ4NBMyAmUaa3dtUi9fnETPQNdpStDwnuy1LGlfiQFRvEOzq0JVA3E0nz5a-Jfqqk9GdIOuEocXf9pIdvamg
 
 #define SETTINGS_FILENAME F("/settings.json")
+#define MODULE_UPDATE_FILE_NAME E("/moduleUpdate.info")
 
 ////////////////////////////////////////////////////////
 //BASIC DEFINITIONS
@@ -147,6 +146,7 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 #define BOILER_SIZE_LITRES 100
 
 #define EEPROM_ALOCATION_SIZE 512
+#define CURRENT_TRESHOLD_VALUE 8 //value from above is took like there is heating going
 ////////////////////////////////////////////////////////
 //SAFETY MAX and MIN SETTINGS
 ////////////////////////////////////////////////////////
@@ -156,29 +156,19 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 ////////////////////////////////////////////////////////
 //DEVELOPMENT SETTINGS
 ////////////////////////////////////////////////////////
-#define TEST_MODULE "" //Comment when working on home 
-// #define DOMA_MODULE "" //Comment when working on home 
+#define DOMA_MODULE "" //Comment when working on home 
+// #define TEST_MODULE "" //Comment when working on home 
 // #define PRODUCTION_MODULE "" //Comment when working on home 
 
 #ifdef TEST_MODULE
-  // #define NODE_NAME "PurpleBattery - nodemcu + STEPUP5V"
-  // #define NODE_NAME "RedBattery - 622K + direct"
-  // #define NODE_NAME "PurpleBattery StepDown 3.3V (direct module) + Esp.vcc()"
-  // #define NODE_NAME "TestModule_LongRunHome"
-  // #define NODE_NAME "TestModule_RadioOn_ButNoUpload_Purple_USBPlug_4sensors_Lolin"
-  // #define NODE_NAME "TestModule_RadioOn_ButNoUpload_Red2_USBPlug_4sensors_Lolin"
-  // #define NODE_NAME "TestModule_RadioOff_NoUpload_Purple1_USBPlug_4sensors_Lolin"
-  // #define NODE_NAME "TestModule_RadioOff_NoUpload_Purple2_FromBatteryToMini3.3Vstab_3sensors_ESPQ12"
   #define NODE_NAME "Testing"
-  #define DISPLAY_LOG_MESSAGES false
-  #define QUICK_DEVELOPMENT_BOOT !true
-  #define WIFI_RADIO_OFF true
+  #define DISPLAY_LOG_MESSAGES !false
+  #define QUICK_DEVELOPMENT_BOOT true
+  #define WIFI_RADIO_OFF !false
   // #define UPLOADING_DATA_MODULE_ENABLED false
 
   // #define DEBUG_OUTPUT Serial
-  // #define ERROR_OUTPUT Serial
   #define DEBUG_OUTPUT RemoteDebug
-  #define ERROR_OUTPUT RemoteDebug
 #endif
 
 #ifdef DOMA_MODULE
@@ -187,7 +177,6 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
   #define DISPLAY_LOG_MESSAGES true
   #define QUICK_DEVELOPMENT_BOOT false
   #define DEBUG_OUTPUT RemoteDebug
-  #define ERROR_OUTPUT RemoteDebug
   #undef SPIFFS_DEBUG
   #define SPIFFS_DEBUG false
   #undef OTA_MODULE_ENABLED
@@ -200,15 +189,14 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
   #define DISPLAY_LOG_MESSAGES true
   #define QUICK_DEVELOPMENT_BOOT false
   #define DEBUG_OUTPUT RemoteDebug
-  #define ERROR_OUTPUT RemoteDebug
   #undef OTA_MODULE_ENABLED
   #define OTA_MODULE_ENABLED false
   #undef SPIFFS_DEBUG
   #define SPIFFS_DEBUG false
 #endif
 
+#define ERROR_OUTPUT DEBUG_OUTPUT
 #define COMPILATION_DATE sE(__TIME__) + E(" ")+ E(__DATE__)
-// #define COMPILATION_DATE sE("10:00:00") + E(" ")+ E(__DATE__)
 ////////////////////////////////////////////////////////
 //  STRUCTS DEFINITIONS
 ////////////////////////////////////////////////////////
@@ -220,24 +208,23 @@ enum {
   MAX_TEMP_SENSORS_COUNT
 };
 
-//1 - arduino(programatic), 2 - Manual(thermostat), 0 - bojler Off (electricity)
 enum {
   BOILER_CONTROL_OFF = 0,
   BOILER_CONTROL_PROGRAMATIC,
   BOILER_CONTROL_MANUAL
 };
 
-struct TempSensorAddressesStruct {
-  DeviceAddress bojler;
-  DeviceAddress pipe;
-  DeviceAddress roomTemp;
-  DeviceAddress insideFlow;
-};
 
-
-
-struct EepromSettingsStruct {
-  struct TempSensorAddressesStruct tempSensorAddresses;
+struct EepromSettingsStruct 
+{
+  struct TempSensorAddressesStruct 
+  {
+    DeviceAddress bojler;
+    DeviceAddress pipe;
+    DeviceAddress roomTemp;
+    DeviceAddress insideFlow;
+  } tempSensorAddresses;
+  
   struct {
     IPAddress ipAddress;
     IPAddress maskAddress;
@@ -262,32 +249,34 @@ struct TempSensorStruct {
   const char *sensorName;
 };
 
-struct TempGenericStruct {
-  TempSensorStruct sensors[MAX_TEMP_SENSORS_COUNT];
-  byte topHeating = 0;
-  byte lowDroping = 0;
-  byte lastHeated = 0;
-  byte boilerControlStyle = BOILER_CONTROL_PROGRAMATIC; 
-  uint8_t asyncMeasurmentCounter = MAX_TEMPERATURE_SAMPLES_COUNT;
-};
-
-struct AnimationGenericStruct {
-  byte (*activeSymbol)[8]; //Symbol animation array reference
-  int8_t progress = -1;
-  uint8_t framesCount;
-  uint16_t stepDuration;
-};
-
 
 struct GlobalStruct {
-  TempGenericStruct TEMP;
-  AnimationGenericStruct ANIMATION;
+  struct TempGenericStruct 
+  {
+    TempSensorStruct sensors[MAX_TEMP_SENSORS_COUNT];
+    uint8_t topHeating = 45;
+    uint8_t lowDroping = 44;
+    uint8_t lastHeated = 0;
+    uint8_t boilerControlStyle = BOILER_CONTROL_PROGRAMATIC; 
+    bool heatingState = true;
+    uint8_t asyncMeasurmentCounter = MAX_TEMPERATURE_SAMPLES_COUNT;
+    } TEMP;
+
+  struct AnimationGenericStruct 
+  {
+    byte (*activeSymbol)[8]; //Symbol animation array reference
+    int8_t progress = -1;
+    uint8_t framesCount;
+    uint16_t stepDuration;
+  } ANIMATION;
+
   unsigned long nodeStatusUpdateTime = 60 * 60 * 1000; //60 * 60 * 1000 = 1 hour
   bool connectToLastRememberedWifi = true;
 
+  uint16_t lastFreeHeap = 0;
   bool nodeInBootSequence = true;
   uint8_t spaceCountDebug = 0; 
-};
+} GLOBAL;
 
 ////////////////////////////////////////////////////////
 //  GLOBAL VARIABLES
@@ -297,7 +286,6 @@ RemoteDebug RemoteDebug;
 Tasker tasker(ERROR_OUTPUT, DEBUG_OUTPUT); //Error fisrt, normal debug second
 //SW Loop watchdog
 Ticker tickerOSWatch;
-GlobalStruct GLOBAL;
 
 String lastCurrentMeasurmentText_global = "";
 bool lastElectricCurrentState_global = false;
@@ -306,7 +294,6 @@ bool lastElectricityConnectedState_global = false;
 uint32_t lastWaterFlowSensorCount_global = 0;
 volatile uint16_t waterFlowSensorCount_ISR_global;  // Measures flow meter pulses
 int32_t waterFlowDisplay_global = 0;
-unsigned long lastWaterFlowResetTime_global = 0; //last time measured water flow in millis()
 bool isWaterFlowingLastStateFlag_global = false; //water flowing flag
 
 String objectAskingForResponse_global = "";
@@ -318,7 +305,7 @@ uint16_t curentLogNumber_global = 0;
 uint32_t maxSizeToSend_global = 50000;
 String lastNodeStateTempString_global = "";
 
-uint8_t dislayRotationPosition_global = 0;
+uint8_t displayRotationPosition_global = 0;
 
 ////////////////////////////////////////////////////////
 //DEBUGING VARIABLES and SETTINGS
@@ -350,7 +337,9 @@ void ICACHE_RAM_ATTR ISR_flowCount();//Preprocesor
 void setup()
 {
   Serial.begin(115200);
-  Serial.println(sE("\n\nStarted Serial, free ram: ") + ESP.getFreeHeap());
+  Serial.println(sE("\n\nStarted Serial, free ram: ") + (GLOBAL.lastFreeHeap = ESP.getFreeHeap()));
+  responseText_global.reserve(250);
+  lastNodeStateTempString_global.reserve(200);
   
   if(DISPLAY_MODULE_ENABLED) 
     i2cBus_setup();//+Display setup
@@ -384,11 +373,9 @@ void setup()
   // WIFI, DEBUG, TELNET
   ////////////////////////
   if(QUICK_DEVELOPMENT_BOOT == false)
-    autoWifiConnect();
+    if(autoWifiConnect())
+      logNewNodeState(sE("WiFi: connected to: ") + WiFi.SSID() + E(" (")+ WiFi.RSSI()+ E("dBm)"));
 
-  //Automatic check new FW Update
-  bool restartAfterInitalSequence = (isWifiConnected() && QUICK_DEVELOPMENT_BOOT == false)? checkUpdatesFromHttpServer() : false;
-  
   ////////////////////////
   // BOOTING SEQUENCE
   ////////////////////////
@@ -397,9 +384,6 @@ void setup()
 
   RemoteDebug.handle();
   
-  if(QUICK_DEVELOPMENT_BOOT == false)
-    saveAndSendExceptionLogFile();
-
   if(isWifiConnected() && QUICK_DEVELOPMENT_BOOT == false)
   {//With internet connection
     displayServiceLine(cE("Init: Server"));
@@ -408,6 +392,10 @@ void setup()
 
     if(sendAllLogFiles())
       doNecesaryActionsUponResponse();
+
+    //Automatic check new FW Update
+    if(QUICK_DEVELOPMENT_BOOT == false)
+      checkUpdatesFromHttpServer();
   }
   else
   {//Without internet connection
@@ -420,18 +408,17 @@ void setup()
     else
       logNewNodeState(E("settings file NOT loaded from EEPROM"));
   }
+
+  if(!isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated))
+    setLastHeatedTemp(GLOBAL.TEMP.sensors[BOJLER].temp);
   
   RemoteDebug.handle();
   
   yield_debug();
 
   if(OTA_MODULE_ENABLED) OTA_setup();
-
   if(DISPLAY_MODULE_ENABLED) lcd_setup();
-
-  if(restartAfterInitalSequence)
-    restartEsp(E("HTTP FW Updated"));
-
+  
   GLOBAL.nodeInBootSequence = false;
 }
 
@@ -451,13 +438,14 @@ void loop()
   if(TEMP_MODULE_ENABLED)           tasker.setInterval(temperature_loop, 2*SEC, TASKER_SKIP_NEVER);
   //---------------------------------- SKIPABLE TASKS ----------------------------------------------
   if(WATER_FLOW_MODULE_ENABLED)     tasker.setInterval(waterFlow_loop, 20*SEC, TASKER_SKIP_WHEN_NEEDED);
-  if(CURRENT_MODULE_ENABLED)        tasker.setInterval(current_loop, 6*SEC, TASKER_SKIP_WHEN_NEEDED);
+  if(CURRENT_MODULE_ENABLED)        tasker.setInterval(current_electricity_loop, 5*SEC, TASKER_SKIP_WHEN_NEEDED);
   //---------------------------------- ONE TIME TASKS --------------------------------------------------
   if(SENDING_BEACON_MODULE_ENABLED) tasker.setTimeout(checkSystemState_loop,  GLOBAL.nodeStatusUpdateTime, TASKER_SKIP_NEVER); //60 * 60 * 1000 = 1 hour
   //---------------------------------- OUTRO TASK --------------------------------------------------
   if(SHOW_WARNING_DEBUG_MESSAGES)   tasker.setOutroTask(outroTask_loop);
 
   DEBUG_OUTPUT.printf(cE("FreeHeap:%d\n"), ESP.getFreeHeap());
+  GLOBAL.lastFreeHeap = ESP.getFreeHeap();
   tasker.run();
 }
 
@@ -470,20 +458,55 @@ void outroTask_loop()
   yield_debug();
   RemoteDebug.handle();
 
+  //Log warning messages
+  if(RemoteDebug.isThereWarningMessage())
+  {
+    if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:outroTask_loop(): Logging error messages"));
+    File errorLogFile = RemoteDebug.getErrorFile();
+    uint8_t maxWarnings = 10;
+    uint8_t curentDebuggerLevel = getDebuggerSpacesCount();
+    while(maxWarnings-- && errorLogFile.available())
+    {
+      getUpTimeDebug(curentDebuggerLevel);
+      String line = errorLogFile.readStringUntil('\r');
+      // Serial.println(sE("Error line: ") + line);
+      logWarningMessage(line);
+    }
+    errorLogFile.close();
+    RemoteDebug.removeErrorLogFile();
+    
+    if(maxWarnings == 0)
+     logWarningMessage(E("Too many warning messages")); //TODO_ ERROR MESega sshould send, this is herror not warning
+  }
+
   //Check if there is some error message after last function called
   if(RemoteDebug.isThereErrorMessage())
   {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println();
     String uri = E("&quickEvent=");
-    uri += URLEncode(RemoteDebug.getLastErrorMessage());
+    uri += URLEncode(E("Errors"));
     uploadDebugLogFileWithGetParams(uri);
   }
+
+  //Debug button
   if(isDebugButtonPressed())
   {
     uint8_t number = 100;
     while(number--)
       ISR_flowCount();
+
+    logNewNodeState(E("TEST: Water started"));
   }
+
+  //Free heap check // if changed more the 2kB
+  if((ESP.getFreeHeap()+2000) < GLOBAL.lastFreeHeap)
+  {
+    DEBUG_OUTPUT.println(sE("!!!Error: Freeheap loosing, previous: ") + GLOBAL.lastFreeHeap + E(" current: ") + ESP.getFreeHeap());
+    GLOBAL.lastFreeHeap = ESP.getFreeHeap();
+  }
+
+  // if(GLOBAL.lastFreeHeap++ == 50)//First tasks are skipped
+    // GLOBAL.lastFreeHeap = ESP.getFreeHeap();
 }
 
 
@@ -493,7 +516,7 @@ void uploadLogFile_loop(int)
   if(isWaterFlowingLastStateFlag_global == true && isFlashButtonPressed() == false)
     return;
 
-  //Dont upload over wifi if there is no electricity (on battery)
+  //Turn wifi OFF if there is no electricity (on battery)
   if(isElectricityConnected() == false && WIFI_RADIO_OFF == true && isFlashButtonPressed() == false)
   {
     if(wifi_get_opmode() != NULL_MODE)
@@ -506,6 +529,9 @@ void uploadLogFile_loop(int)
   //If wifi in sleep mode - radiof OFF - turn it on before uploading
   if(wifi_get_opmode() == NULL_MODE)
     turnWifiOn();
+
+  //If wifi not connected - connects
+  autoWifiConnect();
   
   if(OTA_MODULE_ENABLED) 
     OTA_begin();
@@ -518,7 +544,6 @@ void uploadLogFile_loop(int)
     
     bool success = sendAllLogFiles();
     if(success)
-      if(success)
       doNecesaryActionsUponResponse();
   }
   else if(MAIN_DEBUG) DEBUG_OUTPUT.println(E(" - Nothing to send!"));
@@ -539,6 +564,7 @@ void setPendingEventToSend(bool isThereEventToSend)
 
 
 // HOTOVO? přichozí timestamp uložit do notes a když bude rozdíl velký tak podbarvit červeně - aby to šlo vidět
+// Když přijde nová hodnota, tak zkontrolovat předchozí čas a pokud je větší než minimal node alive time, tak mi pošle email, že tam došlo k zpoždění
 //Funkce reset spiffs s parametrem - debug log, nacte nejdriv debugovací infomrace z extra logu, přidá důvot resetu a pak uloží do nového souboru , tak abych nepřišel o olog co se stalo a proč se to stalo..
 //Při formátování SPIFFS error sobor zkusit zachránit načtením do Stringu RAMKY ale nastavit max několik řádků at to nespadne na nedostatek ramky
 //Error logy ukládat do souboru error.log a ty odesílat na net + výstřižek z normálního logu před chybou třeba 5 řádků k tomu přidat.
@@ -547,7 +573,6 @@ void setPendingEventToSend(bool isThereEventToSend)
 //Porestartu modulu zkontrolovat nejdříve zda kolem není připojená "servisní síť" ESP-sevice - pokud ano, tak se připojí na ní a hodí se do konfiguaračního režimu, zapne se server, který bude přijímat webové požadavky přes get params a později vytvoří normálně servisí webové rozhraní
 //Logovat vsechny warningy jako nlze se připojit k wifi, nebo teplotní vzorek nebyl dobře načte a errory jako není připjen teplotní senzro apod
 //Inteligentní nastavení startu času ohřevu vody v noci, tak aby se ohřev ukončil právě v okamžik kdy dojde k vypnutí NT, aby nebyl bojler nahřátej a pak ještě 2 hodiny nejel NT a bojler nám mezitím chládnul (zbytečné ztráty)
-//HOTOVO? //Někde na display zobrazit ohřev (blíkání teplotního symbolu např? nebo tečka v levém rohu?) 
 //Zobrazovat ne počet litrů v bojleru, ale vynásobeno koeficentem ředění na 40°C vodu - prostě kolik zbývá 40°C vody aby šlo poznat kolik tam ej vody na praktické využití ibez toho,že bych musel vědět původní teplotu
 //Hodnotu koeficientu u ampérměřáku uložit do eeprom a udělat možnost tuto hotnotu měnit v google sheetu namísto v kodu
 //SPeed up upload preocess https://github.com/esp8266/Arduino/issues/1853
@@ -555,6 +580,18 @@ void setPendingEventToSend(bool isThereEventToSend)
 //v remote debug - předělat telnet pouze na přání, vyhodit ho z těch funckí aby se server nestartoval automaticky
 //v remote debug - zbavit se error buferu - použít nějak ten normální buffer 150 ramky ušetřené
 //Udělat měřená zda teče voda jde tak, že se hodí do ISR funkce global flag, případně se porovná poslední ISR s aktuálním ISR aby se vědělo zda od posledně tekla voda
+//Init temp: Sensors: 4x (3/2/1/0), nebo OK OK OK OK nebo teploty jednotlivých
+//OTA DIsplay write percentage
+//Vyřešit warning messages - aby se posílali správně jako eventy
+//Check first if tehre is a new update file - in response send new md5 checksum, date of file (datum nového souboru poté poslat do logu) and maybe version or smth, když bude soubor tak stáhnout v druhém volání, zase tak často se neupdatuje aby se to nemohlo udělat na 2x
+//LAst heated temperature posílat po restartu z cloudu do node, abysi to nastavil stejně jako množství spotřebované vody
+//Vyřešit logování Pipe temp: rised aby to logovalo rised (water flow) jenom jednou do té doby, než začne zase klesat, pak zaloguje pipe temp down a může zase zalogovat rise.. dal bych tam rozdíl mezi měřeníma asi jen jeden stupeń jakmile povyrost/sníže se teplota o stupeň, tak..
+//Uptime na display zobrazovat 0d15h21m
+//Logovat jednotlivé md5 na serveru pro udpdate, složky s názvem md5 a datum kvůli analýze případných exceptions
+
+
+
+
 
 
 void temperature_loop(int)
@@ -573,7 +610,7 @@ void temperature_loop(int)
     if(TEMPERATURE_DEBUG) DEBUG_OUTPUT.println(sE("checking difference: ") + (GLOBAL.TEMP.sensors[PIPE].temp - GLOBAL.TEMP.sensors[PIPE].lastTemp));
 
     //x°C difference on pipe to send
-    if((GLOBAL.TEMP.sensors[PIPE].temp - GLOBAL.TEMP.sensors[PIPE].lastTemp) > 5)
+    if((GLOBAL.TEMP.sensors[PIPE].temp - GLOBAL.TEMP.sensors[PIPE].lastTemp) > 3)
     {
       logNewNodeState(E("Pipe Temp: rised"));
       GLOBAL.TEMP.sensors[PIPE].lastTemp = GLOBAL.TEMP.sensors[PIPE].temp;
@@ -599,43 +636,48 @@ void temperature_loop(int)
     logNewNodeState(E("Temp: changed"));
     GLOBAL.TEMP.sensors[BOJLER].lastTemp = GLOBAL.TEMP.sensors[BOJLER].temp;
   }
-
-  controlHeating_loop(GLOBAL.TEMP.sensors[BOJLER].temp);
 }
 
 
-void current_loop(int)
+void current_electricity_loop(int)
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:current_loop()"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:current_electricity_loop()"));
+  if(CURRENT_DEBUG) DEBUG_OUTPUT.println(sE("Electricity is now: ") + (isElectricityConnected()? E("ON") : E("OFF")));
+
+  bool isThereElectricCurrentNow = isThereElectricCurrent();
+  if(isThereElectricCurrentNow == true && isElectricityConnected() == false)
+    delay(2000); //waits for power source start
 
   //Electricity
-  // DEBUG_OUTPUT.print(lastElectricityConnectedState_global);
-  // DEBUG_OUTPUT.print(isElectricityConnected());
-
-  // if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("Electricity is now: ") + (isElectricityConnected()? E("ON") : E("OFF")));
-  if(lastElectricityConnectedState_global != isElectricityConnected())
+  if(lastElectricityConnectedState_global != isElectricityConnected()) //if state was Changed
   {
+    //Electricity OFF
+    if(isElectricityConnected() == false)
+      setHeatingRelayOpen(false); //Release relay pin to avoid switching back and forth during turning ON electricity
+    //Electricity ON and heating OFF
+    if(isElectricityConnected() == true && isBoilerHeatingOn() == false)
+      setHeatingRelayOpen(true); //Pull relay pin when heating is of and there is electricity
+
     lastElectricityConnectedState_global = !lastElectricityConnectedState_global;
     logNewNodeState(sE("Electricity: ") + (lastElectricityConnectedState_global? E("ON") : E("OFF")));
+    lcd_setup(); // to reset display
   }
+  
+  controlHeating_loop();
 
   //Curent
-  bool actualElectricCurrentState = isThereElectricCurrent();
+  if(lastElectricCurrentState_global != isThereElectricCurrentNow)
+  {
+    //Current Off
+    if(isThereElectricCurrentNow == false)
+    {
+      waterFlowDisplay_global = 0; //Vynuluj měření spotřeby teplé vody - bojler je po vypnutí ohřevu celý nahřátý
+      setLastHeatedTemp(GLOBAL.TEMP.sensors[BOJLER].lastTemp);
+      lcd_setup(); //resets LCD - if some errors
+    }
 
-  if(lastElectricCurrentState_global == true && actualElectricCurrentState == false)
-  {
-    waterFlowDisplay_global = 0; //Vynuluj měření spotřeby teplé vody - bojler je po vypnutí ohřevu celý nahřátý
-    setLastHeatedTemp();
-    lcd_setup(); //resets LCD - if some errors
-    //TODO : převést na funkci a funkci dát do display souboru kam patří
-    lastElectricCurrentState_global = actualElectricCurrentState;
-    // logNewNodeState(E("watErflOwdisplay_reset"));
-    logNewNodeState(E("Current: dropped"));
-  }
-  else if(lastElectricCurrentState_global == false && actualElectricCurrentState == true)
-  {
-    lastElectricCurrentState_global = actualElectricCurrentState;
-    logNewNodeState(E("Current: rised"));
+    lastElectricCurrentState_global = isThereElectricCurrentNow;
+    logNewNodeState(sE("Current: ") + (isThereElectricCurrentNow? E("rised") : E("dropped")));
   }
 }
 
@@ -649,10 +691,7 @@ void waterFlow_loop(int)
     return;//Nothing changed
 
   if(isWaterFlowingLastStateFlag_global == false && isWaterFlowingRightNowFlag) //watter started to flow
-  {
     logNewNodeState(E("Water: started"));
-    lastWaterFlowResetTime_global = millis();
-  }
   else//watter stopped flowing
     logNewNodeState(E("Water: stopped"));
 
@@ -662,21 +701,21 @@ void waterFlow_loop(int)
 
 String getSystemStateInfo()
 {
-  String systemStateInfo = sE(" ") +
-  E("Uptime:") + getUpTime() +
-  E("\rUpdateTime:") + formatTimeToString(GLOBAL.nodeStatusUpdateTime) +
-  E("\rtopHeatingTemp:") + GLOBAL.TEMP.topHeating +
-  E("\rlowDropingTemp:") + GLOBAL.TEMP.lowDroping +
-  //E("TimeFromLastUpdate: ") + getTimeFromLastUpdate() + E("\r");
-  E("\rtotalErrors:") + totalErrorCount_global +
-  // E("\rERROR_COUNT_PER_HOUR: ") + (totalErrorCount_global / millis() / 1000 / 60 / 60) + E("\r");
-  E("\rnotParsed: ") + notParsedHttpResponses_errorCount +
-  E("\rparsedOk: ") + parsedHttpResponses_notErrorCount +
-  E("\rWaterFlowCount:") + lastWaterFlowSensorCount_global +
-  E("\rwaterFlowDisplay:") + waterFlowDisplay_global +
-  E("\rlastWaterFlowResetTime") + formatTimeToString(lastWaterFlowResetTime_global) +
+  String systemStateInfo = sE("") +
+  E("Up: ") + getUpTime() +
+  E("\rfHeap: ") + ESP.getFreeHeap() +
+  E("\rheatT: ") + GLOBAL.TEMP.topHeating +
+  // E("\rlowTemp: ") + GLOBAL.TEMP.lowDroping +
+  E("\rlastHT: ") +GLOBAL.TEMP.lastHeated +
+  //E("TimeFromLastUpdate:  ") + getTimeFromLastUpdate() + E("\r");
+  // E("\rtotalErrors: ") + totalErrorCount_global +
+  E("\rRespOk: ") + parsedHttpResponses_notErrorCount +
+  E("\r!OK: ") + notParsedHttpResponses_errorCount +
+  // E("\rWaterFlowCount: ") + lastWaterFlowSensorCount_global +
+  // E("\rwaterFlowDisplay: ") + waterFlowDisplay_global +
   // E("\rTime&Date: ") + getNowTimeDateString();
-  E("\rWiFi.RSSI(): ") + WiFi.RSSI() + E("dBm");
+  E("\rupdT: ") + formatTimeToString(GLOBAL.nodeStatusUpdateTime) +
+  E("\r") + WiFi.RSSI() + E("dBm");
   return systemStateInfo;
 }
 
@@ -686,9 +725,6 @@ void checkSystemState_loop(int)
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:checkSystemState_loop()"));
 
   logNewNodeState(E("Node: beacon alive"));//zároveň slouží jako beacon alive
-
-  if(RemoteDebug.isThereWarningMessage())
-    logWarningMessage(RemoteDebug.getLastWarningMessage());
 
   //bool connectToLastRememberedWifi_global = true; if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(systemStateInfo);
   //if(SHOW_ERROR_DEBUG_MESSAGES) WiFi.printDiag(Serial);
@@ -705,17 +741,15 @@ void feedWatchDog_taskerLoop(int)
   lastWdtLoopTime_global = millis();
 }
 
-void ICACHE_RAM_ATTR osWatch(void) {
-    unsigned long t = millis();
-    unsigned long last_run = abs(t - lastWdtLoopTime_global);
-    if(last_run >= (OSWATCH_RESET_TIME * 1000))
-     {
-      ERROR_OUTPUT.println(sE("\n\n!!!Error: Loop WDT reset! at: ") + millis());
-      restartEsp(); 
-    }
+void ICACHE_RAM_ATTR osWatch(void) 
+{
+  unsigned long t = millis();
+  unsigned long last_run = abs(t - lastWdtLoopTime_global);
+  if(last_run >= (OSWATCH_RESET_TIME * 1000))
+   {
+    ERROR_OUTPUT.println(sE("\n\n!!!Error: Loop WDT reset! at: ") + millis());
+    restartEsp(E("Loop watchdog")); 
+  }
 }
   
-
-
-
 

@@ -36,7 +36,6 @@ void temperature_setup()
       }
     }
   }
-  setLastHeatedTemp();
   DS18B20.setWaitForConversion(false);  // makes it async // sync dealy: delay(750/ (1 << (12-resolution)));
   DS18B20.requestTemperatures(); //For next times
   yield();

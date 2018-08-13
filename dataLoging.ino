@@ -47,12 +47,12 @@ bool logNewNodeState(String fireEventName)
   newState.waterFlow = (waterFlowSensorCount_ISR_global != 0) ? (String)convertWaterFlowSensorImpulsesToLitres(waterFlowSensorCount_ISR_global) : E("");
   
   newState.test1Value = "";//getNodeVccString();
-  newState.test2Value = GLOBAL.nodeInBootSequence? "" : getSpareWaterInLittres();
-  newState.test3Value = isElectricityConnected()==1 ? E("1") : E("0");
+  newState.test2Value = GLOBAL.nodeInBootSequence? "" : getSpareHotWaterString(); 
+  newState.test3Value = "";
 
   newState.fireEventName = fireEventName;
   newState.controlState = getTempControleStyleStringName();
-  newState.heatingState = (isBoilerHeatingOn()) ? E("1") : E("0");
+  newState.heatingState = sE("E:") + ((isElectricityConnected()) ? E("1") : E("0")) + E(", H:") + ((isBoilerHeatingOn()) ? E("1") : E("0")) + E(", R:") + (isBoilerHeatingRelayOpen()?E("0"):E("1")); //Heating 1 - is on.. O - off, Relay 0:pulled, no go, 1:released electricity goes
   newState.objectAskingForResponse = "";
   newState.nodeInfoString = getSystemStateInfo();
 
@@ -73,7 +73,7 @@ bool saveNewNodeState(struct SensorDataStructure &newState)
     if(DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(sE("Last row saved only in RAM: ") + lastNodeStateTempString_global);
     return true;
   }
-  //Prints previous temp string into file (than will save current newState to temp string)
+  //Prints previous temporary string into file (than will save current newState to temp string)
   bool success = flushTemporaryStringNodeStateIntoCsvFile();
   if(success)
   {
@@ -94,12 +94,6 @@ void saveNewNodeStateIntoTempString(struct SensorDataStructure &newState)
   
   for(uint8_t i = 0; i < SIZE_OF_LOCAL_ARRAY(newInputDataPointers); i++)
   {
-    // DEBUG_OUTPUT.printf("%d:\n", i);
-    // DEBUG_OUTPUT.printf("newValue:");
-    // DEBUG_OUTPUT.println(*newInputDataPointers[i]);
-    // DEBUG_OUTPUT.printf("oldValue:");
-    // DEBUG_OUTPUT.println(*leadingInputDataPointers[i]);
-
     //If empty value, if first line of file, if new value is different from leading one THAN save current value ELSE save "#"
     if(*newInputDataPointers[i] == "" || logFileRowsCount_global == 0 || *newInputDataPointers[i] != *leadingInputDataPointers[i])
     {
@@ -169,20 +163,22 @@ bool flushTemporaryStringNodeStateIntoCsvFile()
 
 bool logWarningMessage(String fireEventName)
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewNodeState(String fireEventName): ") + fireEventName);
-  displayServiceMessage(fireEventName);
+  String eventString = fireEventName; eventString.replace(E("\r"),E("")); eventString.replace(E("\n"),E("")); eventString.replace(E("!!"),E(""));
+
+  // if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logWarningMessage(String fireEventName): ") + eventString);
+  // displayServiceMessage(eventString);
 
   SensorDataStructure newState;
   newState.time = getNowTimeDateString();
-  newState.fireEventName = fireEventName;
+  newState.fireEventName = eventString;
 
   return saveNewNodeState(newState);
 }
 
 
-bool logNewErrorState(String errorMessage)
+bool logNewStateWithEmail(String errorMessage)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewErrorState(String errorMessage): ") + errorMessage);
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logNewStateWithEmail(String errorMessage): ") + errorMessage);
   displayServiceMessage(errorMessage);
   errorMessage =  sE("&quickEvent=") + URLEncode(errorMessage);
   return sendGetParamsWithPostFile(errorMessage, RemoteDebug.getLastRuntimeLogAsFile());
@@ -197,7 +193,8 @@ bool logNewErrorState(String errorMessage)
 
 bool sendAllLogFiles()
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:sendAllLogFiles()")); uint8_t curentDebuggerLevel = getDebuggerSpacesCount();
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:sendAllLogFiles() logFileRowsCount_global:") + logFileRowsCount_global);
+  uint8_t curentDebuggerLevel = getDebuggerSpacesCount();
 
   if(!isWifiConnected())
   {
@@ -206,7 +203,7 @@ bool sendAllLogFiles()
   }
 
   uint16_t logFileIndex = getNumberOfOldestLogFile();
-  if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("logFileIndex: %d - getNumberOfOldestLogFile()\n"), logFileIndex);
+  if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("getNumberOfOldestLogFile(): %d\n"), logFileIndex);
 
   if(logFileIndex == 0 && logFileRowsCount_global == 0)
   {
@@ -215,7 +212,7 @@ bool sendAllLogFiles()
   }
 
   bool success = false;
-  //node state ssaved only in temp string
+  //node state saved only in temp string
   if(logFileIndex == 0)
   {
     success = sendNewNodeStateByPostString(lastNodeStateTempString_global);
@@ -291,7 +288,7 @@ File createNewEventLogFile(uint16_t newFileNumber=1)
   
   if(f)
   {
-    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Adding a header to file: '%s'.\n"),getLogFileNameByLogNumber(newFileNumber).c_str());
+    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Adding a header to file: '%s'.\n"), getLogFileNameByLogNumber(newFileNumber).c_str());
     f.println(E("time;fireEventName;bojlerTemp;pipeTemp;roomTemp;insideFlowTemp;current;waterFlow;test1Value;test2Value;test3Value;objectAskingForResponse;heatingState;controlState;nodeInfoString"));
     curentLogNumber_global = newFileNumber;
     logFileRowsCount_global = 0;//reset rows counter
@@ -309,14 +306,6 @@ bool deleteEventLogFileByNumber(uint16_t logNumber)
   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:deleteEventLogFileByNumber(uint16_t logNumber): '") + getLogFileNameByLogNumber(logNumber).c_str() + "'");
   return SPIFFS.remove(getLogFileNameByLogNumber(logNumber));
 }
-
-
-bool deleteFileByName(const char* fileName)
-{
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:deleteFileByName(const char* fileName): '") + fileName + E("'"));
-  return SPIFFS.remove(fileName);
-}
-
 
 bool deleteCurentEventLogFile()
 {
@@ -409,15 +398,17 @@ String getLogFileNameByLogNumber(uint16_t logNumber)
 
 uint16_t getNumberOfOldestLogFile(uint16_t minimumFileIndex)
 {
-  File f;  Dir dir;
-
-  dir = SPIFFS.openDir("/");
+  Dir dir = SPIFFS.openDir("/");
   uint16_t oldestFileLogNumber = -1;
   bool foundFile_flag = false;
   while (dir.next())
   {
-    f = dir.openFile("r");
-    String fileName = f.name();
+    yield_debug();
+    String fileName = dir.fileName();
+
+    if(fileName.indexOf("/Log_") == -1)
+      continue;
+    
     uint16_t parsedLogNumber = atoi(fileName.substring(fileName.indexOf('_')+1,fileName.indexOf('.')).c_str());
     // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Procesing file: '%s' parsedLogNumber: %d\n"),fileName.c_str(), parsedLogNumber);
     if(parsedLogNumber < oldestFileLogNumber  && parsedLogNumber > minimumFileIndex)
@@ -425,9 +416,7 @@ uint16_t getNumberOfOldestLogFile(uint16_t minimumFileIndex)
       foundFile_flag = true;
       oldestFileLogNumber = parsedLogNumber;
     }
-
-    // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("File name: '%s' of size: %d B\n"),f.name(), f.size());
-    yield_debug();
+   // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(sE("Found File name: ") + fileName +E(" of size: ") + dir.fileSize());
   }
   return (foundFile_flag) ? oldestFileLogNumber : 0;
 }
@@ -435,19 +424,20 @@ uint16_t getNumberOfOldestLogFile(uint16_t minimumFileIndex)
 
 uint16_t getNumberOfNewestLogFile(uint16_t newestFileLogNumber)
 {
-  File f;  Dir dir;
-
-  dir = SPIFFS.openDir("/");  
+  Dir dir = SPIFFS.openDir("/");  
   while (dir.next())
   {
-    f = dir.openFile("r");
-    String fileName = f.name();
+    yield_debug();
+    String fileName = dir.fileName();
+    
+    if(fileName.indexOf("/Log_") == -1)
+      continue;
+    
+    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(sE("Found File name: ") + fileName +E(" of size: ") + dir.fileSize());
+
     uint16_t parsedLogNumber = atoi(fileName.substring(fileName.indexOf('_')+1,fileName.indexOf('.')).c_str());
     if(newestFileLogNumber < parsedLogNumber)
       newestFileLogNumber = parsedLogNumber;
-
-    // if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("File name: '%s' of size: %d B\n"),f.name(), f.size());
-    yield_debug();
   }
   return newestFileLogNumber;
 }
@@ -514,6 +504,11 @@ bool isFileExist(String path)
   return SPIFFS.exists(path);
 }
 
+bool deleteFileByName(String fileName)
+{
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:deleteFileByName(const char* fileName): '") + fileName + E("'"));
+  return SPIFFS.remove(fileName);
+}
 
 File openFile(String fileName, const char* mode) {return openFile(fileName.c_str(), mode);}
 File openFile(const char* fileName, const char* mode)
@@ -522,7 +517,7 @@ File openFile(const char* fileName, const char* mode)
   if (MAIN_DEBUG) DEBUG_OUTPUT.printf(xE("%sF:openFile(fileName='%s', mode='%s')"), getUpTimeDebug().c_str(), fileName, mode);
   File file;
 
-   if(!strcmp(mode, "r") || !strcmp(mode, "r+"))
+   if(!strcmp_P(mode, PSTR("r")) || !strcmp_P(mode, PSTR("r+")))
       if(!SPIFFS.exists(fileName))
       {
         if (MAIN_DEBUG) DEBUG_OUTPUT.println();

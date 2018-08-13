@@ -48,16 +48,17 @@ void OTA_setup()
     ArduinoOTA.onStart([]() {
       DEBUG_OUTPUT.println(F("OTA_Started"));
       logNewNodeState(F("OTA: Started"));
-      //quickSendNewEventInfo("OTA_Started");
+
     });
     ArduinoOTA.onEnd([]() {
       DEBUG_OUTPUT.println(F("OTA_Finished"));
       logNewNodeState(F("OTA: Success"));
-    // quickSendNewEventInfo("OTA_Finished");
+      restartEsp(E("OTA Update"));
     });
     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
       if((millis()) % 60 < 20) DEBUG_OUTPUT.printf(cE("Progress: %u%%\r\n"), (progress / (total / 100)));
     blinkNotificationLed(10); //blink for 10ms
+    displayServiceMessage(sE("OTA: ") + (progress / (total / 100)) + E("%"));
     
     // if((progress / (total / 100)) % 10 == 0)
     //   displayServiceMessage(((String)"Progress: " + (String)(progress / (total / 100))+ "%"));
@@ -106,7 +107,9 @@ bool checkUpdatesFromHttpServer()
       break;
 
       case HTTP_UPDATE_OK:
-      logNewNodeState(E("HTTP Update: Success"));
+      // logNewNodeState(E("HTTP Update: Success"));
+      saveTextToFile(E("UpdateOk"), MODULE_UPDATE_FILE_NAME);
+      restartEsp(E("HTTP Update"));
       return true;
       break;
     }

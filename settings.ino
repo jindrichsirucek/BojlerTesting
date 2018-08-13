@@ -249,23 +249,22 @@ void updateTempSensorAddressByNameFromHexString(const char *sensorName, const St
 String stringifyTempSensorAddressesStruct()
 {
   String settingsString;
-  settingsString.reserve(250);
-  settingsString = E("");
+  settingsString = sE("");
 
-  settingsString += cE("&bojlerAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[BOJLER].address);
-  settingsString += cE("&pipeAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[PIPE].address);
-  settingsString += cE("&roomTempAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[ROOM_TEMP].address);
-  settingsString += cE("&insideFlowAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[INSIDE_FLOW].address);
+  settingsString += sE("&bojlerAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[BOJLER].address);
+  settingsString += sE("&pipeAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[PIPE].address);
+  settingsString += sE("&roomTempAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[ROOM_TEMP].address);
+  settingsString += sE("&insideFlowAddress=") + getSensorAddressHexString(GLOBAL.TEMP.sensors[INSIDE_FLOW].address);
 
   DS18B20.begin();
   uint8_t tempSensorsCount = DS18B20.getDS18Count();
-  settingsString += cE("&tempSensorsCount=") + tempSensorsCount;
-  settingsString += cE("&allTempSensorsInfo=");
+  settingsString += sE("&tempSensorsCount=") + tempSensorsCount;
+  settingsString += sE("&allTempSensorsInfo=");
   while(tempSensorsCount--)
   {
     DeviceAddress tempAddress;
     DS18B20.getAddress(tempAddress, tempSensorsCount);
-    settingsString += tempSensorsCount+cE("-") + getSensorAddressHexString(tempAddress) + cE("-") + DS18B20.getTempCByIndex(tempSensorsCount) + cE("-") ;
+    settingsString += (String)tempSensorsCount + E("-") + getSensorAddressHexString(tempAddress) + E("-") + DS18B20.getTempCByIndex(tempSensorsCount) + E("-") ;
   }
 
   return settingsString;

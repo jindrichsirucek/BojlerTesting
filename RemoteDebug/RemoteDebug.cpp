@@ -15,14 +15,13 @@
 ///////
 
 #define VERSION "1.0.0"
-
 #include <Arduino.h>
-
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
-
 #include "RemoteDebug.h"
-
 #include "FS.h"
+
+extern void restartEsp(String);
+extern bool logWarningMessage(String fireEventName);
 
 // Telnet server
 
@@ -39,13 +38,13 @@ void RemoteDebug::begin (String hostName) {
 
     // Initialize server telnet
 
-    // telnetServer.begin();
-    // telnetServer.setNoDelay(true);
+    telnetServer.begin();
+    telnetServer.setNoDelay(true);
 
     // Reserve space to buffer of print writes
 
     bufferPrint.reserve(BUFFER_PRINT);
-    _lastErrorWarningMessage.reserve(BUFFER_PRINT);
+    //REMOVED:_lastErrorWarningMessage.reserve(BUFFER_PRINT);
 
     // Host name of this device
 
@@ -98,33 +97,6 @@ void RemoteDebug::handle() {
 
         showHelp ();
 
-        /* Debug ALL files on spiff
-        String divider = F("--------------  ");
-        Dir dir = SPIFFS.openDir("/");
-        while(dir.next())
-        {
-          Serial.print(divider);
-          Serial.print(dir.fileName());
-          Serial.print(F(" - size: "));
-          Serial.print(dir.fileSize());
-          Serial.println(divider);
-
-          File f = dir.openFile("r");
-          while(f.available())
-          Serial.println(f.readStringUntil('\n'));
-          f.close();
-
-          Serial.println();
-          Serial.print(divider);Serial.print(divider);Serial.println(divider);
-          Serial.print(divider);Serial.print(divider);Serial.println(divider);
-          Serial.print(divider);Serial.print(divider);Serial.println(divider);
-          Serial.println(); 
-      }
-      Serial.println();
-      Serial.println();
-      yield();
-        */
-
         // File fileLog = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond)), "r"); //cant be used, because sending last log file during boot sequence connects files together
         File fileLog = getLastRuntimeLogAsFile(); //it shows ALL saved hisory in log files when telnet connects
         while(fileLog.available())
@@ -172,7 +144,6 @@ void RemoteDebug::handle() {
             } else if (isPrintable(character)) {
 
                 // Concat
-
                 _command.concat(character);
 
             }
@@ -206,56 +177,10 @@ void RemoteDebug::setResetCmdEnabled(bool enable) {
     _resetCommandEnabled = enable;
 }
 
-// Show time in millis
-
-void RemoteDebug::showTime(bool show) {
-    _showTime = show;
-}
-
-// Show profiler - time in millis between messages of debug
-
-void RemoteDebug::showProfiler(bool show, uint32_t minTime) {
-    _showProfiler = show;
-    _minTimeShowProfiler = minTime;
-}
-
-// Show debug level
-
-void RemoteDebug::showDebugLevel(bool show) {
-    _showDebugLevel = show;
-}
-
-// Show colors
-
-void RemoteDebug::showColors(bool show) {
-    _showColors = show;
-}
-
-// Is active ? client telnet connected and level of debug equal or greater then setted by user in telnet
-
-bool RemoteDebug::isActive(uint8_t debugLevel) {
-
-    // Active -> Debug level ok and
-    //           Telnet connected or
-    //           Serial enabled (not recommended)
-
-    bool ret = (debugLevel >= _clientDebugLevel &&
-                    (_connected || _serialEnabled));
-
-    if (ret) {
-        _lastDebugLevel = debugLevel;
-    }
-
-    return ret;
-
-}
-
 // Set help for commands over telnet setted by sketch
 
 void RemoteDebug::setHelpProjectsCmds(String help) {
-
     _helpProjectCmds = help;
-
 }
 
 // Set callback of sketch function to process project messages
@@ -277,88 +202,45 @@ size_t RemoteDebug::write(uint8_t character) {
     
     // New line writted before ?
     if (_newLine) {
-
         String show = "";
-
-        // Show time in millis
-
-        if (_showTime) {
-            if (show != "")
-                show.concat (" ");
-            show.concat ("t:");
-            show.concat (millis());
-            show.concat ("ms");
-        }
-
         if (show != "") {
 
-            String send = "(";
+            String send = F("(");
             send.concat(show);
             send.concat(F(") "));
 
             // Write to telnet buffered
-
             if (_connected || _serialEnabled) {  // send data to Client
                 bufferPrint = send;
             }
         }
-
         _newLine = false;
-
     }
 
     // Print ?
-
     bool doPrint = false;
-
     // New line ?
-
     if (character == '\n') {
-
         bufferPrint.concat(F("\r")); // Para clientes windows - 29/01/17
-
         _newLine = true;
         doPrint = true;
-
     } else if (bufferPrint.length() == BUFFER_PRINT) { // Limit of buffer
-
         doPrint = true;
-
     }
 
     // Write to telnet Buffered
-
     bufferPrint.concat((char)character);
-
+    
     // Send the characters buffered by print.h
-
     if (doPrint) { // Print the buffer
-
-        bool noPrint = false;
-
-        if (_showProfiler && elapsed < _minTimeShowProfiler) { // Profiler time Minimal
-            noPrint = true;
-        } else if (_filterActive) { // Check filter before print
-
-            String aux = bufferPrint;
-            aux.toLowerCase();
-
-            if (aux.indexOf(_filter) == -1) { // not find -> no print
-                noPrint = true;
-            }
-        }
-
-        if (noPrint == false) {
-
+        {
             // Write to telnet Buffered
-
             if (_connected) {  // send data to Client
                 telnetClient.print(bufferPrint);
             }
 
             if (_logingToFileEnabled) 
             {
-               // bufferPrint.replace("\n", ""); //Proč to tady je? POdle mě to dělá dvě mezery v google scriptech
                const char* charString = bufferPrint.c_str();
                for(uint8_t i = 0 ; i <3; i++)
                {
@@ -369,35 +251,24 @@ size_t RemoteDebug::write(uint8_t character) {
                  if(i == 1)
                  {
                    _isThereWarningMessage = true;
-                   _lastErrorWarningMessage = charString;
+                   bufferPrint.replace(F("!!"),F(""));
+                   bufferPrint.replace(F("\n"),F(""));
+                   bufferPrint.replace(F("\r"),F(""));
+                   
+                   File errorFile = SPIFFS.open(_warningsFileName, ("a"));
+                   if(errorFile.size() < 5000)
+                   {
+                     errorFile.print(bufferPrint);
+                     errorFile.print('\r');
+                   }
+                   errorFile.close();
                  }
                  if(i == 2)
-                 {
-                    //If last error is the same like this one, show it only as a warning message
-                    if(bufferPrint != _lastErrorWarningMessage)
-                    {
-                        // _lastErrorRepetition++;
-                        _isThereWarningMessage = false;
-                        _isThereErrorMessage = true;
-                        _lastErrorWarningMessage = charString;
-                    }
-                    else
-                        _isThereErrorMessage = false;
-                 }
-               }
+                    _isThereErrorMessage = true;
+                }
 
-               if(_isThereWarningMessage)
-               {
-                 File warningsFile = SPIFFS.open(_warningsFileName, (_eraseWarningsFile ? "w" : "a"));
-                 _eraseWarningsFile = (warningsFile.size() > 10000) ? true : false;
-                 
-                 warningsFile.print(_lastErrorWarningMessage);
-                 warningsFile.close();
-                 
-               }
-               // Serial.println("_isThereErrorMessage: " + (String)_isThereErrorMessage);
                
-               File loggingFile = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond)), "a");
+               File loggingFile = SPIFFS.open(_loggingFileName + ((_logingFileFirstOrSecond)), ("a"));
                // Serial.println((String)"loggingToFile: " + (_loggingFileName + ((_logingFileFirstOrSecond))) + " FileSize: " + loggingFile.size());
                // loggingFile.print((String)((_logingFileFirstOrSecond) ? "A - " : "B - ") + bufferPrint);
                
@@ -431,8 +302,8 @@ void RemoteDebug::setLogFileEnabled(bool enable)
 
 File RemoteDebug::getLastRuntimeLogAsFile()
 {
-  File AFile = SPIFFS.open(_loggingFileName + 1,"a+");
-  File BFile = SPIFFS.open(_loggingFileName + 0,"a+");
+  File AFile = SPIFFS.open(_loggingFileName + 1, ("a+"));
+  File BFile = SPIFFS.open(_loggingFileName + 0, ("a+"));
   
   String outputFileName = "";
   if(AFile.size() <= BFile.size())
@@ -456,7 +327,7 @@ File RemoteDebug::getLastRuntimeLogAsFile()
   AFile.close();
   BFile.close();
   // Serial.println((String)"DebugOutputFileName: " + outputFileName);
-  return SPIFFS.open(outputFileName, "r");
+  return SPIFFS.open(outputFileName, ("r"));
 }
 
 ////// Private
@@ -487,15 +358,7 @@ void RemoteDebug::showHelp() {
     help.concat(F("    ? or help -> display these help of commands\r\n"));
     help.concat(F("    q -> quit (close this connection)\r\n"));
     help.concat(F("    m -> display memory available\r\n"));
-    help.concat(F("    t -> show time (millis)\r\n"));
-    help.concat(F("    profiler:\r\n"));
-    help.concat(F("      p       -> show time between actual and last message (in millis)\r\n"));
-    help.concat(F("      p min   -> show only if time is this minimal\r\n"));
-    help.concat(F("    c -> show colors\r\n"));
-    help.concat(F("    filter:\r\n"));
-    help.concat(F("          filter <string> -> show only debugs with this\r\n"));
-    help.concat(F("          nofilter        -> disable the filter\r\n"));
-    help.concat(F("          R               -> Download Response from server\r\n"));
+    help.concat(F("    R -> Download Response from server\r\n"));
     if (_resetCommandEnabled) {
         help.concat(F("    reset -> reset the ESP8266\r\n"));
     }
@@ -505,7 +368,7 @@ void RemoteDebug::showHelp() {
         help.concat(F("    * Project commands:\r\n"));
         String show = "\r\n";
         show.concat(_helpProjectCmds);
-        show.replace("\n", "\n    "); // ident this
+        show.replace("\n", "\n    "); // indent this
         help.concat(show);
     }
 
@@ -516,40 +379,20 @@ void RemoteDebug::showHelp() {
     telnetClient.print(help);
 }
 
-// Get last command received
-
-String RemoteDebug::getLastCommand() {
-
-    return _command;
-}
-
 
 // Process user command over telnet
-
 void RemoteDebug::processCommand() {
 
     telnetClient.print(F("* Debug: Command recevied: "));
     telnetClient.println(_command);
 
-    String options = "";
-    uint8_t pos = _command.indexOf(" ");
-    if (pos > 0) {
-        options = _command.substring (pos+1);
-    }
-
-    // Set time of last command received
-
-    _lastTimeCommand = millis();
-
     // Process the command
-
-    if (_command == "h" || _command == "?") {
+    if (!strcmp_P(_command.c_str(), PSTR("h")) || !strcmp_P(_command.c_str(), PSTR("?"))) {
 
         // Show help
-
         showHelp();
 
-    } else if (_command == "q") {
+    } else if (!strcmp_P(_command.c_str(), PSTR("q"))) {
 
         // Quit
 
@@ -557,49 +400,12 @@ void RemoteDebug::processCommand() {
 
         telnetClient.stop();
 
-    } else if (_command == "m") {
+    } else if (!strcmp_P(_command.c_str(), PSTR("m"))) {
 
         telnetClient.print(F("* Free Heap RAM: "));
         telnetClient.println(ESP.getFreeHeap());
 
-    } else if (_command == "t") {
-
-        // Show time
-
-        _showTime = !_showTime;
-
-        telnetClient.printf("* Show time: %s\r\n", (_showTime)?"On":"Off");
-
-    } else if (_command == "p") {
-
-        // Show profiler
-
-        _showProfiler = !_showProfiler;
-        _minTimeShowProfiler = 0;
-
-        telnetClient.printf("* Show profiler: %s\r\n", (_showProfiler)?"On":"Off");
-
-    } else if (_command.startsWith("p ")) {
-
-        // Show profiler with minimal time
-
-        if (options.length() > 0) { // With minimal time
-            int32_t aux = options.toInt();
-            if (aux > 0) { // Valid number
-                _showProfiler = true;
-                _minTimeShowProfiler = aux;
-                telnetClient.printf("* Show profiler: On (with minimal time: %u)\r\n", _minTimeShowProfiler);
-            }
-        }
-
-    } else if (_command.startsWith("filter ") && options.length() > 0) {
-
-        setFilter(options);
-
-    } else if (_command == "nofilter") {
-
-        setNoFilter();
-    } else if (_command == "reset" && _resetCommandEnabled) {
+    } else if (!strcmp_P(_command.c_str(), PSTR("reset")) && _resetCommandEnabled) {
 
         telnetClient.println(F("* Reset ..."));
 
@@ -611,46 +417,15 @@ void RemoteDebug::processCommand() {
         telnetServer.stop();
 
         delay (500);
-
         // Reset
-
-        ESP.restart();
-
-    } else if (_command == "R") {
-        //empty so far 
-
-    } else  {
-
+        restartEsp(F("TelnetReset"));
+    }
+     else  {
         // Project commands - setted by programmer
-
         if (_callbackProjectCmds) {
-
             _callbackProjectCmds();
-
         }
     }
-}
-
-// Filter
-
-void RemoteDebug::setFilter(String filter) {
-
-    _filter = filter;
-    _filter.toLowerCase(); // TODO: option to case insensitive ?
-    _filterActive = true;
-
-    telnetClient.print(F("* Debug: Filter active: "));
-    telnetClient.println(_filter);
-
-}
-
-void RemoteDebug::setNoFilter() {
-
-    _filter = "";
-    _filterActive = false;
-
-    telnetClient.println(F("* Debug: Filter disabled"));
-
 }
 
 // Format numbers

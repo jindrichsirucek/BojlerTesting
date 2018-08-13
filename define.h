@@ -1,4 +1,8 @@
   #pragma once
+  // definitions limits
+  // uint8_t   byte, unsigned char, unsigned byte max 255
+  // uint16_t  unsigned int, unsigned short, max 65 535
+  // uint32_t  size_t, unsigned long/word, max 4 294 967 295
 
   //!!!Source: http://www.esp8266.com/viewtopic.php?f=9&t=6376#
   //GITHUB: https://github.com/wa0uwh/ERB-EspWebServer/tree/master/Main
@@ -27,13 +31,11 @@
   //Usage:char globalCharBuf[32+1] = {0}; 
   //uint8_t stringLength = snprintfTo_globalCharBuf(E("Score: %d:%d"), 3,2);
   //Serial.println(globalCharBuf);
-
   
 
 
   #define xE(x) (x)
 
-  
 
   #define SHORT_BLINK 20
   #define NORMAL_BLINK 50

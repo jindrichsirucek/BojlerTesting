@@ -96,7 +96,7 @@ bool isThereEnoughHeapToSendData()
   if(ESP.getFreeHeap() < 26000)
     return ERROR_OUTPUT.println(sE("!!!Error: Not enough heap to establish connection with server: ") + ESP.getFreeHeap()), false;
 
-  if(ESP.getFreeHeap() < 30000)
+  if(ESP.getFreeHeap() < 29000)
     ERROR_OUTPUT.println(sE("!!Warning: Small heap when establishing connection with server: ") + ESP.getFreeHeap());
 
     return true;
@@ -107,8 +107,8 @@ bool uploadDebugLogFileWithGetParams(String uriParamsEncoded)
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:uploadDebugLogFileWithGetParams(String uriParamsEncoded) :") + uriParamsEncoded);
   bool successfullySent = sendGetParamsWithPostFile(uriParamsEncoded, RemoteDebug.getLastRuntimeLogAsFile());
-  if(successfullySent)
-    RemoteDebug.clearLogFiles();
+  // if(successfullySent)
+  //   RemoteDebug.clearLogFiles();
   return successfullySent;
 }
 
@@ -176,9 +176,7 @@ void appendUriNodeIdentification(String &baseUrl)
   //append node identification
   baseUrl += sE("?chipId=") + (ESP.getChipId()) + E("&ip=") + URLEncode(WiFi.localIP().toString()) + E("&nodeName=") + URLEncode(E(NODE_NAME)) + E("&macAddress=") + URLEncode(WiFi.macAddress());
   baseUrl += sE("&timeStamp=") + URLEncode(getNowTimeDateString());
-  baseUrl += sE("&GLOBAL.nodeStatusUpdateTime=") + (String)GLOBAL.nodeStatusUpdateTime;
-  baseUrl += sE("&compilationDate=") + URLEncode(COMPILATION_DATE);
-  baseUrl += sE("&sketchMd5=") + ESP.getSketchMD5();
+  baseUrl += sE("&freeHeap=") + ESP.getFreeHeap();
 }
 
 ////////////////////////////////////////////////////////

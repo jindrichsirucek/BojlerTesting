@@ -36,11 +36,30 @@ float readFlowInLitres()
 }
 
 
-String getSpareWaterInLittres()
+String getSpareHotWaterString()
 {
   char bufferCharConversion[10]; //temporarily holds data from vals
-  dtostrf(convertWaterFlowSensorImpulsesToLitres((float)BOILER_SIZE_LITRES*PULSES_PER_LITER_WATER_SENSOR-(waterFlowDisplay_global + lastWaterFlowSensorCount_global + waterFlowSensorCount_ISR_global)), 1, 1, bufferCharConversion);  //first num is mininum width, second is precision
+  dtostrf(getSpareHotWater(), 1, 1, bufferCharConversion);  //first num is mininum width, second is precision
   return (String)bufferCharConversion;
+}
+
+float getSpareHotWater()
+{
+  return convertWaterFlowSensorImpulsesToLitres((float)BOILER_SIZE_LITRES*PULSES_PER_LITER_WATER_SENSOR-(waterFlowDisplay_global + lastWaterFlowSensorCount_global + waterFlowSensorCount_ISR_global));
+}
+
+#define COMFORT_TEMPERATURE 40
+uint16_t getSpareComfortWater()
+{
+  if(!isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated))
+  return 0;
+
+  float coldWaterTemparature = 20.0;
+  float hotWaterLitres = getSpareHotWater();
+  uint16_t result;
+
+  result = (hotWaterLitres * (GLOBAL.TEMP.lastHeated - COMFORT_TEMPERATURE) / (COMFORT_TEMPERATURE - coldWaterTemparature)) + hotWaterLitres;
+  return result;
 }
 
 
@@ -82,7 +101,6 @@ void resetflowCount()
   waterFlowDisplay_global += waterFlowSensorCount_ISR_global;
   waterFlowSensorCount_ISR_global = 0;
   lastWaterFlowSensorCount_global = 0;
-  lastWaterFlowResetTime_global = millis();
 }
 
 float convertWaterFlowSensorImpulsesToLitres(float count)
