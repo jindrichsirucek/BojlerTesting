@@ -4,6 +4,36 @@
   // uint16_t  unsigned int, unsigned short, max 65 535
   // uint32_t  size_t, unsigned long/word, max 4 294 967 295
 
+
+// int a = 1;
+// int *b = &a; //b i pointer to int || &a is pointer address of variable a
+// *b += 1;
+//now a == 2 (and b's value is a pointer to the location of a in memory)
+
+
+
+// int i;          // integer variable 'i'
+// int *p;         // pointer 'p' to an integer
+// int a[];        // array 'a' of integers
+// int f();        // function 'f' with return value of type integer
+// int **pp;       // pointer 'pp' to a pointer to an integer
+// int (*pa)[];    // pointer 'pa' to an array of integer
+// int (*pf)();    // pointer 'pf' to a function with return value integer
+// int *ap[];      // array 'ap' of pointers to an integer
+// int *fp();      // function 'fp' which returns a pointer to an integer
+// int ***ppp;     // pointer 'ppp' to a pointer to a pointer to an integer
+// int (**ppa)[];  // pointer 'ppa' to a pointer to an array of integers
+// int (**ppf)();  // pointer 'ppf' to a pointer to a function with return value of type integer
+// int *(*pap)[];  // pointer 'pap' to an array of pointers to an integer
+// int *(*pfp)();  // pointer 'pfp' to function with return value of type pointer to an integer
+// int **app[];    // array of pointers 'app' that point to pointers to integer values
+// int (*apa[])[]; // array of pointers 'apa' to arrays of integers
+// int (*apf[])(); // array of pointers 'apf' to functions with return values of type integer
+// int ***fpp();   // function 'fpp' which returns a pointer to a pointer to a pointer to an int
+// int (*fpa())[]; // function 'fpa' with return value of a pointer to array of integers
+// int (*fpf())(); // function 'fpf' with return value of a pointer to function which returns an integer
+
+
   //!!!Source: http://www.esp8266.com/viewtopic.php?f=9&t=6376#
   //GITHUB: https://github.com/wa0uwh/ERB-EspWebServer/tree/master/Main
   // Macros to force format stings and string constants into FLASH Memory
@@ -41,6 +71,10 @@
   #define NORMAL_BLINK 50
   #define LONG_BLINK 200
 
+  #define SET_HEATING_RELAY_CONNECTED false
+  #define SET_HEATING_RELAY_DISCONECTED true
+
+
   // Define Multipliers for Ms Counters
   #define MSEC (1)
   #define SEC  (MSEC * 1000)
@@ -50,7 +84,7 @@
   #define WEEK (DAY * 7)
 
 
-  #define SIZE_OF_LOCAL_ARRAY(variable) sizeof variable / sizeof *variable
+  #define SIZE_OF_LOCAL_ARRAY(variable) ((uint8_t)(sizeof variable / sizeof *variable))
 
 
 

@@ -44,8 +44,14 @@ bool logNewNodeState(String fireEventName)
   newState.insideFlowTemp = (isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[INSIDE_FLOW].temp)) ? (String)GLOBAL.TEMP.sensors[INSIDE_FLOW].temp : E("");
 
   newState.current = lastCurrentMeasurmentText_global; //(lastElectricCurrentState_global != false) ? E("1024") : E("");
-  newState.waterFlow = (waterFlowSensorCount_ISR_global != 0) ? (String)convertWaterFlowSensorImpulsesToLitres(waterFlowSensorCount_ISR_global) : E("");
-  
+  if(waterFlowSensorCount_ISR_global != 0)
+  {
+    newState.waterFlow = (String)convertWaterFlowSensorImpulsesToLitres(waterFlowSensorCount_ISR_global);
+    resetflowCount();
+  }
+  else
+    newState.waterFlow = "";
+
   newState.test1Value = "";//getNodeVccString();
   newState.test2Value = GLOBAL.nodeInBootSequence? "" : getSpareHotWaterString(); 
   newState.test3Value = "";
@@ -144,7 +150,6 @@ bool flushTemporaryStringNodeStateIntoCsvFile()
 
       if(f.size() > previousFileSize)
       {
-        resetflowCount();
         if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("New line saved into file: %s\n"),f.name());
         f.close();
         if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.println(getContentOfFile(getLogFileNameByLogNumber(curentLogNumber_global)));        
@@ -160,9 +165,30 @@ bool flushTemporaryStringNodeStateIntoCsvFile()
 }
 
 
+bool logWarningMessage(String warningTypeString, String warningDetailString)
+{
+  static char lastWarningMessage[100+1] = "";
+  char newWarningMessage[100+1] = "";
+  warningTypeString.toCharArray(newWarningMessage, 100);
+
+  // Serial.println(newWarningMessage);
+  // Serial.println(lastWarningMessage);
+
+  if(strcmp(newWarningMessage, lastWarningMessage) == 0)
+  {
+    warningTypeString.concat(warningDetailString);
+    warningTypeString.concat(E(" : "));
+    return DEBUG_OUTPUT.println(sE("Repeated warning message: ") + warningTypeString), false;
+  }
+
+  warningTypeString.toCharArray(lastWarningMessage, 100);  
+
+  return logWarningMessage(warningTypeString);
+}
 
 bool logWarningMessage(String fireEventName)
 {
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logWarningMessage(): "));
   String eventString = fireEventName; eventString.replace(E("\r"),E("")); eventString.replace(E("\n"),E("")); eventString.replace(E("!!"),E(""));
 
   // if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logWarningMessage(String fireEventName): ") + eventString);
@@ -185,18 +211,12 @@ bool logNewStateWithEmail(String errorMessage)
 }
 
 
-// int a = 1;
-// int *b = &a;
-// *b += 1;
-//now a == 2 (and b's value is a pointer to the location of a in memory)
-
-
 bool sendAllLogFiles()
 {
   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:sendAllLogFiles() logFileRowsCount_global:") + logFileRowsCount_global);
   uint8_t curentDebuggerLevel = getDebuggerSpacesCount();
 
-  if(!isWifiConnected())
+  if(!autoWifiConnect())
   {
     if(MAIN_DEBUG) { DEBUG_OUTPUT.println(E("Data not send: WiFi NOT connected! Returning..")); }
     return false;
@@ -238,7 +258,7 @@ bool sendAllLogFiles()
           bool dataSentOk = uploadLogFile(f);
           if(dataSentOk)
           {
-            if(isFileReceivedOk())
+            if(isLastSavedServerResponseOk())
             {
               deleteFileByName(fileName);
               success = true;
@@ -322,9 +342,9 @@ File openLogFileForReadingByNumber(uint16_t logNumber)
   
   File f = openLogFileByNumber(logNumber, "r");
   if(!f)
-    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("!!!Error: File NOT exists: '%s'\n"),f.name());
+    {if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("!!!Error: File NOT exists: '%s'\n"),f.name());}  
   else
-    if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Opening file: '%s' for reading of size: %d B\n"),f.name(), f.size());
+    {if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(cE("Opening file: '%s' for reading of size: %d B\n"),f.name(), f.size());}
   return f;
 }
 
@@ -450,44 +470,30 @@ File openLogFileByNumber(uint16_t logNumber, const char* mode)
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 
-void saveReceivedBoilerStateToFile()
+File getLastResponseFileStream(const char* fileMode)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:saveReceivedBoilerStateToFile()"));
-
-  File savedSettingsFile = openFile(SETTINGS_FILENAME, "w");
-  savedSettingsFile.println(responseText_global);
-  savedSettingsFile.close();
-}
-
-
-bool loadLastSavedBoilerStateFromFile()
-{
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:loadLastSavedBoilerStateFromFile()"));
-
-  if(SPIFFS.exists(SETTINGS_FILENAME))  
-  {
-    responseText_global = getContentOfFile(SETTINGS_FILENAME);
-    if (MAIN_DEBUG) DEBUG_OUTPUT.println(responseText_global);
-    return true;
-  }
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:loadLastSavedBoilerStateFromFile() - Settings file not found!"));
-  return false;
+  return openFile(SETTINGS_FILENAME, fileMode);
 }
 
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
-String getContentOfFile(String path)
+String getContentOfFile(File f)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:getContentOfFile()"));
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:getContentOfFile(File f): ") + f.name());
   
-  File f = openFile(path,"r");
-
   String fileContent = E("");
   while(f.available())
     fileContent += f.readStringUntil('\n');
 
   f.close();
   return fileContent;
+}
+
+
+String getContentOfFile(String path)
+{
+  File f = openFile(path,"r");
+  return getContentOfFile(f);
 }
 
 void saveTextToFile(String text, String path)
@@ -527,10 +533,10 @@ File openFile(const char* fileName, const char* mode)
       }
 
    file = SPIFFS.open(fileName, mode);
-   if (!file) 
-     if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("\n!!!Error: Opening of file: '%s' has failed!\n"), fileName);
+   if (!file)
+     {if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("\n!!!Error: Opening of file: '%s' has failed!\n"), fileName);}
    else
-     if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(xE("File: '%s' opened, size: %d\n"), fileName, file.size());
+     {if (DATA_LOGGING_DEBUG) DEBUG_OUTPUT.printf(xE("File: '%s' opened, size: %d\n"), fileName, file.size());}
    if (MAIN_DEBUG) DEBUG_OUTPUT.printf(cE(" of size: %d\n"), file.size());
    return file;
 }

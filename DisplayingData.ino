@@ -65,7 +65,6 @@ void i2cBus_setup()
     lcdDisplayConnected_global = true;
     displayServiceLine(cE("Initialization.."));
 
-    uint8_t temporarySymbol[8];
     createCustomLcdChar(0, wifiNOTConnectedSymbol);
     lcd.setCursor(0, 1);
     lcd.write(0);//WiFi symbol
@@ -85,7 +84,6 @@ void i2cBus_setup()
 
 void lcdCreateScaleChars()
 { 
-  uint8_t temporarySymbol[8];
   createCustomLcdChar(1, signalStrengthSymbolAnimation[0]);
   createCustomLcdChar(2, signalStrengthSymbolAnimation[1]);
   createCustomLcdChar(3, signalStrengthSymbolAnimation[2]);
@@ -94,7 +92,6 @@ void lcdCreateScaleChars()
   createCustomLcdChar(6, signalStrengthSymbolAnimation[5]);
 }
 
-
 void createCustomLcdChar(uint8_t charPosition, uint8_t progmemSymbol[])
 {
   uint8_t temporarySymbol[8];
@@ -102,8 +99,6 @@ void createCustomLcdChar(uint8_t charPosition, uint8_t progmemSymbol[])
     temporarySymbol[row] = pgm_read_byte(&progmemSymbol[row]);
   lcd.createChar(charPosition, temporarySymbol);
 }
-
-
 
 #define SHOWER_SYMBOL 2
 #define DEGREE_CELSIUS_SYMBOL 3
@@ -118,7 +113,6 @@ void lcd_setup()
 
   displayServiceLine(cE("")); //erase first row
   // initialize the lcd
-  uint8_t temporarySymbol[8];
   createCustomLcdChar(SHOWER_SYMBOL, showerSymbolAnimation[0]);
   createCustomLcdChar(DEGREE_CELSIUS_SYMBOL, degreeCelsiusSymbol);
   createCustomLcdChar(BOILER_SYMBOL, boilerSymbol);
@@ -153,12 +147,11 @@ void displayData_loop(int)
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:displayData_loop()"));  
   char bufferCharConversion[10];//temporarily holds data from vals
-  uint8_t temporarySymbol[8];
 
   if(lcdDisplayConnected_global)
   {
-    displayPrintAt((String)getSpareComfortWater(), 1, 0);
-    displayPrint(E("L  "));
+    uint16_t spareComfortWater = getSpareComfortWater();
+    displayPrintAt(((spareComfortWater == 0? sE("??"): (String)spareComfortWater) + E("L  ")), 1, 0);
 
     displayPrintAt((String)(uint16_t)getSpareHotWater(), 10, 0); // prints rest of watter in Littres (100L minus spotřeba)
     lcd.write(TEMP_SYMBOL);
@@ -166,6 +159,7 @@ void displayData_loop(int)
     {
       displayPrint((String)(uint8_t)GLOBAL.TEMP.lastHeated); // prints temp on display
       lcd.write(DEGREE_CELSIUS_SYMBOL);//Degree Symbol°c
+      displayPrint(E("  ")); // prints erase 
     }
     else
       displayPrint(E("?")); // prints
@@ -219,7 +213,6 @@ void displayData_loop(int)
 
 void displayTempInServiceAreaWithSymbol(float temp, byte *symbolToDraw)
 {
-  uint8_t temporarySymbol[8];
   createCustomLcdChar(4, symbolToDraw);
   lcd.setCursor(10, 1);
   lcd.write(4);
@@ -270,7 +263,6 @@ void displayServiceMessageWithSymbol(char const* message, byte *symbolToDraw, bo
   if(!isSymbolAnimated)
     stopActiveAnimation();
 
-  uint8_t temporarySymbol[8];
   createCustomLcdChar(0, symbolToDraw);
 
   String eraseString = "";
@@ -311,7 +303,7 @@ void displayPrint(char const* message)
       char shortendedMessageCharArray [LCD_DISPLAY_COLS_COUNT+1];
       strncpy(shortendedMessageCharArray, message, LCD_DISPLAY_COLS_COUNT);
       // now null terminate
-      shortendedMessageCharArray[LCD_DISPLAY_COLS_COUNT+1] = '\0';
+      shortendedMessageCharArray[LCD_DISPLAY_COLS_COUNT] = '\0';
       lcd.print(shortendedMessageCharArray);
     }
     else
@@ -348,7 +340,6 @@ byte* setActiveAnimation(byte symbol[][8], uint16_t animationStepDuration, uint8
 uint8_t animateWiFiProgressSymbol(uint8_t progressAnimationCounter)
 {
   DEBUG_OUTPUT.print(E("."));
-  uint8_t temporarySymbol[8];
   createCustomLcdChar(0, wifiSendingSymbolAnimation[progressAnimationCounter]);
   if(++progressAnimationCounter < 4)//Array length
     return progressAnimationCounter;
@@ -361,7 +352,6 @@ void animateActiveSymbol_taskerLoop(int)
   if(GLOBAL.ANIMATION.progress != -1)
   {
     // Serial.println(sE("Animating next step: ") + GLOBAL.ANIMATION.progress);
-    uint8_t temporarySymbol[8];
     createCustomLcdChar(0, GLOBAL.ANIMATION.activeSymbol[incrementAnimationCount(GLOBAL.ANIMATION.framesCount)]);
     if(DISPLAY_ANIMATIONS_ENABLED) 
       tasker.setTimeout(animateActiveSymbol_taskerLoop, GLOBAL.ANIMATION.stepDuration, TASKER_SKIP_NEVER);

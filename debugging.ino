@@ -41,6 +41,8 @@ struct bootflags
 struct bootflags bootmode_detect(void) 
 {
   int reset_reason, bootmode;
+  reset_reason = 0;
+  bootmode = 0; //to compiler warning uninitialized stop
   asm (
     "movi %0, 0x60000600\n\t"
     "movi %1, 0x60000200\n\t"
@@ -123,7 +125,7 @@ void saveAndSendExceptionLogFile()
   SaveCrash.print(fileTosend);
   SaveCrash.clear();
 
-  bool successfullySend;
+  bool successfullySend = false;
   if(isWifiConnected())
     successfullySend = sendGetParamsWithPostFile(E("&quickEvent=exception"), fileTosend);
   fileTosend.close();
@@ -139,7 +141,7 @@ String getESPResetInfo()
   if(pRstInfo->reason != 2)
     return sE("Reboot: ") + ESP.getResetReason().c_str();
   else
-    return (String(ESP.getResetReason().c_str()) + cE(", exccause=0x") + (pRstInfo->exccause, HEX) + cE(", exccause=0x") + (pRstInfo->epc1, HEX) + cE(", exccause=0x") + (pRstInfo->epc2,HEX) + cE(", exccause=0x") + (pRstInfo->epc3, HEX) + cE(", exccause=0x") + (pRstInfo->excvaddr, HEX) + cE(", exccause=0x") + (pRstInfo->depc, HEX));
+    return (String(ESP.getResetReason().c_str()) + cE(", exccause=0x") + String(pRstInfo->exccause, HEX) + cE(", exccause=0x") + String(pRstInfo->epc1, HEX) + cE(", exccause=0x") + String(pRstInfo->epc2,HEX) + cE(", exccause=0x") + String(pRstInfo->epc3, HEX) + cE(", exccause=0x") + String(pRstInfo->excvaddr, HEX) + cE(", exccause=0x") + String(pRstInfo->depc, HEX));
 }
 
 bool isESPLastResetReasonException()
@@ -260,19 +262,24 @@ void turnNotificationLedOff() {
   digitalWrite(LED_PIN, HIGH);
 }
 
-void restartEsp(){restartEsp("");}
 void restartEsp(String reason)
 {
-  //https://github.com/esp8266/Arduino/issues/1722
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:restartEsp()"));
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:safelyRestartEsp()"));
+  DEBUG_OUTPUT.println(sE("0"));
   logNewNodeState(sE("ESP: restart (reason: ")+reason+E(")"));
-  digitalWrite(0, HIGH);//When gpio0 used as output, need to by high before reseting ESP
   flushTemporaryStringNodeStateIntoCsvFile();
-  setHeatingRelayOpen(false); //Release relay pin to avoid switching big currents during restart
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("Restarting.."));
   RemoteDebug.handle();
   yield_debug();
-  ESP.restart();
+  safelyRestartEsp();
+}
+
+void safelyRestartEsp()
+{
+  digitalWrite(0, HIGH);//When gpio0 used as output, need to by high before reseting ESP
+  setHeatingRelayOpen(SET_HEATING_RELAY_CONNECTED); //Release relay pin to avoid switching big currents during/after restart
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("Restarting.."));
+  
+  ESP.restart(); //https://github.com/esp8266/Arduino/issues/1722 // ESP.reset() and ESP.restart()?
 }
 
 bool sendDebugInformationsAfterReset()

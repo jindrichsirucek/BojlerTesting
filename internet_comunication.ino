@@ -1,14 +1,16 @@
 //internet_comunication.ino
 #include "HTTPSRedirect.h"
 
+HTTPSRedirect client;
 
 bool uploadLogFile(File fileToSent)
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:uploadLogFile(File fileToSent) :") + fileToSent.name());
-  responseText_global = "";
+  
+  getLastResponseFileStream("w").close(); //Deletes last response
+  
   if(!UPLOADING_DATA_MODULE_ENABLED) { DEBUG_OUTPUT.println(E("UPLOADING_DATA_MODULE is DISABLED")); return false;  }
   
-  const uint32_t fileSize = fileToSent.size();
   if(fileToSent.size() > (MAXIM_FILE_LOG_SIZE + 3000))
   {
     if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("!!!Error: Maximum size of file is exceeded. File '%s' size %d is bigger than MAXIM_FILE_LOG_SIZE(%d) File will not be sent!\n"), fileToSent.name(), fileToSent.size(), MAXIM_FILE_LOG_SIZE);
@@ -24,11 +26,9 @@ bool uploadLogFile(File fileToSent)
 
   if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Sending request: ") + host + url + E("\nFile to send: ") + fileToSent.name());
 
-
   if(isThereEnoughHeapToSendData() == false)
     return false;
 
-  HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
 
   if (!client.POST_FILE(host, url, fileToSent))
@@ -38,16 +38,10 @@ bool uploadLogFile(File fileToSent)
       return false;
   }
   else
-  {
     displayServiceMessage(E("File sent!"));
-  }
 
-  //It drops html structure during google script erros
-  // client.readStringUntil('max-width:600px');
-  responseText_global = client.readStringUntil('\n');
+  saveClientResponse();
   
-  client.stop();
-  if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Response text: ") + responseText_global);
   return true;
 }
 
@@ -60,7 +54,7 @@ bool sendNewNodeStateByPostString(String dataToSend)
   displayServiceMessage(E("Data: Posting"));
 
   const String host = DATA_SERVER_HOST_ADDRESS;
-  String url = DATA_SERVER_SCRIPT_URL + "?";
+  String url = DATA_SERVER_SCRIPT_URL;
 
   appendUriNodeIdentification(url);
   url +=  E("&logFileName=tempString");
@@ -70,7 +64,7 @@ bool sendNewNodeStateByPostString(String dataToSend)
   if(isThereEnoughHeapToSendData() == false)
     return false;
 
-  HTTPSRedirect client;
+  // HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
 
   if (!client.POST_STRING(host, url, headerWithDataString))
@@ -82,24 +76,22 @@ bool sendNewNodeStateByPostString(String dataToSend)
   else
     displayServiceMessage(E("Data: Sent!"));
 
-  responseText_global = client.readStringUntil('\n');
-  
-  client.stop();
-  if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Response text: ") + responseText_global);
+  saveClientResponse();
   return true;
 }
 
 
 bool isThereEnoughHeapToSendData()
 {
-  //Not enough heap
-  if(ESP.getFreeHeap() < 26000)
-    return ERROR_OUTPUT.println(sE("!!!Error: Not enough heap to establish connection with server: ") + ESP.getFreeHeap()), false;
+  return true;
+  // //Not enough heap
+  // if(ESP.getFreeHeap() < 26000)
+  //   return ERROR_OUTPUT.println(sE("!!!Error: Not enough heap to establish connection with server: ") + ESP.getFreeHeap()), false;
 
-  if(ESP.getFreeHeap() < 29000)
-    ERROR_OUTPUT.println(sE("!!Warning: Small heap when establishing connection with server: ") + ESP.getFreeHeap());
+  // if(ESP.getFreeHeap() < 29000)
+  //   ERROR_OUTPUT.println(sE("!!Warning: Small heap when establishing connection with server: ") + ESP.getFreeHeap());
 
-    return true;
+  //   return true;
 }
 
 
@@ -128,12 +120,10 @@ bool sendQuickEventNotification(String quickEventString)
   if(isThereEnoughHeapToSendData() == false)
     return false;
 
-  HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
 
   bool successfullySent = client.GET(host, url);
-  responseText_global = client.readStringUntil('\n');
-  client.stop();
+  saveClientResponse();
 
   return successfullySent;
 }
@@ -157,17 +147,35 @@ bool sendGetParamsWithPostFile(String uriParamsEncoded, File fileToSend)
     if(isThereEnoughHeapToSendData() == false)
     return false;
 
-  HTTPSRedirect client;
   client.setAnimationProgressCallback(animateWiFiProgressSymbol);
 
   bool successfullySent = client.POST_FILE(host, url, fileToSend);
-  // client.readStringUntil('max-width:600px');
-  responseText_global = client.readStringUntil('\n');
-  client.stop();
-  if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Response text: ") + responseText_global);
+
+  saveClientResponse();
 
   displayServiceMessage(E("Event sent!"));
   return successfullySent;
+}
+
+
+bool saveClientResponse()
+{
+  File responseFile = getLastResponseFileStream("w");
+  if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("Response text: "));
+  while (client.connected()) 
+  {
+    if (client.available()) 
+    {
+      char c = (char)client.read();
+      if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.print(c);
+      responseFile.print(c);
+    }
+  }
+  if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println();
+
+  responseFile.close();
+  client.stop();
+  return true;
 }
 
 

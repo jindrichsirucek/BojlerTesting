@@ -10,6 +10,8 @@ esptool.py --port /dev/cu.SLAB_USBtoUART write_flash 0x000000 /Users/jindra/Down
 DOWNLOAD BINARY 
 esptool.py --port $(ls  /dev/cu.* | grep -v 'Blue') --baud 115200 read_flash 0x00000 0x400000 backup.img
 ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
+//brew upgrade  platformio
+//pip install -U https://github.com/platformio/platformio-core/archive/develop.zip //Netestované
 
 //MANUAL
 //Po výměně tepelného čidla je potřeba udělat plný reset
@@ -110,13 +112,12 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 #define MAIN_DEBUG true
 #define WIFI_DEBUG false
 #define INTERNET_COMMUNICATION_DEBUG false
-#define HTTPS_REDIRECT_DEBUG false
 #define YIELD_DEBUG false
 #define DATA_LOGGING_DEBUG false
 #define DISPLAY_DEBUG false
 #define TEMPERATURE_DEBUG false
 #define RELAY_DEBUG false
-#define CURRENT_DEBUG false
+#define CURRENT_DEBUG !false
 #define WATER_FLOW_DEBUG false
 #define SPIFFS_DEBUG false
 
@@ -127,10 +128,10 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 ////////////////////////////////////////////////////////
 //PROJECT SETTINGS
 ////////////////////////////////////////////////////////
-#define DATA_SERVER_HOST_ADDRESS F("script.google.com")
-#define DATA_SERVER_SCRIPT_URL F("/macros/s/AKfycbziCOySJ-cxsjn6-v8WpIbcsmlE77RqkzGX728nht2wO4HYmvVK/exec"); //Testing script, data goes here: https://docs.google.com/spreadsheets/d/1JyISlQ2zlttjRfxDFLuECTkgKGiBDn5A_I6WSVT3l5s/edit#gid=538340115   //Script address: https://script.google.com/macros/d/Magj9VtC_7VJMKhlPxI7rWgcRztdqeR-I/edit?uiv=2&mid=ACjPJvEivmgMleau6F0s_c2EsMfGlndE8W7Ls8gVj1MQ_8lgOg0eUus8N2GJ4NBMyAmUaa3dtUi9fnETPQNdpStDwnuy1LGlfiQFRvEOzq0JVA3E0nz5a-Jfqqk9GdIOuEocXf9pIdvamg
+#define DATA_SERVER_HOST_ADDRESS E("script.google.com")
+#define DATA_SERVER_SCRIPT_URL E("/macros/s/AKfycbziCOySJ-cxsjn6-v8WpIbcsmlE77RqkzGX728nht2wO4HYmvVK/exec?"); //Testing script, data goes here: https://docs.google.com/spreadsheets/d/1JyISlQ2zlttjRfxDFLuECTkgKGiBDn5A_I6WSVT3l5s/edit#gid=538340115   //Script address: https://script.google.com/macros/d/Magj9VtC_7VJMKhlPxI7rWgcRztdqeR-I/edit?uiv=2&mid=ACjPJvEivmgMleau6F0s_c2EsMfGlndE8W7Ls8gVj1MQ_8lgOg0eUus8N2GJ4NBMyAmUaa3dtUi9fnETPQNdpStDwnuy1LGlfiQFRvEOzq0JVA3E0nz5a-Jfqqk9GdIOuEocXf9pIdvamg
 
-#define SETTINGS_FILENAME F("/settings.json")
+#define SETTINGS_FILENAME E("/lastResponse.json")
 #define MODULE_UPDATE_FILE_NAME E("/moduleUpdate.info")
 
 ////////////////////////////////////////////////////////
@@ -163,8 +164,8 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 #ifdef TEST_MODULE
   #define NODE_NAME "Testing"
   #define DISPLAY_LOG_MESSAGES !false
-  #define QUICK_DEVELOPMENT_BOOT true
-  #define WIFI_RADIO_OFF !false
+  #define QUICK_DEVELOPMENT_BOOT false
+  #define WIFI_RADIO_OFF false
   // #define UPLOADING_DATA_MODULE_ENABLED false
 
   // #define DEBUG_OUTPUT Serial
@@ -296,8 +297,7 @@ volatile uint16_t waterFlowSensorCount_ISR_global;  // Measures flow meter pulse
 int32_t waterFlowDisplay_global = 0;
 bool isWaterFlowingLastStateFlag_global = false; //water flowing flag
 
-String objectAskingForResponse_global = "";
-String responseText_global = "";
+// String objectAskingForResponse_global = "";
 
 bool isThereEventToSend_global = false;
 uint16_t logFileRowsCount_global = 0;
@@ -326,7 +326,7 @@ uint8_t getDebuggerSpacesCount() {return GLOBAL.spaceCountDebug;}
 //  FUNCTION DEFINITIONS
 ////////////////////////////////////////////////////////
 #define isDebugButtonPressed() isFlashButtonPressed()
-#define isFlashButtonPressed() digitalRead(FLASH_BUTTON_PIN) == 0
+#define isFlashButtonPressed() (digitalRead(FLASH_BUTTON_PIN) == 0)
 #define isElectricityConnected() digitalRead(ELECTRICITY_SENSOR_PIN)
 void ICACHE_RAM_ATTR osWatch();
 void ICACHE_RAM_ATTR ISR_flowCount();//Preprocesor
@@ -338,7 +338,6 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println(sE("\n\nStarted Serial, free ram: ") + (GLOBAL.lastFreeHeap = ESP.getFreeHeap()));
-  responseText_global.reserve(250);
   lastNodeStateTempString_global.reserve(200);
   
   if(DISPLAY_MODULE_ENABLED) 
@@ -400,7 +399,7 @@ void setup()
   else
   {//Without internet connection
     displayServiceLine(cE("Init: Offline"));
-    if(loadLastSavedBoilerStateFromFile())
+    if(isLastSavedServerResponseOk())
     {
       logNewNodeState(E("settings file loaded from EEPROM"));
       doNecesaryActionsUponResponse();
@@ -442,7 +441,7 @@ void loop()
   //---------------------------------- ONE TIME TASKS --------------------------------------------------
   if(SENDING_BEACON_MODULE_ENABLED) tasker.setTimeout(checkSystemState_loop,  GLOBAL.nodeStatusUpdateTime, TASKER_SKIP_NEVER); //60 * 60 * 1000 = 1 hour
   //---------------------------------- OUTRO TASK --------------------------------------------------
-  if(SHOW_WARNING_DEBUG_MESSAGES)   tasker.setOutroTask(outroTask_loop);
+  if(true)                          tasker.setOutroTask(outroTask_loop);
 
   DEBUG_OUTPUT.printf(cE("FreeHeap:%d\n"), ESP.getFreeHeap());
   GLOBAL.lastFreeHeap = ESP.getFreeHeap();
@@ -501,12 +500,12 @@ void outroTask_loop()
   //Free heap check // if changed more the 2kB
   if((ESP.getFreeHeap()+2000) < GLOBAL.lastFreeHeap)
   {
-    DEBUG_OUTPUT.println(sE("!!!Error: Freeheap loosing, previous: ") + GLOBAL.lastFreeHeap + E(" current: ") + ESP.getFreeHeap());
+    logWarningMessage(sE("!!!Error: Freeheap loosing"), sE("previous: ") + GLOBAL.lastFreeHeap + E(" current: ") + ESP.getFreeHeap());
     GLOBAL.lastFreeHeap = ESP.getFreeHeap();
   }
 
-  // if(GLOBAL.lastFreeHeap++ == 50)//First tasks are skipped
-    // GLOBAL.lastFreeHeap = ESP.getFreeHeap();
+  if(GLOBAL.lastFreeHeap++ == 10)//First tasks are skipped
+    GLOBAL.lastFreeHeap = ESP.getFreeHeap();
 }
 
 
@@ -566,30 +565,29 @@ void setPendingEventToSend(bool isThereEventToSend)
 // HOTOVO? přichozí timestamp uložit do notes a když bude rozdíl velký tak podbarvit červeně - aby to šlo vidět
 // Když přijde nová hodnota, tak zkontrolovat předchozí čas a pokud je větší než minimal node alive time, tak mi pošle email, že tam došlo k zpoždění
 //Funkce reset spiffs s parametrem - debug log, nacte nejdriv debugovací infomrace z extra logu, přidá důvot resetu a pak uloží do nového souboru , tak abych nepřišel o olog co se stalo a proč se to stalo..
-//Při formátování SPIFFS error sobor zkusit zachránit načtením do Stringu RAMKY ale nastavit max několik řádků at to nespadne na nedostatek ramky
-//Error logy ukládat do souboru error.log a ty odesílat na net + výstřižek z normálního logu před chybou třeba 5 řádků k tomu přidat.
+//Při formátování SPIFFS error sobor zkusit zachránit načtením do Stringu RAMKY ale nastavit max několik řádků at to nespadne na nedostatek ramky, zkontrolovat free heap, podle toho vytáhnout jen tolik bytu z souboru, porovnat velikost souboru atd..
 //vyřešit extra ERROR loging!! to se nesmí ztrácet, nedoručené packety odpovědi apod.. to chci vše zapisovat do logu
 //NodeName - nastavovat v Debug sheetu ne pevně v kodu!!
 //Porestartu modulu zkontrolovat nejdříve zda kolem není připojená "servisní síť" ESP-sevice - pokud ano, tak se připojí na ní a hodí se do konfiguaračního režimu, zapne se server, který bude přijímat webové požadavky přes get params a později vytvoří normálně servisí webové rozhraní
 //Logovat vsechny warningy jako nlze se připojit k wifi, nebo teplotní vzorek nebyl dobře načte a errory jako není připjen teplotní senzro apod
 //Inteligentní nastavení startu času ohřevu vody v noci, tak aby se ohřev ukončil právě v okamžik kdy dojde k vypnutí NT, aby nebyl bojler nahřátej a pak ještě 2 hodiny nejel NT a bojler nám mezitím chládnul (zbytečné ztráty)
-//Zobrazovat ne počet litrů v bojleru, ale vynásobeno koeficentem ředění na 40°C vodu - prostě kolik zbývá 40°C vody aby šlo poznat kolik tam ej vody na praktické využití ibez toho,že bych musel vědět původní teplotu
 //Hodnotu koeficientu u ampérměřáku uložit do eeprom a udělat možnost tuto hotnotu měnit v google sheetu namísto v kodu
 //SPeed up upload preocess https://github.com/esp8266/Arduino/issues/1853
 //Write/read test of SPIFF in each cycle
 //v remote debug - předělat telnet pouze na přání, vyhodit ho z těch funckí aby se server nestartoval automaticky
-//v remote debug - zbavit se error buferu - použít nějak ten normální buffer 150 ramky ušetřené
-//Udělat měřená zda teče voda jde tak, že se hodí do ISR funkce global flag, případně se porovná poslední ISR s aktuálním ISR aby se vědělo zda od posledně tekla voda
 //Init temp: Sensors: 4x (3/2/1/0), nebo OK OK OK OK nebo teploty jednotlivých
-//OTA DIsplay write percentage
 //Vyřešit warning messages - aby se posílali správně jako eventy
 //Check first if tehre is a new update file - in response send new md5 checksum, date of file (datum nového souboru poté poslat do logu) and maybe version or smth, když bude soubor tak stáhnout v druhém volání, zase tak často se neupdatuje aby se to nemohlo udělat na 2x
-//LAst heated temperature posílat po restartu z cloudu do node, abysi to nastavil stejně jako množství spotřebované vody
-//Vyřešit logování Pipe temp: rised aby to logovalo rised (water flow) jenom jednou do té doby, než začne zase klesat, pak zaloguje pipe temp down a může zase zalogovat rise.. dal bych tam rozdíl mezi měřeníma asi jen jeden stupeń jakmile povyrost/sníže se teplota o stupeň, tak..
+//Vyřešit logování Pipe temp: rised aby to logovalo rised (water flow) jenom jednou do té doby, než začne zase klesat, pak zaloguje pipe temp down a může zase zalogovat rise.. dal bych tam rozdíl mezi měřeníma asi jen jeden stupeń jakmile povyrost/sníže.. Pokud se teplota sníží o 2 stupně oproti lastpipeTemp, tak..
 //Uptime na display zobrazovat 0d15h21m
 //Logovat jednotlivé md5 na serveru pro udpdate, složky s názvem md5 a datum kvůli analýze případných exceptions
-
-
+//V realay controle, když nastane chaby neposílat mail hned, ale vložit pouze Emialovou chybu logFatalErrorState()
+//Udělat událostní funkce: onElectricityOn(), on electricityOff(), current, water atd...
+//Prozkoumat odesílací proces přes https redirect, kdy přesně dojde k odeslání dat/souboru a udělat možnost, že se data pouze odešlou a nebude se čekat na odpvoěd u serveru - např u posílání  chybvových zpráv
+//Vyřešit chybu s loosing heap druing loops
+//Udělat měření zda teče voda tak, že se hodí do ISR funkce global flag, případně se porovná poslední ISR s aktuálním ISR aby se vědělo zda od posledně tekla voda, udělat to přes flag, protože se pak ten flag může použít jako identifikátor události onWaterStarted/Stoped
+//Vyřešit klidový odběr 2,231A a celkově odběr proudu,a by to bylo přesně, když to je v krabičce nebo prostě v reálném stavu
+//Udělat měření napětí na baterii - přes střídání připjeného měřidla ADC current a napětí..
 
 
 
@@ -609,11 +607,35 @@ void temperature_loop(int)
   {
     if(TEMPERATURE_DEBUG) DEBUG_OUTPUT.println(sE("checking difference: ") + (GLOBAL.TEMP.sensors[PIPE].temp - GLOBAL.TEMP.sensors[PIPE].lastTemp));
 
-    //x°C difference on pipe to send
-    if((GLOBAL.TEMP.sensors[PIPE].temp - GLOBAL.TEMP.sensors[PIPE].lastTemp) > 3)
+    //Check minimal °C difference on pipe
+    float pipeTempDifference = abs(GLOBAL.TEMP.sensors[PIPE].temp - GLOBAL.TEMP.sensors[PIPE].lastTemp);
     {
-      logNewNodeState(E("Pipe Temp: rised"));
-      GLOBAL.TEMP.sensors[PIPE].lastTemp = GLOBAL.TEMP.sensors[PIPE].temp;
+      static bool isPipeTempRising = false;
+      //Temp is rising
+      if(GLOBAL.TEMP.sensors[PIPE].temp > GLOBAL.TEMP.sensors[PIPE].lastTemp)
+      {
+        if(isPipeTempRising == false  && pipeTempDifference >= 5)
+        {
+          logNewNodeState(E("Pipe Temp: rised"));
+          isPipeTempRising = true;
+          GLOBAL.TEMP.sensors[PIPE].lastTemp = GLOBAL.TEMP.sensors[PIPE].temp;
+        }
+        //its here to avoid logging false events, due to temp changes in room temp
+        if(isPipeTempRising == true)
+          GLOBAL.TEMP.sensors[PIPE].lastTemp = GLOBAL.TEMP.sensors[PIPE].temp;
+      }
+      else//Pipe temp is falling
+      {
+        if(isPipeTempRising == true && pipeTempDifference >= 0.1)
+        {
+          logNewNodeState(E("Pipe Temp: falling"));
+          isPipeTempRising = false;
+          GLOBAL.TEMP.sensors[PIPE].lastTemp = GLOBAL.TEMP.sensors[PIPE].temp;
+        }
+        //its here to avoid logging false events, due to temp changes in room temp
+        if(isPipeTempRising == false)
+          GLOBAL.TEMP.sensors[PIPE].lastTemp = GLOBAL.TEMP.sensors[PIPE].temp;
+      }      
     }
   }
   
@@ -651,12 +673,13 @@ void current_electricity_loop(int)
   //Electricity
   if(lastElectricityConnectedState_global != isElectricityConnected()) //if state was Changed
   {
-    //Electricity OFF
+    //OChrana relé před nehchráněným spínáním při naskočení elektřiny
     if(isElectricityConnected() == false)
-      setHeatingRelayOpen(false); //Release relay pin to avoid switching back and forth during turning ON electricity
-    //Electricity ON and heating OFF
+      setHeatingRelayOpen(SET_HEATING_RELAY_CONNECTED);
+    //Electricity ON and heating OFF - vypne relé, protože bylo seplé jen kvůli ochraně relé
     if(isElectricityConnected() == true && isBoilerHeatingOn() == false)
-      setHeatingRelayOpen(true); //Pull relay pin when heating is of and there is electricity
+      setHeatingRelayOpen(SET_HEATING_RELAY_DISCONECTED); //Pull relay pin when heating is of and there is electricity
+
 
     lastElectricityConnectedState_global = !lastElectricityConnectedState_global;
     logNewNodeState(sE("Electricity: ") + (lastElectricityConnectedState_global? E("ON") : E("OFF")));
@@ -748,7 +771,7 @@ void ICACHE_RAM_ATTR osWatch(void)
   if(last_run >= (OSWATCH_RESET_TIME * 1000))
    {
     ERROR_OUTPUT.println(sE("\n\n!!!Error: Loop WDT reset! at: ") + millis());
-    restartEsp(E("Loop watchdog")); 
+    safelyRestartEsp(); 
   }
 }
   

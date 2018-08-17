@@ -8,7 +8,7 @@
 #endif
 
 #define LE(string_literal) (reinterpret_cast<const __FlashStringHelper *>(((__extension__({static const char __c[]     __attribute__((section(".irom.text.template")))     = ((string_literal)); &__c[0];})))))
-#define sLE(s) (String)LE(s)
+#define sLE(s) ((String)LE(s))
 
 static const char connectionCloseString[] PROGMEM = "Connection: close\r\n\r\n";
 static const char HTTPString[] PROGMEM = " HTTP/1.1\r\n";
@@ -40,7 +40,7 @@ public:
 
       if (establishConncetionWithServer(host, m_port) == false) return false;
 
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("requesting URL: "));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(LE("requesting URL: "));
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(url.substring(0,50));
 
       print(LE("GET ")); print(url); print(FPSTR(HTTPString));
@@ -48,14 +48,14 @@ public:
       print(FPSTR(acceptString));
       print(FPSTR(connectionCloseString));
 
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("Sending GET request.."));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(LE("Sending GET request.."));
       while (available() == 0) 
       {
-         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("."));
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(LE("."));
          delay(200);
          animateProgress();
       }
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(E("Sent!"));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("Sent!"));
       return processHeader();
    }
 
@@ -78,9 +78,10 @@ public:
          return false;
 
       setNoDelay(true);
-      fileToSend.seek(0, SeekSet);
       printHeaderPost(host, url, fileToSend.size());
-      printFileToClient(fileToSend);
+      fileToSend.seek(0, SeekSet);
+      // printFileToClient(fileToSend);
+      write(fileToSend);
       return readResponseAfterPostSent();
    }
 
@@ -96,21 +97,21 @@ protected:
       yield();
       animateProgress();
 
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("connecting to "));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(LE("connecting to "));
       if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(host);
 
       bool success = connect(host.c_str(), port);
       if (!success) 
       {
-         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(E(" - NOT connected!"));
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE(" - NOT connected!"));
          return false;
       }
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(E(" - Succesfully connected!"));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE(" - Succesfully connected!"));
       return true;
    }
 
 
-   bool printHeaderPost(const String &host, const String &url, uint32_t postSize)
+   void printHeaderPost(const String &host, const String &url, uint32_t postSize)
    {
       
       print(sLE("POST ") + url); print(FPSTR(HTTPString));
@@ -122,56 +123,57 @@ protected:
       print(FPSTR(connectionCloseString));
    }
 
-   void printFileToClient(File fileToSend)
-   {
-      uint32_t startTime = millis();
-      if (HTTPS_REDIRECT_DEBUG) { DEBUG_OUTPUT.printf(cE("Sending file: '%s' of size: %d B\n"), fileToSend.name(), fileToSend.size());}
+   //USed with older core libraries
+   // void printFileToClient(File fileToSend)
+   // {
+   //    uint32_t startTime = millis();
+   //    if (HTTPS_REDIRECT_DEBUG) { DEBUG_OUTPUT.printf(cE("Sending file: '%s' of size: %d B\n"), fileToSend.name(), fileToSend.size());}
 
-      uint16_t bufSize = 1760; 
-      byte clientBuf[bufSize];
-      uint16_t clientCount = 0;
-      uint32_t alreadySent = 0;
+   //    uint16_t bufSize = 1760; 
+   //    byte clientBuf[bufSize];
+   //    uint16_t clientCount = 0;
+   //    uint32_t alreadySent = 0;
 
-      fileToSend.seek(0, SeekSet);
-      while (fileToSend.available() && alreadySent < fileToSend.size())
-      {
-         clientBuf[clientCount] = fileToSend.read();
-         clientCount++;
-         alreadySent++;
+   //    fileToSend.seek(0, SeekSet);
+   //    while (fileToSend.available() && alreadySent < fileToSend.size())
+   //    {
+   //       clientBuf[clientCount] = fileToSend.read();
+   //       clientCount++;
+   //       alreadySent++;
 
-         if (clientCount > bufSize-1)
-         {          
-            write((const uint8_t *)clientBuf, bufSize);
-            clientCount = 0;
-            if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("."));
-            animateProgress();
-         }             
-      } 
+   //       if (clientCount > bufSize-1)
+   //       {          
+   //          write((const uint8_t *)clientBuf, bufSize);
+   //          clientCount = 0;
+   //          if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(LE("."));
+   //          animateProgress();
+   //       }             
+   //    } 
 
-   // final < bufSize byte cleanup packet
-      if (clientCount > 0) write((const uint8_t *)clientBuf, clientCount);
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(cE("Sent, in: %d seconds\n"), ((millis() - startTime)/1000));
+   // // final < bufSize byte cleanup packet
+   //    if (clientCount > 0) write((const uint8_t *)clientBuf, clientCount);
+   //    if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(cE("Sent, in: %d seconds\n"), ((millis() - startTime)/1000));
    // close the file:
-      fileToSend.close();
-   }
+   //    fileToSend.close();
+   // }
 
    bool readResponseAfterPostSent()
    {
       // if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println((""));
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(E("Reading response.."));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print(LE("Reading response.."));
 
       uint32_t startTime = millis();
 
       uint8_t attempt = 100;
       while (available() == 0 && attempt > 0) 
       {
-         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(cE(".%d"),available());
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(sLE(".%d").c_str(),available());
          delay(200);
          animateProgress();
          attempt--;
       }
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print((attempt == 0) ? E("Timeout") : E("Received"));
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(cE(", in: %d seconds\n"), ((millis() - startTime)/1000));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.print((attempt == 0) ? LE("Timeout") : LE("Received"));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.printf(sLE(", in: %d miliseconds\n").c_str(), ((millis() - startTime)/1));
 
       return processHeader();
    }
@@ -184,17 +186,24 @@ protected:
 
       while (available()) 
       {
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("1"));
          String line = readStringUntil('\n');
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(line);
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("2"));
    // if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println("line: " + line);
          if (line.startsWith(sLE("HTTP/1.1 302 Moved Temporarily")))
          {
+            if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("3"));
             return redirect();
          }
          else if (line == "\r") {
+            if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("4"));
             return true;
          }
+         if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("5"));
       }
-      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(E("!!Redirect NOT found!"));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("!!Redirect NOT found!"));
+      if (HTTPS_REDIRECT_DEBUG) DEBUG_OUTPUT.println(LE("6"));
       return false;
    }
 

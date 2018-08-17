@@ -160,6 +160,7 @@ bool wifiConnectToLastNetwork()
 void turnWifiOn()
 {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("WiFi Radio: Turning ON"));
+    yield_debug();
     wifi_fpm_do_wakeup();
     wifi_fpm_close();
     wifi_set_opmode(STATION_MODE);
@@ -171,6 +172,7 @@ void turnWifiOn()
 void turnWifiOff() 
 {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("WiFi Radio: Turning OFF"));
+    yield_debug();
     // client.disconnect();
     wifi_station_disconnect();
     wifi_set_opmode(NULL_MODE);
@@ -261,6 +263,13 @@ void displayIPAddress()
 
 void displayRSSI()
 {
+  // Signal Strength
+  // -30 dBm Amazing    Max achievable signal strength.
+  // -67 dBm Very Good  Minimum signal strength for applications that require very reliable, timely delivery of data packets. VoIP/VoWiFi, streaming video
+  // -70 dBm Okay       Minimum signal strength for reliable packet delivery. Email, web
+  // -80 dBm Not Good   Minimum signal strength for basic connectivity. Packet delivery may be unreliable.  
+  // -90 dBm Unusable   Approaching or drowning in the noise floor. Any functionality is highly unlikely. 
+  
   lcdCreateScaleChars();
   while(true)
   {
@@ -274,53 +283,3 @@ void displayRSSI()
 }
 
 
-
-// bool wifiConnectToLastNetwork()
-// {
-//   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:WiFi Connecting to previous setting: ") + WiFi.SSID());
-//   displayServiceMessage(sE("Con: ") + WiFi.SSID());
-
-//   WiFi.begin();
-//   yield_debug();
-//   uint8_t attempt = 200;
-//   if(isWifiConnected() == false)
-//   {
-//     wifi_station_set_auto_connect(true);
-
-//     WiFi.hostname(NODE_NAME);
-    
-//     uint8_t animationProgressCounter = 0;
-//     while (!isWifiConnected() && attempt--)
-//     {
-//       delay(100);
-//       if(MAIN_DEBUG) DEBUG_OUTPUT.print(E("."));
-//       animationProgressCounter = animateWiFiProgressSymbol(animationProgressCounter);
-//     }
-//   }
-
-//   if(attempt)
-//   {
-//     if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("\nConnected!"));
-//     displayIPAddress();
-//     return true;
-//   }
-
-//   if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("\nNOT connected!"));
-//   return false;
-// }
-
-
-// RE: CHOOSE BETWEEN MULTIPLE ACCESS POINTS WITH SAME SSID?
-// Basically, you first have to choose an AP, and then pass its BSSID to WiFi.begin:
-// WiFi.begin(const char* ssid, const char *passphrase, int32_t channel, uint8_t bssid[6]);
-// Note that if you want to pass bssid you also need to set the channel number.
-// Getting BSSID and channel number from scan results is possible by calling WiFi.BSSID(index) and WiFi.channel(index).
-
-
-
-// Signal Strength
-// -30 dBm Amazing    Max achievable signal strength.
-// -67 dBm Very Good  Minimum signal strength for applications that require very reliable, timely delivery of data packets. VoIP/VoWiFi, streaming video
-// -70 dBm Okay       Minimum signal strength for reliable packet delivery. Email, web
-// -80 dBm Not Good   Minimum signal strength for basic connectivity. Packet delivery may be unreliable.  
-// -90 dBm Unusable   Approaching or drowning in the noise floor. Any functionality is highly unlikely. 

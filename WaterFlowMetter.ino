@@ -51,7 +51,7 @@ float getSpareHotWater()
 #define COMFORT_TEMPERATURE 40
 uint16_t getSpareComfortWater()
 {
-  if(!isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated))
+  if(!isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated) || GLOBAL.TEMP.lastHeated < COMFORT_TEMPERATURE)
   return 0;
 
   float coldWaterTemparature = 20.0;

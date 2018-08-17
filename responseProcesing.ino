@@ -2,11 +2,11 @@
 #include <ArduinoJson.h>// https://github.com/bblanchon/ArduinoJson
 #include <TimeLib.h>
 
-bool isFileReceivedOk()
+bool isLastSavedServerResponseOk()
 {
-  String inputJsonString = responseText_global;
+  String responseText = getContentOfFile(getLastResponseFileStream("r"));
   DynamicJsonBuffer  jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(inputJsonString);
+  JsonObject& root = jsonBuffer.parseObject(responseText);
   // Test if parsing succeeds and no error.
   return root.success()  && !root[E("dataSavingError")];
 }
@@ -17,10 +17,10 @@ bool doNecesaryActionsUponResponse()
 {
   if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:doNecesaryActionsUponResponse()"));
   
-  String inputJsonString = responseText_global;  
-  DynamicJsonBuffer  jsonBuffer;
+  String responseText = getContentOfFile(getLastResponseFileStream("r"));
 
-  JsonObject& root = jsonBuffer.parseObject(inputJsonString);
+  DynamicJsonBuffer  jsonBuffer;
+  JsonObject& root = jsonBuffer.parseObject(responseText);
 
   // Test if parsing succeeds.
   if (!root.success())
@@ -29,17 +29,19 @@ bool doNecesaryActionsUponResponse()
 
     notParsedHttpResponses_errorCount++; 
     totalErrorCount_global++;
-    if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E("responseText_global: "));
-    if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(responseText_global);
+    if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(E("responseText: "));
+    if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println(responseText);
     if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println();
     if(SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.println((String)notParsedHttpResponses_errorCount + E(" responses not parsed, ") + parsedHttpResponses_notErrorCount + E(" parsed OK!"));
-    if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("NOT Parsed response Text:") + inputJsonString);
+    if(INTERNET_COMMUNICATION_DEBUG) DEBUG_OUTPUT.println(sE("NOT Parsed response Text:") + responseText);
 
     return false;
   }
-  DEBUG_OUTPUT.println(E("responseText_global: "));
-  DEBUG_OUTPUT.println(responseText_global);
-    
+  DEBUG_OUTPUT.println(E("responseText: "));
+  DEBUG_OUTPUT.println(responseText);
+  
+  if(root[E("dataSavingError")])
+    return false;
 
   // Most of the time, you can rely on the implicit casts.
   // In other case, you can do root["time"].as<long>();
@@ -81,7 +83,7 @@ bool doNecesaryActionsUponResponse()
     }
 
     if(resetNode)
-      restartEsp();
+      safelyRestartEsp();
   }
 
   if(GLOBAL.nodeStatusUpdateTime != root[E("nodeStatusUpdateTime")])
@@ -108,13 +110,6 @@ bool doNecesaryActionsUponResponse()
       updateTempSensorAddressByNameFromHexString(sensorName.key, root[E("newSensorAddresses")][sensorName.key]);
     }
     saveTempSensorAddressesToEeprom();
-  }
-
-  if(!root[E("dataSavingError")])
-  {
-    saveReceivedBoilerStateToFile();
-    responseText_global = E("");
-    return true;
   }
 
   return false;

@@ -2,8 +2,6 @@
 ////////////////////////////////////////////////////////
 //BETTER UNDERSTANDING NAMES DEFINITIONS
 ////////////////////////////////////////////////////////
-#define RELEASE_HEATING_RELAY false
-#define PULL_HEATING_RELAY true
 
 const char * const TEMP_CONTROL_STYLE[] =
 {
@@ -20,6 +18,9 @@ void relayBoard_setup()
 
   //tohle tady je aby to neposílalo po restartu heating start, když už heating jede
   GLOBAL.TEMP.heatingState = isElectricityConnected();
+  //OChrana relé před nehchráněným spínáním při naskočení elektřiny
+  if(isElectricityConnected() == false)
+    setHeatingRelayOpen(SET_HEATING_RELAY_CONNECTED);
 
   yield();
 }
@@ -62,7 +63,7 @@ void turnOnBoilerHeating()
   else
   {
     if(isElectricityConnected())
-      setHeatingRelayOpen(RELEASE_HEATING_RELAY);
+      setHeatingRelayOpen(SET_HEATING_RELAY_CONNECTED);
     GLOBAL.TEMP.heatingState = true;
     logNewNodeState(E("Heating: set ON"));
   }
@@ -80,7 +81,7 @@ void turnOffBoilerHeating()
   else
   {
     if(isElectricityConnected())
-      setHeatingRelayOpen(PULL_HEATING_RELAY);
+      setHeatingRelayOpen(SET_HEATING_RELAY_DISCONECTED);
     GLOBAL.TEMP.heatingState = false;
     logNewNodeState(E("Heating: set OFF"));
   }
@@ -149,24 +150,27 @@ bool setHeatingRelayOpen(bool newState)
   digitalWrite(HEATING_SWITCH_ON_SSR_PIN, HIGH);
   
   //check if SSR really works
-  if(isElectricityConnected())
-  {
-    if(isThereCurrentTimeouted(400))
-      digitalWrite(HEATING_SWITCH_OFF_RELAY_PIN, (newState) ? HIGH : LOW);
-    else
-      logNewStateWithEmail(sE("@!!!!FATAL ERROR: SSR: Can't turn ON!"));
-  }
+  if(isElectricityConnected() && isThereCurrentTimeouted(400) == false)
+    logNewStateWithEmail(sE("@!!!!HARDWARE ERROR: SSR: Can't turn ON!"));
+
+  digitalWrite(HEATING_SWITCH_OFF_RELAY_PIN, (newState) ? HIGH : LOW);
 
   delay(500);
   digitalWrite(HEATING_SWITCH_ON_SSR_PIN, LOW);
   delay(100);
 
   //Check success!
-  if(newState == PULL_HEATING_RELAY && isThereElectricCurrent())
+  if(newState == SET_HEATING_RELAY_DISCONECTED && isThereElectricCurrent())
   {
     // kontrola zda neprochází proud po vypnutí ohřevu (SSR or relay FAIL) email + zapnout relé, aby skrz SSR nešlo 10A a nevznítilo se horkem
     setHeatingRelayOpen(false);
-    logNewStateWithEmail(sE("@!!!!FATAL ERROR: Heating relay: Can't turn OFF!"));
+    logNewStateWithEmail(sE("@!!!!HARDWARE ERROR: Heating relay: Can't turn OFF!"));
+    return false;
+  }
+  //Check success!
+  if(newState == SET_HEATING_RELAY_CONNECTED && isElectricityConnected() && isThereElectricCurrent() == false)
+  {
+    logNewStateWithEmail(sE("@!!!!HARDWARE ERROR: Heating relay: Can't turn ON!"));
     return false;
   }
   return true;

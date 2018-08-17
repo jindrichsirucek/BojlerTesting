@@ -56,7 +56,7 @@ void OTA_setup()
       restartEsp(E("OTA Update"));
     });
     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-      if((millis()) % 60 < 20) DEBUG_OUTPUT.printf(cE("Progress: %u%%\r\n"), (progress / (total / 100)));
+      if((millis()) % 500 < 20) DEBUG_OUTPUT.printf(cE("Progress: %u%%\r\n"), (progress / (total / 100)));
     blinkNotificationLed(10); //blink for 10ms
     displayServiceMessage(sE("OTA: ") + (progress / (total / 100)) + E("%"));
     

@@ -4,7 +4,7 @@ void currentAndElectricity_setup()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug(RESET_SPACE_COUNT_DEBUG) + E("F:currentAndElectricity_setup()"));
   displayServiceLine(cE("Init: Current.."));
-  pinMode(CURRENT_SENSOR_PIN, INPUT);
+  // pinMode(CURRENT_SENSOR_PIN, INPUT);
   pinMode(ELECTRICITY_SENSOR_PIN, INPUT_PULLDOWN_16);
   lastElectricCurrentState_global = isThereElectricCurrent();
   lastElectricityConnectedState_global = isElectricityConnected();
@@ -46,7 +46,7 @@ float getActualCurrentValue(int maxAnalogValue)
 
    if(CURRENT_DEBUG) DEBUG_OUTPUT.print(E("\nMeasured analog input: "));
    if(CURRENT_DEBUG) DEBUG_OUTPUT.print(maxAnalogValue);
-   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("/1024"));
+   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(E("/1023"));
    
 
   // Convert the digital data to a voltage
@@ -105,6 +105,11 @@ float getMaxAnalogValue(uint32_t cyclesCount)
     readValue = analogRead(CURRENT_SENSOR_PIN);
     if (readValue > maxValue) 
      maxValue = readValue;
+
+     if(CURRENT_DEBUG && (millis() % 150 == 0)) DEBUG_OUTPUT.print((String)readValue + E(" / "));
+     if(readValue > 1000)
+       logWarningMessage(sE("Analog input measured too high value: ") + readValue);
+   
   }
   return maxValue;
 }
@@ -115,7 +120,7 @@ bool isThereCurrentTimeouted(uint32_t timeout)
   size_t startTime = millis();
   while((millis() - startTime) < timeout)
     if(getActualCurrentValue(getMaxAnalogValue(10)) > CURRENT_TRESHOLD_VALUE)
-      return DEBUG_OUTPUT.print(sE("isThereCurrentTimeouted: neededTime: ") + (millis() - startTime)), true;
+      return DEBUG_OUTPUT.println(sE("isThereCurrentTimeouted: neededTime: ") + (millis() - startTime) + E("ms")), true;
 
   return false;
 }

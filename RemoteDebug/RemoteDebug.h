@@ -42,8 +42,7 @@ class RemoteDebug: public Print
      	String getLastErrorMessage() {_isThereErrorMessage = false; return "";} //if(_lastErrorRepetition > 1) {_lastErrorRepetition = 1; return (_lastErrorWarningMessage + " (" + _lastErrorRepetition + "x)");} else
 
      	bool isThereWarningMessage() {bool returnValue = _isThereWarningMessage; _isThereWarningMessage = false; return returnValue;}
-     	bool isThereErrorMessage() {bool returnValue = _isThereErrorMessage; _isThereErrorMessage = false; return returnValue;;}
-	    // String getLastWarningMessage() {_isThereWarningMessage = false; return getLastErrorMessage();}
+     	bool isThereErrorMessage() {bool returnValue = _isThereErrorMessage; _isThereErrorMessage = false; return returnValue;}
 	
      	File getErrorFile() {return SPIFFS.open(_warningsFileName, ("r"));}
      	bool removeErrorLogFile() {_isThereWarningMessage = false; _isThereErrorMessage = false; return SPIFFS.remove(_warningsFileName);}
@@ -51,21 +50,13 @@ class RemoteDebug: public Print
 //END Oneliners
 
 
-	void setResetCmdEnabled(bool enable);
-	void setHelpProjectsCmds(String help);
-	void setCallBackProjectCmds(void (*callback)());
+     	void setResetCmdEnabled(bool enable);
+     	void setHelpProjectsCmds(String help);
+     	void setCallBackProjectCmds(void (*callback)());
 	
 
 	// Print
-	virtual size_t write(uint8_t);
-
-    // Debug levels
-
-	// static const uint8_t VERBOSE = 0;
-	// static const uint8_t DEBUG = 1;
-	// static const uint8_t INFO = 2;
-	// static const uint8_t WARNING = 3;
-	// static const uint8_t ERROR = 4;
+     	virtual size_t write(uint8_t);
 
 private:
 

@@ -426,7 +426,6 @@
 				"buffer_size": 196398,
 				"line_ending": "Unix",
 				"name": "Find Results",
-				"read_only": true,
 				"scratch": true
 			}
 		},
@@ -434,7 +433,7 @@
 			"file": "/Users/jindra/.platformio/packages/framework-arduinoespressif8266/cores/esp8266/Esp.cpp",
 			"settings":
 			{
-				"buffer_size": 14824,
+				"buffer_size": 14947,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -1058,7 +1057,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -5405,7 +5404,7 @@
 						"translation.y": 2338.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -5414,15 +5413,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14824,
+						"buffer_size": 14947,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13336,
-								13336
+								10775,
+								10775
 							]
 						],
 						"settings":
@@ -5432,10 +5431,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6793.0,
+						"translation.y": 5038.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

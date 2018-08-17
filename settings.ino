@@ -1,24 +1,3 @@
-// int i;          // integer variable 'i'
-// int *p;         // pointer 'p' to an integer
-// int a[];        // array 'a' of integers
-// int f();        // function 'f' with return value of type integer
-// int **pp;       // pointer 'pp' to a pointer to an integer
-// int (*pa)[];    // pointer 'pa' to an array of integer
-// int (*pf)();    // pointer 'pf' to a function with return value integer
-// int *ap[];      // array 'ap' of pointers to an integer
-// int *fp();      // function 'fp' which returns a pointer to an integer
-// int ***ppp;     // pointer 'ppp' to a pointer to a pointer to an integer
-// int (**ppa)[];  // pointer 'ppa' to a pointer to an array of integers
-// int (**ppf)();  // pointer 'ppf' to a pointer to a function with return value of type integer
-// int *(*pap)[];  // pointer 'pap' to an array of pointers to an integer
-// int *(*pfp)();  // pointer 'pfp' to function with return value of type pointer to an integer
-// int **app[];    // array of pointers 'app' that point to pointers to integer values
-// int (*apa[])[]; // array of pointers 'apa' to arrays of integers
-// int (*apf[])(); // array of pointers 'apf' to functions with return values of type integer
-// int ***fpp();   // function 'fpp' which returns a pointer to a pointer to a pointer to an int
-// int (*fpa())[]; // function 'fpa' with return value of a pointer to array of integers
-// int (*fpf())(); // function 'fpf' with return value of a pointer to function which returns an integer
-
 //(\W)GLOBAL.TEMP.sensors(\W) $1GLOBAL.TEMP.sensors$2
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -37,7 +16,7 @@ void runServiceMenuIfNeeded()
   displayServiceLine(cE("Service menu?"));
   displayServiceMessage(E(""));
   uint8_t counter = 10;
-  while(DEBUG_OUTPUT.print(E(".")), delay(100), counter--) // wait for a second to enter service menu
+  while(DEBUG_OUTPUT.print(E(".")), blinkNotificationLed(SHORT_BLINK), delay(80), counter--) // wait for a second to enter service menu
     if(isFlashButtonPressed()) 
       showServiceMenu();
   DEBUG_OUTPUT.println();
@@ -50,14 +29,14 @@ void showServiceMenu()
   turnNotificationLedOn();
 
   DisplayMenu serviceMenu;
-  serviceMenu.addEntry(formatFileSystem_BootMenu, E("FORMAT SPIFFS?"));
-  serviceMenu.addEntry(formatFileSytemWithouBegin_BootMenu, E("FORMAT SPIFFS2?"));
+  serviceMenu.addEntry(formatFileSystem_BootMenu, E("FORMAT FS+begin?"));
+  serviceMenu.addEntry(formatFileSytemWithouBegin_BootMenu, E("FORMAT FS-begin?"));
   serviceMenu.addEntry(printAllSpiffsFiles, E("Print SPIFFS?"));
   serviceMenu.addEntry(resetSavedTempSensorAddresses_BootMenu, E("DEL SENSOR ADDR?"));
   serviceMenu.addEntry(displayRSSI, E("Measure RSSI?"));
   serviceMenu.addEntry(resetAllWifiSettings, E("RESET WIFI SETS?"));
   serviceMenu.addEntry(fullEraseEEPROM, E("DEL FULL EEPROM?"));
-  serviceMenu.addEntry(restartEsp, E("CANCEL?"));
+  serviceMenu.addEntry(safelyRestartEsp, E("CANCEL?"));
 
   DEBUG_OUTPUT.println(E("Press SHORT 'flash' button to move in menu.. \nPress LONG 'flash' button to select.. \nOr press 'reset' button to Cancel operation"));
   
@@ -103,7 +82,9 @@ void showServiceMenu()
 
 void formatFileSytemWithouBegin_BootMenu()
 {
-  SPIFFS.format();
+  DEBUG_OUTPUT.println(E("Formating File System without SPIFFS.begin()"));
+  displayServiceMessage(E("FORMATING FS!"));
+  displayServiceMessage(SPIFFS.format() ? (E("Done!")) : (E("!!!Error ocured")));
 }
 void resetAllWifiSettings()
 {
@@ -116,6 +97,7 @@ void resetAllWifiSettings()
 
 void formatFileSystem_BootMenu()
 {
+  DEBUG_OUTPUT.println(E("Mounting File System.."));
   SPIFFS.begin();
   displayServiceMessage(E("FORMATING FS!"));
   displayServiceMessage(formatSpiffs() ? (E("Done!")) : (E("!!!Error ocured")));
