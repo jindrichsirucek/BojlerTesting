@@ -10,7 +10,6 @@ DallasTemperature DS18B20(&oneWire);
 void runServiceMenuIfNeeded()
 {
   pinMode(FLASH_BUTTON_PIN, INPUT_PULLUP);
-  remoteDebug_setup();
   
   DEBUG_OUTPUT.print(E("Run Service_Menu(?)."));
   displayServiceLine(cE("Service menu?"));
@@ -36,7 +35,7 @@ void showServiceMenu()
   serviceMenu.addEntry(displayRSSI, E("Measure RSSI?"));
   serviceMenu.addEntry(resetAllWifiSettings, E("RESET WIFI SETS?"));
   serviceMenu.addEntry(fullEraseEEPROM, E("DEL FULL EEPROM?"));
-  serviceMenu.addEntry(safelyRestartEsp, E("CANCEL?"));
+  serviceMenu.addEntry(resetESP_BootMenu, E("CANCEL?"));
 
   DEBUG_OUTPUT.println(E("Press SHORT 'flash' button to move in menu.. \nPress LONG 'flash' button to select.. \nOr press 'reset' button to Cancel operation"));
   
@@ -112,6 +111,11 @@ void resetSavedTempSensorAddresses_BootMenu()
   displayServiceMessage(E("Adresses erased"));
 }
 
+void resetESP_BootMenu()
+{
+  displayServiceMessage(E("Reseting"));
+  restartEsp(E("Manual - Boot Menu"));
+}
 
 
 
@@ -165,6 +169,7 @@ void saveTempSensorAddressesToEeprom()
   saveGlobalSettingsStructToEeprom(settingsStruct);
 
   sendQuickEventNotification(E("Settings: New temp addresses saved"));
+
   loadTempSensorAddressesFromEeprom();
 }
 
@@ -290,6 +295,7 @@ EepromSettingsStruct loadGlobalSettingsStructFromEeprom()
 
 void printSettingsStructSavedInEeeprom()
 {
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:printSettingsStructSavedInEeeprom()"));
   EepromSettingsStruct settingsStruct = loadGlobalSettingsStructFromEeprom();
   printSettingsStruct(settingsStruct);
 }

@@ -17,6 +17,7 @@ extern "C" {
   #include "user_interface.h"
 }   
 
+
 #define BM_WDT_SOFTWARE 0
 #define BM_WDT_HARDWARE 1
 #define BM_ESP_RESTART 2
@@ -82,19 +83,19 @@ struct bootflags bootmode_detect(void)
 
 void printResetInfo()
 {
-  rst_info* rinfo = ESP.getResetInfoPtr();
-  DEBUG_OUTPUT.println(sE("Reset reason: ") + (String)rinfo->reason + E(": ") + ESP.getResetReason());
-
-  // if(rinfo->reason == 4)DEBUG_OUTPUT.println("'");
-
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:printResetInfo()"));
+  DEBUG_OUTPUT.println(sE("Reset reason: ") + ESP.getResetReason());
+  DEBUG_OUTPUT.println(sE("Reset info: ") + ESP.getResetInfo());
   
-  DEBUG_OUTPUT.printf(cE("rinfo->reason:   %d\n"), rinfo->reason);
-  DEBUG_OUTPUT.printf(cE("rinfo->exccause: %d\n"), rinfo->exccause);
-  DEBUG_OUTPUT.printf(cE("rinfo->epc1:     %d\n"), rinfo->epc1);
-  DEBUG_OUTPUT.printf(cE("rinfo->epc2:     %d\n"), rinfo->epc2);
-  DEBUG_OUTPUT.printf(cE("rinfo->epc3:     %d\n"), rinfo->epc3);
-  DEBUG_OUTPUT.printf(cE("rinfo->excvaddr: %d\n"), rinfo->excvaddr);
-  DEBUG_OUTPUT.printf(cE("rinfo->depc:     %d\n"), rinfo->depc);
+  // rst_info* rinfo = ESP.getResetInfoPtr();
+  // if(rinfo->reason == 4)DEBUG_OUTPUT.println("'");
+  // DEBUG_OUTPUT.printf(cE("rinfo->reason:   %d\n"), rinfo->reason);
+  // DEBUG_OUTPUT.printf(cE("rinfo->exccause: %d\n"), rinfo->exccause);
+  // DEBUG_OUTPUT.printf(cE("rinfo->epc1:     %d\n"), rinfo->epc1);
+  // DEBUG_OUTPUT.printf(cE("rinfo->epc2:     %d\n"), rinfo->epc2);
+  // DEBUG_OUTPUT.printf(cE("rinfo->epc3:     %d\n"), rinfo->epc3);
+  // DEBUG_OUTPUT.printf(cE("rinfo->excvaddr: %d\n"), rinfo->excvaddr);
+  // DEBUG_OUTPUT.printf(cE("rinfo->depc:     %d\n"), rinfo->depc);
 
   struct bootflags bflags = bootmode_detect();
 
@@ -108,7 +109,9 @@ void printResetInfo()
   DEBUG_OUTPUT.printf(cE("bootflags.bootdevice_flash: %d\n"), bflags.bootdevice_flash);
   DEBUG_OUTPUT.println();
 
-  if (bflags.raw_bootdevice == 1) {
+
+  if (bflags.raw_bootdevice == 1) 
+  {
     DEBUG_OUTPUT.println(E("The sketch has just been uploaded over the serial link to the ESP8266"));
     DEBUG_OUTPUT.println(E("Beware: the device will freeze after it reboots in the following step."));
     DEBUG_OUTPUT.println(E("It will be necessary to manually reset the device or to power cycle it"));
@@ -188,13 +191,19 @@ bool isESPLastResetReasonException()
 
 void remoteDebug_setup()
 {
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:remoteDebug_setup()"));
+  Serial.println("1");
   RemoteDebug.setLogFileEnabled(true);
-  RemoteDebug.setSerialEnabled(true);
+  Serial.println("2");
   RemoteDebug.begin(cE("Telnet_HostName")); // Initiaze the telnet server
-  RemoteDebug.setResetCmdEnabled(true); // Enable the reset command
+  Serial.println("3");
+  Serial.println("4");
   RemoteDebug.setCallBackProjectCmds(checkSystemState_loop);
+  Serial.println("5");
   RemoteDebug.setHelpProjectsCmds(cE("Type R to update from Server"));
+  Serial.println("6");
   RemoteDebug.handle();
+  Serial.println("7");
 }
 
 
@@ -226,9 +235,11 @@ String getUpTimeDebug()
   GLOBAL.spaceCountDebug++;
   String debuggerSpaces = E("");
   for(int i=0; i<GLOBAL.spaceCountDebug; i++)
-    debuggerSpaces += cE(">");
+    debuggerSpaces += E(">");
+    String millisString = sE("00") + (millis()%1000);
+    millisString = sE(".") + millisString.substring(millisString.length()-3);
   //SYMBOLS: http://www.fileformat.info/info/charset/UTF-8/list.htm?start=3072
-  return (String)((WiFi.status() == WL_CONNECTED)? "Ψ - " : "⚠ - ") + getUpTime() + cE(" (") + millis() + cE("ms) (") + ESP.getFreeHeap() + cE(")") + debuggerSpaces;
+  return (String)((WiFi.status() == WL_CONNECTED)? E("Ψ - ") : E("⚠ - ")) + getUpTime() + millisString + E(" (") + ESP.getFreeHeap() + E(")") + debuggerSpaces;
 }
 
 
@@ -270,17 +281,13 @@ void restartEsp(String reason)
   flushTemporaryStringNodeStateIntoCsvFile();
   RemoteDebug.handle();
   yield_debug();
-  safelyRestartEsp();
-}
-
-void safelyRestartEsp()
-{
   digitalWrite(0, HIGH);//When gpio0 used as output, need to by high before reseting ESP
   setHeatingRelayOpen(SET_HEATING_RELAY_CONNECTED); //Release relay pin to avoid switching big currents during/after restart
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("Restarting.."));
+  if(MAIN_DEBUG) Serial.println(E("Restarting.."));
   
   ESP.restart(); //https://github.com/esp8266/Arduino/issues/1722 // ESP.reset() and ESP.restart()?
 }
+
 
 bool sendDebugInformationsAfterReset()
 {

@@ -21,7 +21,6 @@ void OTA_loop(int)
 void silentOTA_loop(int)
 {
   #if OTA_MODULE_ENABLED
-    blinkNotificationLed(20); //Blink to show modulle is in order working
     ArduinoOTA.handle();
   #endif
 }

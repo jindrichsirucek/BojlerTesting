@@ -65,17 +65,17 @@ private:
 	String _hostName = "";					// Host name
 
 	bool _connected = false;				// Client is connected ?
-	bool _serialEnabled = false;			// Send to serial too (not recommended)
+	bool _serialEnabled = true;			// Send to serial too (not recommended)
 
 	
-	bool _logingToFileEnabled = false;
+	bool _logingToFileEnabled = true;
 	const char* _loggingFileName = ("/debugLog_");
 	const char* _warningsFileName = ("/err.log");
 	bool _logingFileFirstOrSecond = 0;
 	bool _isThereErrorMessage = false;
 	bool _isThereWarningMessage = false;
 
-	bool _resetCommandEnabled = false;	// Command in telnet to reset ESP8266
+	bool _resetCommandEnabled = true;	// Command in telnet to reset ESP8266
 
 	bool _newLine = true;				// New line write ?
 

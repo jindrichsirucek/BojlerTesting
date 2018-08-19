@@ -58,7 +58,7 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 // A0 - A0   |   A0 - IN  -  Current sensor
 //  0 - D3   |   D0 - 16  -  Electricity sensor
 //  1 - D10  |   D1 - 5   -  I2C SDA
-//  2 - D4   |   D2 - 4   -  I2C SCL
+//  2 - D4   |   D2 - 4   -  I2C SCLř
 //  3 - D9   |   D3 - 0   -  IN - FLASH button
 //  4 - D2   |   D4 - 2   -  LED pin
 //  5 - D1   |   D5 - 14  -  
@@ -117,7 +117,7 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 #define DISPLAY_DEBUG false
 #define TEMPERATURE_DEBUG false
 #define RELAY_DEBUG false
-#define CURRENT_DEBUG !false
+#define CURRENT_DEBUG false
 #define WATER_FLOW_DEBUG false
 #define SPIFFS_DEBUG false
 
@@ -152,7 +152,9 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 //SAFETY MAX and MIN SETTINGS
 ////////////////////////////////////////////////////////
 #define MAXIM_FILE_LOG_SIZE maxSizeToSend_global
-#define OSWATCH_RESET_TIME 300 //in secconds
+#define OSWATCH_RESET_TIME 2*MIN //minutesa
+
+#define SPIFFS_SINGLETON true
 
 ////////////////////////////////////////////////////////
 //DEVELOPMENT SETTINGS
@@ -271,7 +273,7 @@ struct GlobalStruct {
     uint16_t stepDuration;
   } ANIMATION;
 
-  unsigned long nodeStatusUpdateTime = 60 * 60 * 1000; //60 * 60 * 1000 = 1 hour
+  size_t nodeStatusUpdateTime = 1*HOUR; //60 * 60 * 1000 = 1 hour
   bool connectToLastRememberedWifi = true;
 
   uint16_t lastFreeHeap = 0;
@@ -310,7 +312,7 @@ uint8_t displayRotationPosition_global = 0;
 ////////////////////////////////////////////////////////
 //DEBUGING VARIABLES and SETTINGS
 ////////////////////////////////////////////////////////
-static unsigned long lastWdtLoopTime_global;
+static size_t lastWdtLoopTime_global;
 
 uint16_t notParsedHttpResponses_errorCount = 0;
 uint16_t parsedHttpResponses_notErrorCount = 0;
@@ -338,6 +340,17 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println(sE("\n\nStarted Serial, free ram: ") + (GLOBAL.lastFreeHeap = ESP.getFreeHeap()));
+  ////////////////////////
+  // LOOP WATCHDOG
+  ////////////////////////
+  lastWdtLoopTime_global = millis();
+  //Loop watchdog attaching interrupt
+  tickerOSWatch.attach_ms((OSWATCH_RESET_TIME), osWatch);
+  
+  ////////////////////////
+  // BASIC MODULES SETUP 
+  ////////////////////////
+
   lastNodeStateTempString_global.reserve(200);
   
   if(DISPLAY_MODULE_ENABLED) 
@@ -351,7 +364,7 @@ void setup()
 
   printSettingsStructSavedInEeeprom();
   printResetInfo();
-
+  blinkNotificationLed(SHORT_BLINK); //Blink to show modulle is in order working
   ////////////////////////
   // BUSES & SENSORS & CONTROLS INITIALIZATION
   ////////////////////////
@@ -360,14 +373,8 @@ void setup()
   if(WATER_FLOW_MODULE_ENABLED)      waterFlowSensor_setup();
   if(CURRENT_MODULE_ENABLED)         currentAndElectricity_setup();
   if(HEATING_CONTROL_MODULE_ENABLED) relayBoard_setup();
-
-  ////////////////////////
-  // LOOP WATCHDOG
-  ////////////////////////
-  lastWdtLoopTime_global = millis();
-  //Loop watchdog attaching interrupt
-  tickerOSWatch.attach_ms(((OSWATCH_RESET_TIME) * 1000), osWatch);
   
+  blinkNotificationLed(SHORT_BLINK); //Blink to show modulle is in order working
   ////////////////////////
   // WIFI, DEBUG, TELNET
   ////////////////////////
@@ -375,6 +382,7 @@ void setup()
     if(autoWifiConnect())
       logNewNodeState(sE("WiFi: connected to: ") + WiFi.SSID() + E(" (")+ WiFi.RSSI()+ E("dBm)"));
 
+  blinkNotificationLed(SHORT_BLINK); //Blink to show modulle is in order working    
   ////////////////////////
   // BOOTING SEQUENCE
   ////////////////////////
@@ -406,7 +414,10 @@ void setup()
     }
     else
       logNewNodeState(E("settings file NOT loaded from EEPROM"));
+
   }
+
+  blinkNotificationLed(SHORT_BLINK); //Blink to show modulle is in order working
 
   if(!isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated))
     setLastHeatedTemp(GLOBAL.TEMP.sensors[BOJLER].temp);
@@ -430,7 +441,7 @@ void loop()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("\nF:MAIN_loop()"));
   //---------------------------------- NON-SKIPABLE TASKS ------------------------------------------
-  if(true)                          tasker.setInterval(feedWatchDog_taskerLoop, 1*SEC, TASKER_SKIP_NEVER);
+  if(true)                          tasker.setInterval(feedWatchDog_taskerLoop, 0.5*SEC, TASKER_SKIP_NEVER);
   if(UPLOADING_DATA_MODULE_ENABLED) tasker.setInterval(uploadLogFile_loop, 0*MIN + 10*SEC, TASKER_SKIP_NEVER);
   if(OTA_MODULE_ENABLED)            tasker.setInterval(silentOTA_loop,  500*MSEC, TASKER_SKIP_NEVER);
   if(DISPLAY_MODULE_ENABLED)        tasker.setInterval(displayData_loop, 1*SEC, TASKER_SKIP_NEVER);
@@ -496,6 +507,7 @@ void outroTask_loop()
 
     logNewNodeState(E("TEST: Water started"));
   }
+
 
   //Free heap check // if changed more the 2kB
   if((ESP.getFreeHeap()+2000) < GLOBAL.lastFreeHeap)
@@ -588,6 +600,15 @@ void setPendingEventToSend(bool isThereEventToSend)
 //Udělat měření zda teče voda tak, že se hodí do ISR funkce global flag, případně se porovná poslední ISR s aktuálním ISR aby se vědělo zda od posledně tekla voda, udělat to přes flag, protože se pak ten flag může použít jako identifikátor události onWaterStarted/Stoped
 //Vyřešit klidový odběr 2,231A a celkově odběr proudu,a by to bylo přesně, když to je v krabičce nebo prostě v reálném stavu
 //Udělat měření napětí na baterii - přes střídání připjeného měřidla ADC current a napětí..
+//Pipe temp rise propojit s nárustem za čas - tím se vyřeší aby se nelogovalo postupné zvyšování teploty tím že voda stojí v potrubí a ohřívá se vzducehm, průtok vody to ohřeje vždy skokově
+//V google aps scriptu udělat aby se aktualizace v události v mém soukromém kalendáři promítly do už vytvořené kopie v temp kalendáři, např když smažu u sebe událost +10°C aby se to smazalo i z temp kalendáře
+//Udělat přerušení, které zkontroluje, že pokud se systém není schopnej sám nabootovat do 5ti min do loop část, tak to zformatuje spiffs - self recover
+//SPIFFS let the log file open and only FLUSH() Test power loose after flush, if its saved really fhttps://github.com/pellepl/spiffs/wiki/Performance-and-Optimizing
+//Logování chyb a warningů udělat váhradně přes logovací funkce, které budou hlídat opakování chyb - aby neposílaly pořád tu stejnou chybu, když se vyskytuje opakovaně
+//Zrušit ty vykřičníky z remoteDebugu
+//Chyby a warningy nedjřív ukládat do mezistavu, ale odesílat až v normálním rutinním kolečku - aby se nestalo, že se node snaží odeslat chybu hluboko zanořenej ve stakcku  předchozího volání (kvůli ramce a stabilitě systému)
+//RemoteDebug.printf_P(PSTR("adfsdf"),1);
+//Current coeficient se načítá z příslušné google tabulky a ukládá se do eeprom, stejná metoda jako změna adres tepltních čidel
 
 
 
@@ -761,17 +782,22 @@ void checkSystemState_loop(int)
 ///////////////////////////////////////////
 void feedWatchDog_taskerLoop(int)
 {
+  blinkNotificationLed(SHORT_BLINK); //Blink to show modulle is in order working
   lastWdtLoopTime_global = millis();
 }
 
 void ICACHE_RAM_ATTR osWatch(void) 
 {
-  unsigned long t = millis();
-  unsigned long last_run = abs(t - lastWdtLoopTime_global);
-  if(last_run >= (OSWATCH_RESET_TIME * 1000))
+  size_t t = millis();
+  size_t last_run = abs(t - lastWdtLoopTime_global);
+  if(last_run >= OSWATCH_RESET_TIME)
    {
-    ERROR_OUTPUT.println(sE("\n\n!!!Error: Loop WDT reset! at: ") + millis());
-    safelyRestartEsp(); 
+    digitalWrite(0, HIGH);//When gpio0 used as output, need to by high before reseting ESP
+    digitalWrite(HEATING_SWITCH_ON_SSR_PIN, HIGH); delay(200);
+    digitalWrite(HEATING_SWITCH_OFF_RELAY_PIN, LOW); delay(100);
+    digitalWrite(HEATING_SWITCH_ON_SSR_PIN, LOW); delay(100);
+    if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("\n\n!!!Error: Loop WDT reset! at: ") + millis());
+    ESP.restart(); //https://github.com/esp8266/Arduino/issues/1722 // ESP.reset() and ESP.restart()?
   }
 }
   

@@ -250,9 +250,9 @@ size_t RemoteDebug::write(uint8_t character)
                  if(i == 1)
                  {
                    _isThereWarningMessage = true;
-                   bufferPrint.replace(F("!!"),F(""));
-                   bufferPrint.replace(F("\n"),F(""));
-                   bufferPrint.replace(F("\r"),F(""));
+                   bufferPrint.replace(F("!!"),"");
+                   bufferPrint.replace(F("\n"),"");
+                   bufferPrint.replace(F("\r"),"");
                    
                    File errorFile = SPIFFS.open(_warningsFileName, ("a"));
                    if(errorFile.size() < 5000)

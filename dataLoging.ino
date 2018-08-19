@@ -175,15 +175,11 @@ bool logWarningMessage(String warningTypeString, String warningDetailString)
   // Serial.println(lastWarningMessage);
 
   if(strcmp(newWarningMessage, lastWarningMessage) == 0)
-  {
-    warningTypeString.concat(warningDetailString);
-    warningTypeString.concat(E(" : "));
-    return DEBUG_OUTPUT.println(sE("Repeated warning message: ") + warningTypeString), false;
-  }
+    return DEBUG_OUTPUT.println(sE("Repeated warning message: ") + warningTypeString + E(" : ") + warningDetailString), false;
 
-  warningTypeString.toCharArray(lastWarningMessage, 100);  
+  warningTypeString.toCharArray(lastWarningMessage, 100);
 
-  return logWarningMessage(warningTypeString);
+  return logWarningMessage(warningTypeString + E(" : ") + warningDetailString);
 }
 
 bool logWarningMessage(String fireEventName)

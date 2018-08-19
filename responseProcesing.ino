@@ -83,7 +83,7 @@ bool doNecesaryActionsUponResponse()
     }
 
     if(resetNode)
-      safelyRestartEsp();
+      restartEsp(E("onResponse Demand"));
   }
 
   if(GLOBAL.nodeStatusUpdateTime != root[E("nodeStatusUpdateTime")])
