@@ -28,10 +28,10 @@ void showServiceMenu()
   turnNotificationLedOn();
 
   DisplayMenu serviceMenu;
+  serviceMenu.addEntry(resetSavedTempSensorAddresses_BootMenu, E("DEL SENSOR ADDR?"));
   serviceMenu.addEntry(formatFileSystem_BootMenu, E("FORMAT FS+begin?"));
   serviceMenu.addEntry(formatFileSytemWithouBegin_BootMenu, E("FORMAT FS-begin?"));
   serviceMenu.addEntry(printAllSpiffsFiles, E("Print SPIFFS?"));
-  serviceMenu.addEntry(resetSavedTempSensorAddresses_BootMenu, E("DEL SENSOR ADDR?"));
   serviceMenu.addEntry(displayRSSI, E("Measure RSSI?"));
   serviceMenu.addEntry(resetAllWifiSettings, E("RESET WIFI SETS?"));
   serviceMenu.addEntry(fullEraseEEPROM, E("DEL FULL EEPROM?"));
@@ -105,10 +105,67 @@ void formatFileSystem_BootMenu()
 void resetSavedTempSensorAddresses_BootMenu()
 {
   oneWireBus_setup();
+  SPIFFS.begin();
   displayServiceMessage(E("RESETING TEMP"));
   delay(1500); //to show message
   resetSavedTempSensorAddresses();
   displayServiceMessage(E("Adresses erased"));
+
+  const uint8_t tempSensorsCount = DS18B20.getDS18Count();
+  uint8_t temporaryAddress[8] = {0};
+  uint8_t actualSensorIndexWaitingToBeSet = 0;
+
+  while(actualSensorIndexWaitingToBeSet < (tempSensorsCount-1)) //Its enough set only n-1 the last one is set by the proces itself
+  {
+    for(uint8_t sensorIndex = 0; true; sensorIndex++)
+    {
+      sensorIndex = sensorIndex % tempSensorsCount;
+      if(sensorIndex == 0)
+      {
+        delay(1000);
+        DS18B20.requestTemperatures();
+        DEBUG_OUTPUT.println(sE("\nSensor waiting to be set: '") + GLOBAL.TEMP.sensors[actualSensorIndexWaitingToBeSet].sensorName + E("'"));
+        feedWatchDog_taskerLoop(0);
+      }
+      // if(GLOBAL.TEMP.sensors[sensorIndex].sensorConnected)
+      {
+        DEBUG_OUTPUT.print((String)sensorIndex + E(": "));
+        float currentTempSampleValue = DS18B20.getTempC(GLOBAL.TEMP.sensors[sensorIndex].address);
+        if(isTemperatureCorrectMeasurment(currentTempSampleValue))
+        {
+          DEBUG_OUTPUT.println((String)GLOBAL.TEMP.sensors[sensorIndex].sensorName + E(": ") + currentTempSampleValue + E("°C "));
+          if(sensorIndex >= actualSensorIndexWaitingToBeSet && isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[sensorIndex].lastTemp) && (currentTempSampleValue - GLOBAL.TEMP.sensors[sensorIndex].lastTemp) > 1)
+          {
+            //Swaps addresses
+            copyTempSensorAddress(GLOBAL.TEMP.sensors[actualSensorIndexWaitingToBeSet].address, temporaryAddress);
+            copyTempSensorAddress(GLOBAL.TEMP.sensors[sensorIndex].address, GLOBAL.TEMP.sensors[actualSensorIndexWaitingToBeSet].address);
+            copyTempSensorAddress(temporaryAddress, GLOBAL.TEMP.sensors[sensorIndex].address);
+
+            float tempTemp = GLOBAL.TEMP.sensors[actualSensorIndexWaitingToBeSet].lastTemp;
+            GLOBAL.TEMP.sensors[actualSensorIndexWaitingToBeSet].lastTemp = GLOBAL.TEMP.sensors[sensorIndex].lastTemp;
+            GLOBAL.TEMP.sensors[sensorIndex].lastTemp = tempTemp;
+            
+            DEBUG_OUTPUT.println(sE("new address saved for sensor: ") + GLOBAL.TEMP.sensors[actualSensorIndexWaitingToBeSet].sensorName);
+            blinkNotificationLed(SHORT_BLINK); delay(20);blinkNotificationLed(SHORT_BLINK); delay(20);blinkNotificationLed(SHORT_BLINK); delay(20);
+            actualSensorIndexWaitingToBeSet++;
+            break; //for
+          }
+        }
+        if(isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[sensorIndex].lastTemp) == false && isTemperatureCorrectMeasurment(currentTempSampleValue))
+          GLOBAL.TEMP.sensors[sensorIndex].lastTemp = currentTempSampleValue;
+      }
+    }
+    DEBUG_OUTPUT.println();
+  }
+  DEBUG_OUTPUT.println(sE("All sensor addresses are set.. Saving to eeprom.."));
+  saveTempSensorAddressesToEeprom();
+}
+
+void copyTempSensorAddress(uint8_t source[], uint8_t dest[])
+{
+  //Copy device address
+  for(uint8_t i = 0; i < 8; i++)
+    dest[i] = source[i];
 }
 
 void resetESP_BootMenu()
@@ -168,7 +225,7 @@ void saveTempSensorAddressesToEeprom()
   
   saveGlobalSettingsStructToEeprom(settingsStruct);
 
-  sendQuickEventNotification(E("Settings: New temp addresses saved"));
+  logNewNodeState(E("Settings: New temp addresses saved"));
 
   loadTempSensorAddressesFromEeprom();
 }

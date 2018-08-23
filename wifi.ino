@@ -110,9 +110,11 @@ bool wifiConnectBySavedCredentials()
     }
     if(WIFI_DEBUG) DEBUG_OUTPUT.println();
   }
-  ERROR_OUTPUT.print(E("!!!Error: Could not connect to any WiFi network("));
-  for (int i = 0; i < n; i++) ERROR_OUTPUT.print((String)WiFi.SSID(sortedByRSSI[i])+ "(" +WiFi.RSSI(sortedByRSSI[i])+ ")"+ ", ");
-  ERROR_OUTPUT.println(E(")!"));
+  String foundNetworks = sE("(");
+  for (int i = 0; i < n; i++) foundNetworks += ((String)WiFi.SSID(sortedByRSSI[i])+ "(" +WiFi.RSSI(sortedByRSSI[i])+ ")"+ ", ");
+  foundNetworks += E(")!");
+  logWarningMessage(E("!!!Error: Could not connect to any WiFi network"), foundNetworks);
+
   return false;
 }
 
@@ -125,7 +127,7 @@ bool wifiConnectToLastNetwork()
   if(MAIN_DEBUG) DEBUG_OUTPUT.print(sE("WiFi: trying to connect to last network:\n") + WiFi.SSID());
   //Set static address saved in eeprom from last time, it should be faster than DHCP
   EepromSettingsStruct settingsStruct = loadGlobalSettingsStructFromEeprom();
-  if(false && settingsStruct.wifi.initialized && (WiFi.SSID() == (String)settingsStruct.wifi.ssid))
+  if(settingsStruct.wifi.initialized && (WiFi.SSID() == (String)settingsStruct.wifi.ssid))
   {
     WiFi.config(settingsStruct.wifi.ipAddress, settingsStruct.wifi.gatewayAddress, settingsStruct.wifi.maskAddress);
     if(MAIN_DEBUG) DEBUG_OUTPUT.print(sE(" (Static IP from EEPROM: ") + settingsStruct.wifi.ipAddress.toString() + E(")"));
@@ -160,26 +162,43 @@ bool wifiConnectToLastNetwork()
 void turnWifiOn()
 {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("WiFi Radio: Turning ON"));
-    yield_debug();
-    wifi_fpm_do_wakeup();
-    wifi_fpm_close();
-    wifi_set_opmode(STATION_MODE);
-    wifi_station_connect();
-    yield_debug();
+    // yield_debug();
+    // wifi_fpm_do_wakeup();
+    // wifi_fpm_close();
+    // wifi_set_opmode(STATION_MODE);
+    // wifi_station_connect();
+    // yield_debug();
+    
+
+
+    WiFi.forceSleepWake();
+    delay(1);
+
+    WiFi.persistent( false );
+    // Bring up the WiFi connection
+    WiFi.mode(WIFI_STA);
+    // WiFi.begin(WLAN_SSID, WLAN_PASSWD);
 }
 
 #define FPM_SLEEP_MAX_TIME 0xFFFFFFF
 void turnWifiOff() 
 {
     if(MAIN_DEBUG) DEBUG_OUTPUT.println(E("WiFi Radio: Turning OFF"));
-    yield_debug();
-    // client.disconnect();
-    wifi_station_disconnect();
-    wifi_set_opmode(NULL_MODE);
-    wifi_set_sleep_type(MODEM_SLEEP_T);
-    wifi_fpm_open();
-    wifi_fpm_do_sleep(FPM_SLEEP_MAX_TIME);
-    yield_debug();
+
+    // yield_debug();
+    // // client.disconnect();
+    // wifi_station_disconnect();
+    // wifi_set_opmode(NULL_MODE);
+    // wifi_set_sleep_type(MODEM_SLEEP_T);
+    // wifi_fpm_open();
+    // wifi_fpm_do_sleep(FPM_SLEEP_MAX_TIME);
+    // yield_debug();
+
+    WiFi.disconnect(); 
+    delay(1000);
+    WiFi.mode(WIFI_OFF);
+    WiFi.forceSleepBegin();
+    delay(100);
 }
 
 

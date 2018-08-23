@@ -108,6 +108,8 @@ bool spiffsConsistencyCheck()
       // Serial.println(sE("length: ") + loadedChar.length());
       if(loadedChar.length() >= 1)
       {
+        if(SPIFFS_DEBUG == false)
+          loadedChar = "";
         Serial.println((String)f.name() + E(" - size: ") + f.size() + E(" - OK") + E(" (") + loadedChar + E(")"));
       }
       else

@@ -5,7 +5,7 @@ HTTPSRedirect client;
 
 bool uploadLogFile(File fileToSent)
 {
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:uploadLogFile(File fileToSent) :") + fileToSent.name());
+  if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:uploadLogFile(File fileToSent): '") + fileToSent.name() + E("'"));
   
   getLastResponseFileStream("w").close(); //Deletes last response
   

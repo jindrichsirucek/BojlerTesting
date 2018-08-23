@@ -159,9 +159,9 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 ////////////////////////////////////////////////////////
 //DEVELOPMENT SETTINGS
 ////////////////////////////////////////////////////////
-#define DOMA_MODULE "" //Comment when working on home 
+// #define DOMA_MODULE "" //Comment when working on home 
 // #define TEST_MODULE "" //Comment when working on home 
-// #define PRODUCTION_MODULE "" //Comment when working on home 
+#define PRODUCTION_MODULE "" //Comment when working on home 
 
 #ifdef TEST_MODULE
   #define NODE_NAME "Testing"
@@ -187,15 +187,19 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 #endif
 
 #ifdef PRODUCTION_MODULE
-  #define NODE_NAME "Daniel"
-  #define WIFI_RADIO_OFF false
+  #undef OTA_MODULE_ENABLED
+  #undef SPIFFS_DEBUG
+  #undef HEATING_CONTROL_MODULE_ENABLED
+  #undef WIFI_RADIO_OFF
+
+  #define NODE_NAME "DanielTest"
+  #define WIFI_RADIO_OFF true
   #define DISPLAY_LOG_MESSAGES true
   #define QUICK_DEVELOPMENT_BOOT false
   #define DEBUG_OUTPUT RemoteDebug
-  #undef OTA_MODULE_ENABLED
-  #define OTA_MODULE_ENABLED false
-  #undef SPIFFS_DEBUG
+  #define OTA_MODULE_ENABLED !false
   #define SPIFFS_DEBUG false
+  #define HEATING_CONTROL_MODULE_ENABLED false
 #endif
 
 #define ERROR_OUTPUT DEBUG_OUTPUT
@@ -400,6 +404,8 @@ void setup()
     if(sendAllLogFiles())
       doNecesaryActionsUponResponse();
 
+    blinkNotificationLed(SHORT_BLINK); //Blink to show modulle is in order working
+
     //Automatic check new FW Update
     if(QUICK_DEVELOPMENT_BOOT == false)
       checkUpdatesFromHttpServer();
@@ -504,8 +510,8 @@ void outroTask_loop()
     uint8_t number = 100;
     while(number--)
       ISR_flowCount();
-
-    logNewNodeState(E("TEST: Water started"));
+    if(millis() % 1000 < 50)
+      logNewNodeState(E("TEST: Water started"));
   }
 
 
@@ -609,6 +615,13 @@ void setPendingEventToSend(bool isThereEventToSend)
 //Chyby a warningy nedjřív ukládat do mezistavu, ale odesílat až v normálním rutinním kolečku - aby se nestalo, že se node snaží odeslat chybu hluboko zanořenej ve stakcku  předchozího volání (kvůli ramce a stabilitě systému)
 //RemoteDebug.printf_P(PSTR("adfsdf"),1);
 //Current coeficient se načítá z příslušné google tabulky a ukládá se do eeprom, stejná metoda jako změna adres tepltních čidel
+//U error logErrorMessage() logu udělat že se při dalším běhu pošle včetně backlogu u warningu se pošle jako normální událost bez backlogu
+//Spiffs checkup spojit s výpisem souborů
+//Udělat timeoout v spojení se s serverem v httpsRedirectu hlavně při čekání na odpověď
+//Zařídit, aby se response nezpracovávala jako součást odeslání packetu, ale aby se zpraovávalva jako task (možná jako outro taks kontrola zda tam je response?)
+//Udělat nastavovací sekvenci adres jednotlivých čidel
+//update time uložit do eeprom
+
 
 
 

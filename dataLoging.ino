@@ -475,7 +475,7 @@ File getLastResponseFileStream(const char* fileMode)
 ////////////////////////////////////////////////////////
 String getContentOfFile(File f)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:getContentOfFile(File f): ") + f.name());
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:getContentOfFile(File f): '") + f.name() + E("'"));
   
   String fileContent = E("");
   while(f.available())

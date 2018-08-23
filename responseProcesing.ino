@@ -89,7 +89,7 @@ bool doNecesaryActionsUponResponse()
   if(GLOBAL.nodeStatusUpdateTime != root[E("nodeStatusUpdateTime")])
   {
     GLOBAL.nodeStatusUpdateTime = root[E("nodeStatusUpdateTime")];
-    logNewNodeState(sE("Settings: update Time changed to:") + GLOBAL.nodeStatusUpdateTime);
+    logNewNodeState(sE("Settings: update Time changed to: ") + GLOBAL.nodeStatusUpdateTime/MIN + E("min"));
   }
 
   if (heatingControl == E("ARDUINO") && getTempControleStyleStringName() != E("ARDUINO"))

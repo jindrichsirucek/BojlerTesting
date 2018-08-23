@@ -61,15 +61,27 @@ void synchronizeTimeByResponse(String &syncTime)
 
 String getUpTime()
 {
-  return formatTimeToString(millis());
+  return formatTimeToString(millis(), false);
 }
-
 
 String formatTimeToString(uint32_t timeInMilliseconds)
 {
-  byte hoursFromLastSend = timeInMilliseconds / 1000 / 60 / 60;
-  byte minutesFromLastSend = timeInMilliseconds / 1000 / 60 - hoursFromLastSend * 60;
-  byte secondsFromLastSend = timeInMilliseconds / 1000 - minutesFromLastSend * 60 - hoursFromLastSend * 60 * 60;
+  return formatTimeToString(timeInMilliseconds, true);
+}
 
-  return ((hoursFromLastSend <10 ) ? "0" : "") + (String)hoursFromLastSend + ":" + ((minutesFromLastSend <10 ) ? "0" : "") + (String)minutesFromLastSend + ":" + ((secondsFromLastSend <10 ) ? "0" : "") + (String)secondsFromLastSend;
+String formatTimeToString(uint32_t timeInMilliseconds, bool withSeconds)
+{
+  uint8_t days = 0;
+  if(!withSeconds)
+    days = timeInMilliseconds / 1000 / 60 / 60 / 24;
+
+  uint8_t hours = timeInMilliseconds / 1000 / 60 / 60 - days * 24;
+  uint8_t minutes = timeInMilliseconds / 1000 / 60 - hours * 60;
+  uint8_t seconds = timeInMilliseconds / 1000 - minutes * 60 - hours * 60 * 60;
+  String separator = F(":");
+  String leadingZeroSymbol = F("0");
+  if(withSeconds)
+    return ((hours <10 ) ? leadingZeroSymbol : "") + (String)hours + separator + ((minutes <10 ) ? leadingZeroSymbol : "") + (String)minutes + separator + ((seconds <10 ) ? leadingZeroSymbol : "") + (String)seconds;
+  else
+    return (String)days + F("d") + hours + F("h") + minutes + F("m");
 }
