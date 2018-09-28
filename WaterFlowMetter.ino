@@ -49,15 +49,16 @@ float getSpareHotWater()
 }
 
 #define COMFORT_TEMPERATURE 40
-uint16_t getSpareComfortWater()
+int16_t getSpareComfortWater()
 {
   if(!isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated) || GLOBAL.TEMP.lastHeated < COMFORT_TEMPERATURE)
   return 0;
 
   float coldWaterTemparature = 20.0;
   float hotWaterLitres = getSpareHotWater();
-  uint16_t result;
+  int16_t result;
 
+  // Základní vzorec: (32litrů teplé) (46.8°C - x) = (10litrů studené) (x - teplota Studené 14.9°C)
   result = (hotWaterLitres * (GLOBAL.TEMP.lastHeated - COMFORT_TEMPERATURE) / (COMFORT_TEMPERATURE - coldWaterTemparature)) + hotWaterLitres;
   return result;
 }
@@ -68,26 +69,6 @@ void ICACHE_RAM_ATTR ISR_flowCount()                  // Interrupt function
   waterFlowSensorCount_ISR_global++;
 }
 
-/*
-void disableInterupts()                  // Interrupt function
-{
-  detachInterrupt(digitalPinToInterrupt(WATER_FLOW_SENSOR_PIN));
-  detachedTime_global = millis();
-}
-
-void enableInterupts()                  // Interrupt function
-{
-  unsigned long timeDiff = millis() - detachedTime_global;
-
-  unsigned long odPoslednihoRestartuPocitadlaUbehlo = millis() - lastWaterFlowResetTime_global;
-  float prumernyPocetPulsuZaMilisekundu = odPoslednihoRestartuPocitadlaUbehlo / lastWaterFlowSensorCount_global;
-
-  //waterFlowSensorCount_ISR_global += timeDiff * prumernyPocetPulsuZaMilisekundu;
-  attachInterrupt(digitalPinToInterrupt(WATER_FLOW_SENSOR_PIN), ISR_flowCount, RISING); // Setup Interrupt  // see http://arduino.cc/en/Reference/attachInterrupt  
-
-}
-
-*/
 
 bool isWaterFlowingRightNow()
 {//isWaterFlowingFlag_global;

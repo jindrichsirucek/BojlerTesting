@@ -192,18 +192,11 @@ bool isESPLastResetReasonException()
 void remoteDebug_setup()
 {
   if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:remoteDebug_setup()"));
-  Serial.println("1");
   RemoteDebug.setLogFileEnabled(true);
-  Serial.println("2");
   RemoteDebug.begin(cE("Telnet_HostName")); // Initiaze the telnet server
-  Serial.println("3");
-  Serial.println("4");
   RemoteDebug.setCallBackProjectCmds(checkSystemState_loop);
-  Serial.println("5");
   RemoteDebug.setHelpProjectsCmds(cE("Type R to update from Server"));
-  Serial.println("6");
   RemoteDebug.handle();
-  Serial.println("7");
 }
 
 
@@ -239,7 +232,7 @@ String getUpTimeDebug()
     String millisString = sE("00") + (millis()%1000);
     millisString = sE(".") + millisString.substring(millisString.length()-3);
   //SYMBOLS: http://www.fileformat.info/info/charset/UTF-8/list.htm?start=3072
-  return (String)((WiFi.status() == WL_CONNECTED)? E("Ψ - ") : E("⚠ - ")) + getUpTime() + millisString + E(" (") + ESP.getFreeHeap() + E(")") + debuggerSpaces;
+  return (String)((WiFi.status() == WL_CONNECTED)? E("Ψ - ") : E("⚠ - ")) + getUpTime(WITH_SECONDS) + millisString + E(" (") + ESP.getFreeHeap() + E(")") + debuggerSpaces;
 }
 
 
@@ -286,6 +279,7 @@ void restartEsp(String reason)
   if(MAIN_DEBUG) Serial.println(E("Restarting.."));
   
   ESP.restart(); //https://github.com/esp8266/Arduino/issues/1722 // ESP.reset() and ESP.restart()?
+  delay(10000);
 }
 
 

@@ -57,31 +57,34 @@ void synchronizeTimeByResponse(String &syncTime)
 	setTime(syncTime.substring(0,2).toInt(),syncTime.substring(3,5).toInt(),syncTime.substring(6,8).toInt(),syncTime.substring(9,11).toInt(),syncTime.substring(12,14).toInt(),syncTime.substring(15,19).toInt());
 }
 
-
-
-String getUpTime()
+String getUpTime(bool withSeconds)
 {
-  return formatTimeToString(millis(), false);
+  return formatTimeToString(millis(), withSeconds);
 }
 
 String formatTimeToString(uint32_t timeInMilliseconds)
 {
-  return formatTimeToString(timeInMilliseconds, true);
+  return formatTimeToString(timeInMilliseconds, false);
 }
 
 String formatTimeToString(uint32_t timeInMilliseconds, bool withSeconds)
 {
-  uint8_t days = 0;
-  if(!withSeconds)
-    days = timeInMilliseconds / 1000 / 60 / 60 / 24;
+  //Rolover: http://forum.arduino.cc/index.php?topic=42211.0
+  uint32_t timeInSeconds = timeInMilliseconds/1000;
+  uint8_t days = elapsedDays(timeInSeconds);
+  uint8_t hours = numberOfHours(timeInSeconds);
+  uint8_t minutes = numberOfMinutes(timeInSeconds);
+  uint8_t seconds = numberOfSeconds(timeInSeconds);
 
-  uint8_t hours = timeInMilliseconds / 1000 / 60 / 60 - days * 24;
-  uint8_t minutes = timeInMilliseconds / 1000 / 60 - hours * 60;
-  uint8_t seconds = timeInMilliseconds / 1000 - minutes * 60 - hours * 60 * 60;
   String separator = F(":");
   String leadingZeroSymbol = F("0");
   if(withSeconds)
-    return ((hours <10 ) ? leadingZeroSymbol : "") + (String)hours + separator + ((minutes <10 ) ? leadingZeroSymbol : "") + (String)minutes + separator + ((seconds <10 ) ? leadingZeroSymbol : "") + (String)seconds;
+    return hours+=days*24, ((hours <10 ) ? leadingZeroSymbol : "") + (String)(hours) + separator + ((minutes <10 ) ? leadingZeroSymbol : "") + (String)minutes + separator + ((seconds <10 ) ? leadingZeroSymbol : "") + (String)seconds;
   else
     return (String)days + F("d") + hours + F("h") + minutes + F("m");
 }
+
+
+
+
+

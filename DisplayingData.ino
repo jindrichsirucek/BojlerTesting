@@ -150,10 +150,10 @@ void displayData_loop(int)
 
   if(lcdDisplayConnected_global)
   {
-    uint16_t spareComfortWater = getSpareComfortWater();
+    int16_t spareComfortWater = getSpareComfortWater();
     displayPrintAt(((spareComfortWater == 0? sE("??"): (String)spareComfortWater) + E("L  ")), 1, 0);
 
-    displayPrintAt((String)(uint16_t)getSpareHotWater(), 10, 0); // prints rest of watter in Littres (100L minus spotřeba)
+    displayPrintAt((String)(int16_t)getSpareHotWater(), 10, 0); // prints rest of watter in Littres (100L minus spotřeba)
     lcd.write(TEMP_SYMBOL);
     if(isTemperatureCorrectMeasurment(GLOBAL.TEMP.lastHeated))
     {
@@ -192,7 +192,7 @@ void displayData_loop(int)
       if(displayRotationPosition_global % 6 <= 2)
       {
         //actual temp / UPTIME
-        displayServiceMessageWithSymbol(getUpTime(), (isWifiConnected()? wifiConnectedSymbol : wifiNOTConnectedSymbol), SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_ONLY);
+        displayServiceMessageWithSymbol(getUpTime(false), (isWifiConnected()? wifiConnectedSymbol : wifiNOTConnectedSymbol), SYMBOL_ANIMATION_OFF, ERASE_SERVICE_AREA_ONLY);
         displayTempInServiceAreaWithSymbol(GLOBAL.TEMP.topHeating, upTempSymbol);
       }
       else if(displayRotationPosition_global % 6 <= 5)

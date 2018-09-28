@@ -2,23 +2,9 @@
 #include <ArduinoJson.h>// https://github.com/bblanchon/ArduinoJson
 #include <TimeLib.h>
 
-bool isLastSavedServerResponseOk()
+bool isLastSavedServerResponseOk() {return isLastSavedServerResponseOk(getLastResponseString());}
+bool isLastSavedServerResponseOk(String responseText)
 {
-  String responseText = getContentOfFile(getLastResponseFileStream("r"));
-  DynamicJsonBuffer  jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(responseText);
-  // Test if parsing succeeds and no error.
-  return root.success()  && !root[E("dataSavingError")];
-}
-
-
-
-bool doNecesaryActionsUponResponse()
-{
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:doNecesaryActionsUponResponse()"));
-  
-  String responseText = getContentOfFile(getLastResponseFileStream("r"));
-
   DynamicJsonBuffer  jsonBuffer;
   JsonObject& root = jsonBuffer.parseObject(responseText);
 
@@ -37,12 +23,31 @@ bool doNecesaryActionsUponResponse()
 
     return false;
   }
+  // Test if parsing succeeds and no error.
+  return root.success()  && !root[E("dataSavingError")];
+}
+
+String getLastResponseString()
+{
+   return isFileExist(SETTINGS_FILENAME)? getContentOfFile(getLastResponseFileStream(("r"))) : "";
+}
+
+
+bool doNecesaryActionsUponResponse()
+{
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:doNecesaryActionsUponResponse()"));
+  
+  String responseText = getLastResponseString();
+  if(!isLastSavedServerResponseOk(responseText))
+    return false;
+
   DEBUG_OUTPUT.println(E("responseText: "));
   DEBUG_OUTPUT.println(responseText);
   
-  if(root[E("dataSavingError")])
-    return false;
-
+  
+  DynamicJsonBuffer  jsonBuffer;
+  JsonObject& root = jsonBuffer.parseObject(responseText);
+  
   // Most of the time, you can rely on the implicit casts.
   // In other case, you can do root["time"].as<long>();
   uint8_t topHeatingTemp = root[E("topHeatingTemp")];
@@ -64,7 +69,8 @@ bool doNecesaryActionsUponResponse()
     parsedHttpResponses_notErrorCount++;
     displayServiceMessage(E("Response OK!"));
     
-    if(GLOBAL.nodeInBootSequence)
+    //BOOT sequence settings
+    if(GLOBAL.nodeInBootSequence && isWifiConnected())
     {
       synchronizeTimeByResponse(syncTime);
  
@@ -75,6 +81,18 @@ bool doNecesaryActionsUponResponse()
         setLastHeatedTemp(lastHeatedTemperature);
       else
         DEBUG_OUTPUT.println(sE("!!WARNING: Recieved wrong lastHeatedTemperature: ") + lastHeatedTemperature);
+
+      //Heating, relay set correct starting state
+      if(isTemperatureCorrectMeasurment(GLOBAL.TEMP.sensors[BOJLER].temp) && GLOBAL.TEMP.sensors[BOJLER].temp >= topHeatingTemp)
+      {  
+        if(lastElectricCurrentState_global == true)
+        {
+          lastElectricCurrentState_global = false;
+          setHeatingRelayOpen(SET_HEATING_RELAY_DISCONECTED); //Pull relay pin when heating is of and there is electricity
+        }
+        if(GLOBAL.TEMP.heatingState == true)
+          GLOBAL.TEMP.heatingState = false;
+      }
     }
     else if(/*year() != 1970 && */minute() < 58 && abs(minute() - syncTime.substring(3,5).toInt()) > 1) //More than a minutte drift, not first time sync, and not 59 minute
     {
@@ -112,7 +130,7 @@ bool doNecesaryActionsUponResponse()
     saveTempSensorAddressesToEeprom();
   }
 
-  return false;
+  return true;
 }
 
 

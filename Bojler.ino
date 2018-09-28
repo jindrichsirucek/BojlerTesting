@@ -159,9 +159,9 @@ ls /dev/tty.* | ls /dev/cu.* | ls  /dev/cu.* | grep -v 'Blue'
 ////////////////////////////////////////////////////////
 //DEVELOPMENT SETTINGS
 ////////////////////////////////////////////////////////
-// #define DOMA_MODULE "" //Comment when working on home 
+#define DOMA_MODULE "" //Comment when working on home 
 // #define TEST_MODULE "" //Comment when working on home 
-#define PRODUCTION_MODULE "" //Comment when working on home 
+// #define PRODUCTION_MODULE "" //Comment when working on home 
 
 #ifdef TEST_MODULE
   #define NODE_NAME "Testing"
@@ -265,9 +265,9 @@ struct GlobalStruct {
     uint8_t lowDroping = 44;
     uint8_t lastHeated = 0;
     uint8_t boilerControlStyle = BOILER_CONTROL_PROGRAMATIC; 
-    bool heatingState = true;
+    bool heatingState = false;
     uint8_t asyncMeasurmentCounter = MAX_TEMPERATURE_SAMPLES_COUNT;
-    } TEMP;
+  } TEMP;
 
   struct AnimationGenericStruct 
   {
@@ -299,7 +299,7 @@ bool lastElectricCurrentState_global = false;
 bool lastElectricityConnectedState_global = false;
 
 uint32_t lastWaterFlowSensorCount_global = 0;
-volatile uint16_t waterFlowSensorCount_ISR_global;  // Measures flow meter pulses
+volatile uint16_t waterFlowSensorCount_ISR_global;  // Measures flow meter pulses in ISR function
 int32_t waterFlowDisplay_global = 0;
 bool isWaterFlowingLastStateFlag_global = false; //water flowing flag
 
@@ -412,12 +412,9 @@ void setup()
   }
   else
   {//Without internet connection
-    displayServiceLine(cE("Init: Offline"));
-    if(isLastSavedServerResponseOk())
-    {
+    displayServiceLine(E("Init: Offline"));
+    if(doNecesaryActionsUponResponse())
       logNewNodeState(E("settings file loaded from EEPROM"));
-      doNecesaryActionsUponResponse();
-    }
     else
       logNewNodeState(E("settings file NOT loaded from EEPROM"));
 
@@ -507,7 +504,7 @@ void outroTask_loop()
   //Debug button
   if(isDebugButtonPressed())
   {
-    uint8_t number = 100;
+    uint16_t number = 1000;
     while(number--)
       ISR_flowCount();
     if(millis() % 1000 < 50)
@@ -518,7 +515,7 @@ void outroTask_loop()
   //Free heap check // if changed more the 2kB
   if((ESP.getFreeHeap()+2000) < GLOBAL.lastFreeHeap)
   {
-    logWarningMessage(sE("!!!Error: Freeheap loosing"), sE("previous: ") + GLOBAL.lastFreeHeap + E(" current: ") + ESP.getFreeHeap());
+    logWarningMessage(E("Freeheap loosing"), sE("previous: ") + GLOBAL.lastFreeHeap + E(" current: ") + ESP.getFreeHeap());
     GLOBAL.lastFreeHeap = ESP.getFreeHeap();
   }
 
@@ -591,24 +588,20 @@ void setPendingEventToSend(bool isThereEventToSend)
 //Inteligentní nastavení startu času ohřevu vody v noci, tak aby se ohřev ukončil právě v okamžik kdy dojde k vypnutí NT, aby nebyl bojler nahřátej a pak ještě 2 hodiny nejel NT a bojler nám mezitím chládnul (zbytečné ztráty)
 //Hodnotu koeficientu u ampérměřáku uložit do eeprom a udělat možnost tuto hotnotu měnit v google sheetu namísto v kodu
 //SPeed up upload preocess https://github.com/esp8266/Arduino/issues/1853
-//Write/read test of SPIFF in each cycle
 //v remote debug - předělat telnet pouze na přání, vyhodit ho z těch funckí aby se server nestartoval automaticky
 //Init temp: Sensors: 4x (3/2/1/0), nebo OK OK OK OK nebo teploty jednotlivých
 //Vyřešit warning messages - aby se posílali správně jako eventy
 //Check first if tehre is a new update file - in response send new md5 checksum, date of file (datum nového souboru poté poslat do logu) and maybe version or smth, když bude soubor tak stáhnout v druhém volání, zase tak často se neupdatuje aby se to nemohlo udělat na 2x
 //Vyřešit logování Pipe temp: rised aby to logovalo rised (water flow) jenom jednou do té doby, než začne zase klesat, pak zaloguje pipe temp down a může zase zalogovat rise.. dal bych tam rozdíl mezi měřeníma asi jen jeden stupeń jakmile povyrost/sníže.. Pokud se teplota sníží o 2 stupně oproti lastpipeTemp, tak..
-//Uptime na display zobrazovat 0d15h21m
 //Logovat jednotlivé md5 na serveru pro udpdate, složky s názvem md5 a datum kvůli analýze případných exceptions
 //V realay controle, když nastane chaby neposílat mail hned, ale vložit pouze Emialovou chybu logFatalErrorState()
 //Udělat událostní funkce: onElectricityOn(), on electricityOff(), current, water atd...
 //Prozkoumat odesílací proces přes https redirect, kdy přesně dojde k odeslání dat/souboru a udělat možnost, že se data pouze odešlou a nebude se čekat na odpvoěd u serveru - např u posílání  chybvových zpráv
 //Vyřešit chybu s loosing heap druing loops
 //Udělat měření zda teče voda tak, že se hodí do ISR funkce global flag, případně se porovná poslední ISR s aktuálním ISR aby se vědělo zda od posledně tekla voda, udělat to přes flag, protože se pak ten flag může použít jako identifikátor události onWaterStarted/Stoped
-//Vyřešit klidový odběr 2,231A a celkově odběr proudu,a by to bylo přesně, když to je v krabičce nebo prostě v reálném stavu
-//Udělat měření napětí na baterii - přes střídání připjeného měřidla ADC current a napětí..
+//Vyřešit klidový odběr 2,231A  - ground loops
 //Pipe temp rise propojit s nárustem za čas - tím se vyřeší aby se nelogovalo postupné zvyšování teploty tím že voda stojí v potrubí a ohřívá se vzducehm, průtok vody to ohřeje vždy skokově
 //V google aps scriptu udělat aby se aktualizace v události v mém soukromém kalendáři promítly do už vytvořené kopie v temp kalendáři, např když smažu u sebe událost +10°C aby se to smazalo i z temp kalendáře
-//Udělat přerušení, které zkontroluje, že pokud se systém není schopnej sám nabootovat do 5ti min do loop část, tak to zformatuje spiffs - self recover
 //SPIFFS let the log file open and only FLUSH() Test power loose after flush, if its saved really fhttps://github.com/pellepl/spiffs/wiki/Performance-and-Optimizing
 //Logování chyb a warningů udělat váhradně přes logovací funkce, které budou hlídat opakování chyb - aby neposílaly pořád tu stejnou chybu, když se vyskytuje opakovaně
 //Zrušit ty vykřičníky z remoteDebugu
@@ -621,6 +614,11 @@ void setPendingEventToSend(bool isThereEventToSend)
 //Zařídit, aby se response nezpracovávala jako součást odeslání packetu, ale aby se zpraovávalva jako task (možná jako outro taks kontrola zda tam je response?)
 //Udělat nastavovací sekvenci adres jednotlivých čidel
 //update time uložit do eeprom
+//(konst)4185*120L/2000W/60s = ohřev +1°C za 4.185 minuty 2 kW tělesem 120-ti litrového bojleru | za hodinu pak tedy ohřejeme o 14,3°C
+//Final temperature of the water mixture using the equation T(final) = (50 g * 20 degrees + 20 g * 85 degrees) / (50 g + 20 g). 
+//vyřešit - Current droped event after restart, whe there is electricity
+//Z backendu posílat v response taky čas a cílovou teplotu, kdy se má zapnout další ohřev
+//ke statické IP adrese taky přidat číslo kanálu a security type?, apk se k wifi připojí prej fakt rychle
 
 
 
@@ -701,10 +699,12 @@ void current_electricity_loop(int)
   if(CURRENT_DEBUG) DEBUG_OUTPUT.println(sE("Electricity is now: ") + (isElectricityConnected()? E("ON") : E("OFF")));
 
   bool isThereElectricCurrentNow = isThereElectricCurrent();
+  bool remeasureCurrentFlag = false;
+
   if(isThereElectricCurrentNow == true && isElectricityConnected() == false)
     delay(2000); //waits for power source start
 
-  //Electricity
+  // ELECTRICITY MEASURMENT
   if(lastElectricityConnectedState_global != isElectricityConnected()) //if state was Changed
   {
     //OChrana relé před nehchráněným spínáním při naskočení elektřiny
@@ -712,17 +712,20 @@ void current_electricity_loop(int)
       setHeatingRelayOpen(SET_HEATING_RELAY_CONNECTED);
     //Electricity ON and heating OFF - vypne relé, protože bylo seplé jen kvůli ochraně relé
     if(isElectricityConnected() == true && isBoilerHeatingOn() == false)
-      setHeatingRelayOpen(SET_HEATING_RELAY_DISCONECTED); //Pull relay pin when heating is of and there is electricity
+      remeasureCurrentFlag = true, setHeatingRelayOpen(SET_HEATING_RELAY_DISCONECTED); //Pull relay pin when heating is of and there is electricity
 
 
+    logNewNodeState(sE("Electricity: ") + (isElectricityConnected()? E("ON") : E("OFF")));
     lastElectricityConnectedState_global = !lastElectricityConnectedState_global;
-    logNewNodeState(sE("Electricity: ") + (lastElectricityConnectedState_global? E("ON") : E("OFF")));
+
     lcd_setup(); // to reset display
   }
   
+  // HEATING CONTROL
   controlHeating_loop();
-
-  //Curent
+  
+  // CURRENT MEASURMENT
+  isThereElectricCurrentNow = remeasureCurrentFlag? isThereElectricCurrent() : isThereElectricCurrentNow;
   if(lastElectricCurrentState_global != isThereElectricCurrentNow)
   {
     //Current Off
@@ -759,7 +762,7 @@ void waterFlow_loop(int)
 String getSystemStateInfo()
 {
   String systemStateInfo = sE("") +
-  E("Up: ") + getUpTime() +
+  E("Up: ") + getUpTime(WITH_SECONDS) +
   E("\rfHeap: ") + ESP.getFreeHeap() +
   E("\rheatT: ") + GLOBAL.TEMP.topHeating +
   // E("\rlowTemp: ") + GLOBAL.TEMP.lowDroping +

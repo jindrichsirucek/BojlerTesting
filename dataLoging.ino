@@ -57,8 +57,8 @@ bool logNewNodeState(String fireEventName)
   newState.test3Value = "";
 
   newState.fireEventName = fireEventName;
-  newState.controlState = getTempControleStyleStringName();
-  newState.heatingState = sE("E:") + ((isElectricityConnected()) ? E("1") : E("0")) + E(", H:") + ((isBoilerHeatingOn()) ? E("1") : E("0")) + E(", R:") + (isBoilerHeatingRelayOpen()?E("0"):E("1")); //Heating 1 - is on.. O - off, Relay 0:pulled, no go, 1:released electricity goes
+  newState.controlState = "";
+  newState.heatingState = sE("E:") + ((isElectricityConnected()) ? E("1") : E("0")) + E(", H:") + ((isBoilerHeatingOn()) ? E("1") : E("0")) + E(", R:") + (isBoilerHeatingRelayOpen()?E("0"):E("1")) + E(", C:") + getTempControleStyleStringName(); //Heating 1 - is on.. O - off, Relay 0:pulled, no go, 1:released electricity goes
   newState.objectAskingForResponse = "";
   newState.nodeInfoString = getSystemStateInfo();
 
@@ -184,7 +184,7 @@ bool logWarningMessage(String warningTypeString, String warningDetailString)
 
 bool logWarningMessage(String fireEventName)
 {
-  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logWarningMessage(): "));
+  if (MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logWarningMessage(): ") + fireEventName);
   String eventString = fireEventName; eventString.replace(E("\r"),E("")); eventString.replace(E("\n"),E("")); eventString.replace(E("!!"),E(""));
 
   // if(MAIN_DEBUG) DEBUG_OUTPUT.println(getUpTimeDebug() + E("F:logWarningMessage(String fireEventName): ") + eventString);
@@ -192,7 +192,7 @@ bool logWarningMessage(String fireEventName)
 
   SensorDataStructure newState;
   newState.time = getNowTimeDateString();
-  newState.fireEventName = eventString;
+  newState.fireEventName = sE("Warning: ") + eventString;
 
   return saveNewNodeState(newState);
 }
@@ -524,8 +524,7 @@ File openFile(const char* fileName, const char* mode)
       {
         if (MAIN_DEBUG) DEBUG_OUTPUT.println();
         if (SHOW_ERROR_DEBUG_MESSAGES) DEBUG_OUTPUT.printf(cE("\n!!!Error:Cannot open file: '%s' its NOT exists!\n"), fileName);
-
-         return file;
+        return file;
       }
 
    file = SPIFFS.open(fileName, mode);
@@ -536,4 +535,8 @@ File openFile(const char* fileName, const char* mode)
    if (MAIN_DEBUG) DEBUG_OUTPUT.printf(cE(" of size: %d\n"), file.size());
    return file;
 }
+
+
+
+
 

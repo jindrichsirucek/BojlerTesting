@@ -5,9 +5,9 @@
 
 const char * const TEMP_CONTROL_STYLE[] =
 {
-  "OFF",
-  "ARDUINO",
-  "MANUAL"
+  "0",
+  "A",
+  "M"
 };
 
 void relayBoard_setup()

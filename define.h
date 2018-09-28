@@ -83,6 +83,10 @@
   #define DAY  (HOUR * 24)
   #define WEEK (DAY * 7)
 
+  enum {
+    WITHOUT_SECONDS = 0,
+    WITH_SECONDS = 1,
+  };
 
   #define SIZE_OF_LOCAL_ARRAY(variable) ((uint8_t)(sizeof variable / sizeof *variable))
 

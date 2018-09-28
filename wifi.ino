@@ -113,7 +113,7 @@ bool wifiConnectBySavedCredentials()
   String foundNetworks = sE("(");
   for (int i = 0; i < n; i++) foundNetworks += ((String)WiFi.SSID(sortedByRSSI[i])+ "(" +WiFi.RSSI(sortedByRSSI[i])+ ")"+ ", ");
   foundNetworks += E(")!");
-  logWarningMessage(E("!!!Error: Could not connect to any WiFi network"), foundNetworks);
+  logWarningMessage(E("Could not connect to any WiFi network"), foundNetworks);
 
   return false;
 }
@@ -233,8 +233,7 @@ bool wifiConnectTo(char const* ssid, char const* pass)
   if(attempt)
     return onWiFiSuccesfullyConnected();
 
-  if(MAIN_DEBUG) DEBUG_OUTPUT.println(sE("\n!!Warning: WIFi NOT connected to: ") + ssid + E(" because: ") + WL_STATUS_MAP_NAMES[WiFi.status()]);
-  logNewNodeState(sE("!!Warning: WIFi NOT connected: ") + ssid + E(" : ") + WL_STATUS_MAP_NAMES[WiFi.status()]);
+  logWarningMessage(E("WIFi NOT connected"), (String)ssid + E(" : ") + WL_STATUS_MAP_NAMES[WiFi.status()]);
   return false;
 }
 

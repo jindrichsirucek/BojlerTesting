@@ -42,7 +42,7 @@ void OTA_setup()
     ArduinoOTA.setHostname(cE(NODE_NAME));
 
     // No authentication by default
-    ArduinoOTA.setPassword((const char *)"Jindra123");
+    // ArduinoOTA.setPassword((const char *)"Jindra123");
 
     ArduinoOTA.onStart([]() {
       DEBUG_OUTPUT.println(F("OTA_Started"));

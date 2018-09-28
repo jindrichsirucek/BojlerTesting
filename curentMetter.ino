@@ -108,7 +108,7 @@ float getMaxAnalogValue(uint32_t cyclesCount)
 
      if(CURRENT_DEBUG && (millis() % 150 == 0)) DEBUG_OUTPUT.print((String)readValue + E(" / "));
      if(readValue > 1000)
-       logWarningMessage(sE("Analog input measured too high value"), (String)readValue);
+       logWarningMessage(E("Analog input measured too high value"), (String)readValue);
    
   }
   return maxValue;
